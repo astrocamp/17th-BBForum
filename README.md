@@ -1,9 +1,9 @@
 # BBForum Team
-- 康詠晴 https://github.com/YangLianSong
+- 康詠晴 https://github.com/KANG0918
 - 蘇臻君 https://github.com/jenjiunsu
 - 王懿娟 https://github.com/emma0620
-- 楊聯崧 https://github.com/cliffmov
-- 黃凱安 https://github.com/KANG0918
+- 楊聯崧 https://github.com/YangLianSong
+- 黃凱安 https://github.com/cliffmov
 - 徐國傑 https://github.com/EricHsu521
 
 # 下載與安裝步驟
