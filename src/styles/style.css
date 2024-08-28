@@ -1,3 +1,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.nav-text {
+    @apply text-dark-800 px-2 py-4;
+}
+
+.nav-text-format {
+    @apply text-base font-semibold leading-6 tracking-[0.2px];
+}
+
+.nav-text-bottom-line {
+    @apply relative after:content-[''] after:block after:w-full after:h-[3px] after:bg-red-primary after:absolute after:bottom-0 after:left-0;
+}
+
+.nav-btn-primary {
+    @apply bg-red-primary;
+}
