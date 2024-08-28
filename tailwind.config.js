@@ -11,6 +11,9 @@ module.exports = {
         'gray-90': '#e5e5e5',
         'red-primary': '#ae2024',
       },
+      boxShadow: {
+        'nav-bar': '0 1px 8px 0 rgba(0, 0, 0, .2)',
+      },
     },
   },
   plugins: [
