@@ -97,8 +97,12 @@ WSGI_APPLICATION = "core.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": os.getenv("DB_ENGINE"),  # PostgreSQL
+        "NAME": os.getenv("DB_NAME"),  # 資料庫名稱
+        "USER": os.getenv("DB_USER"),  # 資料庫帳號
+        "PASSWORD": os.getenv("DB_PASSWORD"),  # 資料庫密碼
+        "HOST": os.getenv("DB_HOST"),  # Server(伺服器)位址
+        "PORT": os.getenv("DB_PORT"),  # PostgreSQL Port號
     }
 }
 
