@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "pages",
+    "social_django",
 ]
 
 # 只有在開發環境需要這兩個套件
@@ -98,7 +99,7 @@ WSGI_APPLICATION = "core.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": os.getenv("DB_ENGINE"),  # PostgreSQL
+        "ENGINE": "django.db.backends.postgresql",  # PostgreSQL
         "NAME": os.getenv("DB_NAME"),  # 資料庫名稱
         "USER": os.getenv("DB_USER"),  # 資料庫帳號
         "PASSWORD": os.getenv("DB_PASSWORD"),  # 資料庫密碼
@@ -156,3 +157,18 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 INTERNAL_IPS = [
     "127.0.0.1",
 ]
+
+AUTHENTICATION_BACKENDS = (
+    "social_core.backends.google.GoogleOAuth2",
+    "social_core.backends.line.LineOAuth2",
+    "django.contrib.auth.backends.ModelBackend",
+)
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.getenv("GOOGLE_KEY")
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.getenv("GOOGLE_SECRET")
+
+SOCIAL_AUTH_LINE_KEY = os.getenv("LINE_KEY")
+SOCIAL_AUTH_LINE_SECRET = os.getenv("LINE_SECRET")
+
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = "/"
+SOCIAL_AUTH_LOGOUT_REDIRECT_URL = "/"
