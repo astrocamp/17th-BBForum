@@ -1,23 +1,26 @@
 {% load static %}
-<nav class="shadow-nav-bar">
-    <div class="bg-black w-full h-[28px]"></div>
-    <div class="w-[1200px] h-[60px] flex items-center mx-auto gap-[16px]">
-        <div class="flex items-center h-full">
-            <a href="{% url 'pages:index'%}">
-                <img src="{% static 'images/logo_text.4817bea.svg' %}" alt="My image" />
-            </a>
-        </div>
-        <div class="flex items-center h-full gap-[32px]">
-            <ul class="flex items-center">
-                <li><a href="#"><div class="nav-text nav-text-format nav-text-bottom-line">股市討論</div></a></li>
-                <li><a href="#"><div class="nav-text nav-text-format">台股大盤</div></a></li>
-                <li><a href="#"><div class="nav-text nav-text-format">熱門排行</div></a></li>
-            </ul>
-            <div class="flex">
-                <input class="w-[622px] h-[32px] rounded-l bg-gray-90 pl-2.5 pr-2.5 border border-gray-90 focus:border-red-primary focus:outline-none focus:ring-0" type="text" name="search" placeholder="搜尋股票代碼、名稱或人名">
-                <button class="nav-btn-primary text-white rounded-r h-[32px] px-3 py-2 flex items-center justify-center"><i class="fas fa-magnifying-glass icon"></i></button>
+<div class="sticky top-0 z-10">
+    <div class="absolute bg-gray-94 w-full h-[100px] z-0"></div>
+    <nav class="relative bg-white shadow-nav-bar z-10">
+        <div class="bg-black w-full h-[28px]"></div>
+        <div class="w-[1200px] h-[60px] flex items-center mx-auto gap-[16px]">
+            <div class="flex items-center h-full">
+                <a href="{% url 'pages:index'%}">
+                    <img src="{% static 'images/logo_text.4817bea.svg' %}" alt="My image" />
+                </a>
             </div>
+            <div class="flex items-center h-full gap-[32px]">
+                <ul class="flex items-center">
+                    <li><a href="#"><div class="nav-text nav-text-format nav-text-bottom-line">股市討論</div></a></li>
+                    <li><a href="#"><div class="nav-text nav-text-format">台股大盤</div></a></li>
+                    <li><a href="#"><div class="nav-text nav-text-format">熱門排行</div></a></li>
+                </ul>
+                <div class="flex">
+                    <input class="w-[622px] h-[32px] rounded-l bg-gray-90 pl-2.5 pr-2.5 border border-gray-90 focus:border-red-primary focus:outline-none focus:ring-0" type="text" name="search" placeholder="搜尋股票代碼、名稱或人名">
+                    <button class="nav-btn-primary text-white rounded-r h-[32px] px-3 py-2 flex items-center justify-center"><i class="fas fa-magnifying-glass icon"></i></button>
+                </div>
+            </div>
+            <button class="flex items-center h-full w-[44px] justify-center px-2.5 py-4.5"><i class="fa-solid fa-bell w-[24px] h-[24px]"></i></button>
         </div>
-        <button class="flex items-center h-full w-[44px] justify-center px-2.5 py-4.5"><i class="fa-solid fa-bell w-[24px] h-[24px]"></i></button>
-    </div>
-</nav>
+    </nav>
+</div>
