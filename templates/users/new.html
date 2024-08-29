@@ -1,0 +1,25 @@
+{% extends "layouts/base.html" %}
+
+
+{% block content%}
+<h1>會員資料 新增</h1>
+
+<form method="POST" action="{% url 'users:index'%}">
+    {%csrf_token%}
+   <h2>會員帳號資料</h2>
+  
+
+    <h2>會員profile</h2>
+    {%for field in form %}
+    <div>
+        {{field.label_tag}}
+        {{field}}
+        {%if field.error%}
+        {{field.erros}}
+        {%endif%}
+    </div>
+    {%endfor%}
+    <button>confirm added</button>
+    </form>
+
+{% endblock %}
