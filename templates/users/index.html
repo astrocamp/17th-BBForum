@@ -1,0 +1,19 @@
+{% extends "layouts/base.html" %}
+
+
+{% block content%}
+<h1>會員列表</h1>
+<a href="{% url 'users:new'%}"> add new</a>
+
+<ul>
+    {%for post in posts%}
+    <li>{{post.id}}
+        <a href="{% url 'users:show' post.id%}"> {{post.nickname}}</a>
+        <a href="{% url 'users:edit' post.id%}"> edit</a>
+
+    </li>
+    {%endfor%}
+</ul>
+
+
+{% endblock %}
