@@ -17,8 +17,23 @@ Including another URLconf
 
 from debug_toolbar.toolbar import debug_toolbar_urls
 from django.contrib import admin
-from django.urls import path
+from django.contrib.auth import logout
+from django.shortcuts import render, redirect
+from django.urls import path, include
+
+
+def index(req):
+    return render(req, "layout/base.html")
+
+
+def custom_logout(req):
+    logout(req)
+    return render(req, "layout/base.html")
+
 
 urlpatterns = [
     path("admin@bbforum.17th/", admin.site.urls),
+    path("social-auth/", include("social_django.urls", namespace="social")),
+    path("logout/", custom_logout, name="logout"),
+    path("", index),
 ] + debug_toolbar_urls()
