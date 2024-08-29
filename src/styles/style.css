@@ -17,3 +17,11 @@
 .nav-btn-primary {
     @apply bg-red-primary;
 }
+
+.aside-bar-padding {
+    @apply pt-[7px] pb-[7px] pl-2 pr-2;
+}
+
+.aside-bar-hover {
+    @apply hover:bg-gray-90 rounded;
+}

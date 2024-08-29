@@ -1,5 +1,70 @@
 {% extends "layout/base.html" %}
+{% load static %}
 
 {% block content %}
-
+    <div class="mt-[12px]">
+        <div class="flex w-[1200px] mx-auto">
+            <aside class="w-[150px] flex flex-col gap-4">
+                <div class="flex flex-col sticky top-[100px]">
+                    <div class="flex p-2 gap-2">
+                        <div class="flex-none w-[40px]">
+                            <a>
+                                <div>
+                                    <img src="{% static 'images/visitor.svg' %}" alt="visitor"></img>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="flex-grow">
+                            <div class="h-[24px]">
+                                <button class="text-dark-800 text-base font-bold border-b-2 border-transparent hover:border-black ">訪客</button>
+                            </div>
+                            <div class="h-[20px]">
+                                <span class="text-dark-600 text-sm font-sans font-normal tracking-[0.2px]">LV. 0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <nav>
+                        <ul class="pt-4 pb-4 border-t border-b border-gray-83">
+                            <li class="aside-bar-padding aside-bar-hover">
+                                <a href="#">
+                                    <div class="flex items-center gap-2">
+                                        <i class="fa-solid fa-bell w-[20px] h-[20px] text-gray-69"></i>
+                                        <div class="text-[14px]">我的通知</div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="aside-bar-padding aside-bar-hover">
+                                <a href="#">
+                                    <div class="flex items-center gap-2">
+                                        <i class="fa-solid fa-circle-plus w-[20px] h-[20px] text-gray-69"></i>
+                                        <div class="text-[14px]">我的自選股</div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="aside-bar-padding aside-bar-hover">
+                                <a href="#">
+                                    <div class="flex items-center gap-2">
+                                        <i class="fa-solid fa-bookmark w-[20px] h-[20px] text-gray-69"></i>
+                                        <div class="text-[14px]">我的收藏</div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="aside-bar-padding aside-bar-hover">
+                                <a href="#">
+                                    <div class="flex items-center gap-2">
+                                        <i class="fa-solid fa-message w-[20px] h-[20px] text-gray-69"></i>
+                                        <div class="text-[14px]">動態牆</div>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </aside>
+            <div class="w-[760px] mx-3.5">222</div>
+            <aside class="w-[260px]">3333</aside>
+        </div>
+    </div>
 {% endblock  %}
