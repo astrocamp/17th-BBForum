@@ -7,9 +7,6 @@ from django.contrib.auth import logout
 from django.shortcuts import redirect, render
 
 
-
-
-
 urlpatterns = [
     path("users/", include("users.urls")),
     path("userprofiles/", include("userprofiles.urls")),
