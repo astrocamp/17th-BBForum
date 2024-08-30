@@ -25,3 +25,8 @@
 .aside-bar-hover {
     @apply hover:bg-gray-90 rounded;
 }
+
+.btn-transition {
+    @apply transition-all duration-500 ease-in-out;
+    transition-property: width;
+}
