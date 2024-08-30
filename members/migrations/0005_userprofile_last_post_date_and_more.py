@@ -6,18 +6,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('members', '0004_userprofile_last_login_date'),
+        ("members", "0004_userprofile_last_login_date"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='userprofile',
-            name='last_post_date',
+            model_name="userprofile",
+            name="last_post_date",
             field=models.DateField(blank=True, null=True),
         ),
         migrations.AddField(
-            model_name='userprofile',
-            name='post_count_today',
+            model_name="userprofile",
+            name="post_count_today",
             field=models.IntegerField(default=0),
         ),
     ]

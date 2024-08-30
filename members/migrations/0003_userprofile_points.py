@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('members', '0002_remove_userprofile_points'),
+        ("members", "0002_remove_userprofile_points"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='userprofile',
-            name='points',
+            model_name="userprofile",
+            name="points",
             field=models.IntegerField(default=0),
         ),
     ]

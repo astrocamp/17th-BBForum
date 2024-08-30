@@ -1,7 +1,8 @@
 from django.apps import AppConfig
 
+
 class MembersConfig(AppConfig):
-    name = 'members'
+    name = "members"
 
     def ready(self):
         import members.signals
