@@ -2,8 +2,21 @@
 <div class="sticky top-0 z-10">
     <div class="absolute bg-gray-94 w-full h-[100px] z-0"></div>
     <nav class="relative bg-white shadow-nav-bar z-10">
-        <div class="bg-black w-full h-[28px] flex items-center justify-end">
-            <button class="text-white mr-10">註冊 / 登入</button>
+        <div class="bg-black w-full h-[35px] flex items-center justify-end">
+            <ul class="menu menu-horizontal">
+                {% if user.is_authenticated %}
+                  <li><a>{{ request.user.username }}</a></li>
+                  <li>
+                    <form action="#" method="POST">
+                      {% csrf_token %}
+                      <button class="text-white mr-10">登出</button>
+                    </form>
+                  </li>
+                {% else %}
+                  <li><a href="#" class="text-white">註冊</a></li>
+                  <li><a href="#" class="text-white mr-12">登入</a></li>
+                {% endif %}
+              </ul>
         </div>
         <div class="w-[1200px] h-[60px] flex items-center mx-auto gap-[16px]">
             <div class="flex items-center h-full">
