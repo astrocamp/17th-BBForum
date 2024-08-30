@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "users",
+    "articles",
 ]
 
 # 只有在開發環境需要這兩個套件
@@ -143,3 +144,10 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 INTERNAL_IPS = [
     "127.0.0.1",
 ]
+
+
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_URL = "/media/"
+
+
+# 你的 Django 模型中就設置好了圖片欄位，並且能夠在表單中上傳圖片文件。當你上傳圖片時，文件將存儲在 MEDIA_ROOT 指定的目錄下，並且可以通過 MEDIA_URL 指定的 URL 訪問。
