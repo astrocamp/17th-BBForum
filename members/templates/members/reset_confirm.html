@@ -1,0 +1,7 @@
+<h1>確認重置積分</h1>
+<p>您確定要重置所有積分嗎？這個操作不可逆。</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">確認重置</button>
+</form>
+<a href="{% url 'simulate_actions' %}">取消</a>

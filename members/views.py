@@ -32,97 +32,44 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect("home")  # 或者重定向到其他頁面
+            return redirect("home")
     return render(request, "registration/login.html")
-
-
-@login_required
-def post_view(request):
-    user = request.user
-    today = timezone.localdate(timezone.now())
-    post_count_today = PointsDetails.objects.filter(
-        user=user, action_type="post", actioned_at__date=today
-    ).count()
-
-    logger.info(f"Post count today for user {user.username}: {post_count_today}")
-
-    if post_count_today >= 5:
-        logger.info(
-            f"User {user.username} has reached the daily post limit. No points will be awarded."
-        )
-        # 不進行任何操作
-        return render(request, "members/post.html")
-
-    # 每篇文章獲得 2 點積分
-    add_points(user, "post", 2)
-    return redirect("points_log")
-
-
-@login_required
-def like_view(request):
-    user = request.user
-    # 這裡的 likes_count 應該從實際情況來獲取，這裡只是示例
-    likes_count = 15000000
-    if likes_count > 100:
-        add_points(user, "like", 10)
-    return redirect("home")
-
-
-@login_required
-def payment_view(request):
-    user = request.user
-    amount = 100  # 假設金額等於積分數量
-    add_points(user, "payment", amount)
-    return render(request, "members/payment.html")
-
-
-@login_required
-def report_view(request):
-    user = request.user
-    add_points(user, "report", -2)
-    return redirect("home")
-
-
-def add_points(user, action_type, points):
-    # 记录积分变化
-    PointsDetails.objects.create(
-        user=user, action_type=action_type, point_number=points
-    )
-    # 更新用戶資料中的積分
-    user_profile, _ = UserProfile.objects.get_or_create(user=user)
-    user_profile.points += points
-    user_profile.save()
-    logger.info(
-        f"User {user.username} has been awarded {points} points for action {action_type}. Total points: {user_profile.points}"
-    )
-
 
 def simulate_login_view(request):
     if request.method == "POST":
-        # 獲取或創建 id 為 1 的用戶
         user, _ = User.objects.get_or_create(id=1, defaults={"username": "testuser"})
-
-        # 獲取或創建用戶檔案
         profile, _ = UserProfile.objects.get_or_create(user=user)
-
+        
         today = timezone.now().date()
-
+        
         if profile.last_login_date != today:
-            # 如果今天還沒登入，增加一個點數
             profile.points += 1
             profile.last_login_date = today
             profile.save()
             message = "登入成功！獲得1點。"
         else:
-            message = "今天已經登入過了，不再獲得積分。"
-
-        return render(
-            request,
-            "members/result.html",
-            {"message": message, "points": profile.points},
-        )
-
+            message = "今天已經登入過了，不能再獲得積分。"
+        
+        return render(request, "members/result.html", {"message": message, "points": profile.points})
+    
     return render(request, "members/simulate_actions.html")
+
+# 新增重置功能
+def reset_points(request):
+    if request.method == "POST":
+        user = User.objects.get(id=1)
+        profile, _ = UserProfile.objects.get_or_create(user=user)
+        profile.points = 0
+        profile.last_login_date = None
+        profile.last_post_date = None
+        profile.post_count_today = 0
+        profile.save()
+        
+        PointsDetails.objects.filter(user=user).delete()
+        
+        return render(request, "members/result.html", {"message": "積分已重置", "points": 0})
+    
+    return render(request, "members/reset_confirm.html")
 
 
 def simulate_post_view(request):
@@ -136,7 +83,7 @@ def simulate_post_view(request):
             profile.post_count_today = 0
 
         if profile.post_count_today < 5:
-            points_to_add = min(2, 10 - (profile.points % 10))
+            points_to_add = 2  # 每次發文固定獲得2分
             profile.points += points_to_add
             profile.post_count_today += 1
             profile.last_post_date = today
@@ -152,3 +99,19 @@ def simulate_post_view(request):
         )
 
     return redirect("simulate_actions")
+
+def reset_points(request):
+    if request.method == "POST":
+        user = User.objects.get(id=1)
+        profile, _ = UserProfile.objects.get_or_create(user=user)
+        profile.points = 0
+        profile.last_login_date = None
+        profile.last_post_date = None
+        profile.post_count_today = 0
+        profile.save()
+        
+        PointsDetails.objects.filter(user=user).delete()
+        
+        return render(request, "members/result.html", {"message": "積分已重置", "points": 0})
+    
+    return render(request, "members/reset_confirm.html")
