@@ -36,11 +36,6 @@ SECRET_KEY = os.getenv("APP_SECRET_KEY")
 # 只有在開發環境需要DEBUG
 DEBUG = is_dev()
 
-ALLOWED_HOSTS = []
-
-
-# Application definition
-
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -48,6 +43,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    'members',
 ]
 
 # 只有在開發環境需要這兩個套件

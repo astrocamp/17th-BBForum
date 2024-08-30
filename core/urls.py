@@ -20,5 +20,6 @@ from django.contrib import admin
 from django.urls import path
 
 urlpatterns = [
+    path('admin/', admin.site.urls),
     path("admin@bbforum.17th/", admin.site.urls),
 ] + debug_toolbar_urls()
