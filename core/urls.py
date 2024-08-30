@@ -23,12 +23,12 @@ from django.urls import include, path
 
 
 def index(req):
-    return render(req, "layout/base.html")
+    return render(req, "layouts/base.html")
 
 
 def custom_logout(req):
     logout(req)
-    return render(req, "layout/base.html")
+    return render(req, "layouts/base.html")
 
 
 urlpatterns = [
