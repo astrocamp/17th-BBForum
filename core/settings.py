@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "pages",
     "social_django",
+    "users",
 ]
 
 # 只有在開發環境需要這兩個套件
