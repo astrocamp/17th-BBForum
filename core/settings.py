@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "pages",
     "social_django",
     "users",
+    "articles",
 ]
 
 # 只有在開發環境需要這兩個套件
@@ -170,3 +171,9 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")  # Mailgun SMTP 服務的用戶名
 EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL")
+
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_URL = "/media/"
+
+
+# 你的 Django 模型中就設置好了圖片欄位，並且能夠在表單中上傳圖片文件。當你上傳圖片時，文件將存儲在 MEDIA_ROOT 指定的目錄下，並且可以通過 MEDIA_URL 指定的 URL 訪問。
