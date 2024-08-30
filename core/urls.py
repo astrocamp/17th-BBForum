@@ -15,11 +15,20 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
-from debug_toolbar.toolbar import debug_toolbar_urls
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from django.conf import settings
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("admin@bbforum.17th/", admin.site.urls),
-] + debug_toolbar_urls()
+    path("",include("members.urls")),
+    # path('members/', include('members.urls')),
+    # path('accounts/login/', auth_views.LoginView.as_view(), name='login'),
+]
+
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns += [    
+        path('__debug__/', include(debug_toolbar.urls)),
+    ]

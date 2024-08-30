@@ -34,16 +34,19 @@ SECRET_KEY = os.getenv("APP_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # 只有在開發環境需要DEBUG
-DEBUG = is_dev()
+DEBUG = True
 
 INSTALLED_APPS = [
-    "django.contrib.admin",
-    "django.contrib.auth",
-    "django.contrib.contenttypes",
-    "django.contrib.sessions",
-    "django.contrib.messages",
-    "django.contrib.staticfiles",
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
     'members',
+    # 暫時註釋掉 debug_toolbar
+    # 'debug_toolbar',
+    # 其他應用...
 ]
 
 # 只有在開發環境需要這兩個套件
@@ -61,6 +64,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 # 只有在開發環境，才會使用到debug_toolbar middleware
@@ -149,5 +153,13 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # 只有在開發時，使用IP位置請求才會顯示Debug Toolbar
 INTERNAL_IPS = [
-    "127.0.0.1",
+    '127.0.0.1',
 ]
+
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+
+DEBUG_TOOLBAR_CONFIG = {
+    'SHOW_TOOLBAR_CALLBACK': lambda request: False,
+}
+
+LOGIN_URL = '/members/login/'  # 假設你的登錄頁面在members應用中

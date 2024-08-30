@@ -3,6 +3,12 @@ from django.dispatch import receiver
 from django.utils import timezone
 from .models import PointsDetails, UserProfile, PointLog
 
+def add_points(sender, instance, created, **kwargs):
+    if created:
+        # 當會員被創建時添加初始點數
+        instance.points = 1
+        instance.save()
+
 @receiver(post_save, sender=PointsDetails)
 def update_user_points(sender, instance, **kwargs):
     user_profile = UserProfile.objects.get(user=instance.user)
