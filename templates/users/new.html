@@ -1,4 +1,4 @@
-{% extends "layouts/base.html" %}
+{% extends "layout/base.html" %}
 
 
 {% block content%}
@@ -7,7 +7,7 @@
 <form method="POST" action="{% url 'users:index'%}">
     {%csrf_token%}
    <h2>會員帳號資料</h2>
-  
+
 
     <h2>會員profile</h2>
     {%for field in form %}

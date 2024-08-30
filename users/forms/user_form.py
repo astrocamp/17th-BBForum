@@ -1,51 +1,63 @@
-
 from django import forms
-from django.forms import ModelForm
-from django.forms.widgets import TextInput,EmailInput,PasswordInput,DateInput
-from users.models import Profile
 from django.contrib.auth.models import User
-from users.choice import TAIWAN_REGIONS,Gender,EducationLevel,Inves_attributes,INVESTMENT_TOOLS,INVESTMENT_EXPERIENCE_CHOICES
+from django.forms import ModelForm
+from django.forms.widgets import (DateInput, EmailInput, PasswordInput,
+                                  TextInput)
+
+from users.choice import (Education_level, Gender, Inves_attributes,
+                          Investment_experience_choices, Investment_tools,
+                          Taiwan_regions)
+from users.models import Profile
 
 
 class ProfileForm(ModelForm):
     gender = forms.TypedChoiceField(
-        choices=Gender.choices,
-        required=False,
-        widget=forms.Select
+        choices=Gender.choices, required=False, label="性別", widget=forms.Select
     )
 
-    location = forms.ChoiceField(choices=TAIWAN_REGIONS, required=True)
+    location = forms.ChoiceField(
+        choices=Taiwan_regions, required=True, label="居住地區"
+    )
 
     education = forms.ChoiceField(
-        choices=EducationLevel.choices,
+        choices=Education_level.choices,
         required=True,
-        widget=forms.Select
+        label="教育程度",
+        widget=forms.Select,
     )
 
     investment_experience = forms.ChoiceField(
-        choices=INVESTMENT_EXPERIENCE_CHOICES,
+        choices=Investment_experience_choices,
         required=True,  # 設置為必填
+        label="投資經驗",
         widget=forms.Select,
     )
 
     investment_tool = forms.MultipleChoiceField(
-        choices=INVESTMENT_TOOLS,
+        choices=Investment_tools,
         required=True,  # 如果不需要必填，可以設為 False
+        label="投資工具",
         widget=forms.CheckboxSelectMultiple,
     )
 
     investment_attributes = forms.TypedChoiceField(
         choices=Inves_attributes.choices,
-        required=True ,
+        required=True,
+        label="投資屬性",
         widget=forms.Select,
     )
-    
+
     class Meta:
         model = Profile
         fields = [
-            "nickname", "gender", "birthday", "location", "education",
-            "Investment_experience", "Investment_tool", "investment_attributes",
-
+            "nickname",
+            "gender",
+            "birthday",
+            "location",
+            "education",
+            "investment_experience",
+            "investment_tool",
+            "investment_attributes",
         ]
         labels = {
             "nickname": "暱稱",
@@ -53,35 +65,27 @@ class ProfileForm(ModelForm):
             "birthday": "生日",
             "location": "居住地區",
             "education": "教育程度",
-            "Investment_experience": "投資經驗",
-            "Investment_tool": "投資工具",
+            "investment_experience": "投資經驗",
+            "investment_tool": "投資工具",
             "investment_attributes": "投資屬性",
-
         }
         widgets = {
             "nickname": TextInput(),
-            "birthday":DateInput(attrs={'type': 'date'}),
-            # "location": forms.Select(),
-            # "education": forms.Select(),
-            # "Investment_experience": forms.Select(), 
-            # "Investment_tool": forms.SelectMultiple(),
-
-      
+            "birthday": DateInput(attrs={"type": "date"}),
         }
 
-  
 
 class UserForm(ModelForm):
     class Meta:
-        model:User
+        model: User
         fields = ["username", "password", "email"]
         labels = {
-        "username":"真實姓名",
-        "password":"密碼",
-        "email":"電子信箱",
+            "username": "真實姓名",
+            "password": "密碼",
+            "email": "電子信箱",
         }
         widgets = {
-        "username":TextInput(),
-        "password":PasswordInput,
-        "email":EmailInput(),            
+            "username": TextInput(),
+            "password": PasswordInput,
+            "email": EmailInput(),
         }
