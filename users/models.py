@@ -27,7 +27,7 @@ class Profile(models.Model):
         max_length=200, choices=Inves_attributes.choices, default=""
     )
     tot_point = models.DecimalField(
-        max_digits=10, decimal_places=0, default=None, null=True, blank=True
+        max_digits=10, decimal_places=0, default=0, null=True, blank=True
     )
     deleted_at = models.DateTimeField(default=None, null=True, blank=True)
 
