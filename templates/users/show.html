@@ -3,19 +3,20 @@
 
 {% block content%}
 <h1>會員資料 瀏覽</h1>
-暱稱:{{post.nickname}}
-性別:{{post.gender}}
-生日:{{post.birthday}}
-居住地區:{{post.location}}
-教育程度:{{post.education}}
-投資經驗:{{post.Investment_experience}}
-投資工具:{{post.Investment_tool}}
-投資屬性:{{post.investment_attributes}}
+<ul>
+    <li>暱稱:{{post.nickname}}</li>
+    <li>性別:{{post.gender}}</li>
+    <li>生日:{{post.birthday}}</li>
+    <li>居住地區:{{post.location}}</li>
+    <li>教育程度:{{post.education}}</li>
+    <li>投資經驗:{{post.Investment_experience}}</li>
+    <li>投資工具:{{post.Investment_tool}}</li>
+    <li>投資屬性:{{post.investment_attributes}}</li>
+
+</ul>
 
 
 
 <a href="{% url 'users:edit' post.id%}"> edit</a>
-<a href="{% url 'users:delete' post.id%}"> delete</a>
-
 
 {% endblock %}

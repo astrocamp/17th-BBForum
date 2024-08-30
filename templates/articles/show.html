@@ -1,0 +1,23 @@
+{% extends "layout/base.html" %}
+
+{% block content%}
+<h1>文章內文</h1>
+<ul>
+    <li>Article.id:  {{post.id}}</li>
+    <li>userID:  {{post.userID}}</li>
+    <li>title:  {{post.title}}</li>
+    <li>stockID:  {{post.stockID}}</li>
+    <li>content:  {{post.content}}</li>
+    {% if post.photo %}
+    <li><img src="{{ post.photo.url }}" alt="Article Image" /></li>
+    {% else %}
+    <p class="bg-neutral-content">No photo available.</p>
+    {% endif %}
+    
+</ul>
+
+<a href="{% url 'articles:edit' post.id%}"> edit</a>
+<a href="{% url 'articles:delete' post.id%}"> delete</a>
+
+
+{% endblock %}
