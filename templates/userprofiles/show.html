@@ -1,22 +1,26 @@
-{% extends "layout/base.html" %}
+{% extends "layouts/base.html" %}
 
 
 {% block content%}
-<h1>會員資料 瀏覽</h1>
+<h1 style="font-size: 36px;">會員個人資料 瀏覽</h1>
 <ul>
-    <li>暱稱:{{post.nickname}}</li>
-    <li>性別:{{post.gender}}</li>
-    <li>生日:{{post.birthday}}</li>
-    <li>居住地區:{{post.location}}</li>
-    <li>教育程度:{{post.education}}</li>
-    <li>投資經驗:{{post.Investment_experience}}</li>
-    <li>投資工具:{{post.Investment_tool}}</li>
-    <li>投資屬性:{{post.investment_attributes}}</li>
+    <li class="label">暱稱:{{post.nickname}}</li>
+    <li class="label">性別:{{post.gender}}</li>
+    <li class="label">生日:{{post.birthday}}</li>
+    <li class="label">居住地區:{{post.location}}</li>
+    <li class="label">教育程度:{{post.education}}</li>
+    <li class="label">投資經驗:{{post.investment_experience}}</li>
+    <li class="label">投資工具:
+        {% for tool in investment_tool_names %}
+            {{ tool }}{% if not forloop.last %}, {% endif %}
+        {% endfor %}
+    </li>
+    <li class="label">投資屬性:{{post.investment_attributes}}</li>
 
 </ul>
 
 
 
-<a href="{% url 'userprofiles:edit' post.id%}"> edit</a>
+<div class="mt-4 btn btn-primary"><a href="{% url 'userprofiles:edit' post.id%}"> 編輯</a></div>
 
 {% endblock %}

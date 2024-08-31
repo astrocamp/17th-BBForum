@@ -6,13 +6,15 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('userprofiles', '0001_initial'),
+        ("userprofiles", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='profile',
-            name='tot_point',
-            field=models.DecimalField(blank=True, decimal_places=0, default=0, max_digits=10, null=True),
+            model_name="profile",
+            name="tot_point",
+            field=models.DecimalField(
+                blank=True, decimal_places=0, default=0, max_digits=10, null=True
+            ),
         ),
     ]

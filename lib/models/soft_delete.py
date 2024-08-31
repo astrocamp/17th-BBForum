@@ -1,5 +1,5 @@
-from django.utils import timezone
 from django.db import models
+from django.utils import timezone
 
 
 class SoftDeleteManager(models.Manager):
@@ -15,4 +15,4 @@ class SoftDeleteable:
     def really_delete(self):  # 真刪除
         self.delete()
 
-    objects = SoftDeleteManager() #articles.models Article己設定
+    objects = SoftDeleteManager()  # articles.models Article己設定

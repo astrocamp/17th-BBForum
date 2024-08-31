@@ -5,8 +5,8 @@ from django.forms.widgets import (DateInput, EmailInput, PasswordInput,
                                   TextInput)
 
 from userprofiles.choice import (Education_level, Gender, Inves_attributes,
-                          Investment_experience_choices, Investment_tools,
-                          Taiwan_regions)
+                                 Investment_experience_choices,
+                                 Investment_tools, Taiwan_regions)
 from userprofiles.models import Profile
 
 

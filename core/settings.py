@@ -50,6 +50,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "articles",
     "userprofiles",
+    "social_django",
+    "users",
 ]
 
 # 只有在開發環境需要這兩個套件
@@ -151,3 +153,18 @@ MEDIA_URL = "/media/"
 
 
 # 你的 Django 模型中就設置好了圖片欄位，並且能夠在表單中上傳圖片文件。當你上傳圖片時，文件將存儲在 MEDIA_ROOT 指定的目錄下，並且可以通過 MEDIA_URL 指定的 URL 訪問。
+
+AUTHENTICATION_BACKENDS = (
+    "social_core.backends.google.GoogleOAuth2",
+    "social_core.backends.line.LineOAuth2",
+    "django.contrib.auth.backends.ModelBackend",
+)
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.getenv("GOOGLE_KEY")
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.getenv("GOOGLE_SECRET")
+
+SOCIAL_AUTH_LINE_KEY = os.getenv("LINE_KEY")
+SOCIAL_AUTH_LINE_SECRET = os.getenv("LINE_SECRET")
+
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = "/"
+SOCIAL_AUTH_LOGOUT_REDIRECT_URL = "/"

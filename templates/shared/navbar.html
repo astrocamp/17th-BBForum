@@ -1,9 +1,33 @@
+<nav class="flex justify-between px-6 py-2 text-lg bg-green-200 ">
 
-<div class="flex ">
-        <div><a href="{% url 'pages:root'%}">     homaepage</a></div>
-        <div> <a href="{% url 'articles:index'%}">     文章列表</a> </div>
-        <div> <a href="{% url 'userprofiles:index'%}">        會員profile</a> </div>
-        <div><a href="{% url 'pages:about'%}"> about us</a></div>
-        <div><button class="btn btn-primary">登入</button></div>
+        <div class="flex ">
+                  <div class="label"><a href="{% url 'pages:root'%}">     首頁</a></div>
+                 <div class="label"> <a href="{% url 'articles:index'%}">     文章列表</a> </div>
+                 <div class="label"> <a href="{% url 'userprofiles:index'%}">        會員個人資料</a> </div>
+                 <div class="label"><a href="{% url 'pages:about'%}"> about us</a></div>
+        </div>
+
+        <div class="flex ">
+                 <ul class="flex gap-8 ">
+                 {%if user.is_authenticated %}
+                         <li class="label"> 目前使用者: {{request.user.username}}</li>
+
+                          <li>
+                                <form method="POST" action="{% url 'users:sign_out'  %}" >
+                                         {% csrf_token %}
+                                         <button class="btn btn-primary">登出</button>
+                                </form>
+                           </li>
+                {%else%}
+
+                          <li class="btn btn-primary"><a href="{% url 'users:register'  %}">註冊</a></li>
+                            <li class="btn btn-primary"><a href="{% url 'users:sign_in'  %}">登入</a></li>
+                 {%endif%}
+
+               </ul>
+
+
 
 </div>
+
+</nav>
