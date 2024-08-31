@@ -7,14 +7,14 @@
                 {% if user.is_authenticated %}
                   <li><a>{{ request.user.username }}</a></li>
                   <li>
-                    <form action="#" method="POST">
+                    <form action="{% url 'users:sign_out' %}" method="POST">
                       {% csrf_token %}
                       <button class="text-white mr-10">登出</button>
                     </form>
                   </li>
                 {% else %}
-                  <li><a href="#" class="text-white">註冊</a></li>
-                  <li><a href="#" class="text-white mr-12">登入</a></li>
+                  <li><a href="{% url 'users:register' %}" class="text-white">註冊</a></li>
+                  <li><a href="{% url 'users:sign_in' %}" class="text-white mr-12">登入</a></li>
                 {% endif %}
               </ul>
         </div>
