@@ -48,8 +48,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "users",
     "articles",
+    "userprofiles",
 ]
 
 # 只有在開發環境需要這兩個套件

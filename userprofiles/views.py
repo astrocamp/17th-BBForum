@@ -6,6 +6,7 @@ from .forms import ProfileForm, UserForm
 from .models import Profile
 from django.contrib.auth.models import User
 
+
 # Create your views here.
 
 
@@ -34,12 +35,12 @@ def index(req):
              }
             )
             profile.save()
-            return redirect(reverse("users:index"))
+            return redirect(reverse("userprofiles:index"))
         else:
             print(form.errors)
             # return render(req, "users/new.html", {"form": form})
     posts = Profile.objects.all()
-    return render(req, "users/index.html", {"posts": posts} )
+    return render(req, "userprofiles/index.html", {"posts": posts} )
 
 
 def show(req, id):
@@ -49,23 +50,20 @@ def show(req, id):
         if form.is_valid():
             form.save()
         else:
-            return render(req, "users/edit.html", {"form": form, "post": post})
-    return render(req, "users/show.html", {"post": post})
+            return render(req, "userprofiles/edit.html", {"form": form, "post": post})
+    return render(req, "userprofiless/show.html", {"post": post})
 
 
 def new(req):
     form = ProfileForm()
-    return render(req, "users/new.html", {"form": form})
+    return render(req, "userprofiles/new.html", {"form": form})
 
 
 def edit(req, id):
     post = get_object_or_404(Profile, pk=id)
     form = ProfileForm(instance=post)
-    return render(req, "users/edit.html", {"form": form, "post": post})
+    return render(req, "userprofiles/edit.html", {"form": form, "post": post})
 
 
-# def delete(req, id):
-#     post = get_object_or_404(User, pk=id)
-#     post.delete()
-#     return redirect("users:index")
+
 

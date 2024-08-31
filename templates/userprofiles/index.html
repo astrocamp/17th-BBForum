@@ -1,0 +1,19 @@
+{% extends "layout/base.html" %}
+
+
+{% block content%}
+<h1>會員列表</h1>
+<a href="{% url 'userprofiles:new'%}"> add new</a>
+
+<ul>
+    {%for post in posts%}
+    <li>{{post.id}}
+        <a href="{% url 'userprofiles:show' post.id%}"> {{post.nickname}}</a>
+        <a href="{% url 'userprofiles:edit' post.id%}"> edit</a>
+
+    </li>
+    {%endfor%}
+</ul>
+
+
+{% endblock %}

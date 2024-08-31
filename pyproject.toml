@@ -13,6 +13,7 @@ psycopg2 = "^2.9.9"
 pillow = "^10.4.0"
 
 
+
 [tool.poetry.group.dev.dependencies]
 django-extensions = "^3.2.3"
 pre-commit = "^3.8.0"
