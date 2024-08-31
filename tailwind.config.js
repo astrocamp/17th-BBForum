@@ -1,9 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    "./**/*.{html,js}",
-    './templates/**/*.html'
-  ],
+  content: ["./**/*.{html,js,py}"],
   theme: {
     extend: {
       colors: {
@@ -15,17 +12,27 @@ module.exports = {
         'gray-83': '#d4d4d4',
         'gray-69': '#b0b0b0',
         'gray-56': '#8f8f8f',
+        'gray-2d2': '#2d2d2d',
+        'gray-616': '#616161',
+        'gray-cbc': '#cbcbcb',
+        'gray-3c4': '#3c4043',
         'red-primary': '#ae2024',
         'red-900': '#990000',
+        'red-e21': '#e21e28',
+        'blue-3d6': '#3d6aaf',
+        'green-06c': '#06C755',
       },
       boxShadow: {
         'nav-bar': '0 1px 8px 0 rgba(0, 0, 0, .2)',
         'area': '0 1px 1px rgba(0, 0, 0, .15), -1px 0 0 rgba(0, 0, 0, .03), 1px 0 0 rgba(0, 0, 0, .03), 0 1px 0 rgba(0, 0, 0, .12)',
+        'sign-in': '0 0 10px rgba(0, 0, 0, .38)'
       },
     },
     fontFamily: {
       'sans': ['Arial', 'Helvetica', 'sans-serif'],
-    }
+      'jhenghei': ['"Microsoft JhengHei"', 'sans-serif'],
+      'noto': ["Noto Sans TC", 'sans-serif'],
+    },
   },
   plugins: [
     require('daisyui'),
