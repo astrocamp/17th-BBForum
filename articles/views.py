@@ -14,7 +14,7 @@ def index(req):
        form = ArticleForm(req.POST, req.FILES)  
        # 注意如果表單中有文件上傳，應該使用 req.FILES
        if form.is_valid():
-            user = get_object_or_404(User, id=4)            
+            user = get_object_or_404(User, id=1)            
             # 避免不必要的數據庫操作：保存表單數據但不提交到數據庫
             article = form.save(commit=False)
             article.userID = user  # 設置 user 字段

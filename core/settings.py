@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "social_django",
     "users",
     "articles",
+    "userprofiles",
 ]
 
 # 只有在開發環境需要這兩個套件

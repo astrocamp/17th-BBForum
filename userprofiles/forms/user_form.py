@@ -4,10 +4,10 @@ from django.forms import ModelForm
 from django.forms.widgets import (DateInput, EmailInput, PasswordInput,
                                   TextInput)
 
-from users.choice import (Education_level, Gender, Inves_attributes,
+from userprofiles.choice import (Education_level, Gender, Inves_attributes,
                           Investment_experience_choices, Investment_tools,
                           Taiwan_regions)
-from users.models import Profile
+from userprofiles.models import Profile
 
 
 class ProfileForm(ModelForm):
