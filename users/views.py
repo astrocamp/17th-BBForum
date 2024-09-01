@@ -13,7 +13,7 @@ def index(req):
         if form.is_valid():
             form.save()
             messages.success(req, "註冊成功")
-            return redirect("users:sign_in")  # 要改
+            return redirect("users:sign_in")
         else:
             return render(req, "users/register.html", {"form": form})
     return render(req, "layouts/base.html")
@@ -44,3 +44,7 @@ def sign_out(req):
         messages.success(req, "登出成功")
         return redirect("pages:index")  # 登出後重定向到登入頁面
     return redirect("pages:index")  # 若不是 POST 請求，重定向到主頁或其他頁面
+
+
+def auth_denied(req):
+    return render(req, "users/auth_denied.html")

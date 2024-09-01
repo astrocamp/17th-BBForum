@@ -4,30 +4,33 @@
 
 <div class="flex flex-col items-center justify-center min-h-screen">
     <div class="ml-auto mr-auto">
-        <form class="p-5 w-[488px] shadow-sign-in rounded-lg border-t border-t-transparent border-b border-b-transparent">
-            <header class="text-center">
-                <div class="flex justify-center mt-[48px] mb-[48px]">
-                    <img class="max-w-[20%] h-auto" src="https://image.cmoney.tw/official/logo/1675612800/26dd1d6d-94e9-4a63-b5ea-f98e0b4db030.png" alt="logo">
+        <div class="p-5 w-[488px] shadow-sign-in rounded-lg border-t border-t-transparent border-b border-b-transparent">
+            <form action="{% url 'users:sign_in' %}" autocomplete="off" method="POST">
+                {% csrf_token %}
+                <header class="text-center">
+                    <div class="flex justify-center mt-[48px] mb-[48px]">
+                        <img class="max-w-[20%] h-auto" src="https://image.cmoney.tw/official/logo/1675612800/26dd1d6d-94e9-4a63-b5ea-f98e0b4db030.png" alt="logo">
+                    </div>
+                </header>
+                <div class="mt-6">
+                    <div class="relative mb-4">
+                        <input type="text" name="username" placeholder="請輸入帳號 ( Email )" autocomplete="off" class="w-[100%] pt-3 pb-3 pl-4 pr-4 border border-[#e9e6e6] rounded-[10px] bg-white text-gray-2d2 font-[100%]"/>
+                    </div>
+                    <div class="relative mb-4">
+                        <input type="password" name="password" placeholder="請輸入密碼" autocomplete="off" class="w-[100%] pt-3 pb-3 pl-4 pr-4 border border-[#e9e6e6] rounded-[10px] bg-white text-gray-2d2 font-[100%]"/>
+                    </div>
+                    <div class="relative mb-4 flex justify-between">
+                        <label class="static text-[14px] z-auto">
+                            <input type="checkbox" value="ture" name="remember_me">
+                            保持登入狀態
+                        </label>
+                        <a href="#" class="text-[14px] text-blue-3d6 p-0 no-underline bg-transparent border-none">忘記密碼?</a>
+                    </div>
+                    <div>
+                        <button class="w-[100%] text-white border-2 border-red-e21 bg-red-e21 inline-block pt-3 pb-3 pl-4 pr-4 cursor-pointer leading-5 text-center font-jhenghei rounded-[10px]">登入</button>
+                    </div>
                 </div>
-            </header>
-            <div class="mt-6">
-                <div class="relative mb-4">
-                    <input type="text" name="username" placeholder="請輸入帳號 ( Email )" autocomplete="off" class="w-[100%] pt-3 pb-3 pl-4 pr-4 border border-[#e9e6e6] rounded-[10px] bg-white text-gray-2d2 font-[100%]"/>
-                </div>
-                <div class="relative mb-4">
-                    <input type="password" name="password" placeholder="請輸入密碼" autocomplete="off" class="w-[100%] pt-3 pb-3 pl-4 pr-4 border border-[#e9e6e6] rounded-[10px] bg-white text-gray-2d2 font-[100%]"/>
-                </div>
-                <div class="relative mb-4 flex justify-between">
-                    <label class="static text-[14px] z-auto">
-                        <input type="checkbox" value="ture" name="remember_me">
-                        保持登入狀態
-                    </label>
-                    <a href="#" class="text-[14px] text-blue-3d6 p-0 no-underline bg-transparent border-none">忘記密碼?</a>
-                </div>
-                <div>
-                    <button class="w-[100%] text-white border-2 border-red-e21 bg-red-e21 inline-block pt-3 pb-3 pl-4 pr-4 cursor-pointer leading-5 text-center font-jhenghei rounded-[10px]">登入</button>
-                </div>
-            </div>
+            </form>
             <footer class="mt-6 block">
                 <p class="text-gray-616 text-center font-bold mb-6 leading-5">
                     還不是會員嗎?
@@ -58,9 +61,7 @@
                     </a>
                 </div>
             </footer>
-        </form>
+        </div>
     </div>
 {% endblock  %}
 
-<a href="{% url 'social:begin' 'google-oauth2' %}">使用 Google 登入</a>
-        <a href="{% url 'social:begin' 'line' %}">使用 Line 登入</a>

@@ -56,6 +56,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "users.middleware.OAuthErrorMiddleware",
 ]
 
 # 只有在開發環境，才會使用到debug_toolbar middleware
@@ -159,5 +160,7 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.getenv("GOOGLE_SECRET")
 SOCIAL_AUTH_LINE_KEY = os.getenv("LINE_KEY")
 SOCIAL_AUTH_LINE_SECRET = os.getenv("LINE_SECRET")
 
+
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = "/"
 SOCIAL_AUTH_LOGOUT_REDIRECT_URL = "/"
+SOCIAL_AUTH_LOGIN_ERROR_URL = "/users/auth_denied/"
