@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>檢舉用戶</h1>
+<p>確認要檢舉該用戶嗎？</p>
+<form action="{% url 'report_user' %}" method="post">
+    {% csrf_token %}
+    <button type="submit">檢舉</button>
+</form>
+{% endblock %}

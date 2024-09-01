@@ -1,0 +1,41 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}模擬用戶行為{% endblock %}
+
+{% block content %}
+<h1>模擬用戶行為</h1>
+{% if message %}
+<p>{{ message }}</p>
+{% endif %}
+<p>當前積分：{{ points }}</p>
+<p>今日讚數：{{ likes }}</p>
+
+{% if not user.is_authenticated %}
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">登入</button>
+</form>
+{% else %}
+<form method="post" action="{% url 'simulate_post' %}">
+    {% csrf_token %}
+    <button type="submit">發文</button>
+</form>
+<br>
+<form method="post" action="{% url 'simulate_like' %}">
+    {% csrf_token %}
+    <button type="submit">模擬按讚</button>
+</form>
+<br>
+<form method="post" action="{% url 'report_user' %}">
+    {% csrf_token %}
+    <button type="submit">檢舉用戶</button>
+</form>
+<br>
+<form method="post" action="{% url 'reset_points' %}">
+    {% csrf_token %}
+    <button type="submit">重置積分</button>
+</form>
+<br>
+<a href="{% url 'points_log' %}">查看積分記錄</a>
+{% endif %}
+{% endblock %}

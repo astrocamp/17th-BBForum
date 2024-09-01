@@ -1,12 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>行為結果</title>
-</head>
-<body>
+{% extends 'layouts/base.html' %}
+
+{% block content %}
     <h1>操作結果</h1>
     <p>{{ message }}</p>
     <p>當前積分：{{ points }}</p>
     <a href="{% url 'simulate_actions' %}">返回主頁</a>
-</body>
-</html>
+{% endblock%}
