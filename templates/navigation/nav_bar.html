@@ -5,7 +5,7 @@
         <div class="bg-black w-full h-[35px] flex items-center justify-end">
             <ul class="menu menu-horizontal">
                 {% if user.is_authenticated %}
-                  <li><a>{{ request.user.username }}</a></li>
+                  <li><a class="text-white">{{ request.user.username }}</a></li>
                   <li>
                     <form action="{% url 'users:sign_out' %}" method="POST">
                       {% csrf_token %}
