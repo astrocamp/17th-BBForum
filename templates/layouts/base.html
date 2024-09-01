@@ -9,7 +9,7 @@
     <title>BBForum</title>
 </head>
 <body class="w-full h-full bg-gray-94">
-    {% if request.resolver_match.url_name != 'register' and request.resolver_match.url_name != 'sign_in' and request.resolver_match.url_name != 'auth_denied'%}
+    {% if request.resolver_match.url_name != 'register' and request.resolver_match.url_name != 'sign_in' and request.resolver_match.url_name != 'auth_denied' and request.path == '/' %}
         {% include "navigation/nav_bar.html" %}
     {% endif %}
     <main>
