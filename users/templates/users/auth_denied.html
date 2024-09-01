@@ -1,0 +1,16 @@
+{% extends "layouts/base.html" %}
+
+{% block content %}
+<body>
+    <div class="flex flex-col items-center justify-center min-h-screen">
+        <div class="ml-auto mr-auto">
+            <div class="p-5 w-[488px] shadow-sign-in rounded-lg border-t border-t-transparent border-b border-b-transparent ml-auto mr-auto">
+                <h1 class="text-[20px] text-center mb-4 ">授權失敗</h1>
+                <p class="text-[16px] text-center mb-6">您拒絕了授權請求。請嘗試重新授權或聯繫支持。</p>
+                <a href="{% url 'pages:index' %}" class="w-[100%] text-white border-2 border-red-e21 bg-red-e21 inline-block pt-4 pb-3 pl-4 pr-4 cursor-pointer leading-5 text-center font-jhenghei rounded-[10px]">返回首頁</a>
+            </div>
+        </div>
+    </div>
+</body>
+{%endblock%}
+
