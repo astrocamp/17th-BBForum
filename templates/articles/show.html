@@ -1,0 +1,23 @@
+{% extends "layouts/base.html" %}
+
+{% block content%}
+<h1 style="font-size: 36px;">文章內文</h1>
+<ul>
+    <li><span>文章序號: </span> {{post.id}}</li>
+    <li><span>作   者: </span>  {{post.userID}}</li>
+    <li><span>標   題: </span> {{post.title}}</li>
+    <li><span>股票tag: </span> {{post.stockID}}</li>
+    <li><span>內   文: </span> {{post.content}}</li>
+    {% if post.photo %}
+    <li><img src="{{ post.photo.url }}" alt="Article Image" /></li>
+    {% else %}
+    <p class="bg-neutral-content">No photo available.</p>
+    {% endif %}
+
+</ul>
+
+<div class="mt-4 btn btn-primary"> <a href="{% url 'articles:edit' post.id%}"> 編輯</a> </div>
+<div class="mt-4 btn btn-primary"> <a href="{% url 'articles:delete' post.id%}"> 刪除 (軟刪除)</a> </div>
+
+
+{% endblock %}
