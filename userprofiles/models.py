@@ -17,6 +17,8 @@ class Profile(models.Model):
         choices=Education_level.choices,
         default=Education_level.MIDDLE_SCHOOL_OR_BELOW,
     )
+    # 職業要補profession
+
     investment_experience = models.CharField(
         max_length=20, choices=Investment_experience_choices, default="0-1"
     )

@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.contrib.auth import authenticate
@@ -22,9 +23,9 @@ def index(req):
             article.save()  # 保存到數據庫
             
             return redirect(reverse("articles:index"))
-       else:
-            return render(req, "articles/new.html", {"form": form})
-    posts = Article.objects.all()
+    else:
+        return render(req, "articles/new.html", {"form": form})
+    posts = Article.objects.order_by("-id")
     return render(req, "articles/index.html", {"posts": posts})
 
 
