@@ -1,17 +1,15 @@
-{% extends "layout/base.html" %}
+{% extends "layouts/base.html" %}
 
 
 {% block content%}
-<h1>會員資料 新增</h1>
+<h1 style="font-size: 36px;">新增 會員個人資料 </h1>
 
-<form method="POST" action="{% url 'users:index'%}">
+<form method="POST" action="{% url 'userprofiles:index'%}">
     {%csrf_token%}
-   <h2>會員帳號資料</h2>
 
 
-    <h2>會員profile</h2>
     {%for field in form %}
-    <div>
+    <div >
         {{field.label_tag}}
         {{field}}
         {%if field.error%}
@@ -19,7 +17,7 @@
         {%endif%}
     </div>
     {%endfor%}
-    <button>confirm added</button>
+    <button class="mt-4 btn btn-primary"> 確定新增送出</button>
     </form>
 
 {% endblock %}
