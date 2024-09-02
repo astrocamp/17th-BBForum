@@ -1,0 +1,25 @@
+{% extends "layouts/base.html" %}
+
+{% block content%}
+<h1 style="font-size: 36px;">文章列表</h1>
+<div class="btn btn-primary"> <a href="{% url 'articles:new'%}">新增文章</a></div>
+
+<ul>
+    {%for post in posts%}
+
+    <li><span>文章id: {{post.id}}</span>
+        <span>作者:{{post.userID}}</span>
+        <span>文章標題:</span>
+        <a href="{% url 'articles:show' post.id%}"> {{post.title}} (檢視文章內文)</a>
+
+        {% if post.userID == request.user %}
+        <span class="link-primary"> <a href="{% url 'articles:edit' post.id%}"> 修改文章</a> </span>
+      {% endif %}
+
+
+    </li>
+    {%endfor%}
+</ul>
+
+
+{% endblock %}
