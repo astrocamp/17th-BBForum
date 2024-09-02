@@ -1,19 +1,26 @@
-{% extends "layout/base.html" %}
+{% extends "layouts/base.html" %}
 
 
 {% block content%}
-<h1>會員列表</h1>
-<a href="{% url 'users:new'%}"> add new</a>
+<h1 style="font-size: 36px;">會員個人資料 </h1>
 
-<ul>
-    {%for post in posts%}
-    <li>{{post.id}}
-        <a href="{% url 'users:show' post.id%}"> {{post.nickname}}</a>
-        <a href="{% url 'users:edit' post.id%}"> edit</a>
 
-    </li>
-    {%endfor%}
-</ul>
+    <ul>
+        {% if post %}
+        <ul>
+
+            <li>暱稱: <a class="link" href="{% url 'userprofiles:show' post.id %}">{{ post.nickname }} (查看個人資料) </a></li>
+            <li class="mt-4 btn btn-primary">
+                <a href="{% url 'userprofiles:edit' post.id %}">編輯會員個人資料</a>
+            </li>
+        </ul>
+    {% else %}
+        <div class="mt-4 btn btn-primary">
+            <a href="{% url 'userprofiles:new' %}">新增會員個人資料</a>
+        </div>
+    {% endif %}
+    </ul>
+
 
 
 {% endblock %}
