@@ -11,7 +11,7 @@ from userprofiles.models import Profile
 
 
 class ProfileForm(ModelForm):
-    gender = forms.TyapedChoiceField(
+    gender = forms.TypedChoiceField(
         choices=Gender.choices, required=False, label="性別", widget=forms.Select
     )
 
@@ -89,6 +89,3 @@ class UserForm(ModelForm):
             "password": PasswordInput,
             "email": EmailInput(),
         }
-
-
-

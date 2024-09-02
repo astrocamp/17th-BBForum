@@ -10,5 +10,3 @@ urlpatterns = [
     path("<int:id>", views.show, name="show"),
     path("<int:id>/edit", views.edit, name="edit"),
 ]
-
-

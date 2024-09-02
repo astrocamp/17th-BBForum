@@ -2,9 +2,8 @@ from django.db import models
 
 
 class Gender(models.TextChoices):
-    Female = "F", "Female"
-    Men = "M", "Men"
-    None_gender = "N", "None_gender"
+    Female = "F", "女"
+    Men = "M", "男"
 
 
 class Education_level(models.TextChoices):
@@ -68,4 +67,3 @@ Taiwan_regions = [
     ("KMN", "金門縣"),
     ("MZC", "馬祖縣"),
 ]
-

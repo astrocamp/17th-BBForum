@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "pages",
     "social_django",
     "users",
+    "userprofiles",
     "articles",
 ]
 

@@ -33,12 +33,19 @@ def index(req):
 @login_required
 def show(req, id):
     post = get_object_or_404(Article, pk=id)
+
     if req.method == "POST":
-        form = ArticleForm(req.POST, instance=post)
+        form = ArticleForm(req.POST, req.FILES, instance=post)  # 確保包含 req.FILES
         if form.is_valid():
             form.save()
+            return redirect(
+                reverse("articles:show", kwargs={"id": post.id})
+            )  # 更新後重定向
         else:
-            return render(req, "articles/edit.html", {"form": form, "post": post})
+            return render(
+                req, "articles/edit.html", {"form": form, "post": post}
+            )  # 如果表單無效，重新顯示編輯頁面
+
     return render(req, "articles/show.html", {"post": post})
 
 
@@ -51,7 +58,14 @@ def new(req):
 @login_required
 def edit(req, id):
     post = get_object_or_404(Article, pk=id)
-    form = ArticleForm(instance=post)
+    if req.method == "POST":
+        form = ArticleForm(req.POST, req.FILES, instance=post)
+        if form.is_valid():
+            form.save()
+            # 使用 reverse 生成 URL 並傳遞 id 參數
+            return redirect(reverse("articles:show", args=[post.id]))
+    else:
+        form = ArticleForm(instance=post)
     return render(req, "articles/edit.html", {"form": form, "post": post})
 
 
