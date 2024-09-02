@@ -1,16 +1,22 @@
 from django.forms import ModelForm
-from django.forms.widgets import NumberInput, Textarea, TextInput
+from django.forms.widgets import ClearableFileInput, Textarea, TextInput
 
 from articles.models import Article
 
 
-class ArticleFormm(ModelForm):
+class ArticleForm(ModelForm):
     class Meta:
         model = Article
-        fields = ["title", "price", "description"]
-        labels = {"title": "title", "price": "price", "description": "description"}
+        fields = ["title", "stockID", "content", "photo"]
+        labels = {
+            "title": "標題",
+            "stockID": "tag公司名稱 (請輸入1-50號碼, 此tag功能將由issue#45完善)",
+            "content": "內文",
+            "photo": "附圖片",
+        }
         widgets = {
-            "title": TextInput(),
-            "price": NumberInput(),
-            "description": Textarea(),
+            "title": TextInput(attrs={"class": "form-control"}),
+            "stockID": TextInput(attrs={"class": "form-control"}),
+            "content": Textarea(attrs={"class": "form-control", "rows": 8, "cols": 80}),
+            "photo": ClearableFileInput(attrs={"class": "form-control-file"}),
         }
