@@ -8,6 +8,7 @@ urlpatterns = [
     path("social-auth/", include("social_django.urls", namespace="social")),
     path("", include("pages.urls"), name="pages"),
     path("users/", include("users.urls"), name="users"),
+    path("userprofiles/", include("userprofiles.urls"), name="userprofiles"),    
     path("articles/", include("articles.urls")),
     path("admin@bbforum.17th/", admin.site.urls),
     ]+ debug_toolbar_urls()+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
