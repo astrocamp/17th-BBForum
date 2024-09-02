@@ -131,20 +131,58 @@
                                 </nav>
                             </div>
                         </section>
-                        <section class="mt-2 mb-3 block">
+                        <section class="mt-3 mb-3 block">
                             <section class="shadow-area rounded-[3px] bg-white">
                                 <article class="pt-3 pb-2">
                                     <div>
                                         <div>
                                             <div class="pl-4 pr-4">
                                                 <div class="flex items-center">
-                                                    <div>
-                                                        <div>
-                                                            <a href="#">
-                                                                <div class="w-[40px] h-[40px] rounded-full border border-gray-94 overflow-hidden">
-                                                                    <img src="{% static 'images/visitor.svg' %}" alt="visitor"></img>
+                                                    <div class="relative group">
+                                                        <div x-data="unlogined_prompt({{ user.is_authenticated|lower }})" @mouseover="isShow = true">
+                                                            <div>
+                                                                <a href="#">
+                                                                    <div class="w-[40px] h-[40px] rounded-full border border-gray-94 overflow-hidden">
+                                                                        <img src="{% static 'images/visitor.svg' %}" alt="visitor"></img>
+                                                                    </div>
+                                                                </a>
+                                                            </div>
+                                                            <div x-show="isShow; console.log(isShow)" class="absolute hidden group-hover:block bg-white p-2 mt-2 rounded-[10px] shadow-lg w-[400px] h-[170px] z-10 top-[33px] -left-[150px]">
+                                                                <div class="flex items-center gap-3">
+                                                                    <div>
+                                                                        <a href="#">
+                                                                            <div class="w-[80px] h-[80px] rounded-full border border-gray-94 overflow-hidden mt-2 ml-3">
+                                                                                <img src="{% static 'images/visitor.svg' %}" alt="visitor" class="w-full h-full"></img>
+                                                                            </div>
+                                                                        </a>
+                                                                    </div>
+                                                                    <div class="flex flex-col justify-center">
+                                                                        <div class="mb-1">
+                                                                            <a href="#" class="text-[18px] font-semibold leading-6 tracking-[0.2px] text-dark-800">YSL000</a>
+                                                                        </div>
+                                                                        <div class="w-[40px] h-auto text-[14px] font-extralight leading-4 tracking-[0.2px] text-center mb-1">Lv.10</div>
+                                                                        <div class="flex justify-center">
+                                                                            <div class="flex justify-center gap-2 pr-2 border-r-2 border-gray-94 text-[14px]">
+                                                                                <div><span>發文</span></div>
+                                                                                <div><span>3702</span></div>
+                                                                            </div>
+                                                                            <div class="flex justify-center gap-2 pl-2 text-[14px]">
+                                                                                <div><span>粉絲</span></div>
+                                                                                <div><span>3248</span></div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
-                                                            </a>
+                                                                <div @click="toggleVisibility" class="bg-red-primary w-[95%] h-[25%] rounded-[4px] text-[14px] flex items-center justify-center mt-4 mx-auto cursor-pointer">
+                                                                    <button class="flex items-center justify-center gap-1">
+                                                                        <i class="fa-solid fa-plus w-[12px] h-[12px] text-white"></i>
+                                                                        <div class="text-white">追蹤</div>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                            <template x-if="!isAuthenticated">
+                                                                {% include "layouts/not_logged.html" %}
+                                                            </template>
                                                         </div>
                                                     </div>
                                                     <div class="grow ml-2 mr-2 overflow-hidden">
@@ -279,7 +317,7 @@
                                     <div>
                                         <div class="flex justify-between relative after:content-[''] after:block after:w-full after:h-[2px] after:bg-gray-221 after:absolute after:-bottom-1 after:left-0">
                                             <div class="relative z-1">
-                                                <h2 class="text-lg font-bold pb-2 -mb-[3px] border-b-[3px] border-b-red-900 leading-[18px]">大盤走勢</h2>
+                                                <h2 class="text-lg font-bold pb-2 -mb-[2px] border-b-[3px] border-b-red-900 leading-[18px]">大盤走勢</h2>
                                             </div>
                                             <div>
                                                 <div>
@@ -300,7 +338,7 @@
                                         <div>
                                             <div class="flex justify-between relative after:content-[''] after:block after:w-full after:h-[2px] after:bg-gray-221 after:absolute after:-bottom-1 after:left-0">
                                                 <div class="relative z-1">
-                                                    <h2 class="text-lg font-bold pb-2 -mb-[3px] border-b-[3px] border-b-red-900 leading-[18px]">熱門股票</h2>
+                                                    <h2 class="text-lg font-bold pb-2 -mb-[2px] border-b-[3px] border-b-red-900 leading-[18px]">熱門股票</h2>
                                                 </div>
                                                 <div>
                                                     <a href="#" class="pt-[6px] pb-[6px] text-sm text-red-900">更多</a>
@@ -383,7 +421,7 @@
                                         <div>
                                             <div class="flex justify-between relative after:content-[''] after:block after:w-full after:h-[2px] after:bg-gray-221 after:absolute after:-bottom-1 after:left-0">
                                                 <div class="relative z-1">
-                                                    <h2 class="text-lg font-bold pb-2 -mb-[3px] border-b-[3px] border-b-red-900 leading-[18px]">系統推薦</h2>
+                                                    <h2 class="text-lg font-bold pb-2 -mb-[2px] border-b-[3px] border-b-red-900 leading-[18px]">系統推薦</h2>
                                                 </div>
                                                 <div>
                                                     <a href="#" class="pt-[6px] pb-[6px] text-sm text-red-900">更多</a>
