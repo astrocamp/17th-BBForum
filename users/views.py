@@ -1,70 +1,50 @@
-from django.contrib.auth import authenticate
-from django.contrib.auth.models import User
-from django.shortcuts import get_object_or_404, redirect, render
-from django.urls import reverse
+# views.py
+from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.forms import UserCreationForm
+from django.shortcuts import redirect, render
 
-from .forms import ProfileForm, UserForm
-from .models import Profile
-
-# Create your views here.
+from .forms import CustomUserCreationForm
 
 
 def index(req):
-
     if req.method == "POST":
-        form = ProfileForm(req.POST)
-        # user = authenticate(User.id=2,username=username)
-        if form.is_valid():
-            user = User.objects.get(id=1)
-            # 避免不必要的數據庫操作：如果表單中包含許多字段，並且你只想更新部分字段或添加額外的邏輯，這樣可以避免不必要的數據庫操作。
-            profile = form.save(commit=False)
-            profile.user = user  # 設置 user 字段
-            # 使用 update_or_create 來創建或更新 profile
-            profile, created = Profile.objects.update_or_create(
-                user=user,  # 查找的條件
-                defaults={
-                    "nickname": profile.nickname,
-                    "gender": profile.gender,
-                    "birthday": profile.birthday,
-                    "location": profile.location,
-                    "education": profile.education,
-                    "investment_experience": profile.investment_experience,
-                    "investment_tool": profile.investment_tool,
-                    "investment_attributes": profile.investment_attributes,
-                },
-            )
-            profile.save()
-            return redirect(reverse("users:index"))
-        else:
-            print(form.errors)
-            # return render(req, "users/new.html", {"form": form})
-    posts = Profile.objects.all()
-    return render(req, "users/index.html", {"posts": posts})
-
-
-def show(req, id):
-    post = get_object_or_404(Profile, pk=id)
-    if req.method == "POST":
-        form = ProfileForm(req.POST, instance=post)
+        form = CustomUserCreationForm(req.POST)
         if form.is_valid():
             form.save()
+            messages.success(req, "註冊成功")
+            return redirect("users:sign_in")
         else:
-            return render(req, "users/edit.html", {"form": form, "post": post})
-    return render(req, "users/show.html", {"post": post})
+            return render(req, "users/register.html", {"form": form})
+    return render(req, "layouts/base.html")
 
 
-def new(req):
-    form = ProfileForm()
-    return render(req, "users/new.html", {"form": form})
+def register(req):
+    return render(req, "users/register.html", {"form": UserCreationForm()})
 
 
-def edit(req, id):
-    post = get_object_or_404(Profile, pk=id)
-    form = ProfileForm(instance=post)
-    return render(req, "users/edit.html", {"form": form, "post": post})
+def sign_in(req):
+    if req.method == "POST":
+        username = req.POST["username"]
+        password = req.POST["password"]
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            login(req, user)
+            messages.success(req, "登入成功")
+            return redirect("pages:index")
+        else:
+            messages.error(req, "登入失敗")
+            return render(req, "users/login.html")  # 保留用戶輸入
+    return render(req, "users/login.html")
 
 
-def delete(req, id):
-    post = get_object_or_404(User, pk=id)
-    post.delete()
-    return redirect("users:index")
+def sign_out(req):
+    if req.method == "POST":
+        logout(req)
+        messages.success(req, "登出成功")
+        return redirect("pages:index")  # 登出後重定向到登入頁面
+    return redirect("pages:index")  # 若不是 POST 請求，重定向到主頁或其他頁面
+
+
+def auth_denied(req):
+    return render(req, "users/auth_denied.html")

@@ -4,10 +4,11 @@ from . import views
 
 app_name = "users"
 
+
 urlpatterns = [
     path("", views.index, name="index"),
-    path("new", views.new, name="new"),
-    path("<int:id>", views.show, name="show"),
-    path("<int:id>/edit", views.edit, name="edit"),
-    path("<int:id>/delete", views.delete, name="delete"),
+    path("sign_in", views.sign_in, name="sign_in"),
+    path("sign_out", views.sign_out, name="sign_out"),
+    path("register", views.register, name="register"),
+    path("auth_denied", views.auth_denied, name="auth_denied"),
 ]

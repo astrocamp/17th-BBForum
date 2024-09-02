@@ -1,3 +1,32 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.nav-text {
+    @apply text-dark-800 px-2 py-4;
+}
+
+.nav-text-format {
+    @apply text-base font-semibold leading-7 tracking-[0.2px];
+}
+
+.nav-text-bottom-line {
+    @apply relative after:content-[''] after:block after:w-full after:h-[3px] after:bg-red-primary after:absolute after:bottom-0 after:left-0;
+}
+
+.nav-btn-primary {
+    @apply bg-red-primary;
+}
+
+.aside-bar-padding {
+    @apply pt-[7px] pb-[7px] pl-2 pr-2;
+}
+
+.aside-bar-hover {
+    @apply hover:bg-gray-90 rounded;
+}
+
+.btn-transition {
+    @apply transition-all duration-500 ease-in-out;
+    transition-property: width;
+}

@@ -1,0 +1,66 @@
+{% extends "layouts/base.html" %}
+
+{% block content %}
+
+<div class="flex flex-col items-center justify-center min-h-screen">
+    <div class="ml-auto mr-auto">
+        <div class="p-5 w-[488px] shadow-sign-in rounded-lg border-t border-t-transparent border-b border-b-transparent">
+            <form action="{% url 'users:index' %}" autocomplete="off" method="POST">
+                {% csrf_token %}
+                <header class="text-center">
+                    <div class="flex justify-center mt-[48px] mb-[48px]">
+                        <img class="max-w-[20%] h-auto" src="https://image.cmoney.tw/official/logo/1675612800/26dd1d6d-94e9-4a63-b5ea-f98e0b4db030.png" alt="logo">
+                    </div>
+                </header>
+                <div class="mt-6">
+                    <div class="relative mb-4">
+                        <input type="text" name="username" placeholder="請輸入帳號 ( Email )" autocomplete="off" class="w-[100%] pt-3 pb-3 pl-4 pr-4 border border-[#e9e6e6] rounded-[10px] bg-white text-gray-2d2 font-[100%]"/>
+                        <p>{{ form.username.errors }}</p>
+                    </div>
+                    <div class="relative mb-4">
+                        <input type="password" name="password1" placeholder="請輸入密碼" autocomplete="off" class="w-[100%] pt-3 pb-3 pl-4 pr-4 border border-[#e9e6e6] rounded-[10px] bg-white text-gray-2d2 font-[100%]"/>
+                        <p>{{ form.password1.errors }}</p>
+                    </div>
+                    <div class="relative mb-4">
+                        <input type="password" name="password2" placeholder="密碼確認" autocomplete="off" class="w-[100%] pt-3 pb-3 pl-4 pr-4 border border-[#e9e6e6] rounded-[10px] bg-white text-gray-2d2 font-[100%]"/>
+                        <p>{{ form.password2.errors }}</p>
+                    </div>
+                    <div>
+                        <button class="w-[100%] text-white border-2 border-red-e21 bg-red-e21 inline-block pt-3 pb-3 pl-4 pr-4 cursor-pointer leading-5 text-center font-jhenghei rounded-[10px]">註冊</button>
+                    </div>
+                </div>
+            </form>
+            <footer class="mt-6 block">
+                <p class="text-gray-616 text-center font-bold mb-6 leading-5">
+                    已經有帳戶了？
+                    <a href="{% url 'users:sign_in' %}" class="text-blue-3d6 p-0 no-underline bg-transparent border-none">
+                        登入
+                        <i class="fa-solid fa-caret-right w-[6px] h-[16px] text-blue-3d6"></i>
+                    </a>
+                </p>
+                <fieldset class="relative font-normal border-t border-gray-cbc text-gray-616 text-center mb-6 leading-5">
+                    <legend class="mt-0 mb-0 ml-auto mr-auto pt-0 pb-0 pl-[10px] pr-[10px] block text-center font-noto">我想用其他方式註冊</legend>
+                </fieldset>
+                <div class="flex flex-wrap -m-[6px] justify-between">
+                    <a href="{% url 'social:begin' 'google-oauth2' %}" class="bg-white border-2 border-gray-69 text-gray-3c4 w-[49%] font-bold text-center inline-block pt-3 pb-3 pl-4 pr-4 rounded-[10px] cursor-pointer leading-5">
+                        <div class="flex w-[100%] items-center">
+                            <div class="w-[25px] h-[25px]">
+                                <img src="https://www.cmoney.tw/identity/images/btn_google.png" alt="google" class="w-[100%] h-[100%] object-contain">
+                            </div>
+                            <span class="w-[90%] inline-block">Google</span>
+                        </div>
+                    </a>
+                    <a href="{% url 'social:begin' 'line' %}" class="bg-green-06c border-2 border-green-06c text-white w-[49%] font-bold text-center inline-block pt-3 pb-3 pl-4 pr-4 rounded-[10px] cursor-pointer leading-5">
+                        <div class="flex w-[100%] items-center">
+                            <div class="w-[25px] h-[25px]">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/LINE_logo.svg/480px-LINE_logo.svg.png" alt="line" class="w-[120%] h-[120%] object-contain">
+                            </div>
+                            <span class="w-[90%] inline-block">Line</span>
+                        </div>
+                    </a>
+                </div>
+            </footer>
+        </div>
+    </div>
+{% endblock  %}
+
