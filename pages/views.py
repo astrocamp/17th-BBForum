@@ -14,5 +14,9 @@ def my_favorites(req):
     return render(req, "pages/my_favorites/my_favorites.html")
 
 
+def news_feed(req):
+    return render(req, "pages/news_feed/news_feed.html")
+
+
 def member_profile(req):
     return render(req, "pages/nav_page/member_profile.html")

@@ -8,5 +8,6 @@ urlpatterns = [
     path("", views.index, name="index"),
     path("my_watchlist/", views.my_watchlist, name="my_watchlist"),
     path("my_favorites/", views.my_favorites, name="my_favorites"),
+    path("news_feed/", views.news_feed, name="news_feed"),
     path("member_profile/", views.member_profile, name="member_profile"),
 ]
