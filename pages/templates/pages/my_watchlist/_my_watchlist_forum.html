@@ -13,30 +13,131 @@
                 </ul>
             </div>
         </div>
-        <div class="mt-2">
+        <div class="mt-4 mb-4">
             <div class="flex justify-between relative after:content-[''] after:block after:w-full after:h-[2px] after:bg-gray-221 after:absolute after:-bottom-[3px] after:left-0">
                 <div>
                     <h2 class="text-[20px] font-bold pb-2 -mb-[1px] border-b-[3px] border-b-red-900 leading-[18px]">我的自選股</h2>
                 </div>
             </div>
         </div>
-        <div class="mt-4">
-            <section x-data="unlogined_prompt({{ user.is_authenticated|lower }})" class="rounded-[3px] bg-white h-[72px] shadow-area">
-                <div>
-                    <div class="flex items-center gap-2 p-4">
-                        <div class="w-[40px] h-[40px] rounded-full overflow-hidden">
-                            <img src="{% static 'images/visitor.svg' %}" alt="visitor"></img>
-                        </div>
-                        <button @click="toggleVisibility" class="flex-grow pt-2 pb-2 pl-4 pr-4 text-left rounded-[50px] bg-gray-94">
-                            <div class="text-[18px] font-normal leading-[21px] text-gray-69">想和大家分享什麼呢？</div>
+        <div class="p-4 mb-4 rounded-[3px] shadow-watchlist bg-white">
+            <div class="mb-4">
+                <div class="flex justify-end">
+                    <div class="text-gray-56">
+                        <span>報價時間</span>
+                        <span class="text-gray-90"> | </span>
+                        <span>09/03 11:55</span>
+                        <button class="rounded-[4px] inline-flex items-center justify-center gap-1 w-[61px] h-[28px] bg-white text-red-primary border border-gray-83 font-semibold text-[1rem] font-upgrade outline-none no-underline cursor-pointer">
+                            <img src="https://www.cmoney.tw/forum/_nuxt/img/update.e4cf774.svg" alt="upgrade" />
+                            更新
                         </button>
-
-                        <template x-if="!isAuthenticated">
-                            {% include "layouts/not_logged.html" %}
-                        </template>
                     </div>
                 </div>
-            </section>
+            </div>
+            <div>
+                <div class="relative bg-white">
+                    <div>
+                        <table class="w-[100%] table-fixed border border-gray-d5d border-collapse border-spacing-0">
+                            <thead>
+                                <tr>
+                                    <th class="font-bold pt-[9px] pb-[9px] pl-[10px] pr-[10px] border border-gray-d5d bg-gray-e1e w-[28%]">
+                                        <div class="flex justify-center items-center">
+                                            <div>個股名稱</div>
+                                        </div>
+                                    </th>
+                                    <th class="font-bold pt-[9px] pb-[9px] pl-[10px] pr-[10px] border border-gray-d5d bg-gray-e1e w-[18%]">
+                                        <div class="flex justify-center items-center">
+                                            <div>股價(元)</div>
+                                        </div>
+                                    </th>
+                                    <th class="font-bold pt-[9px] pb-[9px] pl-[10px] pr-[10px] border border-gray-d5d bg-gray-e1e w-[18%]">
+                                        <div class="flex justify-center items-center">
+                                            <div>漲跌(元)</div>
+                                        </div>
+                                    </th>
+                                    <th class="font-bold pt-[9px] pb-[9px] pl-[10px] pr-[10px] border border-gray-d5d bg-gray-e1e w-[18%]">
+                                        <div class="flex justify-center items-center">
+                                            <div>漲跌幅(%)</div>
+                                        </div>
+                                    </th>
+                                    <th class="font-bold pt-[9px] pb-[9px] pl-[10px] pr-[10px] border border-gray-d5d bg-gray-e1e w-[18%]">
+                                        <div class="flex justify-center items-center">
+                                            <div>成交張數</div>
+                                        </div>
+                                    </th>
+                                    <th class="font-bold pt-[9px] pb-[9px] pl-[10px] pr-[10px] border border-gray-d5d bg-gray-e1e w-[18%]">
+                                        <div class="flex justify-center items-center">
+                                            <div>本益比(倍)</div>
+                                        </div>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="cursor-pointer bg-white">
+                                    <td class="align-middle pt-[9px] pb-[9px] pl-[10px] pr-[10px] border border-gray-d5d">
+                                        <div class="flex flex-col items-start justify-end">
+                                            <a href="#" class="w-[100%] whitespace-nowrap overflow-hidden text-ellipsis text-red-900">5905 南仁湖</a>
+                                        </div>
+                                    </td>
+                                    <td class="align-middle pt-[9px] pb-[9px] pl-[10px] pr-[10px] border border-gray-d5d">
+                                        <div class="font-bold flex items-center justify-end">
+                                            <div>
+                                                <div class="flex items-center">
+                                                    <span class="text-green-1b9">22.25</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="align-middle pt-[9px] pb-[9px] pl-[10px] pr-[10px] border border-gray-d5d">
+                                        <div class="flex items-center justify-end">
+                                            <div>
+                                                <div class="flex items-center">
+                                                    <div class="w-4 h-4">
+                                                        <img class="w-full h-full align-top inline-block"/>
+                                                    </div>
+                                                    <span class="ml-1 text-green-1b9">-0.75</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="align-middle pt-[9px] pb-[9px] pl-[10px] pr-[10px] border border-gray-d5d">
+                                        <div class="flex items-center justify-end">
+                                            <div>
+                                                <div class="flex items-center">
+                                                    <span class="text-green-1b9">-3.26%</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="align-middle pt-[9px] pb-[9px] pl-[10px] pr-[10px] border border-gray-d5d">
+                                        <div class="flex items-center justify-end">
+                                            <div>
+                                                <div class="flex items-center">
+                                                    <div class="text-black">4,210</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="align-middle pt-[9px] pb-[9px] pl-[10px] pr-[10px] border border-gray-d5d">
+                                        <div class="flex items-center justify-end">
+                                            <div>
+                                                <div class="flex items-center">
+                                                    <div class="text-black"> - </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mt-4">
+            <div class="mt-3">
+                <div class="pt-[3px] pb-[3px] mb-3 font-[0.875em] text-gray-56">文章列表</div>
+            </div>
             <section class="rounded-[3px] bg-white h-[60px] mt-3 shadow-area">
                 <div class="relative flex flex-wrap items-center justify-between">
                     <nav class="flex items-center w-full p-[16px]">
