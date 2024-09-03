@@ -2,108 +2,39 @@
 <aside class="w-[260px]">
     <div class="shadow-area rounded-[3px] bg-white">
         <div class="p-4">
-            <div>
+            <header>
                 <div>
-                    <header class="mb-4 leading-4">
-                        <div>
-                            <div class="flex justify-between relative after:content-[''] after:block after:w-full after:h-[2px] after:bg-gray-221 after:absolute after:-bottom-1 after:left-0">
-                                <div class="relative z-1">
-                                    <h2 class="text-lg font-bold pb-2 -mb-[2px] border-b-[3px] border-b-red-900 leading-[18px]">大盤走勢</h2>
-                                </div>
-                                <div>
-                                    <div>
-                                        <button class="pt-[3px] pb-[3px] pl-[6px] pr-[6px] rounded-[3px] bg-red-primary text-white"><div class="text-[12px]">上市</div></button>
-                                        <button class="pt-[3px] pb-[3px] pl-[6px] pr-[6px] rounded-[3px]"><div class="text-[12px]">上櫃</div></button>
-                                    </div>
-                                </div>
+                    <a href="#" class="w-[228px] h-[228px]">
+                        <img class="w-full h-full" src="{% static 'images/visitor.svg' %}" alt="visitor"></img>
+                    </a>
+                </div>
+                <div class="mt-3 font-bold">
+                    <a href="#" class="text-base text-red-900">YSL000</a>
+                </div>
+                <div class="mt-3 text-[0.875em]">等級 0</div>
+            </header>
+            <div class="mt-3">
+                <ul class="list-none">
+                    <li href="#" class="flex items-start">
+                        <div class="whitespace-nowrap text-[0.875em] text-dark-600">收到讚：</div>
+                    </li>
+                    <li href="#" class="flex items-start mt-3">
+                        <div class="whitespace-nowrap text-[0.875em] text-dark-600">粉絲：</div>
+                        <div class="flex-grow overflow-hidden">
+                            <div class="text-[0.875em] font-bold">
+                                <a href="#" class="text-red-900 w-[100%] overflow-hidden overflow-ellipsis underline">0</a>
                             </div>
                         </div>
-                    </header>
-                    <div class="h-[212.4px] bg-white"></div>
-                </div>
-            </div>
-            <div x-data="unlogined_prompt({{ user.is_authenticated|lower }})" class="mt-5">
-                <div>
-                    <div>
-                        <header class="mb-4 leading-4">
-                            <div>
-                                <div class="flex justify-between relative after:content-[''] after:block after:w-full after:h-[2px] after:bg-gray-221 after:absolute after:-bottom-1 after:left-0">
-                                    <div class="relative z-1">
-                                        <h2 class="text-lg font-bold pb-2 -mb-[2px] border-b-[3px] border-b-red-900 leading-[18px]">系統推薦</h2>
-                                    </div>
-                                    <div>
-                                        <a href="#" class="pt-[6px] pb-[6px] text-sm text-red-900">更多</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </header>
-                        <div>
-                            <div>
-                                <ul class="list-none">
-                                    <li class="flex justify-between items-center group mt-4">
-                                        <div>
-                                            <div class="text-red-primary hover:underline"><a href="#">1416 廣豐</a></div>
-                                            <div class="h-[14px] text-[14px] text-gray-69 mt-[6px] flex items-center"> 8.4 <span>分，優秀</span></div>
-                                        </div>
-                                        <div @click="toggleVisibility">
-                                            <div class="bg-red-primary w-[60px] h-[28px] rounded-[4px] text-sm flex items-center justify-center">
-                                                <button class="flex items-center gap-1">
-                                                    <i class="fa-solid fa-plus w-[12px] h-[12px] text-white"></i>
-                                                    <div class="text-white">自選</div>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="flex justify-between items-center group mt-4">
-                                        <div>
-                                            <div class="text-red-primary hover:underline"><a href="#">1582 信錦</a></div>
-                                            <div class="h-[14px] text-[14px] text-gray-69 mt-[6px] flex items-center"> 8.4 <span>分，優秀</span></div>
-                                        </div>
-                                        <div @click="toggleVisibility">
-                                            <div class="bg-red-primary w-[60px] h-[28px] rounded-[4px] text-sm flex items-center justify-center">
-                                                <button class="flex items-center gap-1">
-                                                    <i class="fa-solid fa-plus w-[12px] h-[12px] text-white"></i>
-                                                    <div class="text-white">自選</div>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="flex justify-between items-center group mt-4">
-                                        <div>
-                                            <div class="text-red-primary hover:underline"><a href="#">2488 漢平</a></div>
-                                            <div class="h-[14px] text-[14px] text-gray-69 mt-[6px] flex items-center"> 8.4 <span>分，優秀</span></div>
-                                        </div>
-                                        <div @click="toggleVisibility">
-                                            <div class="bg-red-primary w-[60px] h-[28px] rounded-[4px] text-sm flex items-center justify-center">
-                                                <button class="flex items-center gap-1">
-                                                    <i class="fa-solid fa-plus w-[12px] h-[12px] text-white"></i>
-                                                    <div class="text-white">自選</div>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="flex justify-between items-center group mt-4">
-                                        <div>
-                                            <div class="text-red-primary hover:underline"><a href="#">6139 亞翔</a></div>
-                                            <div class="h-[14px] text-[14px] text-gray-69 mt-[6px] flex items-center"> 8.4 <span>分，優秀</span></div>
-                                        </div>
-                                        <div @click="toggleVisibility">
-                                            <div class="bg-red-primary w-[60px] h-[28px] rounded-[4px] text-sm flex items-center justify-center">
-                                                <button class="flex items-center gap-1">
-                                                    <i class="fa-solid fa-plus w-[12px] h-[12px] text-white"></i>
-                                                    <div class="text-white">自選</div>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                                <template x-if="!isAuthenticated">
-                                    {% include "layouts/not_logged.html" %}
-                                </template>
+                    </li>
+                    <li href="#" class="flex items-start mt-3">
+                        <div class="whitespace-nowrap text-[0.875em] text-dark-600">追蹤：</div>
+                        <div class="flex-grow overflow-hidden">
+                            <div class="text-[0.875em] font-bold">
+                                <a href="#" class="text-red-900 w-[100%] overflow-hidden overflow-ellipsis underline">0</a>
                             </div>
                         </div>
-                    </div>
-                </div>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
