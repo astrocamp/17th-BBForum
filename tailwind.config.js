@@ -31,6 +31,9 @@ module.exports = {
         'sign-in': '0 0 10px rgba(0, 0, 0, .38)',
         'watchlist': '0 1px 2px rgba(0, 0, 0, .25)',
       },
+      letterSpacing: {
+        'custom': '.2px',
+      },
     },
     fontFamily: {
       'sans': ['Arial', 'Helvetica', 'sans-serif'],
