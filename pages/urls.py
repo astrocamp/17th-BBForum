@@ -12,4 +12,5 @@ urlpatterns = [
     path("market_index/", views.market_index, name="market_index"),
     path("taiwan_index/", views.taiwan_index, name="taiwan_index"),
     path("member_profile/", views.member_profile, name="member_profile"),
+    path("member_points/", views.member_points, name="member_points"),
 ]
