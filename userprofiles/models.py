@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from django.db import models
 
 from .choice import (Education_level, Gender, Inves_attributes,
-                     Investment_experience_choices, Taiwan_regions)
+                     Investment_experience_choices, Taiwan_regions,Profession)
 
 
 # Create your models here.
@@ -17,7 +17,8 @@ class Profile(models.Model):
         choices=Education_level.choices,
         default=Education_level.MIDDLE_SCHOOL_OR_BELOW,
     )
-    # 職業要補profession
+    profession=models.CharField(max_length=30,choices=Profession,default='other',)
+    
 
     investment_experience = models.CharField(
         max_length=20, choices=Investment_experience_choices, default="0-1"
