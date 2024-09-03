@@ -10,5 +10,9 @@ def my_watchlist(req):
     return render(req, "pages/my_watchlist/my_watchlist.html")
 
 
+def my_favorites(req):
+    return render(req, "pages/my_favorites/my_favorites.html")
+
+
 def member_profile(req):
     return render(req, "pages/nav_page/member_profile.html")
