@@ -10,7 +10,7 @@ class ArticleForm(ModelForm):
         fields = ["title", "stockID", "content", "photo"]
         labels = {
             "title": "標題",
-            "stockID": "tag公司名稱",
+            "stockID": "tag公司名稱 (請輸入1-50號碼, 此tag功能將由issue#45完善)",
             "content": "內文",
             "photo": "附圖片",
         }
@@ -20,3 +20,11 @@ class ArticleForm(ModelForm):
             "content": Textarea(attrs={"class": "form-control", "rows": 8, "cols": 80}),
             "photo": ClearableFileInput(attrs={"class": "form-control-file"}),
         }
+
+    def save(self, commit=True):
+        instance = super().save(commit=False)
+        if self.cleaned_data.get("photo"):
+            instance.photo = self.cleaned_data["photo"]
+        if commit:
+            instance.save()
+        return instance
