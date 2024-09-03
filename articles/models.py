@@ -3,10 +3,11 @@ from django.db import models
 from django.utils import timezone
 
 from lib.models.soft_delete import SoftDeleteable, SoftDeleteManager
+from lib.models.image_save import ImageSaveMixin #更新圖片用
 
 
 # Create your models here.
-class Article(SoftDeleteable, models.Model):
+class Article(SoftDeleteable,ImageSaveMixin, models.Model):
     title = models.CharField(max_length=200)
     stockID = models.CharField(max_length=10)
     content = models.TextField()
@@ -19,15 +20,7 @@ class Article(SoftDeleteable, models.Model):
 
     # upload_to='images/'：這個參數指定圖片上傳後存放的文件夾路徑。文件將存儲在 MEDIA_ROOT/images/ 目錄下。MEDIA_ROOT 是你在 Django 設置中配置的媒體文件根目錄。
     # null=True, blank=True：允許該欄位為空。
-    def save(self, *args, **kwargs):
-        if self.pk:  # 檢查是否為更新操作
-            try:
-                old_instance = Article.objects.get(pk=self.pk)
-                if old_instance.photo and old_instance.photo != self.photo:
-                    old_instance.photo.delete(save=False)  # 刪除舊的圖片文件
-            except Article.DoesNotExist:
-                pass
-        super().save(*args, **kwargs)
+
 
     class Meta:
         indexes = [models.Index(fields=["deleted_at"])]

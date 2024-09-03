@@ -5,20 +5,31 @@
 <div class="btn btn-primary"> <a href="{% url 'articles:new'%}">新增文章</a></div>
 
 <ul>
-    {%for post in posts%}
+  {% for item in posts_with_groups %}
+      <li>文章id: {{item.post.id}}</li>
+      <li> 標題:
+          <strong>{{ item.post.title }}</strong>
+      <li>作者: {{ item.post.userID }}</li>
+          
+              {% for group in item.author_groups %}
+      <li>組別:{{ group.name }}</li>
+              {% empty %}
+       <li>No group</li>
+              {% endfor %}
 
-    <li><span>文章id: {{post.id}}</span>
-        <span>作者:{{post.userID}}</span>
-        <span>文章標題:</span>
-        <a href="{% url 'articles:show' post.id%}"> {{post.title}} (檢視文章內文)</a>
+      <li>文章標題:
+       <a href="{% url 'articles:show' item.post.id%}"> {{item.post.title}} (檢視文章內文)</a>
 
-        {% if post.userID == request.user %}
-        <span class="link-primary"> <a href="{% url 'articles:edit' post.id%}"> 修改文章</a> </span>
-      {% endif %}
+        {% if item.post.userID == request.user %}
+          <span class="link-primary"> <a href="{% url 'articles:edit' item.post.id%}"> 修改文章</a> </span>
+         {% endif %}
+      </li> 
+      <li>...........................................................</li>
+      {% empty %}
+      <li>No posts found.</li>
+  {% endfor %}
 
 
-    </li>
-    {%endfor%}
 </ul>
 
 
