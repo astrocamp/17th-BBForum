@@ -14,16 +14,20 @@
                 </header>
                 <div class="mt-6">
                     <div class="relative mb-4">
-                        <input type="text" name="username" placeholder="請輸入帳號 ( Email )" autocomplete="off" class="w-[100%] pt-3 pb-3 pl-4 pr-4 border border-[#e9e6e6] rounded-[10px] bg-white text-gray-2d2 font-[100%]"/>
-                        <p>{{ form.username.errors }}</p>
+                        <input type="text" name="username" placeholder="請輸入帳號" autocomplete="off" class="w-[100%] pt-3 pb-3 pl-4 pr-4 border border-[#e9e6e6] rounded-[10px] bg-white text-gray-2d2 font-[100%]"/>
+                        <div class="pl-4 pr-4 text-red-500">{{ form.username.errors }}</div>
+                    </div>
+                    <div class="relative mb-4">
+                        <input type="text" name="email" placeholder="請輸入信箱" class="w-[100%] pt-3 pb-3 pl-4 pr-4 border border-[#e9e6e6] rounded-[10px] bg-white text-gray-2d2 font-[100%]"/>
+                        <div class="pl-4 pr-4 text-red-500">{{ form.email.errors }}</div>
                     </div>
                     <div class="relative mb-4">
                         <input type="password" name="password1" placeholder="請輸入密碼" autocomplete="off" class="w-[100%] pt-3 pb-3 pl-4 pr-4 border border-[#e9e6e6] rounded-[10px] bg-white text-gray-2d2 font-[100%]"/>
-                        <p>{{ form.password1.errors }}</p>
+                        <div class="pl-4 pr-4 text-red-500">{{ form.password1.errors }}</div>
                     </div>
                     <div class="relative mb-4">
                         <input type="password" name="password2" placeholder="密碼確認" autocomplete="off" class="w-[100%] pt-3 pb-3 pl-4 pr-4 border border-[#e9e6e6] rounded-[10px] bg-white text-gray-2d2 font-[100%]"/>
-                        <p>{{ form.password2.errors }}</p>
+                        <div class="pl-4 pr-4 text-red-500">{{ form.password2.errors }}</div>
                     </div>
                     <div>
                         <button class="w-[100%] text-white border-2 border-red-e21 bg-red-e21 inline-block pt-3 pb-3 pl-4 pr-4 cursor-pointer leading-5 text-center font-jhenghei rounded-[10px]">註冊</button>

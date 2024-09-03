@@ -1,7 +1,13 @@
 # views.py
+import os
+import random
+import string
+
+import requests
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 from django.shortcuts import redirect, render
 
 from .forms import CustomUserCreationForm
@@ -48,3 +54,57 @@ def sign_out(req):
 
 def auth_denied(req):
     return render(req, "users/auth_denied.html")
+
+
+def forget_password(req):
+    if req.method == "GET":
+        return render(req, "users/forget_password.html")
+    else:
+        username = req.POST.get("username")
+        try:
+            user = User.objects.get(username=username)
+            email = user.email
+            email_part = email[3:]
+
+            # generate random password
+            random_password = "".join(
+                random.choices(string.ascii_letters + string.digits, k=8)
+            )
+
+            # update password
+            user.set_password(random_password)
+            user.save()
+
+            # send email using Mailgun API
+            subject = "Password Reset Notification"
+            message = f"Hello {username},\n\nYour password has been reset. Your new password is: {random_password}\n\nPlease change your password after logging in."
+            send_mail_via_mailgun(subject, message, email)
+
+            return render(
+                req,
+                "users/forget_password.html",
+                {
+                    "forget_password_tips": f"密碼已傳送至 *****{email_part}。 請確認收件夾或垃圾郵件。"
+                },
+            )
+        except User.DoesNotExist:
+            return render(
+                req,
+                "users/forget_password.html",
+                {"forget_password_tips": f"帳號 {username} 不存在。"},
+            )
+
+
+def send_mail_via_mailgun(subject, message, recipient_email):
+    api_key = os.getenv("MAILGUN_API_KEY")
+    domain = os.getenv("MAILGUN_SENDER_DOMAIN")
+    return requests.post(
+        f"https://api.mailgun.net/v3/{domain}/messages",
+        auth=("api", api_key),
+        data={
+            "from": f"Excited User <postmaster@{domain}>",
+            "to": recipient_email,
+            "subject": subject,
+            "text": message,
+        },
+    )
