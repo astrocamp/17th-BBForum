@@ -1,0 +1,20 @@
+{% extends "layouts/base.html" %}
+{% block content %}
+<<h1>{{ user.username }}</h1>
+<p>Bio: {{ user.profile.bio }}</p>  <!-- 假设用户有 profile.bio 属性 -->
+
+{% if request.user.is_authenticated %}
+    {% if is_following %}
+        <p>你已经关注了这个用户。</p>
+    {% else %}
+        <form action="{% url 'follow_user' user.id %}" method="post">
+            {% csrf_token %}
+            <button type="submit">关注</button>
+        </form>
+    {% endif %}
+{% else %}
+    <p>请先登录以关注用户。</p>
+{% endif %}
+
+
+{%endblock%}

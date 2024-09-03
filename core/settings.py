@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "pages",
     "social_django",
     "users",
+    "follows",
 ]
 
 # 只有在開發環境需要這兩個套件
