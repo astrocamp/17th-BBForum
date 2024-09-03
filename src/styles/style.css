@@ -30,3 +30,11 @@
     @apply transition-all duration-500 ease-in-out;
     transition-property: width;
 }
+
+.circle-text {
+    @apply inline-block bg-red-700 text-white text-center rounded-full font-bold;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    font-size: 15px;
+}
