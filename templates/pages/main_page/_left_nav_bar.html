@@ -1,0 +1,60 @@
+{%load static%}
+<aside class="w-[150px]">
+    <div class="flex flex-col gap-4">
+        <div x-data="unlogined_prompt({{ user.is_authenticated|lower }})" class="flex flex-col">
+            <div class="flex p-2 gap-2">
+                <div class="flex-none w-[40px]">
+                    <a>
+                        <div>
+                            <img src="{% static 'images/visitor.svg' %}" alt="visitor"></img>
+                        </div>
+                    </a>
+                </div>
+                <div class="flex-grow">
+                    <div class="h-[24px]">
+                        <button @click="toggleVisibility" class="text-dark-800 text-base font-bold border-b-2 border-transparent hover:border-black ">訪客</button>
+                    </div>
+                    <div class="h-[20px]">
+                        <span class="text-dark-600 text-sm font-sans font-normal tracking-[0.2px]">LV. 0</span>
+                    </div>
+                </div>
+            </div>
+            <template x-if="!isAuthenticated">
+                {% include "layouts/not_logged.html" %}
+            </template>
+        </div>
+        <div>
+            <nav>
+                <ul x-data="switch_page({{ user.is_authenticated|lower }})" class="pt-4 pb-4 border-t border-b border-gray-83">
+                    <li @click.prevent="navigatePage('')" class="aside-bar-padding aside-bar-hover cursor-pointer">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-bell w-[20px] h-[20px] text-gray-69"></i>
+                            <div class="text-[14px]">我的通知</div>
+                        </div>
+                    </li>
+                    <li @click.prevent="navigatePage('{% url 'pages:my_watchlist' %}')" class="aside-bar-padding aside-bar-hover cursor-pointer">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-circle-plus w-[20px] h-[20px] text-gray-69"></i>
+                            <div class="text-[14px]">我的自選股</div>
+                        </div>
+                    </li>
+                    <li @click.prevent="navigatePage('')" class="aside-bar-padding aside-bar-hover cursor-pointer">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-bookmark w-[20px] h-[20px] text-gray-69"></i>
+                            <div class="text-[14px]">我的收藏</div>
+                        </div>
+                    </li>
+                    <li @click.prevent="navigatePage('')" class="aside-bar-padding aside-bar-hover cursor-pointer">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-message w-[20px] h-[20px] text-gray-69"></i>
+                            <div class="text-[14px]">動態牆</div>
+                        </div>
+                    </li>
+                    <template x-if="!isAuthenticated">
+                        {% include "layouts/not_logged.html" %}
+                    </template>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</aside>
