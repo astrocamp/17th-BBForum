@@ -7,6 +7,7 @@ app_name = "userprofiles"
 urlpatterns = [
     path("", views.index, name="index"),
     path("new", views.new, name="new"),
+    path("new_save", views.new_save, name="new_save"),
     path("<int:id>", views.show, name="show"),
     path("<int:id>/edit", views.edit, name="edit"),
 ]

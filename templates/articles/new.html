@@ -1,7 +1,7 @@
-{% extends "layout/base.html" %}
+{% extends "layouts/base.html" %}
 
 {% block content%}
-<h1 class="text-xl">新增文章</h1>
+<h1 style="font-size: 36px;">新增文章</h1>
 
 <form method="POST" action=" {% url 'articles:index'  %}" enctype="multipart/form-data">
     {%csrf_token%}
@@ -14,7 +14,7 @@
         {%endif%}
     </div>
     {%endfor%}
-    <button class="btn btn-primary">confirm added</button>
+    <button class="btn btn-primary">確定新增送出</button>
     </form>
 
 {% endblock %}

@@ -1,12 +1,17 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.forms import ModelForm
-from django.forms.widgets import (DateInput, EmailInput, PasswordInput,
-                                  TextInput)
+from django.forms.widgets import DateInput, EmailInput, PasswordInput, TextInput
 
-from userprofiles.choice import (Education_level, Gender, Inves_attributes,
-                                 Investment_experience_choices,
-                                 Investment_tools, Taiwan_regions, Profession)
+from userprofiles.choice import (
+    Education_level,
+    Gender,
+    Inves_attributes,
+    Investment_experience_choices,
+    Investment_tools,
+    Profession,
+    Taiwan_regions,
+)
 from userprofiles.models import Profile
 
 
@@ -26,9 +31,7 @@ class ProfileForm(ModelForm):
         widget=forms.Select,
     )
 
-    profession= forms.ChoiceField(
-        choices=Profession, required=True, label="職  業:"
-    )
+    profession = forms.ChoiceField(choices=Profession, required=True, label="職  業:")
 
     investment_experience = forms.ChoiceField(
         choices=Investment_experience_choices,
@@ -70,7 +73,7 @@ class ProfileForm(ModelForm):
             "birthday": "生日",
             "location": "居住地區",
             "education": "教育程度",
-            "profession":"職業",
+            "profession": "職業",
             "investment_experience": "投資經驗",
             "investment_tool": "投資工具",
             "investment_attributes": "投資屬性",
