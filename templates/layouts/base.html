@@ -9,7 +9,7 @@
     <title>BBForum</title>
 </head>
 <body class="w-full h-full bg-gray-94">
-    {% if request.resolver_match.url_name != 'register' and request.resolver_match.url_name != 'sign_in' and request.resolver_match.url_name != 'auth_denied' and request.path == '/' or request.path == '/my_watchlist/' or request.path == '/my_favorites/' or request.path == '/news_feed/' %}
+    {% if request.resolver_match.url_name != 'register' and request.resolver_match.url_name != 'sign_in' and request.resolver_match.url_name != 'auth_denied' and request.path == '/' or request.path == '/my_watchlist/' or request.path == '/my_favorites/' or request.path == '/news_feed/' or request.path == '/market_index/' or request.path == '/taiwan_index/' %}
         {% include "navigation/nav_bar.html" %}
     {% endif %}
     <main>
