@@ -38,13 +38,13 @@
                             <div class="text-[14px]">我的自選股</div>
                         </div>
                     </li>
-                    <li @click.prevent="navigatePage('')" class="aside-bar-padding aside-bar-hover cursor-pointer">
+                    <li @click.prevent="navigatePage('{% url 'pages:my_favorites' %}')" class="aside-bar-padding aside-bar-hover cursor-pointer">
                         <div class="flex items-center gap-2">
                             <i class="fa-solid fa-bookmark w-[20px] h-[20px] text-gray-69"></i>
                             <div class="text-[14px]">我的收藏</div>
                         </div>
                     </li>
-                    <li @click.prevent="navigatePage('')" class="aside-bar-padding aside-bar-hover cursor-pointer">
+                    <li @click.prevent="navigatePage('{% url 'pages:news_feed' %}')" class="aside-bar-padding aside-bar-hover cursor-pointer">
                         <div class="flex items-center gap-2">
                             <i class="fa-solid fa-message w-[20px] h-[20px] text-gray-69"></i>
                             <div class="text-[14px]">動態牆</div>
