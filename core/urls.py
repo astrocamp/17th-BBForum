@@ -7,4 +7,5 @@ urlpatterns = [
     path("social-auth/", include("social_django.urls", namespace="social")),
     path("", include("pages.urls"), name="pages"),
     path("users/", include("users.urls"), name="users"),
+    path("follows/", include("follows.urls")),
 ] + debug_toolbar_urls()
