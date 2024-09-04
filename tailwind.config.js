@@ -34,6 +34,9 @@ module.exports = {
       letterSpacing: {
         'custom': '.2px',
       },
+      width: {
+        'calc-full-minus-158px': 'calc(100% - 158px)',
+      },
     },
     fontFamily: {
       'sans': ['Arial', 'Helvetica', 'sans-serif'],
