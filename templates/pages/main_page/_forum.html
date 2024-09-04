@@ -34,6 +34,9 @@
                         <template x-if="!isAuthenticated">
                             {% include "layouts/not_logged.html" %}
                         </template>
+                        <template x-if="isAuthenticated">
+                            {% include "layouts/publish_article.html" %}
+                        </template>
                     </div>
                 </div>
             </section>
