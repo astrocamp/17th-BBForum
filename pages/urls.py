@@ -14,4 +14,5 @@ urlpatterns = [
     path("market_index/", views.market_index, name="market_index"),
     path("taiwan_index/", views.taiwan_index, name="taiwan_index"),
     path("popular_stocks/", views.popular_stocks, name="popular_stocks"),
+    path("popular_students/", views.popular_students, name="popular_students"),
 ]

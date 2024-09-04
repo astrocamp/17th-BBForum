@@ -42,3 +42,7 @@ def member_points(request):
     return render(request, "nav_page/member_points.html", {"points": points})
 def popular_stocks(req):
     return render(req, "pages/popular_stocks/popular_stocks.html")
+
+
+def popular_students(request):
+    return render(request, "pages/popular_students/popular_students.html")
