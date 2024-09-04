@@ -9,11 +9,7 @@
     <title>BBForum</title>
 </head>
 <body class="w-full h-full bg-gray-94">
-<<<<<<< HEAD
     {% if request.resolver_match.url_name != 'register' and request.resolver_match.url_name != 'sign_in' and request.resolver_match.url_name != 'auth_denied' and request.path == '/' or request.path == '/my_watchlist/' or request.path == '/my_favorites/' or request.path == '/market_index/' or request.path == '/taiwan_index/' or request.path == '/news_feed/' or request.path == '/articles/' %}
-=======
-    {% if request.resolver_match.url_name != 'register' and request.resolver_match.url_name != 'sign_in' and request.resolver_match.url_name != 'auth_denied' and request.path == '/' or request.path == '/my_watchlist/' or request.path == '/my_favorites/' or request.path == '/news_feed/' or request.path == '/market_index/' or request.path == '/taiwan_index/' or request.path == '/popular_stocks/' %}
->>>>>>> bb4181e (feat: 切版＿熱門股票)
         {% include "navigation/nav_bar.html" %}
     {% endif %}
     <main>
