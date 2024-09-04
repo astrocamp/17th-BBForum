@@ -1,5 +1,5 @@
 {%load static%}
-<section class="mt-3 mb-3 block">
+<section class="block mt-3 mb-3">
     <section class="shadow-area rounded-[3px] bg-white">
         <article class="pt-3 pb-2">
             <div>
@@ -53,7 +53,7 @@
                                     </template>
                                 </div>
                             </div>
-                            <div class="grow ml-2 mr-2 overflow-hidden">
+                            <div class="ml-2 mr-2 overflow-hidden grow">
                                 <div class="flex items-center">
                                     <div>
                                         <a href="#" class="text-[16px] font-semibold leading-6 tracking-[0.2px] text-dark-800">YSL000</a>
@@ -74,7 +74,7 @@
                 </div>
                 <div>
                     <div class="pl-4 pr-4">
-                        <ul class="flex gap-2 mt-2 flex-wrap list-none">
+                        <ul class="flex flex-wrap gap-2 mt-2 list-none">
                             <li class="rounded bg-gray-90">
                                 <a href="#">
                                     <span class="flex items-center gap-1 pt-1 pb-1 pl-2 pr-2">
@@ -110,26 +110,26 @@
             <div>
                 <div x-data="unlogined_prompt({{ user.is_authenticated|lower }})">
                     <div class="pl-3 pr-3">
-                        <div class="pt-2 pb-2 pl-1 pr-1 flex flex-row-reverse border-t border-b border-gray-90">
+                        <div class="flex flex-row-reverse pt-2 pb-2 pl-1 pr-1 border-t border-b border-gray-90">
                             <button class="relative flex-grow flex-shrink-0 basis-[56px] inline-block cursor-pointer">
-                                <div class="relative flex justify-center rounded bg-white hover:bg-gray-94">
-                                    <div class="mt-2 mb-2 w-5 h-5">
+                                <div class="relative flex justify-center bg-white rounded hover:bg-gray-94">
+                                    <div class="w-5 h-5 mt-2 mb-2">
                                         <i class="fa-solid fa-share w-[20px] h-[20px] text-gray-56"></i>
                                     </div>
                                     <div class="mt-[7.5px] mb-[7.5px] ml-1 font-bold whitespace-nowrap text-dark-600">分享</div>
                                 </div>
                             </button>
                             <button @click="toggleVisibility" class="relative flex-grow flex-shrink-0 basis-[56px] inline-block cursor-pointer">
-                                <div class="relative flex justify-center rounded bg-white hover:bg-gray-94">
-                                    <div class="mt-2 mb-2 w-5 h-5">
+                                <div class="relative flex justify-center bg-white rounded hover:bg-gray-94">
+                                    <div class="w-5 h-5 mt-2 mb-2">
                                         <i class="fa-regular fa-comment w-[20px] h-[20px] text-gray-56"></i>
                                     </div>
                                     <div class="mt-[7.5px] mb-[7.5px] ml-1 font-bold whitespace-nowrap text-dark-600">留言</div>
                                 </div>
                             </button>
                             <button @click="toggleVisibility" class="relative flex-grow flex-shrink-0 basis-[56px] inline-block cursor-pointer">
-                                <div class="relative flex justify-center rounded bg-white hover:bg-gray-94">
-                                    <div class="mt-2 mb-2 w-5 h-5">
+                                <div class="relative flex justify-center bg-white rounded hover:bg-gray-94">
+                                    <div class="w-5 h-5 mt-2 mb-2">
                                         <i class="fa-regular fa-thumbs-up w-[20px] h-[20px] text-gray-56"></i>
                                     </div>
                                     <div class="mt-[7.5px] mb-[7.5px] ml-1 font-bold whitespace-nowrap text-dark-600">讚</div>
@@ -143,9 +143,9 @@
                 </div>
                 <div x-data="unlogined_prompt({{ user.is_authenticated|lower }})" class="relative">
                     <div>
-                        <div class="pt-3 pl-4 pr-4 pb-0 gap-2 flex flex-col">
-                            <div class="flex justify-center items-center">
-                                <div class="mr-3 w-8 h-8 border border-gray-83 rounded-full overflow-hidden">
+                        <div class="flex flex-col gap-2 pt-3 pb-0 pl-4 pr-4">
+                            <div class="flex items-center justify-center">
+                                <div class="w-8 h-8 mr-3 overflow-hidden border rounded-full border-gray-83">
                                     <img src="{% static 'images/visitor.svg' %}" alt="visitor"></img>
                                 </div>
                                 <div @click="toggleVisibility" class="pt-[5px] pr-[36px] pb-[5px] pl-[16px] w-[calc(100%-44px)] rounded-[16px] bg-gray-94">
