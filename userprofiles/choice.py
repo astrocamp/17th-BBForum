@@ -14,23 +14,23 @@ class Education_level(models.TextChoices):
     POST_GRADUATE = "PG", "研究所以上"
 
 
-Profession= [
-        ('investor', '專職投資人'),
-        ('finance_insurance', '金融保險'),
-        ('electronics_manufacturing', '電子製造'),
-        ('traditional_manufacturing', '傳統製造'),
-        ('internet_software', '網際網路/資訊軟體'),
-        ('food_retail', '餐飲/百貨/零售'),
-        ('media_publishing', '媒體/出版'),
-        ('real_estate_construction', '不動產/建築/營造'),
-        ('healthcare', '醫療'),
-        ('education_research', '教育/研究'),
-        ('government_employee', '公務人員'),
-        ('agriculture_fisheries', '農漁牧'),
-        ('homemaker', '家管'),
-        ('student', '學生'),
-        ('other', '其他'),
-    ]
+Profession = [
+    ("investor", "專職投資人"),
+    ("finance_insurance", "金融保險"),
+    ("electronics_manufacturing", "電子製造"),
+    ("traditional_manufacturing", "傳統製造"),
+    ("internet_software", "網際網路/資訊軟體"),
+    ("food_retail", "餐飲/百貨/零售"),
+    ("media_publishing", "媒體/出版"),
+    ("real_estate_construction", "不動產/建築/營造"),
+    ("healthcare", "醫療"),
+    ("education_research", "教育/研究"),
+    ("government_employee", "公務人員"),
+    ("agriculture_fisheries", "農漁牧"),
+    ("homemaker", "家管"),
+    ("student", "學生"),
+    ("other", "其他"),
+]
 
 
 class Inves_attributes(models.TextChoices):

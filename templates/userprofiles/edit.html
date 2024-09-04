@@ -2,19 +2,20 @@
 
 
 {% block content%}
-<h1>會員資料 修改</h1>
+<a href="{% url 'pages:index' %}">回首頁</a>
+<h1 style="font-size: 36px;">會員個人資料 修改</h1>
 <form method="POST" action=" {% url 'userprofiles:show' post.id %}">
 {%csrf_token%}
 {%for field in form%}
 <div>
     {{field.label_tag}}
-    {{field}}
+   <span class="bordered"> {{field}}</span>
     {%if field.error%}
     {{field.erros}}
     {%endif%}
 </div>
 {%endfor%}
-<button>confirm updated</button>
+<button class="mt-4 btn btn-primary">確定修改送出</button>
 </form>
 
 {% endblock %}

@@ -1,8 +1,14 @@
 from django.contrib.auth.models import User
 from django.db import models
 
-from .choice import (Education_level, Gender, Inves_attributes,
-                     Investment_experience_choices, Taiwan_regions,Profession)
+from .choice import (
+    Education_level,
+    Gender,
+    Inves_attributes,
+    Investment_experience_choices,
+    Profession,
+    Taiwan_regions,
+)
 
 
 # Create your models here.
@@ -17,8 +23,11 @@ class Profile(models.Model):
         choices=Education_level.choices,
         default=Education_level.MIDDLE_SCHOOL_OR_BELOW,
     )
-    profession=models.CharField(max_length=30,choices=Profession,default='other',)
-    
+    profession = models.CharField(
+        max_length=30,
+        choices=Profession,
+        default="other",
+    )
 
     investment_experience = models.CharField(
         max_length=20, choices=Investment_experience_choices, default="0-1"
