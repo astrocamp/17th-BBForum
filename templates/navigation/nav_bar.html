@@ -4,7 +4,7 @@
     <nav class="relative bg-white shadow-nav-bar z-10">
         <div class="bg-black w-full h-[35px] flex items-center justify-end">
             <div x-data="switch_page({{ user.is_authenticated|lower }})">
-                <div class="flex items-center justify-center">
+                <div class="flex items-center justify-center" x-show="isAuthenticated">
                     <span class="circle-text mr-1">P</span>
                     <button @click.prevent="navigatePage('{% url 'pages:member_points' %}')" class="text-white mt-1 mb-1 cursor-pointer">P點:</button>
                 </div>
