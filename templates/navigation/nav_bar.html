@@ -26,14 +26,67 @@
         <div class="w-[1200px] h-[60px] flex items-center mx-auto gap-[16px]">
             <div class="flex items-center h-full">
                 <a href="{% url 'pages:index'%}">
-                    <img src="{% static 'images/logo_text.4817bea.svg' %}" alt="My image" />
+                    <img src="{% static 'images/logo_text.4817bea.svg' %}" alt="logo" />
                 </a>
             </div>
             <div class="flex items-center h-full gap-[32px]">
                 <ul class="flex items-center">
-                    <li><a href="#"><div class="nav-text nav-text-format nav-text-bottom-line">股市討論</div></a></li>
-                    <li><a href="#"><div class="nav-text nav-text-format">台股大盤</div></a></li>
-                    <li><a href="#"><div class="nav-text nav-text-format">熱門排行</div></a></li>
+                    <li>
+                      <a href="#">
+                        <div class="nav-text nav-text-format nav-text-bottom-line">股市討論</div>
+                      </a>
+                    </li>
+                    <li x-data="{ open: false }" class="nav-text nav-text-format hover:bg-gray-94 cursor-pointer" @mouseenter="open = true" @mouseleave="open = false">
+                      <a href="#" :aria-expanded="open">台股大盤</a>
+                      <ul class="absolute top-[85%] left-1/20 -translate-x-[20%] min-w-[140px] bg-white border border-slate-200 p-2 rounded-lg shadow-xl mt-6"
+                      x-show="open"
+                      x-transition:enter="transition ease-out duration-200 transform"
+                      x-transition:enter-start="opacity-0 -translate-y-2"
+                      x-transition:enter-end="opacity-100 translate-y-0"
+                      x-transition:leave="transition ease-out duration-200"
+                      x-transition:leave-start="opacity-100"
+                      x-transition:leave-end="opacity-0"
+                      x-cloak>
+                        <li>
+                          <a href="{% url 'pages:market_index' %}" class="hover:bg-gray-94 rounded-lg flex items-center p-2">
+                            <span class="whitespace-nowrap">大盤指數</span>
+                          </a>
+                        </li>
+                        <li>
+                          <a href="{% url 'pages:taiwan_index' %}" class="hover:bg-gray-94 rounded-lg flex items-center p-2">
+                              <span class="whitespace-nowrap">台指期貨</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li x-data="{ open: false }" class="nav-text nav-text-format hover:bg-gray-94 cursor-pointer" @mouseenter="open = true" @mouseleave="open = false">
+                      <a href="#" :aria-expanded="open">熱門排行</a>
+                      <ul class="absolute top-[85%] left-3/20 -translate-x-[20%] min-w-[140px] bg-white border border-slate-200 p-2 rounded-lg shadow-xl mt-6 flex flex-col"
+                      x-show="open"
+                      x-transition:enter="transition ease-out duration-200 transform"
+                      x-transition:enter-start="opacity-0 -translate-y-2"
+                      x-transition:enter-end="opacity-100 translate-y-0"
+                      x-transition:leave="transition ease-out duration-200"
+                      x-transition:leave-start="opacity-100"
+                      x-transition:leave-end="opacity-0"
+                      x-cloak>
+                        <li>
+                            <a class="hover:bg-gray-94 rounded-lg flex items-center p-2" href="#">
+                                <span class="whitespace-nowrap">熱門股票</span>
+                            </a>
+                        </li>
+                        <li>
+                          <a href="#" class="hover:bg-gray-94 rounded-lg flex items-center p-2">
+                              <span class="whitespace-nowrap">熱門同學</span>
+                          </a>
+                        </li>
+                        <li>
+                          <a href="#" class="hover:bg-gray-94 rounded-lg flex items-center p-2">
+                              <span class="whitespace-nowrap">熱門回答</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
                 </ul>
                 <div class="flex">
                     <input class="w-[622px] h-[32px] rounded-l bg-gray-90 pl-2.5 pr-2.5 border border-gray-90 focus:border-red-primary focus:outline-none focus:ring-0" type="text" name="search" placeholder="搜尋股票代碼、名稱或人名">
