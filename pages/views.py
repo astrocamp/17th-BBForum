@@ -1,8 +1,22 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
+
+from articles.models import Article
 
 
 # Create your views here.
 def index(req):
+    if req.method == "POST":
+        textarea_value = req.POST.get("publish_text")
+
+        if textarea_value:
+            articles = Article(content=textarea_value)
+            articles.userID = req.user
+            articles.save()
+
+            articles = Article.objects.order_by("-id")
+            return render(req, "pages/main_page/index.html", {"articles": articles})
+
+    articles = Article.objects.all()
     return render(req, "pages/main_page/index.html")
 
 
