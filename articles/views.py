@@ -12,23 +12,28 @@ from .models import Article
 
 def index(req):
     if req.method == "POST":
-        form = ArticleForm(req.POST, req.FILES)
-        # 表單中有文件上傳，應該使用 req.FILES
-        if form.is_valid():
-            # 使用 request.user 來獲取當前登入的使用者
-            user = req.user
-            # 避免不必要的數據庫操作：保存表單數據但不提交到數據庫
-            article = form.save(commit=False)
-            article.userID = user  # 設置 user 字段
-            article.post_at = timezone.now()  # 設置創建時間
-            article.save()  # 保存到數據庫
+        textarea_value = req.POST.get("publish_text")
+        return render(
+            req, "pages/main_page/index.html", {"textarea_value": textarea_value}
+        )
 
-            return redirect(reverse("articles:index"))
-        else:
-            return render(req, "articles/new.html", {"form": form})
-    posts = Article.objects.order_by("-id")
+        # form = ArticleForm(req.POST, req.FILES)
+        # # 表單中有文件上傳，應該使用 req.FILES
+        # if form.is_valid():
+        #     # 使用 request.user 來獲取當前登入的使用者
+        #     user = req.user
+        #     # 避免不必要的數據庫操作：保存表單數據但不提交到數據庫
+        #     article = form.save(commit=False)
+        #     article.userID = user  # 設置 user 字段
+        #     article.post_at = timezone.now()  # 設置創建時間
+        #     article.save()  # 保存到數據庫
 
-    return render(req, "articles/index.html", {"posts": posts})
+        #     return redirect(reverse("articles:index"))
+        # else:
+        #     return render(req, "articles/new.html", {"form": form})
+    # posts = Article.objects.order_by("-id")
+
+    # return render(req, "articles/index.html", {"posts": posts})
 
 
 @login_required
