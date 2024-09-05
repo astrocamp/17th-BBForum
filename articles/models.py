@@ -14,7 +14,7 @@ class Article(SoftDeleteable, ImageSaveMixin, models.Model):
     post_at = models.DateTimeField(default=timezone.now, null=True, blank=True)
     photo = models.ImageField(upload_to="images/", null=True, blank=True)
     deleted_at = models.DateTimeField(default=None, null=True, blank=True)
-    userID = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
+    user = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
 
     objects = SoftDeleteManager()
 

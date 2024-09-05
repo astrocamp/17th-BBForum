@@ -12,10 +12,10 @@ from .models import Article
 
 def index(req):
     if req.method == "POST":
-        textarea_value = req.POST.get("publish_text")
+        content = req.POST.get("content")
 
-        if textarea_value:
-            articles = Article(content=textarea_value)
+        if content:
+            articles = Article(content=content)
             articles.userID = req.user
             articles.save()
 
@@ -49,15 +49,16 @@ def show(req, id):
     post = get_object_or_404(Article, pk=id)
 
     if req.method == "POST":
-        form = ArticleForm(req.POST, req.FILES, instance=post)  # 確保包含 req.FILES
-        if form.is_valid():
-            form.save()
-            return redirect(
-                reverse("articles:show", kwargs={"id": post.id})
-            )  # 更新後重定向
+        forms = ArticleForm(req.POST, instance=post)  # 確保包含 req.FILES
+        if forms.is_valid():
+            forms.save()
+            return redirect("pages:index")
+            # return redirect(
+            #     reverse("articles:show", kwargs={"id": post.id})
+            # )  # 更新後重定向
         else:
             return render(
-                req, "articles/edit.html", {"form": form, "post": post}
+                req, "articles/edit.html", {"forms": forms, "post": post}
             )  # 如果表單無效，重新顯示編輯頁面
 
     return render(req, "articles/show.html", {"post": post})
@@ -71,16 +72,23 @@ def new(req):
 
 @login_required
 def edit(req, id):
-    post = get_object_or_404(Article, pk=id)
+    posts = get_object_or_404(Article, pk=id)
+    print("--------------------------")
+    print(posts.id)
     if req.method == "POST":
-        form = ArticleForm(req.POST, req.FILES, instance=post)
-        if form.is_valid():
-            form.save()
+        forms = ArticleForm(req.POST, instance=posts)
+        if forms.is_valid():
+            forms.save()
             # 使用 reverse 生成 URL 並傳遞 id 參數
-            return redirect(reverse("articles:show", args=[post.id]))
+            # return redirect(reverse("articles:edit", args=[post.id]))
+            return render(req, "pages/main_page/index.html", {"forms": forms})
     else:
-        form = ArticleForm(instance=post)
-    return render(req, "articles/edit.html", {"form": form, "post": post})
+        forms = ArticleForm(instance=posts)
+        return render(
+            req, "layouts/edit_article.html", {"forms": forms, "posts": posts}
+        )
+
+    return render(req, "articles/edit.html", {"forms": forms, "post": posts})
 
 
 @login_required
