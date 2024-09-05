@@ -2,10 +2,17 @@
 {%load static%}
 
 {% block content %}
-    <form action="{% url 'articles:show' posts.id %}" method="POST">
-        {% csrf_token %}
-        {{ forms }}
-        <button>更新</button>
-        {{ posts.id }}
-    </form>
+    <section>
+        <form action="{% url 'articles:show' posts.id %}" method="POST">
+            {% csrf_token %}
+            {% for form in forms %}
+                <div>
+                    <label class="label">{{form.label }}</label>
+                    {{ form }}
+                </div>
+            {% endfor %}
+            <button>更新</button>
+        </form>
+    </section>
 {% endblock %}
+
