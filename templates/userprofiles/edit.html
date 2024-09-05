@@ -9,7 +9,7 @@
                <img src="/static/images/logo_text.4817bea.svg" alt="回首頁" >
              </a>
          </div>
-    
+
      </div>
 </nav>
 
@@ -18,12 +18,12 @@
         <div class="mt-4">
             <section class="shadow-area rounded-[3px] bg-white">
                 <h2 class="text-lg  font-bold py-4 pb-2 -mb-[2px] border-b-[3px] border-b-red-900 leading-[36px] text-center">會員個人資料 修改</h2>
-                <div class="flex items-center pt-3 pb-2" > 
+                <div class="flex items-center pt-3 pb-2" >
                   <article class="flex items-center pt-3 pb-2">
-                 
+
                     <form method="POST" action="{% url 'userprofiles:show' post.id%}">
                         {%csrf_token%}
-                       
+
                            <div class="p-8 m-6 ">
                                <div class=" mt-[20px] mb-[7.5px] ml-1 font-bold whitespace-nowrap text-dark-600 flex " >
                                   <label class="text-right col-2 lh-2" >
@@ -44,7 +44,7 @@
                                    </label>
                                   <div class="flex ml-4 col-10m">
                                     <fieldset class="flex gap-4">
-                                      
+
                                        {% for widget in form.gender %}
                                            <div class="flex items-center space-x-2">
                                                {{ widget.tag }}
@@ -55,7 +55,7 @@
                                   </div>
                                 </div>
                              </div>
- 
+
                              <div class="p-8 m-6 ">
                                 <div class="w-[100px] mt-[20px] mb-[7.5px] ml-1 font-bold whitespace-nowrap text-dark-600 flex">
                                    <label class="text-right col-2 lh-2" >
@@ -115,7 +115,7 @@
                                   </div>
                                 </div>
                              </div>
-                    
+
                              <div >
                                 <div class="w-[100px] mt-[20px] mb-[7.5px] ml-1 font-bold whitespace-nowrap text-dark-600 flex">
                                    <label class="flex text-right col-2 lh-2" >
@@ -131,10 +131,10 @@
                                     {% endfor %}
                                 </div>
                                 </div>
-                             </div>        
-                        
+                             </div>
 
-                            
+
+
                              <div class="p-8 m-6 " >
                                 <div class="w-[100px] mt-[20px] mb-[7.5px] ml-1 font-bold whitespace-nowrap text-dark-600 flex">
                                    <label class="text-right col-2 lh-2" >
@@ -145,14 +145,14 @@
                                      {{ form.investment_attributes }}
                                   </div>
                                 </div>
-                             </div>                                            
+                             </div>
 
                         <div class="flex justify-center mt-4">
                               <button class="mt-4 btn btn-primary"> 儲存</button>
                         </div>
                  </form>
 
-                  
+
                 </article>
                </div>
             </section>

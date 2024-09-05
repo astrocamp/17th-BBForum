@@ -6,7 +6,7 @@
                 <i class="w-5 h-5 fa-solid fa-xmark text-gray-56"></i>
             </button>
             <div class="w-full border-b border-b-gray-90 min-h-[40px] text-dark-800 font-bold flex items-center pt-3 pb-3 pl-4 pr-4 overflow-hidden text-ellipsis">發文</div>
-            
+
             <form method="POST" action=" {% url 'articles:index'  %}" enctype="multipart/form-data">
                 {%csrf_token%}
 

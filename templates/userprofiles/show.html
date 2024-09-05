@@ -10,7 +10,7 @@
             <img src="/static/images/logo_text.4817bea.svg" alt="回首頁" >
           </a>
       </div>
- 
+
   </div>
 </nav>
 
@@ -22,14 +22,14 @@
                 <article class="pt-3 pb-2">
 
 
-                      
+
                     <div class="p-8 m-6 border border-gray-300 " style="padding: 0.4rem;">
                         <div class="w-[100px] mt-[20px] mb-[7.5px] ml-1 font-bold whitespace-nowrap text-dark-600 flex">
                            <label class="text-right col-2 lh-2" >
                                <span class="text-red-primary">*</span>
                                暱稱:
                            </label>
-                          <div class="w-[300px] col-10m flex ml-4 " style="boxing-padding: 0.2rem"> 
+                          <div class="w-[300px] col-10m flex ml-4 " style="boxing-padding: 0.2rem">
                             {{ post.nickname }}
                           </div>
                         </div>
@@ -51,7 +51,7 @@
                          <div class="w-[100px] mt-[20px] mb-[7.5px] ml-1 font-bold whitespace-nowrap text-dark-600 flex">
                             <label class="text-right col-2 lh-2" >
                                 <span class="text-red-primary">*</span>
-                                生      日: 
+                                生      日:
                             </label>
                            <div class="w-[300px] col-10m flex ml-4 ">
                                {{ post.birthday }}
@@ -75,7 +75,7 @@
                          <div class="w-[100px] mt-[20px] mb-[7.5px] ml-1 font-bold whitespace-nowrap text-dark-600 flex">
                             <label class="text-right col-2 lh-2" >
                                 <span class="text-red-primary">*</span>
-                                  教育程度: 
+                                  教育程度:
                             </label>
                            <div class="w-[300px] col-10m flex ml-4 ">
                              {{ post.get_education_display }}
@@ -87,7 +87,7 @@
                          <div class="w-[100px] mt-[20px] mb-[7.5px] ml-1 font-bold whitespace-nowrap text-dark-600 flex">
                             <label class="text-right col-2 lh-2" >
                                 <span class="text-red-primary">*</span>
-                                  職業: 
+                                  職業:
                             </label>
                            <div class="w-[300px] col-10m flex ml-4 ">
                             {{ post.get_profession_display }}
@@ -99,14 +99,14 @@
                          <div class="w-[100px] mt-[20px] mb-[7.5px] ml-1 font-bold whitespace-nowrap text-dark-600 flex">
                             <label class="text-right col-2 lh-2" >
                                 <span class="text-red-primary">*</span>
-                                  投資經驗: 
+                                  投資經驗:
                             </label>
                            <div class="w-[300px] col-10m flex ml-4">
                             {{ post.get_investment_experience_display }}
                            </div>
                          </div>
-                      </div>                 
-                     
+                      </div>
+
                       <div class="p-8 m-6 border border-gray-300 " style="padding: 0.4rem;">
                          <div class="w-[100px] mt-[20px] mb-[7.5px] ml-1 font-bold whitespace-nowrap text-dark-600 flex">
                             <label class="text-right col-2 lh-2" >
@@ -119,28 +119,28 @@
                              {% endfor %}
                            </div>
                          </div>
-                      </div>                                            
+                      </div>
 
-                      
+
                       <div class="p-8 m-6 border border-gray-300 " style="padding: 0.4rem;">
                         <div class="w-[100px] mt-[20px] mb-[7.5px] ml-1 font-bold whitespace-nowrap text-dark-600 flex">
                            <label class="text-right col-2 lh-2" >
                                <span class="text-red-primary">*</span>
-                                  投資屬性: 
+                                  投資屬性:
                            </label>
                           <div class="w-[300px] col-10m flex ml-4 ">
                             {{ post.get_investment_attributes_display }}
                           </div>
                         </div>
                      </div>
-            
+
 
 
                     <div class="flex justify-center mt-4">
                         <div class="mt-4 btn btn-primary">
                             <a href="{% url 'userprofiles:edit' post.id %}"> 編輯</a>
                         </div>
-                        
+
                     </div>
                 </article>
             </section>
@@ -151,5 +151,5 @@
 
 
 
- 
+
 {% endblock %}
