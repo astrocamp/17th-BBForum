@@ -12,10 +12,10 @@ from .models import Article
 
 def index(req):
     if req.method == "POST":
-        content = req.POST.get("content")
+        article_content = req.POST.get("content")
 
-        if content:
-            articles = Article(content=content)
+        if article_content:
+            articles = Article(content=article_content)
             articles.userID = req.user
             articles.save()
 
@@ -73,8 +73,6 @@ def new(req):
 @login_required
 def edit(req, id):
     posts = get_object_or_404(Article, pk=id)
-    print("--------------------------")
-    print(posts.id)
     if req.method == "POST":
         forms = ArticleForm(req.POST, instance=posts)
         if forms.is_valid():
@@ -88,11 +86,13 @@ def edit(req, id):
             req, "layouts/edit_article.html", {"forms": forms, "posts": posts}
         )
 
-    return render(req, "articles/edit.html", {"forms": forms, "post": posts})
-
 
 @login_required
 def delete(req, id):
+    print("0----------------------")
+    a1 = Article.objects.all()
+    print(a1.count())
+    # print(req.user)
     post = get_object_or_404(Article, pk=id)
     post.delete()
-    return redirect("articles:index")
+    return redirect("pages:index")
