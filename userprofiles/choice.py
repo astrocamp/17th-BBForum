@@ -2,16 +2,16 @@ from django.db import models
 
 
 class Gender(models.TextChoices):
-    Female = "F", "女"
-    Men = "M", "男"
+    Female = "Female", "女"
+    Men = "Men", "男"
 
 
 class Education_level(models.TextChoices):
-    MIDDLE_SCHOOL_OR_BELOW = "MS", "中學以下"
-    HIGH_SCHOOL = "HS", "高中、高職"
-    JUNIOR_COLLEGE = "JC", "專科"
-    UNIVERSITY = "U", "大學"
-    POST_GRADUATE = "PG", "研究所以上"
+    MIDDLE_SCHOOL_OR_BELOW = "middle_school", "中學以下"
+    HIGH_SCHOOL = "high_school", "高中、高職"
+    JUNIOR_COLLEGE = "junior_college", "專科"
+    UNIVERSITY = "university", "大學"
+    POST_GRADUATE = "post_graduate", "研究所以上"
 
 
 Profession = [
@@ -34,9 +34,9 @@ Profession = [
 
 
 class Inves_attributes(models.TextChoices):
-    proactive = "P", "積極(短線交易)"
-    stable = "S", "穩健(波段操作)"
-    conservative = "C", "保守(長期持有)"
+    proactive = "proactive", "積極(短線交易)"
+    stable = "stable", "穩健(波段操作)"
+    conservative = "conservative", "保守(長期持有)"
 
 
 Investment_experience_choices = [

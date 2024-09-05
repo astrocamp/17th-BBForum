@@ -14,58 +14,76 @@ from userprofiles.choice import (
 )
 from userprofiles.models import Profile
 
+
 class ProfileForm(ModelForm):
 
     gender = forms.TypedChoiceField(
-        choices=Gender.choices, required=False, label="性    別:", widget=forms.RadioSelect()
+        choices=Gender.choices,
+        required=False,
+        label="性    別:",
+        widget=forms.RadioSelect(),
     )
 
     location = forms.ChoiceField(
-        choices=Taiwan_regions, required=True, label="居住地區:", widget=forms.Select(attrs={
-                'class': 'w-[px] h-[26px] rounded-l bg-gray-94 pl-2.5 pr-2.5 border border-gray-90 focus:border-red-primary focus:outline-none focus:ring-0'  
-                }),
+        choices=Taiwan_regions,
+        required=True,
+        label="居住地區:",
+        widget=forms.Select(
+            attrs={
+                "class": "w-[px] h-[26px] rounded-l bg-gray-94 pl-2.5 pr-2.5 border border-gray-90 focus:border-red-primary focus:outline-none focus:ring-0"
+            }
+        ),
     )
 
     education = forms.ChoiceField(
         choices=Education_level.choices,
         required=True,
         label="教育程度:",
-        widget=forms.Select(attrs={
-                'class': 'w-[622px] h-[26px] rounded-l bg-gray-94 pl-2.5 pr-2.5 border border-gray-90 focus:border-red-primary focus:outline-none focus:ring-0'  
-                }),
+        widget=forms.Select(
+            attrs={
+                "class": "w-[622px] h-[26px] rounded-l bg-gray-94 pl-2.5 pr-2.5 border border-gray-90 focus:border-red-primary focus:outline-none focus:ring-0"
+            }
+        ),
     )
 
-    profession = forms.ChoiceField(choices=Profession, required=True, label="職    業:",
-                                    widget=forms.Select(attrs={
-                'class': 'w-[622px] h-[26px] rounded-l bg-gray-94 pl-2.5 pr-2.5 border border-gray-90 focus:border-red-primary focus:outline-none focus:ring-0'  
-                }),
-                )
+    profession = forms.ChoiceField(
+        choices=Profession,
+        required=True,
+        label="職    業:",
+        widget=forms.Select(
+            attrs={
+                "class": "w-[622px] h-[26px] rounded-l bg-gray-94 pl-2.5 pr-2.5 border border-gray-90 focus:border-red-primary focus:outline-none focus:ring-0"
+            }
+        ),
+    )
 
     investment_experience = forms.ChoiceField(
         choices=Investment_experience_choices,
         required=True,  # 設置為必填
         label="投資經驗:",
-        widget=forms.Select(attrs={
-                'class': 'w-[622px] h-[26px] rounded-l bg-gray-94 pl-2.5 pr-2.5 border border-gray-90 focus:border-red-primary focus:outline-none focus:ring-0'  
-                }),
+        widget=forms.Select(
+            attrs={
+                "class": "w-[622px] h-[26px] rounded-l bg-gray-94 pl-2.5 pr-2.5 border border-gray-90 focus:border-red-primary focus:outline-none focus:ring-0"
+            }
+        ),
     )
 
     investment_tool = forms.MultipleChoiceField(
         choices=Investment_tools,
         required=True,  # 如果不需要必填，可以設為 False
         label="投資工具:",
-        widget=forms.CheckboxSelectMultiple( attrs={
-                'class': 'flex'
-        }),
+        widget=forms.CheckboxSelectMultiple(attrs={"class": "flex"}),
     )
 
     investment_attributes = forms.TypedChoiceField(
         choices=Inves_attributes.choices,
         required=True,
         label="投資屬性:",
-        widget=forms.Select(attrs={
-                'class': 'w-[622px] h-[26px] rounded-l bg-gray-94 pl-2.5 pr-2.5 border border-gray-90 focus:border-red-primary focus:outline-none focus:ring-0'  
-                }),
+        widget=forms.Select(
+            attrs={
+                "class": "w-[622px] h-[26px] rounded-l bg-gray-94 pl-2.5 pr-2.5 border border-gray-90 focus:border-red-primary focus:outline-none focus:ring-0"
+            }
+        ),
     )
 
     class Meta:
@@ -94,15 +112,17 @@ class ProfileForm(ModelForm):
         }
 
         widgets = {
-            'nickname': TextInput(attrs={
-                'class': 'w-[622px] h-[26px] rounded-l bg-gray-94 pl-2.5 pr-2.5 border border-gray-90 focus:border-red-primary focus:outline-none focus:ring-0',  
-               
-            }),
-            'birthday': DateInput(attrs={
-                'type': 'date',
-                'class': 'w-[622px] h-[26px] rounded-l bg-gray-94 pl-2.5 pr-2.5 border border-gray-90 focus:border-red-primary focus:outline-none focus:ring-0', 
-                
-            }),
+            "nickname": TextInput(
+                attrs={
+                    "class": "w-[622px] h-[26px] rounded-l bg-gray-94 pl-2.5 pr-2.5 border border-gray-90 focus:border-red-primary focus:outline-none focus:ring-0",
+                }
+            ),
+            "birthday": DateInput(
+                attrs={
+                    "type": "date",
+                    "class": "w-[622px] h-[26px] rounded-l bg-gray-94 pl-2.5 pr-2.5 border border-gray-90 focus:border-red-primary focus:outline-none focus:ring-0",
+                }
+            ),
         }
 
 

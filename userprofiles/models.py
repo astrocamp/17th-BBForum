@@ -15,7 +15,7 @@ from .choice import (
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     nickname = models.CharField(max_length=200)
-    gender = models.CharField(max_length=2, choices=Gender.choices, default="")
+    gender = models.CharField(max_length=10, choices=Gender.choices, default="")
     birthday = models.DateField()
     location = models.CharField(max_length=100, choices=Taiwan_regions, default="TP")
     education = models.CharField(
