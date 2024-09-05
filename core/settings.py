@@ -6,24 +6,17 @@ import environ
 # 判斷目前環境開發(dev)或部署(prod)
 from lib.utils.env import is_dev
 
-# 開發環境才會讀取並載入.env檔案中的內容
 if is_dev():
     from dotenv import load_dotenv
 
     load_dotenv()
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv("APP_SECRET_KEY")
 
-# SECURITY WARNING: don't run with debug turned on in production!
-# 只有在開發環境需要DEBUG
 DEBUG = is_dev()
 
 ALLOWED_HOSTS = []
@@ -44,6 +37,7 @@ INSTALLED_APPS = [
     "users",
     "articles",
     "userprofiles",
+    "points",
 ]
 
 # 只有在開發環境需要這兩個套件
@@ -107,7 +101,20 @@ DATABASES = {
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
 
-AUTH_PASSWORD_VALIDATORS = []
+AUTH_PASSWORD_VALIDATORS = [
+    {
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
+    },
+    {
+        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
+    },
+    {
+        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
+    },
+    {
+        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
+    },
+]
 
 
 # Internationalization
@@ -126,14 +133,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = "/static/"
-<<<<<<< HEAD
-STATICFILES_DIRS = [
-    BASE_DIR / "static",
-]
-=======
 STATICFILES_DIRS = [BASE_DIR / "static"]
 STATIC_ROOT = BASE_DIR / "staticfiles"
->>>>>>> bb4181e (feat: 切版＿熱門股票)
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
@@ -177,9 +178,3 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")  # Mailgun SMTP 服務的用戶名
 EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL")
-
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
-MEDIA_URL = "/media/"
-
-
-# 你的 Django 模型中就設置好了圖片欄位，並且能夠在表單中上傳圖片文件。當你上傳圖片時，文件將存儲在 MEDIA_ROOT 指定的目錄下，並且可以通過 MEDIA_URL 指定的 URL 訪問。
