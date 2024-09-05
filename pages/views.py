@@ -1,16 +1,18 @@
-from django.shortcuts import redirect, render
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse
 
+from articles.forms import ArticleForm
 from articles.models import Article
 
 
 # Create your views here.
 def index(req):
     if req.method == "POST":
-        textarea_value = req.POST.get("publish_text")
-
-        if textarea_value:
-            articles = Article(content=textarea_value)
-            articles.userID = req.user
+        content = req.POST.get("content")
+        if content:
+            articles = Article(content=content)
+            articles.user = req.user
             articles.save()
 
             articles = Article.objects.order_by("-id")
