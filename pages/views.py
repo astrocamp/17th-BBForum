@@ -16,8 +16,8 @@ def index(req):
             articles = Article.objects.order_by("-id")
             return render(req, "pages/main_page/index.html", {"articles": articles})
 
-    articles = Article.objects.all()
-    return render(req, "pages/main_page/index.html")
+    articles = Article.objects.order_by("-id")
+    return render(req, "pages/main_page/index.html", {"articles": articles})
 
 
 def my_watchlist(req):
