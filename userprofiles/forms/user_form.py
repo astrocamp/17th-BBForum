@@ -30,7 +30,7 @@ class ProfileForm(ModelForm):
         label="居住地區:",
         widget=forms.Select(
             attrs={
-                "class": " w-[622px] h-[26px] rounded-l bg-gray-300 pl-2.5 pr-2.5 border border-gray-90 focus:border-red-primary focus:outline-none focus:ring-0"
+                "class": "w-[622px]  rounded-l bg-gray-300 pl-2.5 pr-2.5 border border-gray-94 "
             }
         ),
     )
@@ -41,7 +41,7 @@ class ProfileForm(ModelForm):
         label="教育程度:",
         widget=forms.Select(
             attrs={
-                "class": "w-[622px] h-[26px] rounded-l bg-gray-300 pl-2.5 pr-2.5 border border-gray-90 focus:border-red-primary focus:outline-none focus:ring-0"
+                "class": "w-[622px]  rounded-l bg-gray-300 pl-2.5 pr-2.5 border border-gray-94 focus:border-red-primary focus:outline-none focus:ring-0"
             }
         ),
     )
@@ -52,7 +52,7 @@ class ProfileForm(ModelForm):
         label="職    業:",
         widget=forms.Select(
             attrs={
-                "class": "w-[622px] h-[26px] rounded-l bg-gray-300 pl-2.5 pr-2.5 border border-gray-90 focus:border-red-primary focus:outline-none focus:ring-0"
+                "class": " w-[622px] rounded-l bg-gray-300 pl-2.5 pr-2.5 border border-gray-94 focus:border-red-primary focus:outline-none focus:ring-0"
             }
         ),
     )
@@ -63,7 +63,7 @@ class ProfileForm(ModelForm):
         label="投資經驗:",
         widget=forms.Select(
             attrs={
-                "class": "w-[622px] h-[26px] rounded-l bg-gray-300 pl-2.5 pr-2.5 border border-gray-90 focus:border-red-primary focus:outline-none focus:ring-0"
+                "class": "w-[622px]  rounded-l bg-gray-300 pl-2.5 pr-2.5 border border-gray-94 focus:border-red-primary focus:outline-none focus:ring-0"
             }
         ),
     )
@@ -81,7 +81,7 @@ class ProfileForm(ModelForm):
         label="投資屬性:",
         widget=forms.Select(
             attrs={
-                "class": "w-[622px] h-[26px] rounded-l bg-gray-300 pl-2.5 pr-2.5 border border-gray-90 focus:border-red-primary focus:outline-none focus:ring-0"
+                "class": " w-[622px] rounded-l bg-gray-300 pl-2.5 pr-2.5 border border-gray-94 focus:border-red-primary focus:outline-none focus:ring-0"
             }
         ),
     )
@@ -114,13 +114,13 @@ class ProfileForm(ModelForm):
         widgets = {
             "nickname": TextInput(
                 attrs={
-                    "class": "w-[622px] h-[26px] rounded-l bg-gray-300 pl-2.5 pr-2.5 border border-gray-90 focus:border-red-primary focus:outline-none focus:ring-0",
+                    "class": " w-[622px]  rounded-l bg-gray-300 pl-2.5 pr-2.5 border border-gray-90 focus:border-red-primary focus:outline-none focus:ring-0",
                 }
             ),
             "birthday": DateInput(
                 attrs={
                     "type": "date",
-                    "class": "w-[622px] h-[26px] rounded-l bg-gray-300 pl-2.5 pr-2.5 border border-gray-90 focus:border-red-primary focus:outline-none focus:ring-0",
+                    "class": "w-[622px]  rounded-l bg-gray-300 pl-2.5 pr-2.5 border border-gray-90 focus:border-red-primary focus:outline-none focus:ring-0",
                 }
             ),
         }
