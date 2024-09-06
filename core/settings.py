@@ -38,7 +38,6 @@ INSTALLED_APPS = [
     "users",
     "articles",
     "userprofiles",
-    "points",
 ]
 
 # 只有在開發環境需要這兩個套件
