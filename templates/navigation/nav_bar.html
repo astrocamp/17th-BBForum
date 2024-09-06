@@ -6,7 +6,7 @@
             <div x-data="switch_page({{ user.is_authenticated|lower }})">
                 <div class="flex items-center justify-center" x-show="isAuthenticated">
                     <span class="circle-text mr-1">P</span>
-                    <button @click.prevent="navigatePage('{% url 'points:points' %}')" class="text-white mt-1 mb-1 cursor-pointer">P點: {{ user.tot_point }}</button>
+                    <button @click.prevent="" class="text-white mt-1 mb-1 cursor-pointer">P點: {{ user.tot_point }}</button>
                 </div>
             </div>
             <ul class="menu menu-horizontal relative group">
