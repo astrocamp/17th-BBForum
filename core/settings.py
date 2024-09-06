@@ -68,7 +68,10 @@ ROOT_URLCONF = "core.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / "templates"],  # 確保這裡包含了你的 templates 目錄
+        "DIRS": [
+            BASE_DIR / "templates",
+            BASE_DIR / "populars/templates",
+        ],  # 確保這裡包含了你的 templates 目錄
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
