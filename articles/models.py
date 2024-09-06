@@ -32,7 +32,9 @@ class Comment(SoftDeleteable, models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     deleted_at = models.DateTimeField(default=None, null=True)
     photo = models.ImageField(upload_to="images/", null=True, blank=True)
-    article = models.ForeignKey(Article, on_delete=models.CASCADE)
+    article = models.ForeignKey(
+        Article, on_delete=models.CASCADE, related_name="comments"
+    )
     user = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
 
     objects = SoftDeleteManager()

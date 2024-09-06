@@ -89,10 +89,22 @@ def edit(req, id):
 
 @login_required
 def delete(req, id):
-    print("0----------------------")
-    a1 = Article.objects.all()
-    print(a1.count())
-    # print(req.user)
     post = get_object_or_404(Article, pk=id)
     post.delete()
     return redirect("pages:index")
+
+
+@login_required
+def comment(req, id):
+    if req.method == "POST":
+        article = get_object_or_404(Article, pk=id)
+        article = article.comments.create(
+            content=req.POST["content"],
+            user=req.user,
+        )
+        articles = Article.objects.order_by("-id")
+        return render(
+            req,
+            "pages/main_page/index.html",
+            {"articles": articles, "article": article},
+        )
