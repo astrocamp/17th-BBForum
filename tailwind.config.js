@@ -3,6 +3,9 @@ module.exports = {
   content: ["./**/*.{html,js,py}"],
   theme: {
     extend: {
+      fontSize: {
+        '50px': '50px',
+      },
       colors: {
         'dark-800': '#363636',
         'dark-600': '#676767',
