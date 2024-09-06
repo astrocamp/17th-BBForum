@@ -143,18 +143,8 @@
                 </div>
                 <div x-data="unlogined_prompt({{ user.is_authenticated|lower }})" class="relative">
                     <div>
-                        <div class="flex flex-col gap-2 pt-3 pb-0 pl-4 pr-4">
-                            <div class="flex items-center justify-center">
-                                <div class="w-8 h-8 mr-3 overflow-hidden border rounded-full border-gray-83">
-                                    <img src="{% static 'images/visitor.svg' %}" alt="visitor"></img>
-                                </div>
-                                <div @click="toggleVisibility" class="pt-[5px] pr-[36px] pb-[5px] pl-[16px] w-[calc(100%-44px)] rounded-[16px] bg-gray-94">
-                                    <textarea :readonly="isReadonly" class="w-full h-[20px] pr-2 text-[16px] leading-6 border-none outline-none resize-none overflow-y-hidden bg-transparent text-dark-800 flex items-center" placeholder="有什麼不同看法..."></textarea>
-                                    <label class="absolute top-[18px] right-8 w-5 h-5 cursor-pointer">
-                                        <img class="w-5 h-5" src="https://www.cmoney.tw/forum/_nuxt/img/upload_img.9a78e01.svg" alt="upload_img">
-                                    </label>
-                                </div>
-                            </div>
+                        <div class="pt-3 pl-4 pr-4 pb-0 gap-2 flex flex-col">
+                            {% include 'layouts/_article_comment.html' %}
                             <div class="gap-[6px] flex justify-end pb-2">
                                 {% if user.is_authenticated %}
                                     {% if article.user == request.user %}

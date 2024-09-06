@@ -1,0 +1,12 @@
+{%load static%}
+<div class="flex justify-center items-center">
+    <div class="mr-3 mt-1 w-8 h-8 border border-gray-83 rounded-full overflow-hidden">
+        <img src="{% static 'images/visitor.svg' %}" alt="visitor"></img>
+    </div>
+    <div @click="toggleVisibility" class="pt-[5px] pr-[36px] pb-[5px] pl-[16px] w-[calc(100%-44px)] rounded-[16px] bg-gray-94">
+        <textarea :readonly="isReadonly" class="w-full h-[20px] pr-2 text-[16px] leading-6 border-none outline-none resize-none overflow-y-hidden bg-transparent text-dark-800 flex items-center" placeholder="有什麼不同看法..."></textarea>
+        <label class="absolute top-[18px] right-8 w-5 h-5 cursor-pointer">
+            <img class="w-5 h-5" src="https://www.cmoney.tw/forum/_nuxt/img/upload_img.9a78e01.svg" alt="upload_img">
+        </label>
+    </div>
+</div>
