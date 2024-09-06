@@ -3,9 +3,8 @@ from django import template
 register = template.Library()
 
 
-@register.simple_tag(takes_context=True)
-def should_include_nav_bar(context):
-    request = context["request"]
+@register.filter
+def should_include_nav_bar(request):
     url_name = getattr(request.resolver_match, "url_name", None)
     path = request.path
     if (

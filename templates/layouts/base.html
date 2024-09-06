@@ -10,7 +10,7 @@
     <title>BBForum</title>
 </head>
 <body class="w-full h-full bg-gray-94">
-    {% if should_include_nav_bar %}
+    {% if request|should_include_nav_bar %}
         {% include "navigation/nav_bar.html" %}
     {% endif %}
     <main>

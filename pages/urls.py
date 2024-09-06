@@ -15,4 +15,5 @@ urlpatterns = [
     path("popular_stocks/", views.popular_stocks, name="popular_stocks"),
     path("popular_students/", views.popular_students, name="popular_students"),
     path("popular_answers/", views.popular_answers, name="popular_answers"),
+    path("member_profile/", views.member_profile, name="member_profile"),
 ]
