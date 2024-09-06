@@ -61,7 +61,7 @@ Investment_tools = [
 ]
 
 Taiwan_regions = [
-    ("TP", "台北市"),
+    ("TPE", "台北市"),
     ("NTPC", "新北市"),
     ("TPE", "台中市"),
     ("TN", "台南市"),

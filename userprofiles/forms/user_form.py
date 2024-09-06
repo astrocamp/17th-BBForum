@@ -30,7 +30,7 @@ class ProfileForm(ModelForm):
         label="居住地區:",
         widget=forms.Select(
             attrs={
-                "class": "w-[px] h-[26px] rounded-l bg-gray-94 pl-2.5 pr-2.5 border border-gray-90 focus:border-red-primary focus:outline-none focus:ring-0"
+                "class": " w-[622px] h-[26px] rounded-l bg-gray-94 pl-2.5 pr-2.5 border border-gray-90 focus:border-red-primary focus:outline-none focus:ring-0"
             }
         ),
     )

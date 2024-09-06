@@ -69,13 +69,18 @@ def show(req, id):
         Investment_tools_dict.get(tool, tool) for tool in post.investment_tool
     ]
 
+    # 確保重新讀取最新的資料
     if req.method == "POST":
         form = ProfileForm(req.POST, instance=post)
         if form.is_valid():
             form.save()
+            return redirect(
+                reverse("userprofiles:show", kwargs={"id": form.instance.id})
+            )
         else:
             return render(req, "userprofiles/edit.html", {"form": form, "post": post})
 
+    # 返回顯示頁面，確保使用最新的數據
     return render(
         req,
         "userprofiles/show.html",
@@ -92,16 +97,16 @@ def new(req):
 @login_required
 def edit(req, id):
     post = get_object_or_404(Profile, pk=id)
-
     if req.method == "POST":
         form = ProfileForm(req.POST, instance=post)
         if form.is_valid():
-            # 這裡可以檢查 `investment_tool` 是否在表單中被正確處理
             form.save()
-            return redirect(reverse("userprofiles:show", kwargs={"id": post.id}))
-        else:
-            print(form.errors)  # 打印表單錯誤信息，方便調試
 
+            # 表單保存後，重定向到顯示頁面
+            return redirect(reverse("userprofiles:show", kwargs={"id": post.id}))
+
+        else:
+            print(form.errors)
     else:
         form = ProfileForm(instance=post)
 
