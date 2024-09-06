@@ -16,8 +16,10 @@ urlpatterns = (
         path("userprofiles/", include("userprofiles.urls"), name="userprofiles"),
         path("articles/", include("articles.urls")),
         path("points/", include("points.urls"), name="points"),
+        path("populars/", include(("populars.urls", "populars"), namespace="popular_pages")),
     ]
 )
+
 if is_dev():
     urlpatterns += debug_toolbar_urls()
 

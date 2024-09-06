@@ -31,7 +31,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "anymail",
+    "populars",
+    "points",
     "pages",
     "social_django",
     "users",
@@ -67,9 +68,7 @@ ROOT_URLCONF = "core.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [
-            BASE_DIR / "templates",
-        ],
+        "DIRS": [BASE_DIR / "templates"],  # 確保這裡包含了你的 templates 目錄
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [

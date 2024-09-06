@@ -6,23 +6,23 @@
             <div x-data="switch_page({{ user.is_authenticated|lower }})">
                 <div class="flex items-center justify-center" x-show="isAuthenticated">
                     <span class="circle-text mr-1">P</span>
-                    <button @click.prevent="navigatePage('{% url 'pages:points' %}')" class="text-white mt-1 mb-1 cursor-pointer">P點: {{ user.tot_point }}</button>
+                    <button @click.prevent="navigatePage('{% url 'points:points' %}')" class="text-white mt-1 mb-1 cursor-pointer">P點: {{ user.tot_point }}</button>
                 </div>
             </div>
             <ul class="menu menu-horizontal relative group">
                 {% if user.is_authenticated %}
-                  <li><a class="text-white">{{ request.user.username }}</a></li>
-                  <li>
-                    <form action="{% url 'users:sign_out' %}" method="POST">
-                      {% csrf_token %}
-                      <button class="mr-10 text-white">登出</button>
-                    </form>
-                  </li>
-                  <div x-data="switch_page({{ user.is_authenticated|lower }})" class="absolute hidden group-hover:block bg-red-primary p-2 mt-2 shadow-2xl w-[100px] z-10 top-[33px]">
-                    <ul>
-                      <li @click.prevent="navigatePage('{% url 'userprofiles:index' %}')" class="mt-1 mb-1 text-white cursor-pointer">會員中心</li>
-                    </ul>
-                  </div>
+                    <li><a class="text-white">{{ request.user.username }}</a></li>
+                    <li>
+                        <form action="{% url 'users:sign_out' %}" method="POST">
+                            {% csrf_token %}
+                            <button class="text-white mr-10">登出</button>
+                        </form>
+                    </li>
+                    <div x-data="switch_page({{ user.is_authenticated|lower }})" class="absolute hidden group-hover:block bg-red-primary p-2 mt-2 shadow-2xl w-[100px] z-10 top-[33px]">
+                        <ul>
+                            <li @click.prevent="navigatePage('{% url 'pages:my_favorites' %}')" class="text-white mt-1 mb-1 cursor-pointer">我的自選股</li>
+                        </ul>
+                    </div>
                 {% else %}
                   <li><a href="{% url 'users:register' %}" class="text-white">註冊</a></li>
                   <li><a href="{% url 'users:sign_in' %}" class="mr-12 text-white">登入</a></li>
@@ -77,17 +77,17 @@
                       x-transition:leave-end="opacity-0"
                       x-cloak>
                         <li>
-                            <a class="hover:bg-gray-94 rounded-lg flex items-center p-2" href="{% url 'pages:popular_stocks' %}">
+                            <a class="hover:bg-gray-94 rounded-lg flex items-center p-2" href="{% url 'popular_pages:popular_stocks' %}">
                                 <span class="whitespace-nowrap">熱門股票</span>
                             </a>
                         </li>
                         <li>
-                          <a href="{% url 'pages:popular_students' %}" class="hover:bg-gray-94 rounded-lg flex items-center p-2">
+                          <a href="{% url 'popular_pages:popular_students' %}" class="hover:bg-gray-94 rounded-lg flex items-center p-2">
                               <span class="whitespace-nowrap">熱門同學</span>
                           </a>
                         </li>
                         <li>
-                          <a href="{% url 'pages:popular_answers' %}" class="hover:bg-gray-94 rounded-lg flex items-center p-2">
+                          <a href="{% url 'popular_pages:popular_answers' %}" class="hover:bg-gray-94 rounded-lg flex items-center p-2">
                               <span class="whitespace-nowrap">熱門回答</span>
                           </a>
                         </li>

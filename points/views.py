@@ -121,3 +121,11 @@ def reset_points(request):
     profile.save()
 
     return redirect("home")
+
+
+def index(request):
+    return render(request, "points/index.html")
+
+
+def points_view(request):
+    return render(request, "points/points.html")

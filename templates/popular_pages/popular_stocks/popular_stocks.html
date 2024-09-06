@@ -1,12 +1,19 @@
 {% extends "layouts/base.html" %}
-{%load static%}
+{% load static %}
 
 {% block content %}
+    {% include 'navigation/nav_bar.html' %}
     <div class="mt-[12px]">
-        <div class="flex w-[1200px] mx-auto">
-            {% include 'pages/main_page/_left_nav_bar.html' %}
-            {% include 'pages/popular_stocks/popular_stocks_bar.html' %}
-            {% include 'pages/popular_stocks/_news_feed_recommend.html' %}
+        <div class="flex w-[1200px] mx-auto gap-4">
+            <div class="w-[200px]">
+                {% include 'pages/main_page/_left_nav_bar.html' %}
+            </div>
+            <div class="flex-1">
+                {% include 'popular_pages/popular_stocks/popular_stocks_bar.html' %}
+            </div>
+            <div class="w-[300px]">
+                {% include 'popular_pages/popular_stocks/_news_feed_recommend.html' %}
+            </div>
         </div>
     </div>
 {% endblock %}

@@ -46,16 +46,16 @@ def member_profile(req):
     return render(req, "pages/nav_page/member_profile.html")
 
 
-def popular_stocks(req):
-    return render(req, "pages/popular_stocks/popular_stocks.html")
+def popular_stocks(request):
+    return render(request, "popular_pages/popular_stocks.html")
 
 
 def popular_students(request):
-    return render(request, "pages/popular_students/popular_students.html")
+    return render(request, "popular_pages/popular_students.html")
 
 
 def popular_answers(request):
-    return render(request, "pages/popular_answers/popular_answers.html")
+    return render(request, "popular_pages/popular_answers.html")
 
 
 def points(request):
