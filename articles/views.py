@@ -1,11 +1,11 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.shortcuts import get_object_or_404, redirect, render
+from django.shortcuts import HttpResponse, get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils import timezone
 
 from .forms import ArticleForm
-from .models import Article
+from .models import Article, Comment
 
 # Create your views here.
 
@@ -24,6 +24,18 @@ def index(req):
 
     articles = Article.objects.all()
     return render(req, "pages/main_page/index.html", {"articles": articles})
+
+    # article = get_object_or_404(Article, pk=id)
+    # article = article.comments.create(
+    #     content=req.POST["content"],
+    #     user=req.user,
+    # )
+    # articles = Article.objects.order_by("-id")
+    # return render(
+    #     req,
+    #     "pages/main_page/index.html",
+    #     {"articles": articles, "article": article},
+    # )
 
     # form = ArticleForm(req.POST, req.FILES)
     # # 表單中有文件上傳，應該使用 req.FILES
@@ -102,9 +114,12 @@ def comment(req, id):
             content=req.POST["content"],
             user=req.user,
         )
-        articles = Article.objects.order_by("-id")
-        return render(
-            req,
-            "pages/main_page/index.html",
-            {"articles": articles, "article": article},
-        )
+        return redirect("pages:index")
+
+
+@login_required
+def delete_comment(req, id):
+    if req.method == "DELETE":
+        comment = get_object_or_404(Comment, id=id, user=req.user)
+        comment.delete()
+        return HttpResponse("")
