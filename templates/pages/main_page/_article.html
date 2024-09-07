@@ -64,9 +64,31 @@
                                 </div>
                             </div>
                             <div>
-                                <button class="w-[36px] h-[36px] rounded-none hover:rounded-full bg-transparent hover:bg-gray-94 border border-transparent hover:border-transparent">
-                                    <i class="fa-solid fa-ellipsis w-[26px] h-[26px] text-gray-56"></i>
-                                </button>
+                                {% if user.is_authenticated %}
+                                    <details class="dropdown rounded-full">
+                                        <summary class="btn w-12 h-4"><i class="fa-solid fa-ellipsis w-[26px] h-[26px] text-gray-56"></i></summary>
+                                        {% if article.user == request.user %}
+                                            <ul class="menu dropdown-content bg-base-100 rounded-box z-[1] w-40 p-2 shadow">
+                                                <li>
+                                                    <form action="{% url 'articles:delete' article.id %}" method="POST">
+                                                        {% csrf_token %}
+                                                        <button class="text-sm">
+                                                            <div>刪除</div>
+                                                        </button>
+                                                    </form>
+                                                </li>
+                                                <li>
+                                                    <form action="{% url 'articles:edit' article.id %}">
+                                                        {% csrf_token %}
+                                                        <button class="text-sm">
+                                                            <div>編輯</div>
+                                                        </button>
+                                                    </form>
+                                                </li>
+                                            </ul>
+                                        {% endif %}
+                                    </details>
+                                {% endif %}
                             </div>
                         </div>
                         <div class="w-[40px] h-auto text-[12px] font-normal leading-4 tracking-[0.2px] text-center">Lv.10</div>
@@ -195,7 +217,7 @@
                                 {% endfor %}
                             </ul>
                         </div>
-                        <div>
+                        {% comment %} <div>
                             {% if user.is_authenticated %}
                                 {% if article.user == request.user %}
                                     <form action="{% url 'articles:delete' article.id %}" method="POST">
@@ -212,7 +234,7 @@
                                     </form>
                                 {% endif %}
                             {% endif %}
-                        </div>
+                        </div> {% endcomment %}
                         <form action="{% url 'articles:comment' article.id %}" method="POST" class="relative">
                             {% csrf_token %}
                             <div class="pt-3 pl-4 pr-4 pb-0 gap-2 flex flex-col">
