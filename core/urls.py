@@ -6,15 +6,24 @@ from django.contrib.auth import logout
 from django.shortcuts import redirect, render
 from django.urls import include, path
 
-urlpatterns = (
-    [
-        path("social-auth/", include("social_django.urls", namespace="social")),
-        path("", include("pages.urls"), name="pages"),
-        path("users/", include("users.urls"), name="users"),
-        path("userprofiles/", include("userprofiles.urls"), name="userprofiles"),
-        path("articles/", include("articles.urls")),
-        path("admin@bbforum.17th/", admin.site.urls),
-    ]
-    + debug_toolbar_urls()
-    + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-)
+
+def is_dev():
+    return settings.DEBUG
+
+
+urlpatterns = [
+    path("social-auth/", include("social_django.urls", namespace="social")),
+    path("", include("pages.urls"), name="pages"),
+    path("users/", include("users.urls"), name="users"),
+    path("userprofiles/", include("userprofiles.urls"), name="userprofiles"),
+    path("articles/", include("articles.urls")),
+    path("points/", include("points.urls"), name="points"),
+    path(
+        "populars/", include(("populars.urls", "populars"), namespace="popular_pages")
+    ),
+]
+
+if is_dev():
+    urlpatterns += debug_toolbar_urls()
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
