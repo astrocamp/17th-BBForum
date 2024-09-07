@@ -234,7 +234,7 @@
                         <form action="{% url 'articles:comment' article.id %}" method="POST" class="relative">
                             {% csrf_token %}
                             <div class="pt-3 pl-4 pr-4 pb-0 gap-2 flex flex-col">
-                                <div class="flex justify-center items-center">
+                                <div class="flex justify-center items-center mt-1 mb-1">
                                     <div class="mr-3 mt-1 w-8 h-8 border border-gray-83 rounded-full overflow-hidden">
                                         <img src="{% static 'images/visitor.svg' %}" alt="visitor"></img>
                                     </div>
@@ -245,15 +245,16 @@
                                         </label>
                                     </div>
                                 </div>
-                                <div class="gap-[6px] flex justify-end pb-2">
-
-                                   <button type="button" class=" block border border-gray-69 pt-1 pb-1 text-[0.875em] rounded-[14px] text-dark-600 ">
-                                        <div class="w-[52px] h-5 whitespace-nowrap btn-transition">取消</div>
-                                   </button>
-                                   <button type="submit" class="block pt-1 pb-1 text-[0.875em] rounded-[14px] text-white bg-red-primary">
-                                        <div class="w-[52px] h-5 whitespace-nowrap btn-transition">送出</div>
-                                   </button>
-                                </div>
+                                {% if user.is_authenticated %}
+                                    <div class="gap-[6px] flex justify-end pb-2">
+                                        <button type="button" class=" block border border-gray-69 pt-1 pb-1 text-[0.875em] rounded-[14px] text-dark-600 ">
+                                            <div class="w-[52px] h-5 whitespace-nowrap btn-transition">取消</div>
+                                        </button>
+                                        <button type="submit" class="block pt-1 pb-1 text-[0.875em] rounded-[14px] text-white bg-red-primary">
+                                            <div class="w-[52px] h-5 whitespace-nowrap btn-transition">送出</div>
+                                        </button>
+                                    </div>
+                                {% endif %}
                             </div>
                         </form>
                     </div>
