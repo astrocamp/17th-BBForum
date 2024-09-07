@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.http import QueryDict
 from django.shortcuts import HttpResponse, get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils import timezone
@@ -122,4 +123,15 @@ def delete_comment(req, id):
     if req.method == "DELETE":
         comment = get_object_or_404(Comment, id=id, user=req.user)
         comment.delete()
+        return HttpResponse("")
+
+
+@login_required
+def update_comment(req, id):
+    if req.method == "POST":
+        comment = get_object_or_404(Comment, id=id, user=req.user)
+        new_content = req.POST["content"]
+        if new_content:
+            comment.content = new_content
+            comment.save()
         return HttpResponse("")

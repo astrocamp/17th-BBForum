@@ -147,23 +147,68 @@
                         <div class="mt-3">
                             <ul class="p-2">
                                 {% for comment in article.comments.all %}
-                                    <div class="flex justify-between items-center w-full border border-gray-300 p-4 mt-1 mb-1 my_comment">
-                                        <div>
-                                            <div class="text-[18px]">{{ comment.user.username }}</div>
-                                            <div class="mt-5 text-[16px]">{{ comment.content }}</div>
-                                            <div class="mt-5 text-[12px] text-gray-cbc"> 留言時間 : {{ comment.created_at }} </div>
+                                    <div x-data="edit_comment" class="border border-gray-300 p-4 mt-1 mb-1 my_comment w-full h-[200px]">
+                                        <div class="flex justify-between items-center h-full">
+                                            <div x-show="!editing" class="w-full h-full">
+                                                <div class="mr-4 flex flex-col justify-around h-full">
+                                                    <div class="text-[18px] pl-1">{{ comment.user.username }}</div>
+                                                    <div x-ref="commentContent" class="w-full h-full mt-5 text-[16px] pl-1 border border-white">{{ comment.content }}</div>
+                                                    <div class="mt-5 text-[12px] pl-1 text-gray-cbc"> 留言時間 : {{ comment.created_at }} </div>
+                                                </div>
+                                            </div>
+                                            <template x-if="editing">
+                                                <div class="w-full h-full">
+                                                    <div class="mr-4 flex flex-col justify-around h-full">
+                                                        <div class="text-[18px] pl-1">{{ comment.user.username }}</div>
+                                                        <textarea x-model="commentContent"
+                                                                  @input="adjustHeight($event.target)"
+                                                                  class="w-full h-full mt-5 text-[16px] pl-1 border border-gray-cbc">
+                                                                  {{ comment.content }}
+                                                        </textarea>
+                                                        <div class="mt-5 text-[12px] pl-1 text-gray-cbc"> 留言時間 : {{ comment.created_at }} </div>
+                                                    </div>
+                                                </div>
+                                            </template>
+
+                                            {% if request.user.id == comment.user.id %}
+                                                <div class="flex flex-col">
+                                                    <button
+                                                        x-show="!editing"
+                                                        @click="startEdit"
+                                                        class="w-[65px] h-[35px] pl-1 pr-1 mb-2 border border-gray-69 text-dark-600 text-[12px] rounded-lg btn-transition">
+                                                        編輯留言
+                                                    </button>
+                                                    <div>
+                                                        <button
+                                                            x-show="editing"
+                                                            hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+                                                            hx-post="{% url 'articles:update_comment' comment.id %}"
+                                                            x-bind:hx-vals="JSON.stringify({content: commentContent})"
+                                                            @click="saveEdit"
+                                                            class="w-[65px] h-[35px] pl-1 pr-1 mb-2 border border-gray-69 text-dark-600 text-[12px] rounded-lg btn-transition">
+                                                            儲存留言
+                                                        </button>
+                                                    </div>
+                                                    <button
+                                                        x-show="!editing"
+                                                        hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+                                                        hx-delete={% url 'articles:delete_comment' comment.id %}
+                                                        hx-confirm="確認刪除？"
+                                                        hx-target="closest .my_comment"
+                                                        hx-swap="outerHTML"
+                                                        class="w-[65px] h-[35px] pl-1 pr-1 text-white text-[12px] bg-red-primary rounded-lg">
+                                                        刪除留言
+                                                    </button>
+                                                    <template x-if="editing">
+                                                        <button
+                                                            @click="cancelEdit"
+                                                            class="w-[65px] h-[35px] pl-1 pr-1 text-white text-[12px] bg-red-primary rounded-lg">
+                                                            取消留言
+                                                        </button>
+                                                    </template>
+                                                </div>
+                                            {% endif %}
                                         </div>
-                                        {% if request.user.id == comment.user.id %}
-                                            <button
-                                                hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
-                                                hx-delete={% url 'articles:delete_comment' comment.id %}
-                                                hx-confirm="確認刪除？"
-                                                hx-target="closest .my_comment"
-                                                hx-swap="outerHTML"
-                                                class="w-[70px] h-[45px] pl-2 pr-2 text-white text-[12px] bg-red-primary rounded-lg">
-                                                刪除留言
-                                            </button>
-                                        {% endif %}
                                     </div>
                                 {% endfor %}
                             </ul>
@@ -202,7 +247,7 @@
                                 </div>
                                 <div class="gap-[6px] flex justify-end pb-2">
 
-                                   <button type="button" class="border border-gray-69 block pt-1 pb-1 text-[0.875em] rounded-[14px] text-dark-600 ">
+                                   <button type="button" class=" block border border-gray-69 pt-1 pb-1 text-[0.875em] rounded-[14px] text-dark-600 ">
                                         <div class="w-[52px] h-5 whitespace-nowrap btn-transition">取消</div>
                                    </button>
                                    <button type="submit" class="block pt-1 pb-1 text-[0.875em] rounded-[14px] text-white bg-red-primary">
