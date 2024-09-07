@@ -173,22 +173,21 @@
                                             {% if request.user.id == comment.user.id %}
                                                 <div class="flex flex-col">
                                                     <button
-                                                        x-show="!editing"
                                                         @click="startEdit"
+                                                        x-show="!editing"
                                                         class="w-[65px] h-[35px] pl-1 pr-1 mb-2 border border-gray-69 text-dark-600 text-[12px] rounded-lg btn-transition">
                                                         編輯留言
                                                     </button>
-                                                    <div>
-                                                        <button
-                                                            x-show="editing"
-                                                            hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
-                                                            hx-post="{% url 'articles:update_comment' comment.id %}"
-                                                            x-bind:hx-vals="JSON.stringify({content: commentContent})"
-                                                            @click="saveEdit"
-                                                            class="w-[65px] h-[35px] pl-1 pr-1 mb-2 border border-gray-69 text-dark-600 text-[12px] rounded-lg btn-transition">
-                                                            儲存留言
-                                                        </button>
-                                                    </div>
+                                                    <button
+                                                        hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+                                                        hx-post="{% url 'articles:update_comment' comment.id %}"
+                                                        hx-swap="none"
+                                                        x-bind:hx-vals="JSON.stringify({content: commentContent})"
+                                                        @click="saveEdit"
+                                                        x-show="editing"
+                                                        class="w-[65px] h-[35px] pl-1 pr-1 mb-2 border border-gray-69 text-dark-600 text-[12px] rounded-lg btn-transition">
+                                                        儲存留言
+                                                    </button>
                                                     <button
                                                         x-show="!editing"
                                                         hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
