@@ -64,10 +64,9 @@
                                 </div>
                             </div>
                             <div>
-                                {% if user.is_authenticated %}
+                                {% if user.is_authenticated and article.user == request.user %}
                                     <details class="dropdown rounded-full">
                                         <summary class="btn w-12 h-4"><i class="fa-solid fa-ellipsis w-[26px] h-[26px] text-gray-56"></i></summary>
-                                        {% if article.user == request.user %}
                                             <ul class="menu dropdown-content bg-base-100 rounded-box z-[1] w-40 p-2 shadow">
                                                 <li>
                                                     <form action="{% url 'articles:delete' article.id %}" method="POST">
@@ -86,7 +85,6 @@
                                                     </form>
                                                 </li>
                                             </ul>
-                                        {% endif %}
                                     </details>
                                 {% endif %}
                             </div>
