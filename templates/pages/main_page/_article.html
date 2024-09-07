@@ -65,23 +65,25 @@
                             </div>
                             <div>
                                 {% if user.is_authenticated and article.user == request.user %}
-                                    <details class="dropdown rounded-full">
-                                        <summary class="btn w-12 h-4"><i class="fa-solid fa-ellipsis w-[26px] h-[26px] text-gray-56"></i></summary>
-                                            <ul class="menu dropdown-content bg-base-100 rounded-box z-[1] w-40 p-2 shadow">
-                                                <li>
-                                                    <form action="{% url 'articles:delete_artile' article.id %}" method="POST">
-                                                        {% csrf_token %}
-                                                        <button type="submit" class="text-sm">刪除</button>
-                                                    </form>
-                                                </li>
-                                                <li>
-                                                    <form action="{% url 'articles:edit' article.id %}">
-                                                        {% csrf_token %}
-                                                        <button class="text-sm">編輯</button>
-                                                    </form>
-                                                </li>
-                                            </ul>
-                                    </details>
+                                    <div class="dropdown">
+                                        <div tabindex="0" role="button"  class="btn w-12 h-4">
+                                            <i class="fa-solid fa-ellipsis w-[26px] h-[26px] text-gray-56"></i>
+                                        </div>
+                                        <ul tabindex="0" class="menu dropdown-content bg-base-100 rounded-box z-[1] w-40 p-2 shadow">
+                                            <li>
+                                                <form action="{% url 'articles:delete_artile' article.id %}" method="POST">
+                                                    {% csrf_token %}
+                                                    <button type="submit" class="text-sm">刪除</button>
+                                                </form>
+                                            </li>
+                                            <li>
+                                                <form action="{% url 'articles:edit' article.id %}">
+                                                    {% csrf_token %}
+                                                    <button class="text-sm">編輯</button>
+                                                </form>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 {% endif %}
                             </div>
                         </div>
