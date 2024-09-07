@@ -4,7 +4,7 @@
         {{ comment }}
     </section> {% endcomment %}
 
-    <form action="{% url 'articles:comment' article.id %}" method="POST">
+    <form action="" method="POST">
         {% csrf_token %}
         <div class="pt-3 pl-4 pr-4 pb-0 gap-2 flex flex-col">
             <div class="flex justify-center items-center">
