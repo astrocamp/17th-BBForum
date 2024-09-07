@@ -20,7 +20,7 @@
                     </li>
                     <div x-data="switch_page({{ user.is_authenticated|lower }})" class="absolute hidden group-hover:block bg-red-primary p-2 mt-2 shadow-2xl w-[100px] z-10 top-[33px]">
                         <ul>
-                            <li @click.prevent="navigatePage('{% url 'pages:my_watchlist' %}')" class="text-white mt-1 mb-1 cursor-pointer">我的會員</li>
+                            <li @click.prevent="" class="text-white mt-1 mb-1 cursor-pointer">我的會員</li>
                         </ul>
                     </div>
                 {% else %}
