@@ -10,9 +10,9 @@ from articles.models import Article
 # Create your views here.
 def index(req):
     if req.method == "POST":
-        content = req.POST.get("content")
-        if content:
-            articles = Article(content=content)
+        article_content = req.POST.get("article_content")
+        if article_content:
+            articles = Article(content=article_content)
             articles.user = req.user
             articles.save()
             subquery = Article.objects.filter(
