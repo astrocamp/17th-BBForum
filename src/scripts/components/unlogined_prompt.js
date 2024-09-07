@@ -11,15 +11,4 @@ Alpine.data("unlogined_prompt", (isAuthenticated) => ({
         this.isReadonly = !this.isReadonly;
         this.isShow = !this.isShow;
     },
-
-    submitForm() {
-        const form = this.$el.closest("form")
-        if (form) {
-            form.addEventListener("submit", (e) => {
-              e.preventDefault()
-              form.submit()
-            })
-        }
-        this.isVisible = !this.isVisible;
-    }
 }))

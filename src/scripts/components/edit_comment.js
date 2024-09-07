@@ -16,6 +16,7 @@ Alpine.data("edit_comment", (isAuthenticated) => ({
 
     saveEdit() {
         this.editing = false;
+        this.$refs.commentContent.innerText = this.commentContent;
     },
 
     adjustHeight($el) {
