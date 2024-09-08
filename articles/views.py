@@ -44,17 +44,14 @@ def new(req):
 
 @login_required
 def edit(req, id):
-    posts = get_object_or_404(Article, pk=id)
+    article = get_object_or_404(Article, pk=id)
     if req.method == "POST":
-        forms = ArticleForm(req.POST, instance=posts)
-        if forms.is_valid():
-            forms.save()
-            return render(req, "pages/main_page/index.html", {"forms": forms})
-    else:
-        forms = ArticleForm(instance=posts)
-        return render(
-            req, "layouts/edit_article.html", {"forms": forms, "posts": posts}
-        )
+        new_article = req.POST.get("content")
+        if new_article:
+            article.content = new_article
+            article.user = req.user
+            article.save()
+    return HttpResponse("")
 
 
 @login_required
@@ -62,7 +59,7 @@ def delete_artile(req, id):
     if req.method == "POST":
         artile = get_object_or_404(Article, id=id, user=req.user)
         artile.delete()
-        return redirect("pages:index")
+    return redirect("pages:index")
 
 
 @login_required
