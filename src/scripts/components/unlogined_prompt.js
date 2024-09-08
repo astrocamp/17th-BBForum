@@ -14,7 +14,9 @@ Alpine.data("unlogined_prompt", (isAuthenticated) => ({
     },
 
     submitForm() {
-        this.$refs.articleContent.innerText = ''
-        this.isVisible = !this.isVisible
+        if (this.$refs.clearTextarea) {
+            this.$refs.clearTextarea.value = '';
+        }
+        this.isVisible = !this.isVisible;
     }
 }))

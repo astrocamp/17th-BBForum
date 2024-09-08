@@ -3,11 +3,9 @@ from django.db.models import Count, Exists, OuterRef
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 
-from articles.forms import ArticleForm
 from articles.models import Article
 
 
-# Create your views here.
 def index(req):
     if req.method == "POST":
         article_content = req.POST.get("article_content")
@@ -22,7 +20,11 @@ def index(req):
             articles = Article.objects.annotate(
                 user_liked=Exists(subquery), like_count=Count("liked")
             ).order_by("-id")
-            return render(req, "pages/main_page/index.html", {"articles": articles})
+
+            if req.headers.get("HX-Request"):
+                return render(
+                    req, "pages/main_page/_articles_list.html", {"articles": articles}
+                )
 
     subquery = Article.objects.filter(liked=req.user.pk, id=OuterRef("pk")).values("pk")
 
