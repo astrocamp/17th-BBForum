@@ -154,7 +154,7 @@ INTERNAL_IPS = [
 AUTHENTICATION_BACKENDS = (
     "social_core.backends.google.GoogleOAuth2",
     "social_core.backends.line.LineOAuth2",
-    "django.contrib.auth.backends.ModelBackend",
+    "users.auth_backends.SoftDeleteBackend",
 )
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.getenv("GOOGLE_KEY")

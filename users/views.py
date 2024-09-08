@@ -8,7 +8,9 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
+
+from userprofiles.models import Profile
 
 from .forms import CustomUserCreationForm
 
@@ -108,3 +110,9 @@ def send_mail_via_mailgun(subject, message, recipient_email):
             "text": message,
         },
     )
+
+
+def delete_user(request, user_id):
+    profile = get_object_or_404(Profile, user_id=user_id)
+    profile.delete()
+    return render(request, "users/user_deleted.html")
