@@ -2,88 +2,105 @@
 <section class="block mt-3 mb-3">
     <section class="shadow-area rounded-[3px] bg-white">
         <article class="pt-3 pb-2">
-            <div class="pl-4 pr-4">
-                <div class="flex items-center">
-                    <div class="relative group">
-                        <div x-data="unlogined_prompt({{ user.is_authenticated|lower }})" @mouseover="isShow = true">
-                            <div>
-                                <a href="#">
-                                    <div class="w-[40px] h-[40px] rounded-full border border-gray-94 overflow-hidden">
-                                        <img src="{% static 'images/visitor.svg' %}" alt="visitor"></img>
-                                    </div>
-                                </a>
-                            </div>
-                            <div x-show="isShow" class="absolute hidden group-hover:block bg-white p-2 mt-2 rounded-[10px] shadow-lg w-[400px] h-[170px] z-10 top-[33px] -left-[150px]">
-                                <div class="flex items-center gap-3">
-                                    <div>
-                                        <a href="#">
-                                            <div class="w-[80px] h-[80px] rounded-full border border-gray-94 overflow-hidden mt-2 ml-3">
-                                                <img src="{% static 'images/visitor.svg' %}" alt="visitor" class="w-full h-full"></img>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div class="flex flex-col justify-center">
-                                        <div class="mb-1">
-                                            <a href="#" class="text-[18px] font-semibold leading-6 tracking-[0.2px] text-dark-800">YSL000</a>
+            <div x-data="edit_article">
+                <div class="pl-4 pr-4">
+                    <div class="flex items-center">
+                        <div class="relative group">
+                            <div x-data="unlogined_prompt({{ user.is_authenticated|lower }})" @mouseover="isShow = true">
+                                <div>
+                                    <a href="#">
+                                        <div class="w-[40px] h-[40px] rounded-full border border-gray-94 overflow-hidden">
+                                            <img src="{% static 'images/visitor.svg' %}" alt="visitor"></img>
                                         </div>
-                                        <div class="w-[40px] h-auto text-[14px] font-extralight leading-4 tracking-[0.2px] text-center mb-1">Lv.10</div>
-                                        <div class="flex justify-center">
-                                            <div class="flex justify-center gap-2 pr-2 border-r-2 border-gray-94 text-[14px]">
-                                                <div><span>發文</span></div>
-                                                <div><span>3702</span></div>
+                                    </a>
+                                </div>
+                                <div x-show="isShow" class="absolute hidden group-hover:block bg-white p-2 mt-2 rounded-[10px] shadow-lg w-[400px] h-[170px] z-10 top-[33px] -left-[150px]">
+                                    <div class="flex items-center gap-3">
+                                        <div>
+                                            <a href="#">
+                                                <div class="w-[80px] h-[80px] rounded-full border border-gray-94 overflow-hidden mt-2 ml-3">
+                                                    <img src="{% static 'images/visitor.svg' %}" alt="visitor" class="w-full h-full"></img>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="flex flex-col justify-center">
+                                            <div class="mb-1">
+                                                <a href="#" class="text-[18px] font-semibold leading-6 tracking-[0.2px] text-dark-800">YSL000</a>
                                             </div>
-                                            <div class="flex justify-center gap-2 pl-2 text-[14px]">
-                                                <div><span>粉絲</span></div>
-                                                <div><span>3248</span></div>
+                                            <div class="w-[40px] h-auto text-[14px] font-extralight leading-4 tracking-[0.2px] text-center mb-1">Lv.10</div>
+                                            <div class="flex justify-center">
+                                                <div class="flex justify-center gap-2 pr-2 border-r-2 border-gray-94 text-[14px]">
+                                                    <div><span>發文</span></div>
+                                                    <div><span>3702</span></div>
+                                                </div>
+                                                <div class="flex justify-center gap-2 pl-2 text-[14px]">
+                                                    <div><span>粉絲</span></div>
+                                                    <div><span>3248</span></div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
+                                    <div @click="toggleVisibility" class="bg-red-primary w-[95%] h-[25%] rounded-[4px] text-[14px] flex items-center justify-center mt-4 mx-auto cursor-pointer">
+                                        <button class="flex items-center justify-center gap-1">
+                                            <i class="fa-solid fa-plus w-[12px] h-[12px] text-white"></i>
+                                            <div class="text-white">追蹤</div>
+                                        </button>
+                                    </div>
                                 </div>
-                                <div @click="toggleVisibility" class="bg-red-primary w-[95%] h-[25%] rounded-[4px] text-[14px] flex items-center justify-center mt-4 mx-auto cursor-pointer">
-                                    <button class="flex items-center justify-center gap-1">
-                                        <i class="fa-solid fa-plus w-[12px] h-[12px] text-white"></i>
-                                        <div class="text-white">追蹤</div>
-                                    </button>
-                                </div>
-                            </div>
-                            <template x-if="!isAuthenticated">
-                                {% include "layouts/not_logged.html" %}
-                            </template>
-                        </div>
-                    </div>
-                    <div class="grow ml-2 mr-2 overflow-hidden">
-                        <div class="flex items-center">
-                            <div>
-                                <a href="#" class="text-[16px] font-semibold leading-6 tracking-[0.2px] text-dark-800">{{article.user}}</a>
+                                <template x-if="!isAuthenticated">
+                                    {% include "layouts/not_logged.html" %}
+                                </template>
                             </div>
                         </div>
-                        <div class="text-[12px] font-normal leading-4 tracking-[0.2px] h-[20px] flex items-center">
-                            <a href="#" class="text-dark-600">2小時前</a>
+                        <div class="grow ml-2 mr-2 overflow-hidden">
+                            <div class="flex items-center">
+                                <div>
+                                    <a href="#" class="text-[16px] font-semibold leading-6 tracking-[0.2px] text-dark-800">{{article.user}}</a>
+                                </div>
+                            </div>
+                            <div class="text-[12px] font-normal leading-4 tracking-[0.2px] h-[20px] flex items-center">
+                                <a href="#" class="text-dark-600">2小時前</a>
+                            </div>
+                        </div>
+                        <div>
+                            {% if user.is_authenticated and article.user == request.user %}
+                                <div class="dropdown">
+                                    <div tabindex="0" role="button"  class="btn w-12 h-4">
+                                        <i class="fa-solid fa-ellipsis w-[26px] h-[26px] text-gray-56"></i>
+                                    </div>
+                                    <ul tabindex="0" class="menu dropdown-content bg-base-100 rounded-box z-[1] w-40 p-2 shadow">
+                                        <li>
+                                            <form action="{% url 'articles:delete_artile' article.id %}" method="POST">
+                                                {% csrf_token %}
+                                                <button type="submit" class="text-sm text-red-primary">刪除文章</button>
+                                            </form>
+                                        </li>
+                                        <li>
+                                            <button
+                                                @click="startEdit"
+                                                x-show="!editing"
+                                                class="text-sm">
+                                                編輯文章
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button
+                                                hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+                                                hx-post="{% url 'articles:edit' article.id %}"
+                                                hx-swap="none"
+                                                x-bind:hx-vals="JSON.stringify({content: articleContent})"
+                                                @click="saveEdit"
+                                                x-show="editing"
+                                                class="text-sm">
+                                                儲存文章
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </div>
+                            {% endif %}
                         </div>
                     </div>
-                    <div>
-                        {% if user.is_authenticated and article.user == request.user %}
-                            <div class="dropdown">
-                                <div tabindex="0" role="button"  class="btn w-12 h-4">
-                                    <i class="fa-solid fa-ellipsis w-[26px] h-[26px] text-gray-56"></i>
-                                </div>
-                                <ul tabindex="0" class="menu dropdown-content bg-base-100 rounded-box z-[1] w-40 p-2 shadow">
-                                    <li>
-                                        <form action="{% url 'articles:delete_artile' article.id %}" method="POST">
-                                            {% csrf_token %}
-                                            <button type="submit" class="text-sm">刪除</button>
-                                        </form>
-                                    </li>
-                                    <li>
-                                        <form action="{% url 'articles:edit' article.id %}">
-                                            {% csrf_token %}
-                                            <button class="text-sm">編輯</button>
-                                        </form>
-                                    </li>
-                                </ul>
-                            </div>
-                        {% endif %}
-                    </div>
+                    <div class="w-[40px] h-auto text-[12px] font-normal leading-4 tracking-[0.2px] text-center">Lv.10</div>
                 </div>
             </div>
             <div>
@@ -185,7 +202,7 @@
                                 <div class="mr-3 mt-1 w-8 h-8 border border-gray-83 rounded-full overflow-hidden">
                                     <img src="{% static 'images/visitor.svg' %}" alt="visitor"></img>
                                 </div>
-                                <div @click="toggleVisibility" class="pt-[5px] pr-[36px] pb-[5px] pl-[16px] w-[calc(100%-44px)] rounded-[16px] bg-gray-94">
+                                <div @click="toggleVisibility" class="pt-[5px] pr-[36px] pb-[5px] pl-[16px] w-[calc(100%-44px)] h-full rounded-[16px] bg-gray-94">
                                     <textarea class="w-full h-[20px] pr-2 text-[16px] leading-6 border-none outline-none resize-none overflow-y-hidden bg-transparent text-dark-800 flex items-center" placeholder="有什麼不同看法..." name="content"></textarea>
                                     <label class="absolute top-[18px] right-8 mt-1 cursor-pointer">
                                         <img class="w-5 h-5" src="https://www.cmoney.tw/forum/_nuxt/img/upload_img.9a78e01.svg" alt="upload_img">
