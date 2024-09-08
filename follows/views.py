@@ -13,7 +13,7 @@ def user_profile(request, user_id):
     ).exists()
     return render(
         request,
-        "pages/index.html",
+        "pages/main_page/index.html",
         {
             "user": user,
             "target_user": user,
@@ -25,7 +25,7 @@ def user_profile(request, user_id):
 @login_required
 def follow_user(request):
     if request.method == "POST":
-        target_id = 3
+        target_id = 1
         target_user = get_object_or_404(User, id=target_id)
         if not UserFollowing.objects.filter(
             user=request.user, following_user=target_user
@@ -35,4 +35,4 @@ def follow_user(request):
             UserFollowing.objects.filter(
                 user=request.user, following_user=target_user
             ).delete()
-        return redirect("user_profile", user_id=target_id)
+        return redirect("http://127.0.0.1:8000/")

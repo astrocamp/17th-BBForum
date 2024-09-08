@@ -104,19 +104,16 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div @click="toggleVisibility" class="bg-red-primary w-[95%] h-[25%] rounded-[4px] text-[14px] flex items-center justify-center mt-4 mx-auto cursor-pointer">
-                                                        <div >
-                                                            <form action="{% url 'follow_user' %}" method="post">
-                                                                {% csrf_token %}
-                                                                <input type="hidden" name="target_id" value="3">
-                                                                <button class="flex items-center justify-center gap-1">
-                                                                    <i class="fa-solid fa-plus w-[12px] h-[12px] text-white"></i>
-                                                                    <div class="text-white">追蹤</div>
-                                                                </button>
-                                                            </form>
-                                                        </div>
-
-                                                </div>
+                                                    <div class="bg-red-primary w-[95%] h-[25%] rounded-[4px] text-[14px] flex items-center justify-center mt-4 mx-auto cursor-pointer">
+                                                        <form action="{% url 'follow_user'%}" method="post" class="flex items-center justify-center w-full h-full">
+                                                            {% csrf_token %}
+                                                            <input type="hidden" name="target_id" value="1">
+                                                            <button type="submit" class="flex items-center justify-center w-full h-full gap-1 bg-transparent border-none cursor-pointer">
+                                                                <i class="fa-solid fa-plus w-[12px] h-[12px] text-white"></i>
+                                                                <div class="text-white">追蹤</div>
+                                                            </button>
+                                                        </form>
+                                                    </div>
                                                 <template x-if="!isAuthenticated">
                                                     {% include "layouts/not_logged.html" %}
                                                 </template>
