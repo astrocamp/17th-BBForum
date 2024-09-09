@@ -15,6 +15,7 @@ class Article(SoftDeleteable, ImageSaveMixin, models.Model):
     photo = models.ImageField(upload_to="images/", null=True, blank=True)
     deleted_at = models.DateTimeField(default=None, null=True, blank=True)
     user = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
+    liked = models.ManyToManyField(User, related_name="liked")
 
     objects = SoftDeleteManager()
 
@@ -25,6 +26,9 @@ class Article(SoftDeleteable, ImageSaveMixin, models.Model):
         indexes = [models.Index(fields=["deleted_at"])]
         # 用於指定模型的索引。索引可以提高查詢效率，尤其是對於大型數據集的查詢。
         # 軟刪除邏輯：通常，軟刪除功能會在 deleted_at 字段上進行頻繁的查詢操作，通過索引可以有效減少查詢的時間成本
+
+    def liked_by(self, user):
+        return self.liked.filter(id=user.id).exists()
 
 
 class Comment(SoftDeleteable, models.Model):
