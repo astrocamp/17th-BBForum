@@ -1,9 +1,10 @@
 import logging
 
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.db import models
 
 logger = logging.getLogger(__name__)
+User = get_user_model()
 
 
 class UserProfile(models.Model):
@@ -35,8 +36,6 @@ class PointsDetails(models.Model):
     action_type = models.CharField(max_length=50)
     point_number = models.IntegerField()
     actioned_at = models.DateTimeField(auto_now_add=True)
-    point_number = models.IntegerField()
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return f"{self.user.username} - {self.action_type} - {self.point_number} points"
