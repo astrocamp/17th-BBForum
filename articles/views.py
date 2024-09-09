@@ -66,11 +66,16 @@ def delete_artile(req, id):
 def comment(req, id):
     if req.method == "POST":
         article = get_object_or_404(Article, pk=id)
-        article = article.comments.create(
+        article.comments.create(
             content=req.POST["content"],
             user=req.user,
         )
-        return redirect("pages:index")
+
+        if req.headers.get("HX-Request"):
+            return render(req, "pages/main_page/_comment.html", {"article": article})
+
+    articles = Article.objects.order_by("-id")
+    return render(req, "pages/main_page/index.html", {"articles": articles})
 
 
 @login_required
