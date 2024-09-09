@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.db.models import Count
 from django.http import QueryDict
 from django.shortcuts import HttpResponse, get_object_or_404, redirect, render
 from django.urls import reverse
@@ -144,11 +145,17 @@ def liked(req, id):
         article = get_object_or_404(Article, pk=id)
         if article.liked_by(req.user):
             article.liked.remove(req.user)
+            article.like_count = article.liked.count()
             return render(
-                req, "articles/_liked.html", {"article": article, "liked": False}
+                req,
+                "articles/_liked.html",
+                {"article": article, "liked": False},
             )
         else:
             article.liked.add(req.user)
+            article.like_count = article.liked.count()
             return render(
-                req, "articles/_liked.html", {"article": article, "liked": True}
+                req,
+                "articles/_liked.html",
+                {"article": article, "liked": True},
             )
