@@ -127,14 +127,10 @@
                                     <div class="mt-[7.5px] mb-[7.5px] ml-1 font-bold whitespace-nowrap text-dark-600">留言</div>
                                 </div>
                             </button>
-                            <button @click="toggleVisibility" class="relative flex-grow flex-shrink-0 basis-[56px] inline-block cursor-pointer">
-                                <div class="relative flex justify-center bg-white rounded hover:bg-gray-94">
-                                    <div class="w-5 h-5 mt-2 mb-2">
-                                        <i class="fa-regular fa-thumbs-up w-[20px] h-[20px] text-gray-56"></i>
-                                    </div>
-                                    <div class="mt-[7.5px] mb-[7.5px] ml-1 font-bold whitespace-nowrap text-dark-600">讚</div>
-                                </div>
-                            </button>
+                                {% if user.is_authenticated %}
+                                    {% include "articles/_liked.html" with article=article liked=article.user_liked csrf_token=csrf_token only %}
+                                {% endif %}
+
                         </div>
                     </div>
                     <template x-if="!isAuthenticated">

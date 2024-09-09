@@ -1,0 +1,21 @@
+<button class="relative flex-grow flex-shrink-0 basis-[56px] inline-block cursor-pointer"
+        x-data="like_icon"
+        hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}' 
+        hx-swap="outerHTML" 
+        hx-post="{% url 'articles:liked' article.id %}">
+    {% if liked %}
+            <div class="relative flex justify-center bg-red-primary rounded hover:bg-gray-94">
+                <div class="w-5 h-5 mt-2 mb-2">
+                    <i class="fa-regular fa-thumbs-up w-[20px] h-[20px] text-white"></i>
+                </div>
+                <div class="mt-[7.5px] mb-[7.5px] ml-1 font-bold whitespace-nowrap text-white">讚</div>
+            </div>
+            {% else %}
+            <div class="relative flex justify-center bg-white rounded hover:bg-gray-94">
+                <div class="w-5 h-5 mt-2 mb-2">
+                    <i class="fa-regular fa-thumbs-up w-[20px] h-[20px] text-gray-56"></i>
+                </div>
+                <div class="mt-[7.5px] mb-[7.5px] ml-1 font-bold whitespace-nowrap text-dark-600">讚</div>
+            </div>
+    {% endif %}
+</button>

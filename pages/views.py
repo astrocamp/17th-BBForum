@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.db.models import Exists, OuterRef
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 
@@ -18,7 +19,11 @@ def index(req):
             articles = Article.objects.order_by("-id")
             return render(req, "pages/main_page/index.html", {"articles": articles})
 
-    articles = Article.objects.order_by("-id")
+    subquery = Article.objects.filter(liked=req.user.pk, id=OuterRef("pk")).values("pk")
+
+    # 查詢所有文章並附加用戶喜歡狀態
+    articles = Article.objects.annotate(user_liked=Exists(subquery))
+
     return render(req, "pages/main_page/index.html", {"articles": articles})
 
 

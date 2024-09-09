@@ -135,3 +135,20 @@ def update_comment(req, id):
             comment.content = new_content
             comment.save()
         return HttpResponse("")
+
+
+@login_required
+def liked(req, id):
+    if req.method == "POST":
+        # 判斷是否收藏過
+        article = get_object_or_404(Article, pk=id)
+        if article.liked_by(req.user):
+            article.liked.remove(req.user)
+            return render(
+                req, "articles/_liked.html", {"article": article, "liked": False}
+            )
+        else:
+            article.liked.add(req.user)
+            return render(
+                req, "articles/_liked.html", {"article": article, "liked": True}
+            )
