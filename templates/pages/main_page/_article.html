@@ -25,7 +25,7 @@
                                         </div>
                                         <div class="flex flex-col justify-center">
                                             <div class="mb-1">
-                                                <a href="#" class="text-[18px] font-semibold leading-6 tracking-[0.2px] text-dark-800">YSL000</a>
+                                                <a href="#" class="text-[18px] font-semibold leading-6 tracking-[0.2px] text-dark-800">{{article.user}}</a>
                                             </div>
                                             <div class="w-[40px] h-auto text-[14px] font-extralight leading-4 tracking-[0.2px] text-center mb-1">Lv.10</div>
                                             <div class="flex justify-center">
@@ -102,126 +102,67 @@
                     </div>
                     <div class="w-[40px] h-auto text-[12px] font-normal leading-4 tracking-[0.2px] text-center">Lv.10</div>
                 </div>
+                <div class="pl-4 pr-4">
+                    <ul class="flex gap-2 mt-2 flex-wrap list-none">
+                        <li class="rounded bg-gray-90">
+                            <a href="#">
+                                <span class="flex items-center gap-1 pt-1 pb-1 pl-2 pr-2">
+                                    <div class="w-4 h-4 border-l-1 border-gray-69 "><img src="https://fsv.cmoney.tw/cmstatic/t/images/stock/dayline/2888.png"></div>
+                                    <div class="text-[14px] font-normal leading-5 text-dark-800">新光金</div>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="pl-4 pr-4 pt-4 pb-4 relative">
+                    <div x-show="!editing">
+                        <div x-ref="articleContent" class="text-[1.125em] leading-[1.375em] text-dark-800 h-full overflow-auto">
+                         {{ article.content }}
+                        </div>
+                    </div>
+                    <template x-if="editing">
+                        <textarea x-model="articleContent"
+                            class="text-[1.125em] leading-[1.375em] text-dark-800 w-full p-4 border border-gray-cbc overflow-auto resize-none"
+                            rows="2">
+                            {{ article.content }}
+                        </textarea>
+                    </template>
+                </div>
             </div>
-            <div>
-                <div x-data="unlogined_prompt({{ user.is_authenticated|lower }})">
-                    <div class="pl-3 pr-3">
-                        <div class="flex flex-row-reverse pt-2 pb-2 pl-1 pr-1 border-t border-b border-gray-90">
-                            <button class="relative flex-grow flex-shrink-0 basis-[56px] inline-block cursor-pointer">
-                                <div class="relative flex justify-center bg-white rounded hover:bg-gray-94">
-                                    <div class="w-5 h-5 mt-2 mb-2">
-                                        <i class="fa-solid fa-share w-[20px] h-[20px] text-gray-56"></i>
-                                    </div>
-                                    <div class="mt-[7.5px] mb-[7.5px] ml-1 font-bold whitespace-nowrap text-dark-600">分享</div>
+
+            <div x-data="unlogined_prompt({{ user.is_authenticated|lower }})">
+                <div class="pl-3 pr-3">
+                    <div class="pt-2 pb-2 pl-1 pr-1 flex flex-row-reverse border-t border-b border-gray-90">
+                        <button class="relative flex-grow flex-shrink-0 basis-[56px] inline-block cursor-pointer">
+                            <div class="relative flex justify-center rounded bg-white hover:bg-gray-94">
+                                <div class="mt-2 mb-2 w-5 h-5">
+                                    <i class="fa-solid fa-share w-[20px] h-[20px] text-gray-56"></i>
                                 </div>
-                            </button>
-                            <button @click="toggleVisibility" class="relative flex-grow flex-shrink-0 basis-[56px] inline-block cursor-pointer">
-                                <div class="relative flex justify-center bg-white rounded hover:bg-gray-94">
-                                    <div class="w-5 h-5 mt-2 mb-2">
-                                        <i class="fa-regular fa-comment w-[20px] h-[20px] text-gray-56"></i>
-                                    </div>
-                                    <div class="mt-[7.5px] mb-[7.5px] ml-1 font-bold whitespace-nowrap text-dark-600">留言</div>
+                                <div class="mt-[7.5px] mb-[7.5px] ml-1 font-bold whitespace-nowrap text-dark-600">分享</div>
+                            </div>
+                        </button>
+                        <button @click="toggleVisibility" class="relative flex-grow flex-shrink-0 basis-[56px] inline-block cursor-pointer">
+                            <div class="relative flex justify-center rounded bg-white hover:bg-gray-94">
+                                <div class="mt-2 mb-2 w-5 h-5">
+                                    <i class="fa-regular fa-comment w-[20px] h-[20px] text-gray-56"></i>
                                 </div>
-                            </button>
+                                <div class="mt-[7.5px] mb-[7.5px] ml-1 font-bold whitespace-nowrap text-dark-600">留言</div>
+                            </div>
+                        </button>
                                 {% if user.is_authenticated %}
                                     {% include "articles/_liked.html" with article=article liked=article.user_liked csrf_token=csrf_token only %}
                                 {% endif %}
-
-                        </div>
+                        </button>
                     </div>
-                    <template x-if="!isAuthenticated">
-                        {% include "layouts/not_logged.html" %}
-                    </template>
                 </div>
-                <div x-data="unlogined_prompt({{ user.is_authenticated|lower }})">
-                    <div>
-                        <div class="mt-3">
-                            <ul class="p-2">
-                                {% for comment in article.comments.all %}
-                                    <div x-data="edit_comment" class="border border-gray-300 p-4 mt-1 mb-1 my_comment w-full h-[200px]">
-                                        <div class="flex justify-between items-center h-full">
-                                            <div x-show="!editing" class="w-full h-full">
-                                                <div class="mr-4 flex flex-col justify-around h-full">
-                                                    <div class="text-[18px] pl-1">{{ comment.user.username }}</div>
-                                                    <textarea x-model="commentContent"
-                                                              @input="adjustHeight($event.target)"
-                                                              class="w-full h-full mt-5 text-[16px] pl-1 border border-gray-cbc">
-                                                              {{ comment.content }}
-                                                    </textarea>
-                                                    <div class="mt-5 text-[12px] pl-1 text-gray-cbc"> 留言時間 : {{ comment.created_at }} </div>
-                                                </div>
-                                            </div>
-                                        </template>
-
-                                        {% if request.user.id == comment.user.id %}
-                                            <div class="flex flex-col">
-                                                <button
-                                                    @click="startEdit"
-                                                    x-show="!editing"
-                                                    class="w-[65px] h-[35px] pl-1 pr-1 mb-2 border border-gray-69 text-dark-600 text-[12px] rounded-lg btn-transition">
-                                                    編輯留言
-                                                </button>
-                                                <button
-                                                    hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
-                                                    hx-post="{% url 'articles:update_comment' comment.id %}"
-                                                    hx-swap="none"
-                                                    x-bind:hx-vals="JSON.stringify({content: commentContent})"
-                                                    @click="saveEdit"
-                                                    x-show="editing"
-                                                    class="w-[65px] h-[35px] pl-1 pr-1 mb-2 border border-gray-69 text-dark-600 text-[12px] rounded-lg btn-transition">
-                                                    儲存留言
-                                                </button>
-                                                <button
-                                                    x-show="!editing"
-                                                    hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
-                                                    hx-delete={% url 'articles:delete_comment' comment.id %}
-                                                    hx-confirm="確認刪除？"
-                                                    hx-target="closest .my_comment"
-                                                    hx-swap="outerHTML"
-                                                    class="w-[65px] h-[35px] pl-1 pr-1 text-white text-[12px] bg-red-primary rounded-lg">
-                                                    刪除留言
-                                                </button>
-                                                <template x-if="editing">
-                                                    <button
-                                                        @click="cancelEdit"
-                                                        class="w-[65px] h-[35px] pl-1 pr-1 text-white text-[12px] bg-red-primary rounded-lg">
-                                                        取消留言
-                                                    </button>
-                                                </template>
-                                            </div>
-                                        {% endif %}
-                                    </div>
-                                </div>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                    <form action="{% url 'articles:comment' article.id %}" method="POST" class="relative">
-                        {% csrf_token %}
-                        <div class="pt-3 pl-4 pr-4 pb-0 gap-2 flex flex-col">
-                            <div class="flex justify-center items-center mt-1 mb-1">
-                                <div class="mr-3 mt-1 w-8 h-8 border border-gray-83 rounded-full overflow-hidden">
-                                    <img src="{% static 'images/visitor.svg' %}" alt="visitor"></img>
-                                </div>
-                                <div @click="toggleVisibility" class="pt-[5px] pr-[36px] pb-[5px] pl-[16px] w-[calc(100%-44px)] h-full rounded-[16px] bg-gray-94">
-                                    <textarea class="w-full h-[20px] pr-2 text-[16px] leading-6 border-none outline-none resize-none overflow-y-hidden bg-transparent text-dark-800 flex items-center" placeholder="有什麼不同看法..." name="content"></textarea>
-                                    <label class="absolute top-[18px] right-8 mt-1 cursor-pointer">
-                                        <img class="w-5 h-5" src="https://www.cmoney.tw/forum/_nuxt/img/upload_img.9a78e01.svg" alt="upload_img">
-                                    </label>
-                                </div>
-                            </div>
-                            {% if user.is_authenticated %}
-                                <div class="gap-[6px] flex justify-end pb-2">
-                                    <button type="button" class=" block border border-gray-69 pt-1 pb-1 text-[0.875em] rounded-[14px] text-dark-600 ">
-                                        <div class="w-[52px] h-5 whitespace-nowrap btn-transition">取消</div>
-                                    </button>
-                                    <button type="submit" class="block pt-1 pb-1 text-[0.875em] rounded-[14px] text-white bg-red-primary">
-                                        <div class="w-[52px] h-5 whitespace-nowrap btn-transition">送出</div>
-                                    </button>
-                                </div>
-                            {% endif %}
-                        </div>
-                    </form>
-                </div>
+                <template x-if="!isAuthenticated">
+                    {% include "layouts/not_logged.html" %}
+                </template>
+            </div>
+            <div x-data="unlogined_prompt({{ user.is_authenticated|lower }})">
+                <div id="comment_container-{{article.id}}" >
+                    {% include 'pages/main_page/_comment.html' with article=article %}
+                <div>
                 <template x-if="!isAuthenticated">
                     {% include "layouts/not_logged.html" %}
                 </template>
