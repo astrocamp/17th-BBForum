@@ -22,7 +22,5 @@ Alpine.data("edit_article", (isAuthenticated) => ({
     adjustHeight($el) {
         $el.style.height = 'auto';
         $el.style.height = $el.scrollHeight + 'px';
-        // this.$refs.containerDiv.style.height = 'auto'; // 確保外層 div 高度自適應
-        // this.$refs.containerDiv.style.height = $el.scrollHeight + 'px'; // 同步外層 div 高度
     },
 }))
