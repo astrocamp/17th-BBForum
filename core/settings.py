@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "articles",
     "userprofiles",
     "taggit",
+    "follows",
 ]
 
 # 只有在開發環境需要這兩個套件
