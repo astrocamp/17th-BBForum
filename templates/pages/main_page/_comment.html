@@ -1,0 +1,102 @@
+{%load static%}
+<div>
+    <ul class="p-2">
+        {% for comment in article.comments.all %}
+            <div x-data="edit_comment" class="border border-gray-300 p-4 mt-1 mb-1 my_comment w-full h-[200px]">
+                <div class="flex justify-between items-center h-full">
+                    <div x-show="!editing" class="w-full h-full">
+                        <div class="mr-4 flex flex-col justify-around h-full">
+                            <div class="text-[18px] pl-1">{{ comment.user.username }}</div>
+                            <div x-ref="commentContent" class="w-full h-full mt-5 text-[16px] pl-1 border border-white">{{ comment.content }}</div>
+                            <div class="mt-5 text-[12px] pl-1 text-gray-cbc"> 留言時間 : {{ comment.created_at }} </div>
+                        </div>
+                    </div>
+                    <template x-if="editing">
+                        <div class="w-full h-full">
+                            <div class="mr-4 flex flex-col justify-around h-full">
+                                <div class="text-[18px] pl-1">{{ comment.user.username }}</div>
+                                <textarea x-model="commentContent"
+                                        @input="adjustHeight($event.target)"
+                                        class="w-full h-full mt-5 text-[16px] pl-1 border border-gray-cbc">
+                                        {{ comment.content }}
+                                </textarea>
+                                <div class="mt-5 text-[12px] pl-1 text-gray-cbc"> 留言時間 : {{ comment.created_at }} </div>
+                            </div>
+                        </div>
+                    </template>
+
+                    {% if request.user.id == comment.user.id %}
+                        <div class="flex flex-col">
+                            <button
+                                @click="startEdit"
+                                x-show="!editing"
+                                class="w-[65px] h-[35px] pl-1 pr-1 mb-2 border border-gray-69 text-dark-600 text-[12px] rounded-lg btn-transition">
+                                編輯留言
+                            </button>
+                            <button
+                                hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+                                hx-post="{% url 'articles:update_comment' comment.id %}"
+                                hx-swap="none"
+                                x-bind:hx-vals="JSON.stringify({content: commentContent})"
+                                @click="saveEdit"
+                                x-show="editing"
+                                class="w-[65px] h-[35px] pl-1 pr-1 mb-2 border border-gray-69 text-dark-600 text-[12px] rounded-lg btn-transition">
+                                儲存留言
+                            </button>
+                            <button
+                                x-show="!editing"
+                                hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+                                hx-delete={% url 'articles:delete_comment' comment.id %}
+                                hx-confirm="確認刪除？"
+                                hx-target="closest .my_comment"
+                                hx-swap="outerHTML"
+                                class="w-[65px] h-[35px] pl-1 pr-1 text-white text-[12px] bg-red-primary rounded-lg">
+                                刪除留言
+                            </button>
+                            <template x-if="editing">
+                                <button
+                                    @click="cancelEdit"
+                                    class="w-[65px] h-[35px] pl-1 pr-1 text-white text-[12px] bg-red-primary rounded-lg">
+                                    取消留言
+                                </button>
+                            </template>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+        <form
+            hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+            hx-post="{% url 'articles:comment' article.id %}"
+            hx-swap="innerHTML"
+            hx-target="#comment_container-{{article.id}}"
+            x-ref="submitForm">
+            <div class="pt-3 pl-4 pr-4 pb-0 gap-2 flex flex-col">
+                <div class="flex justify-center items-center mt-1 mb-1">
+                    <div class="mr-3 mt-1 w-8 h-8 border border-gray-83 rounded-full overflow-hidden">
+                        <img src="{% static 'images/visitor.svg' %}" alt="visitor"></img>
+                    </div>
+                    <div @click="toggleVisibility" class="pt-[5px] pr-[36px] pb-[5px] pl-[16px] w-[calc(100%-44px)] h-full rounded-[16px] bg-gray-94">
+                        <textarea
+                            x-model="commentContent"
+                            @keyup.enter="submitCommentForm"
+                            class="w-full h-[20px] pr-2 text-[16px] leading-6 border-none outline-none resize-none overflow-y-hidden bg-transparent text-dark-800 flex items-center" placeholder="有什麼不同看法..." name="content"></textarea>
+                        <label class="absolute top-[18px] right-8 mt-1 cursor-pointer">
+                            <img class="w-5 h-5" src="https://www.cmoney.tw/forum/_nuxt/img/upload_img.9a78e01.svg" alt="upload_img">
+                        </label>
+                    </div>
+                </div>
+                {% if user.is_authenticated %}
+                    <div class="gap-[6px] flex justify-end pb-2">
+                        <button type="button" class=" block border border-gray-69 pt-1 pb-1 text-[0.875em] rounded-[14px] text-dark-600 ">
+                            <div class="w-[52px] h-5 whitespace-nowrap btn-transition">取消</div>
+                        </button>
+                        <button type="submit" class="block pt-1 pb-1 text-[0.875em] rounded-[14px] text-white bg-red-primary">
+                            <div class="w-[52px] h-5 whitespace-nowrap btn-transition">送出</div>
+                        </button>
+                    </div>
+                {% endif %}
+            </div>
+        </form>
+    </ul>
+</div>
