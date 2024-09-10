@@ -58,10 +58,11 @@ def edit(req, id):
 
 @login_required
 def delete_artile(req, id):
-    if req.method == "POST":
+    if req.method == "DELETE":
         artile = get_object_or_404(Article, id=id, user=req.user)
+        print(artile)
         artile.delete()
-    return redirect("pages:index")
+    return HttpResponse("")
 
 
 @login_required
@@ -85,7 +86,7 @@ def delete_comment(req, id):
     if req.method == "DELETE":
         comment = get_object_or_404(Comment, id=id, user=req.user)
         comment.delete()
-        return HttpResponse("")
+    return HttpResponse("")
 
 
 @login_required
