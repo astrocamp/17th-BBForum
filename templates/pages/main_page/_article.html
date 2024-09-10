@@ -104,14 +104,16 @@
                 </div>
                 <div class="pl-4 pr-4">
                     <ul class="flex gap-2 mt-2 flex-wrap list-none">
+                        {% for tag in article.stock.all %}
                         <li class="rounded bg-gray-90">
                             <a href="#">
                                 <span class="flex items-center gap-1 pt-1 pb-1 pl-2 pr-2">
                                     <div class="w-4 h-4 border-l-1 border-gray-69 "><img src="https://fsv.cmoney.tw/cmstatic/t/images/stock/dayline/2888.png"></div>
-                                    <div class="text-[14px] font-normal leading-5 text-dark-800">新光金</div>
+                                    <div class="text-[14px] font-normal leading-5 text-dark-800">{{tag}}</div>
                                 </span>
                             </a>
                         </li>
+                        {%endfor%}
                     </ul>
                 </div>
                 <div class="pl-4 pr-4 pt-4 pb-4 relative">

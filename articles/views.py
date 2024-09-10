@@ -1,11 +1,11 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.db.models import Count
-from django.http import QueryDict
+from django.http import JsonResponse, QueryDict
 from django.shortcuts import HttpResponse, get_object_or_404, redirect, render
 
 from .forms import ArticleForm
-from .models import Article, Comment
+from .models import Article, Comment, IndustryTag
 
 
 def index(req):
@@ -100,7 +100,6 @@ def update_comment(req, id):
 @login_required
 def liked(req, id):
     if req.method == "POST":
-        # 判斷是否收藏過
         article = get_object_or_404(Article, pk=id)
         if article.liked_by(req.user):
             article.liked.remove(req.user)
@@ -118,3 +117,20 @@ def liked(req, id):
                 "articles/_liked.html",
                 {"article": article, "liked": True},
             )
+
+
+def stocks_list(request):
+
+    query = request.GET.get("q", "")
+
+    if query:
+        tags = IndustryTag.objects.filter(name__icontains=query).values(
+            "security_code", "name"
+        )
+    else:
+        # 返回所有資料，若沒有查詢參數的話
+        tags = IndustryTag.objects.all().values("security_code", "name")
+
+    tags_list = [{"value": tag["name"], "id": tag["security_code"]} for tag in tags]
+
+    return JsonResponse(tags_list, safe=False)

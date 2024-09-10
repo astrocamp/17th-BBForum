@@ -1,18 +1,36 @@
+import json
+
 from django.contrib.auth.decorators import login_required
 from django.db.models import Count, Exists, OuterRef
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 
-from articles.models import Article
+from articles.models import Article, IndustryTag
 
 
 def index(req):
     if req.method == "POST":
         article_content = req.POST.get("article_content")
         if article_content:
-            articles = Article(content=article_content)
-            articles.user = req.user
-            articles.save()
+            # 創建並保存新的文章
+            article = Article(content=article_content)
+            article.user = req.user
+            article.save()
+
+            # 處理標籤
+            tags = req.POST.get("tags")
+            if tags:
+                try:
+                    tags_list = json.loads(tags)
+                    tag_ids = [tag.get("id") for tag in tags_list]
+                    industry_tags = IndustryTag.objects.filter(
+                        security_code__in=tag_ids
+                    )
+                    article.stock.set(industry_tags)
+                    article.save()
+                except json.JSONDecodeError:
+                    print("Failed to decode JSON from tags.")
+
             subquery = Article.objects.filter(
                 liked=req.user.pk, id=OuterRef("pk")
             ).values("pk")
@@ -26,12 +44,9 @@ def index(req):
                     req, "pages/main_page/_articles_list.html", {"articles": articles}
                 )
 
-    subquery = Article.objects.filter(liked=req.user.pk, id=OuterRef("pk")).values("pk")
-
-    articles = Article.objects.annotate(
-        user_liked=Exists(subquery), like_count=Count("liked")
-    ).order_by("-id")
-
+    articles = Article.objects.order_by("-id").prefetch_related("stock")
+    print("========================")
+    print(articles)
     return render(req, "pages/main_page/index.html", {"articles": articles})
 
 
