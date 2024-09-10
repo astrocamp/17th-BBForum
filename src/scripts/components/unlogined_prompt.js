@@ -30,15 +30,4 @@ Alpine.data("unlogined_prompt", (isAuthenticated) => ({
             this.commentContent = '';
         }
     },
-
-    checkAndSubmit(event) {
-        if (this.articleContent.trim() === '') {
-            event.preventDefault();
-            alert('請輸入正確的留言訊息!!');
-            return;
-        } else {
-            this.$refs.submitArticleForm.requestSubmit();
-            this.articleContent = '';
-        }
-    }
 }))
