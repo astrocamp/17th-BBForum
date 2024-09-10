@@ -159,8 +159,7 @@
                                 <div class="mt-[7.5px] mb-[7.5px] ml-1 font-bold whitespace-nowrap text-dark-600">留言</div>
                             </div>
                         </button>
-                            {% include "articles/_liked.html" with article=article liked=article.user_liked csrf_token=csrf_token user=user only %}
-                        </button>
+                        {% include "articles/_liked.html" with article=article liked=article.user_liked csrf_token=csrf_token user=user only %}
                     </div>
                 </div>
                 <template x-if="!isAuthenticated">

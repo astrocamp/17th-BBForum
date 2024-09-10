@@ -3,6 +3,8 @@
         hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
         hx-swap="outerHTML"
         hx-post="{% url 'articles:liked' article.id %}">
+
+
     {% if user.is_authenticated %}
         {% if liked %}
             <div class="relative flex justify-center bg-red-primary rounded hover:bg-gray-94">
