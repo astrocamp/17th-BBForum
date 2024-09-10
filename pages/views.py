@@ -2,7 +2,7 @@ import json
 
 from django.contrib.auth.decorators import login_required
 from django.db.models import Count, Exists, OuterRef
-from django.shortcuts import get_object_or_404, redirect, render
+from django.shortcuts import HttpResponse, get_object_or_404, redirect, render
 from django.urls import reverse
 
 from articles.models import Article, IndustryTag
@@ -44,7 +44,7 @@ def index(req):
                     req, "pages/main_page/_articles_list.html", {"articles": articles}
                 )
         else:
-            return
+            return HttpResponse("")
 
     subquery = Article.objects.filter(liked=req.user.pk, id=OuterRef("pk")).values("pk")
 
