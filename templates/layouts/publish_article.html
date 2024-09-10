@@ -6,6 +6,7 @@
             hx-swap="innerHTML"
             x-bind:hx-vals="JSON.stringify({article_content: articleContent})"
             hx-target="#articles_container"
+            @submit.prevent="checkAndSubmit"
             class="relative bg-white w-[538px] rounded-[10px] flex flex-col items-center justify-center">
 
             <button @click="isVisible = false" class="absolute top-3 right-3 flex items-center justify-center ">
