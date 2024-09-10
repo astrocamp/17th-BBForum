@@ -1,12 +1,12 @@
 import Alpine from "alpinejs";
-import Tagify from '@yaireo/tagify';
+
 
 Alpine.data("tagInput", () => ({
   tagify: null,
 
 
   init() {
-    
+
     const input = this.$refs.tagInput;
 
     if (!input) {
@@ -51,10 +51,10 @@ Alpine.data("tagInput", () => ({
     try {
       const response = await fetch(`/articles/stocks_list/`);
       if (response.ok) {
-        const text = await response.text(); 
-        
-        const stocks = JSON.parse(text); 
-        
+        const text = await response.text();
+
+        const stocks = JSON.parse(text);
+
 
         if (this.tagify) {
           this.tagify.settings.whitelist = stocks.map(stock => ({
