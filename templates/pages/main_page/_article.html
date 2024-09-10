@@ -6,7 +6,8 @@
                 <div class="pl-4 pr-4">
                     <div class="flex items-center">
                         <div class="relative group">
-                            <div x-data="unlogined_prompt({{ user.is_authenticated|lower }})" @mouseover="isShow = true">
+                            <div x-data="follow_user({{ user.is_authenticated|lower}})"
+                                 @mouseover="chackMouseoverColor('{% url 'follows:check_follow_api' article.user.id %}')">
                                 <div>
                                     <a href="#">
                                         <div class="w-[40px] h-[40px] rounded-full border border-gray-94 overflow-hidden">
@@ -40,12 +41,18 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div @click="toggleVisibility" class="bg-red-primary w-[95%] h-[25%] rounded-[4px] text-[14px] flex items-center justify-center mt-4 mx-auto cursor-pointer">
-                                        <button class="flex items-center justify-center gap-1">
-                                            <i class="fa-solid fa-plus w-[12px] h-[12px] text-white"></i>
-                                            <div class="text-white">追蹤</div>
+                                    {% if user.is_authenticated %}
+                                        <button id="follow-{{ user.id }}"
+                                                x-ref="buttonStyle"
+                                                @click="followUser('{% url 'follows:follow_api' article.user.id %}', '{% url 'follows:unfollow_api' article.user.id %}', '{% url 'follows:check_follow_api' article.user.id %}', `{{csrf_token}}`)"
+                                                :class="isFollow ? 'bg-red-primary' : 'bg-blue-3d6'"
+                                                class="w-[95%] h-[25%] rounded-[4px] text-[14px] flex items-center justify-center mt-4 mx-auto cursor-pointer">
+                                                <div class="flex items-center justify-center gap-1 text-white">
+                                                    追蹤
+                                                </div>
                                         </button>
-                                    </div>
+                                    {% endif %}
+
                                 </div>
                                 <template x-if="!isAuthenticated">
                                     {% include "layouts/not_logged.html" %}
