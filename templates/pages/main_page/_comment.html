@@ -20,7 +20,7 @@
                                         class="w-full h-full mt-5 text-[16px] pl-1 border border-gray-cbc">
                                         {{ comment.content }}
                                 </textarea>
-                                <div class="mt-5 text-[12px] pl-1 text-gray-cbc"> 留言時間 : {{ comment.created_at }} </div>
+                                <div class="mt-5 text-[12px] pl-1 text-gray-cbc"> 留言時間 : {{ comment.created_at|date:'Y/m/d h:i' }} </div>
                             </div>
                         </div>
                     </template>
