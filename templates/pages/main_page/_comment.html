@@ -8,7 +8,7 @@
                         <div class="mr-4 flex flex-col justify-around h-full">
                             <div class="text-[18px] pl-1">{{ comment.user.username }}</div>
                             <div x-ref="commentContent" class="w-full h-full mt-5 text-[16px] pl-1 border border-white">{{ comment.content }}</div>
-                            <div class="mt-5 text-[12px] pl-1 text-gray-cbc"> 留言時間 : {{ comment.created_at }} </div>
+                            <div class="mt-5 text-[12px] pl-1 text-gray-cbc"> 留言時間 : {{ comment.created_at|date:'Y/m/d h:i' }} </div>
                         </div>
                     </div>
                     <template x-if="editing">
