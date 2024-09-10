@@ -44,9 +44,14 @@ def index(req):
                     req, "pages/main_page/_articles_list.html", {"articles": articles}
                 )
 
-    articles = Article.objects.order_by("-id").prefetch_related("stock")
-    print("========================")
-    print(articles)
+    subquery = Article.objects.filter(liked=req.user.pk, id=OuterRef("pk")).values("pk")
+
+    articles = (
+        Article.objects.annotate(user_liked=Exists(subquery), like_count=Count("liked"))
+        .order_by("-id")
+        .prefetch_related("stock")
+    )
+
     return render(req, "pages/main_page/index.html", {"articles": articles})
 
 
