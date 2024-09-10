@@ -44,7 +44,10 @@ def index(req):
                     req, "pages/main_page/_articles_list.html", {"articles": articles}
                 )
         else:
-            return HttpResponse("")
+            articles = Article.objects.order_by("-id")
+            return render(
+                req, "pages/main_page/_articles_list.html", {"articles": articles}
+            )
 
     subquery = Article.objects.filter(liked=req.user.pk, id=OuterRef("pk")).values("pk")
 
