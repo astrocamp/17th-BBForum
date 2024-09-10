@@ -6,7 +6,6 @@
             hx-swap="innerHTML"
             x-bind:hx-vals="JSON.stringify({article_content: articleContent})"
             hx-target="#articles_container"
-            @submit.prevent="checkAndSubmit"
             class="relative bg-white w-[538px] rounded-[10px] flex flex-col items-center justify-center">
 
             <button @click="isVisible = false" class="absolute top-3 right-3 flex items-center justify-center ">
@@ -28,7 +27,8 @@
                     <button type="button" @click="isVisible = false" class="bg-white text-dark-600 px-4 py-2 rounded border border-gray-69">取消</button>
                     <button
                         type="submit"
-                        @click="submitForm" class="bg-red-primary text-white px-4 py-2 rounded border-red-primary">發文</button>
+                        @click="submitForm"
+                        class="bg-red-primary text-white px-4 py-2 rounded border-red-primary">發文</button>
                 </div>
             </div>
         </form>
