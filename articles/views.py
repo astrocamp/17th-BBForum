@@ -24,16 +24,18 @@ def index(req):
 
 @login_required
 def show(req, id):
-    post = get_object_or_404(Article, pk=id)
+    article = get_object_or_404(Article, pk=id)
     if req.method == "POST":
-        forms = ArticleForm(req.POST, instance=post)
+        forms = ArticleForm(req.POST, instance=article)
         if forms.is_valid():
             forms.save()
             return redirect("pages:index")
         else:
-            return render(req, "articles/edit.html", {"forms": forms, "post": post})
+            return render(
+                req, "articles/edit.html", {"forms": forms, "article": article}
+            )
 
-    return render(req, "articles/show.html", {"post": post})
+    return render(req, "articles/show.html", {"article": article})
 
 
 @login_required
