@@ -6,7 +6,7 @@
                 <div class="pl-4 pr-4">
                     <div class="flex items-center">
                         <div class="relative group">
-                            <div x-data="follow_user({{ user.is_authenticated|lower}})"
+                            <div x-data="follow_user({{ user.is_authenticated|lower}}, {{ article.user.id }}, {{ user.id }})"
                                  @mouseover="chackMouseoverColor('{% url 'follows:check_follow_api' article.user.id %}')">
                                 <div>
                                     <a href="#">
@@ -15,7 +15,7 @@
                                         </div>
                                     </a>
                                 </div>
-                                <div x-show="isShow" class="absolute hidden group-hover:block bg-white p-2 mt-2 rounded-[10px] shadow-lg w-[400px] h-[170px] z-10 top-[33px] -left-[150px]">
+                                <div x-show="isShow && !isOwnPost" class="absolute hidden group-hover:block bg-white p-2 mt-2 rounded-[10px] shadow-lg w-[400px] h-[170px] z-10 top-[33px] -left-[150px]">
                                     <div class="flex items-center gap-3">
                                         <div>
                                             <a href="#">
@@ -46,6 +46,7 @@
                                                 x-ref="buttonStyle"
                                                 @click="followUser('{% url 'follows:follow_api' article.user.id %}', '{% url 'follows:unfollow_api' article.user.id %}', '{% url 'follows:check_follow_api' article.user.id %}', `{{csrf_token}}`)"
                                                 :class="isFollow ? 'bg-red-primary' : 'bg-blue-3d6'"
+                                                :disabled="isOwnPost"
                                                 class="w-[95%] h-[25%] rounded-[4px] text-[14px] flex items-center justify-center mt-4 mx-auto cursor-pointer">
                                                 <div class="flex items-center justify-center gap-1 text-white">
                                                     追蹤

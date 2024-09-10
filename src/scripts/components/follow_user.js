@@ -1,11 +1,12 @@
 import Alpine from "alpinejs"
 
-Alpine.data("follow_user", (isAuthenticated, checkFollowURL) => ({
+Alpine.data("follow_user", (isAuthenticated, articleUserId, currentUserId) => ({
     isShow: false,
     isFollow: false,
     checkstatus: false,
     hasChecked: false,
     isAuthenticated: isAuthenticated,
+    isOwnPost: articleUserId === currentUserId,
 
     async followUser(followURL, unfollowURL, checkFollowURL, csrfToken) {
         this.isShow = !this.isShow;
