@@ -1,12 +1,24 @@
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
+from taggit.managers import TaggableManager
 
 from lib.models.image_save import ImageSaveMixin  # 更新圖片用
 from lib.models.soft_delete import SoftDeleteable, SoftDeleteManager
 
 
-# Create your models here.
+class IndustryTag(models.Model):
+    security_code = models.BigIntegerField(primary_key=True)
+    name = models.CharField(max_length=100)
+    industry = models.CharField(max_length=100)
+
+    class Meta:
+        db_table = "twse_industry_data"
+
+    def __str__(self):
+        return self.name
+
+
 class Article(SoftDeleteable, ImageSaveMixin, models.Model):
     title = models.CharField(max_length=200)
     stockID = models.CharField(max_length=10)
@@ -15,6 +27,8 @@ class Article(SoftDeleteable, ImageSaveMixin, models.Model):
     photo = models.ImageField(upload_to="images/", null=True, blank=True)
     deleted_at = models.DateTimeField(default=None, null=True, blank=True)
     user = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
+    tags = TaggableManager()
+    stock = models.ManyToManyField(IndustryTag, blank=True)
     liked = models.ManyToManyField(User, related_name="liked")
 
     objects = SoftDeleteManager()

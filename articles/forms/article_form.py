@@ -1,24 +1,29 @@
+from django import forms
 from django.forms import ModelForm
-from django.forms.widgets import ClearableFileInput, Textarea, TextInput
+from taggit.forms import TagField
 
 from articles.models import Article
 
 
 class ArticleForm(ModelForm):
+    tags = TagField()
+
     class Meta:
         model = Article
-        fields = ["title", "stockID", "content", "photo"]
+        fields = ["title", "tags", "content", "photo"]
         labels = {
-            "title": "標題",
-            "stockID": "tag公司名稱 (請輸入1-50號碼, 此tag功能將由issue#45完善)",
-            "content": "內文",
-            "photo": "附圖片",
+            "title": "Title",
+            "tags": "Tags",
+            "content": "Content",
+            "photo": "Photo",
         }
         widgets = {
-            "title": TextInput(attrs={"class": "form-control"}),
-            "stockID": TextInput(attrs={"class": "form-control"}),
-            "content": Textarea(attrs={"class": "form-control", "rows": 8, "cols": 80}),
-            "photo": ClearableFileInput(attrs={"class": "form-control-file"}),
+            "title": forms.TextInput(attrs={"class": "form-control"}),
+            "tags": forms.TextInput(attrs={"class": "form-control"}),
+            "content": forms.Textarea(
+                attrs={"class": "form-control", "rows": 8, "cols": 80}
+            ),
+            "photo": forms.ClearableFileInput(attrs={"class": "form-control-file"}),
         }
 
     def save(self, commit=True):
