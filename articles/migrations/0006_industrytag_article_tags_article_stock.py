@@ -7,30 +7,41 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('articles', '0005_article_liked'),
-        ('taggit', '0006_rename_taggeditem_content_type_object_id_taggit_tagg_content_8fc721_idx'),
+        ("articles", "0005_article_liked"),
+        (
+            "taggit",
+            "0006_rename_taggeditem_content_type_object_id_taggit_tagg_content_8fc721_idx",
+        ),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='IndustryTag',
+            name="IndustryTag",
             fields=[
-                ('security_code', models.BigIntegerField(primary_key=True, serialize=False)),
-                ('name', models.CharField(max_length=100)),
-                ('industry', models.CharField(max_length=100)),
+                (
+                    "security_code",
+                    models.BigIntegerField(primary_key=True, serialize=False),
+                ),
+                ("name", models.CharField(max_length=100)),
+                ("industry", models.CharField(max_length=100)),
             ],
             options={
-                'db_table': 'twse_industry_data',
+                "db_table": "twse_industry_data",
             },
         ),
         migrations.AddField(
-            model_name='article',
-            name='tags',
-            field=taggit.managers.TaggableManager(help_text='A comma-separated list of tags.', through='taggit.TaggedItem', to='taggit.Tag', verbose_name='Tags'),
+            model_name="article",
+            name="tags",
+            field=taggit.managers.TaggableManager(
+                help_text="A comma-separated list of tags.",
+                through="taggit.TaggedItem",
+                to="taggit.Tag",
+                verbose_name="Tags",
+            ),
         ),
         migrations.AddField(
-            model_name='article',
-            name='stock',
-            field=models.ManyToManyField(blank=True, to='articles.industrytag'),
+            model_name="article",
+            name="stock",
+            field=models.ManyToManyField(blank=True, to="articles.industrytag"),
         ),
     ]
