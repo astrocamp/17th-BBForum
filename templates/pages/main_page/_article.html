@@ -60,7 +60,7 @@
                                 </template>
                             </div>
                         </div>
-                        <div class="grow ml-2 mr-2 overflow-hidden">
+                        <div class="ml-2 mr-2 overflow-hidden grow">
                             <div class="flex items-center">
                                 <div>
                                     <a href="#" class="text-[16px] font-semibold leading-6 tracking-[0.2px] text-dark-800">{{article.user}}</a>
@@ -73,7 +73,7 @@
                         <div>
                             {% if user.is_authenticated and article.user == request.user %}
                                 <div class="dropdown">
-                                    <div tabindex="0" role="button"  class="btn w-12 h-4">
+                                    <div tabindex="0" role="button"  class="w-12 h-4 btn">
                                         <i class="fa-solid fa-ellipsis w-[26px] h-[26px] text-gray-56"></i>
                                     </div>
                                     <ul tabindex="0" class="menu dropdown-content bg-base-100 rounded-box z-[1] w-40 p-2 shadow">
@@ -111,7 +111,7 @@
                     <div class="w-[40px] h-auto text-[12px] font-normal leading-4 tracking-[0.2px] text-center">Lv.10</div>
                 </div>
                 <div class="pl-4 pr-4">
-                    <ul class="flex gap-2 mt-2 flex-wrap list-none">
+                    <ul class="flex flex-wrap gap-2 mt-2 list-none">
                         {% for tag in article.stock.all %}
                         <li class="rounded bg-gray-90">
                             <a href="#">
@@ -124,7 +124,7 @@
                         {%endfor%}
                     </ul>
                 </div>
-                <div class="pl-4 pr-4 pt-4 pb-4 relative">
+                <div class="relative pt-4 pb-4 pl-4 pr-4">
                     <div x-show="!editing">
                         <div x-ref="articleContent" class="text-[1.125em] leading-[1.375em] text-dark-800 h-full overflow-auto">
                          {{ article.content }}
@@ -142,18 +142,49 @@
 
             <div x-data="unlogined_prompt({{ user.is_authenticated|lower }})">
                 <div class="pl-3 pr-3">
-                    <div class="pt-2 pb-2 pl-1 pr-1 flex flex-row-reverse border-t border-b border-gray-90">
-                        <button class="relative flex-grow flex-shrink-0 basis-[56px] inline-block cursor-pointer">
-                            <div class="relative flex justify-center rounded bg-white hover:bg-gray-94">
-                                <div class="mt-2 mb-2 w-5 h-5">
-                                    <i class="fa-solid fa-share w-[20px] h-[20px] text-gray-56"></i>
-                                </div>
-                                <div class="mt-[7.5px] mb-[7.5px] ml-1 font-bold whitespace-nowrap text-dark-600">分享</div>
+                    <div class="flex flex-row-reverse pt-2 pb-2 pl-1 pr-1 border-t border-b border-gray-90">
+                    {% comment %} 分享 複製超連結 {% endcomment %}
+
+                        <div x-data="shareLinkComponent"
+                             class="relative inline-block w-1/3 mt-2"
+                             data-url="{{ request.build_absolute_uri|slice:':-1' }}{% url 'articles:show' article.id %}"
+                             x-init="init()">
+                             <button @mouseenter="showTooltip = true"
+                                     @mouseleave="showTooltip = false"
+                                     @click="copyLink()"
+                                     class="relative flex inline-block cursor-pointer">
+                                    <div class="relative flex items-center justify-center bg-white rounded hover:bg-gray-94" style="width: 200px">
+                                         <div class="flex items-center w-5 h-5">
+                                                <i class="fa-solid fa-share w-[20px] h-[20px] text-gray-56"></i>
+                                        </div>
+                                        <div class="ml-1 font-bold whitespace-nowrap text-dark-600">
+                                                分享
+                                        </div>
+                                    </div>
+                             </button>
+                             <div x-show="showTooltip" class="absolute  w-[200px]  bg-white   rounded-[10px] shadow-lg border border-gray-300 text-center">
+                                    <i class=" fa-solid fa-plus text-dark-600"></i>
+ 
+                                    <template x-if="!copied">
+                                        <span>複製連結</span>
+                                    </template>
+                                    <template x-if="copied">
+                                        <span>已複製！</span>
+                                     </template>
                             </div>
-                        </button>
+                                         
+                        </div>
+                                         {% comment %}  {% endcomment %}
+
+
+
+
+
+
+
                         <button @click="toggleVisibility" class="relative flex-grow flex-shrink-0 basis-[56px] inline-block cursor-pointer">
-                            <div class="relative flex justify-center rounded bg-white hover:bg-gray-94">
-                                <div class="mt-2 mb-2 w-5 h-5">
+                            <div class="relative flex justify-center bg-white rounded hover:bg-gray-94">
+                                <div class="w-5 h-5 mt-2 mb-2">
                                     <i class="fa-regular fa-comment w-[20px] h-[20px] text-gray-56"></i>
                                 </div>
                                 <div class="mt-[7.5px] mb-[7.5px] ml-1 font-bold whitespace-nowrap text-dark-600">留言</div>

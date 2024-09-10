@@ -5,3 +5,5 @@ import "./edit_comment.js"
 import "./edit_article.js"
 import "./tag_input.js"
 import "./follow_user.js"
+
+import "./article_link.js"
