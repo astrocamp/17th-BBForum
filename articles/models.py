@@ -30,6 +30,9 @@ class Article(SoftDeleteable, ImageSaveMixin, models.Model):
     tags = TaggableManager()
     stock = models.ManyToManyField(IndustryTag, blank=True)
     liked = models.ManyToManyField(User, related_name="liked")
+    collectors = models.ManyToManyField(
+        User, related_name="collectors_articles", blank=True
+    )
 
     objects = SoftDeleteManager()
 
@@ -49,6 +52,9 @@ class Comment(SoftDeleteable, models.Model):
         Article, on_delete=models.CASCADE, related_name="comments"
     )
     user = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
+    collectors = models.ManyToManyField(
+        User, related_name="comment_collectors", blank=True
+    )
 
     objects = SoftDeleteManager()
 

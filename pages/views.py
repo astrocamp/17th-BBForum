@@ -65,8 +65,15 @@ def my_watchlist(req):
     return render(req, "pages/my_watchlist/my_watchlist.html", {"articles": articles})
 
 
+@login_required
 def my_favorites(req):
-    return render(req, "pages/my_favorites/my_favorites.html")
+    user = req.user
+    favorite_articles = Article.objects.filter(collectors=user)
+    return render(
+        req,
+        "pages/my_favorites/my_favorites.html",
+        {"favorite_articles": favorite_articles},
+    )
 
 
 def news_feed(req):

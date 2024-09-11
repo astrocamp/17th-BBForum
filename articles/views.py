@@ -1,9 +1,28 @@
 from django.contrib.auth.decorators import login_required
+<<<<<<< HEAD
 from django.http import JsonResponse
+=======
+from django.contrib.auth.models import User
+<<<<<<< HEAD
+from django.db.models import Count
+from django.http import JsonResponse, QueryDict
+>>>>>>> 4d38ea1 (feat: 增加貼文收藏功能)
 from django.shortcuts import HttpResponse, get_object_or_404, redirect, render
 
 from .forms import ArticleForm
 from .models import Article, Comment, IndustryTag
+=======
+
+
+from django.urls import reverse
+from django.utils import timezone
+
+
+
+
+
+# Create your views here.
+>>>>>>> b2beded (feat: 增加貼文收藏功能)
 
 
 @login_required
@@ -114,3 +133,95 @@ def stocks_list(request):
     tags_list = [{"value": tag["name"], "id": tag["security_code"]} for tag in tags]
 
     return JsonResponse(tags_list, safe=False)
+@api_view(["POST"])
+@permission_classes([IsAuthenticated])
+def collect_article(request, article_id):
+    try:
+
+        article = Article.objects.get(id=article_id)
+        user = request.user
+
+        if user in article.collectors.all():
+            return Response(
+                {"success": False, "message": "Article already collected"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        article.collectors.add(user)
+        article.save()
+
+        serializer = ArticleSerializer(article)
+        return Response(
+            {"success": True, "article": serializer.data}, status=status.HTTP_200_OK
+        )
+
+    except Article.DoesNotExist:
+        return Response(
+            {"error": "Article not found"}, status=status.HTTP_404_NOT_FOUND
+        )
+    except Exception as e:
+
+        return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(["DELETE"])
+@permission_classes([IsAuthenticated])
+def remove_collect_article(request, article_id):
+    try:
+        article = Article.objects.get(id=article_id)
+        user = request.user
+
+        if user in article.collectors.all():
+            article.collectors.remove(user)
+            article.save()
+            serializer = ArticleSerializer(article)
+            return Response(
+                {"success": True, "article": serializer.data}, status=status.HTTP_200_OK
+            )
+        else:
+            return Response(
+                {"success": False, "message": "Article not collected"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+    except Article.DoesNotExist:
+        return Response(
+            {"error": "Article not found"}, status=status.HTTP_404_NOT_FOUND
+        )
+    except Exception as e:
+
+        return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(["POST"])
+@permission_classes([IsAuthenticated])
+def collect_comment(request, comment_id):
+    try:
+        comment = Comment.objects.get(id=comment_id)
+        comment.is_collected = True
+        comment.save()
+        serializer = CommentSerializer(comment)
+        return Response(
+            {"success": True, "comment": serializer.data}, status=status.HTTP_200_OK
+        )
+    except Comment.DoesNotExist:
+        return Response(
+            {"error": "Comment not found"}, status=status.HTTP_404_NOT_FOUND
+        )
+
+
+@api_view(["DELETE"])
+@permission_classes([IsAuthenticated])
+def remove_collect_comment(request, comment_id):
+    try:
+        comment = Comment.objects.get(id=comment_id)
+        comment.is_collected = False
+        comment.save()
+        serializer = CommentSerializer(comment)
+        return Response(
+            {"success": True, "comment": serializer.data}, status=status.HTTP_200_OK
+        )
+    except Comment.DoesNotExist:
+        return Response(
+            {"error": "Comment not found"}, status=status.HTTP_404_NOT_FOUND
+        )
