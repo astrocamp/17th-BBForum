@@ -148,7 +148,7 @@
             <div x-data="unlogined_prompt({{ user.is_authenticated|lower }})">
                 <div class="pl-3 pr-3">
                     <div class="pt-2 pb-2 pl-1 pr-1 flex flex-row-reverse border-t border-b border-gray-90">
-                        <button class="relative flex-grow flex-shrink-0 basis-[56px] inline-block cursor-pointer">
+                        <button @click="toggleVisibility" class="relative flex-grow flex-shrink-0 basis-[56px] inline-block cursor-pointer border-l border-l-gray-56">
                             <div class="relative flex justify-center rounded bg-white hover:bg-gray-94">
                                 <div class="mt-2 mb-2 w-5 h-5">
                                     <i class="fa-solid fa-share w-[20px] h-[20px] text-gray-56"></i>
@@ -156,7 +156,7 @@
                                 <div class="mt-[7.5px] mb-[7.5px] ml-1 font-bold whitespace-nowrap text-dark-600">分享</div>
                             </div>
                         </button>
-                        <button @click="toggleVisibility" class="relative flex-grow flex-shrink-0 basis-[56px] inline-block cursor-pointer">
+                        <button @click="toggleVisibility" class="relative flex-grow flex-shrink-0 basis-[56px] inline-block cursor-pointer border-l border-l-gray-56">
                             <div class="relative flex justify-center rounded bg-white hover:bg-gray-94">
                                 <div class="mt-2 mb-2 w-5 h-5">
                                     <i class="fa-regular fa-comment w-[20px] h-[20px] text-gray-56"></i>
