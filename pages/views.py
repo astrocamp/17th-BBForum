@@ -1,11 +1,10 @@
 import json
 
-from django.contrib.auth.decorators import login_required
 from django.db.models import Count, Exists, OuterRef
-from django.shortcuts import HttpResponse, get_object_or_404, redirect, render
-from django.urls import reverse
+from django.shortcuts import render
 
 from articles.models import Article, IndustryTag
+from follows.models import FollowRelation
 
 
 def index(req):
@@ -69,7 +68,11 @@ def my_favorites(req):
 
 
 def news_feed(req):
-    return render(req, "pages/news_feed/news_feed.html")
+    following_all_id = FollowRelation.objects.filter(follower=req.user).values_list(
+        "following_id", flat=True
+    )
+    articles = Article.objects.filter(user_id__in=following_all_id).order_by("-id")
+    return render(req, "pages/news_feed/news_feed.html", {"articles": articles})
 
 
 def market_index(req):
