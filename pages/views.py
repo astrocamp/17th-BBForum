@@ -1,62 +1,85 @@
 import json
 
+from django.core.serializers.json import DjangoJSONEncoder
 from django.db.models import Count, Exists, OuterRef
 from django.shortcuts import render
+from django.utils import timezone
 
 from articles.models import Article, IndustryTag
 from follows.models import FollowRelation
+from userprofiles.models import Profile
+
+
+def get_or_create_profile(user):
+    """Helper function to get or create user profile and update login points."""
+    profile, created = Profile.objects.get_or_create(user=user)
+    today = timezone.now().date()
+    if profile.last_login_date != today:
+        profile.tot_point += 1
+        profile.last_login_date = today
+        profile.save()
+    return profile
+
+
+def handle_article_tags(article, tags):
+    try:
+        tags_list = json.loads(tags)
+        tag_ids = [tag.get("id") for tag in tags_list]
+        industry_tags = IndustryTag.objects.filter(security_code__in=tag_ids)
+        article.stock.set(industry_tags)
+        article.save()
+    except json.JSONDecodeError:
+        print("Failed to decode JSON from tags.")
 
 
 def index(req):
+    user = req.user
+    if user.is_authenticated:
+        # 確保 Profile 對象存在並更新點數
+        profile = get_or_create_profile(user)
+        # 將點數存儲在 session 中
+        req.session["points"] = json.dumps(profile.tot_point, cls=DjangoJSONEncoder)
+
     if req.method == "POST":
         article_content = req.POST.get("article_content")
         if article_content:
             # 創建並保存新的文章
-            article = Article(content=article_content)
-            article.user = req.user
+            article = Article(content=article_content, user=user)
             article.save()
 
             # 處理標籤
             tags = req.POST.get("tags")
             if tags:
-                try:
-                    tags_list = json.loads(tags)
-                    tag_ids = [tag.get("id") for tag in tags_list]
-                    industry_tags = IndustryTag.objects.filter(
-                        security_code__in=tag_ids
-                    )
-                    article.stock.set(industry_tags)
-                    article.save()
-                except json.JSONDecodeError:
-                    print("Failed to decode JSON from tags.")
+                handle_article_tags(article, tags)
 
-            subquery = Article.objects.filter(
-                liked=req.user.pk, id=OuterRef("pk")
-            ).values("pk")
-
-            articles = Article.objects.annotate(
-                user_liked=Exists(subquery), like_count=Count("liked")
-            ).order_by("-id")
-
+            # 更新並返回文章列表 (for HTMX requests)
+            articles = get_articles_with_like_info(req.user)
             if req.headers.get("HX-Request"):
                 return render(
                     req, "pages/main_page/_articles_list.html", {"articles": articles}
                 )
         else:
+            # 沒有提交文章內容，返回現有的文章列表
             articles = Article.objects.order_by("-id")
             return render(
                 req, "pages/main_page/_articles_list.html", {"articles": articles}
             )
 
-    subquery = Article.objects.filter(liked=req.user.pk, id=OuterRef("pk")).values("pk")
+    # Get articles with like and stock information
+    articles = get_articles_with_like_info(req.user)
 
+    return render(req, "pages/main_page/index.html", {"articles": articles})
+
+
+def get_articles_with_like_info(user):
+    """Helper function to get articles annotated with like info."""
+    subquery = Article.objects.filter(liked=user.pk, id=OuterRef("pk")).values("pk")
     articles = (
         Article.objects.annotate(user_liked=Exists(subquery), like_count=Count("liked"))
         .order_by("-id")
         .prefetch_related("stock")
     )
-
-    return render(req, "pages/main_page/index.html", {"articles": articles})
+    return articles
 
 
 def my_watchlist(req):
