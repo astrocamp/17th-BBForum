@@ -1,7 +1,9 @@
 import json
 
+from django.core.serializers.json import DjangoJSONEncoder
 from django.db.models import Count, Exists, OuterRef
 from django.shortcuts import render
+from django.utils import timezone
 
 from articles.models import Article, IndustryTag
 from follows.models import FollowRelation
@@ -9,6 +11,13 @@ from picks.models import UserStock
 
 
 def index(req):
+    user = req.user
+    if user.is_authenticated:
+        # 確保 Profile 對象存在並更新點數
+        profile = get_or_create_profile(user)
+        # 將點數存儲在 session 中
+        req.session["points"] = json.dumps(profile.tot_point, cls=DjangoJSONEncoder)
+
     if req.method == "POST":
         article_content = req.POST.get("article_content")
         photo = req.FILES.get("photo")
@@ -40,6 +49,8 @@ def index(req):
             ).order_by("-id")
             stocks = IndustryTag.objects.all()
 
+            # 更新並返回文章列表 (for HTMX requests)
+            articles = get_articles_with_like_info(req.user)
             if req.headers.get("HX-Request"):
                 return render(
                     req,
@@ -47,13 +58,21 @@ def index(req):
                     {"articles": articles, "stocks": stocks},
                 )
         else:
+            # 沒有提交文章內容，返回現有的文章列表
             articles = Article.objects.order_by("-id")
             return render(
                 req, "pages/main_page/_articles_list.html", {"articles": articles}
             )
 
-    subquery = Article.objects.filter(liked=req.user.pk, id=OuterRef("pk")).values("pk")
+    # Get articles with like and stock information
+    articles = get_articles_with_like_info(req.user)
 
+    return render(req, "pages/main_page/index.html", {"articles": articles})
+
+
+def get_articles_with_like_info(user):
+    """Helper function to get articles annotated with like info."""
+    subquery = Article.objects.filter(liked=user.pk, id=OuterRef("pk")).values("pk")
     articles = (
         Article.objects.annotate(user_liked=Exists(subquery), like_count=Count("liked"))
         .order_by("-id")
