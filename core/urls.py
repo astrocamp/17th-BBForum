@@ -19,6 +19,7 @@ urlpatterns = [
         "populars/", include(("populars.urls", "populars"), namespace="popular_pages")
     ),
     path("follows/", include(("follows.urls"), namespace="follows")),
+    path("picks/", include(("picks.urls"), namespace="picks")),
 ]
 
 if is_dev():
