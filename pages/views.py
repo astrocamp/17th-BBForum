@@ -53,7 +53,6 @@ def index(req):
         .order_by("-id")
         .prefetch_related("stock")
     )
-
     return render(req, "pages/main_page/index.html", {"articles": articles})
 
 
