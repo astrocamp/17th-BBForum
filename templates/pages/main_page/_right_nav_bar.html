@@ -22,7 +22,7 @@
                     <div class="h-[212.4px] bg-white"></div>
                 </div>
             </div>
-            <div x-data="unlogined_prompt({{ user.is_authenticated|lower }})" class="mt-5">
+            <div x-data="optional_stock({{ user.is_authenticated|lower }})" class="mt-5">
                 <div>
                     <div>
                         <header class="mb-4 leading-4">
