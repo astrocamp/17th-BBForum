@@ -25,6 +25,20 @@ from django.utils import timezone
 >>>>>>> b2beded (feat: 增加貼文收藏功能)
 
 
+def index(req):
+    if req.method == "POST":
+        article_content = req.POST.get("content")
+        if article_content:
+            articles = Article(content=article_content)
+            articles.userID = req.user
+            articles.save()
+            articles = Article.objects.order_by("-id")
+            return render(req, "pages/main_page/index.html", {"articles": articles})
+
+    articles = Article.objects.all()
+    return render(req, "pages/main_page/index.html", {"articles": articles})
+
+
 @login_required
 def show(req, id):
     article = get_object_or_404(Article, pk=id)
@@ -133,6 +147,8 @@ def stocks_list(request):
     tags_list = [{"value": tag["name"], "id": tag["security_code"]} for tag in tags]
 
     return JsonResponse(tags_list, safe=False)
+
+
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
 def collect_article(request, article_id):
