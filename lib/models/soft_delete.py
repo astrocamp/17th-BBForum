@@ -8,11 +8,11 @@ class SoftDeleteManager(models.Manager):
 
 
 class SoftDeleteable:
-    def delete(self):  # Article.delete() 假裝刪除
+    def delete(self):
         self.deleted_at = timezone.now()
         self.save()
 
-    def really_delete(self):  # 真刪除
+    def really_delete(self):
         self.delete()
 
-    objects = SoftDeleteManager()  # articles.models Article己設定
+    objects = SoftDeleteManager()
