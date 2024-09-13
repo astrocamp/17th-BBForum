@@ -6,41 +6,41 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('points', '0001_initial'),
+        ("points", "0001_initial"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='pointsdetails',
-            name='user',
+            model_name="pointsdetails",
+            name="user",
         ),
         migrations.RemoveField(
-            model_name='post',
-            name='user',
+            model_name="post",
+            name="user",
         ),
         migrations.RemoveField(
-            model_name='userprofile',
-            name='is_reported',
+            model_name="userprofile",
+            name="is_reported",
         ),
         migrations.RemoveField(
-            model_name='userprofile',
-            name='last_post_date',
+            model_name="userprofile",
+            name="last_post_date",
         ),
         migrations.RemoveField(
-            model_name='userprofile',
-            name='like_count_today',
+            model_name="userprofile",
+            name="like_count_today",
         ),
         migrations.RemoveField(
-            model_name='userprofile',
-            name='post_count_today',
+            model_name="userprofile",
+            name="post_count_today",
         ),
         migrations.DeleteModel(
-            name='PointLog',
+            name="PointLog",
         ),
         migrations.DeleteModel(
-            name='PointsDetails',
+            name="PointsDetails",
         ),
         migrations.DeleteModel(
-            name='Post',
+            name="Post",
         ),
     ]

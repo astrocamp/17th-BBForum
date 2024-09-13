@@ -9,7 +9,7 @@ from django.shortcuts import render
 from django.utils import timezone
 from social_django.utils import load_strategy
 
-from points.models import UserProfile
+from articles.models import Article
 from userprofiles.models import Profile
 
 
@@ -19,9 +19,7 @@ def show_profile(request):
     tot_point = 0
     if user.is_authenticated:
         profile, created = Profile.objects.all()
-        tot_point = profile.tot_point  # 獲取點數
-
-    # 將點數傳遞到模板中
+        tot_point = profile.tot_point
     return render(
         request, "pages/main_page/_left_nav_bar.html", {"tot_point": tot_point}
     )
@@ -32,7 +30,7 @@ def show_profile(request):
 def register_points(request):
     user = request.user
     profile, created = Profile.objects.get_or_create(user=user)
-    tot_point = profile.tot_point  # 獲取點數
+    tot_point = profile.tot_point
 
     # 返回渲染的模板
     return render(
@@ -55,10 +53,16 @@ def register_points_pipeline(strategy, details, user=None, *args, **kwargs):
         today = timezone.now().date()
         profile, created = Profile.objects.get_or_create(user=user)
 
-        # 如果今天還沒有更新過點數，則加 1 點
+        # 獲取今天的貼文數量
+        daily_posts = Article.objects.filter(user=user, created_at__date=today).count()
+
+        # 如果今天還沒有更新過點數，則加 1 點（原有邏輯）
         if profile.last_login_date != today:
-            profile.tot_point += 1
             profile.last_login_date = today
+            profile.tot_point += 1  # 登入獲得1點
+            profile.tot_point += min(
+                10 - 1, daily_posts * 2
+            )  # 每篇文章2點，最多9點（因為已經獲得1點）
             profile.save()
 
         # 將更新後的點數存儲在 session 中

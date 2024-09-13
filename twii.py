@@ -1,11 +1,12 @@
+import datetime
+
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
-import yfinance as y
 import pandas as p
 import plotly.graph_objects as g
+import yfinance as y
 from dash.dependencies import Input, Output
-import datetime
 
 app = dash.Dash(__name__)
 
@@ -125,4 +126,3 @@ def update_graph(n):
 
 if __name__ == "__main__":
     app.run_server(debug=False)
-
