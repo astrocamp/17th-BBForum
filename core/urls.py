@@ -1,9 +1,6 @@
 from debug_toolbar.toolbar import debug_toolbar_urls
 from django.conf import settings
 from django.conf.urls.static import static
-from django.contrib import admin
-from django.contrib.auth import logout
-from django.shortcuts import redirect, render
 from django.urls import include, path
 
 
@@ -12,8 +9,8 @@ def is_dev():
 
 
 urlpatterns = [
-    path("social-auth/", include("social_django.urls", namespace="social")),
     path("", include("pages.urls"), name="pages"),
+    path("social-auth/", include("social_django.urls", namespace="social")),
     path("users/", include("users.urls"), name="users"),
     path("userprofiles/", include("userprofiles.urls"), name="userprofiles"),
     path("articles/", include("articles.urls")),
