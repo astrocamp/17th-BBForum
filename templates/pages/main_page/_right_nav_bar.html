@@ -41,18 +41,18 @@
                             <div>
                                 <ul class="list-none">
                                     <li class="flex justify-between items-center group mt-4">
-                                        <div >
+                                        <div>
                                             <div class="text-red-primary hover:underline"><a href="#">TWA00 加權指數</a></div>
                                             <div class="h-[14px] text-[14px] text-gray-69 mt-[6px] flex items-center"> - </div>
                                         </div>
-                                        <div @click="toggleVisibility">
+                                        <button @click="startPick('{% url 'picks:pick_api' 2330 %}', '{% url 'picks:unpick_api' 2330 %}', '{% url 'picks:check_pick_api' 2330 %}', `{{csrf_token}}`)">
                                             <div class="bg-red-primary w-[60px] h-[28px] rounded-[4px] text-sm flex items-center justify-center">
                                                 <button class="flex items-center gap-1">
                                                     <i class="fa-solid fa-plus w-[12px] h-[12px] text-white"></i>
                                                     <div class="text-white">自選</div>
                                                 </button>
                                             </div>
-                                        </div>
+                                        </button>
                                     </li>
                                 </ul>
                                 <template x-if="!isAuthenticated">
