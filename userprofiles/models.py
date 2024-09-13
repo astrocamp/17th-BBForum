@@ -11,7 +11,6 @@ from .choice import (
 )
 
 
-# Create your models here.
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     nickname = models.CharField(max_length=200)
@@ -32,9 +31,7 @@ class Profile(models.Model):
     investment_experience = models.CharField(
         max_length=20, choices=Investment_experience_choices, default="0-1"
     )
-    investment_tool = models.JSONField(
-        default=list
-    )  # JSONField 可以存儲列表，適合用於處理多選值
+    investment_tool = models.JSONField(default=list)
     investment_attributes = models.CharField(
         max_length=200, choices=Inves_attributes.choices, default=""
     )

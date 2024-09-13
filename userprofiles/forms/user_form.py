@@ -59,7 +59,7 @@ class ProfileForm(ModelForm):
 
     investment_experience = forms.ChoiceField(
         choices=Investment_experience_choices,
-        required=True,  # 設置為必填
+        required=True,
         label="投資經驗:",
         widget=forms.Select(
             attrs={
@@ -70,7 +70,7 @@ class ProfileForm(ModelForm):
 
     investment_tool = forms.MultipleChoiceField(
         choices=Investment_tools,
-        required=True,  # 如果不需要必填，可以設為 False
+        required=True,
         label="投資工具:",
         widget=forms.CheckboxSelectMultiple(attrs={"class": "flex"}),
     )
