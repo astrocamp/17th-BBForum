@@ -1,4 +1,4 @@
-.PHONY: server migration migrate shell routes lint commit all
+.PHONY: server migration migrate shell routes lint commit
 
 server:
 	poetry run python manage.py runserver
@@ -20,5 +20,3 @@ lint:
 
 commit:
 	poetry run cz commit
-
-all: server migration migrate shell routes lint commit
