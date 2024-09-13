@@ -10,9 +10,9 @@
                 </div>
                 <div class="flex-1">
                         <div class="w-[760px] mx-3.5">
-                        <div class="h-[132px] mt-3 bg-gray-90 flex justify-center items-center pt-4 pb-4">
-                                 我是廣告版面
-                        </div>
+                            <div class="h-[132px] mt-3 bg-gray-90 flex justify-center items-center pt-4 pb-4">
+                                <img class="w-[760px] h-[132px] object-cover" src="https://s3cdn.yourator.co/banners/banners/000/001/494/home/598a79cc28630e1c421d38c3e385faa9e2e88505.png" alt="ad"/>
+                            </div>
                         <div class="mt-3">
                             <div class="mt-2 mb-2">
                                 <ul class="flex flex-wrap items-center gap-2">
@@ -20,7 +20,7 @@
                                     <li class="flex items-center"><i class="fa-solid fa-angle-right fa-xs text-gray-69"></i></li>
                                     <li class="text-[14px]">熱門股市爆料</li>
                                     <li class="flex items-center"><i class="fa-solid fa-angle-right fa-xs text-gray-69"></i></li>
-                                    <li class="text-[14px]">文章內文</li>
+                                    <li class="text-[14px]">文章</li>
                                 </ul>
                             </div>
                             <div class="mt-4">
@@ -30,48 +30,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="mt-4">
-                                <section x-data="unlogined_prompt({{ user.is_authenticated|lower }})" class="rounded-[3px] bg-white h-[72px] shadow-area">
-                                        <div class="flex items-center gap-2 p-4">
-                                            <div class="w-[40px] h-[40px] rounded-full overflow-hidden">
-                                                <img src="{% static 'images/visitor.svg' %}" alt="visitor"></img>
-                                            </div>
-                                            <button @click="toggleVisibility" class="flex-grow pt-2 pb-2 pl-4 pr-4 text-left rounded-[50px] bg-gray-94">
-                                                <div class="text-[18px] font-normal leading-[21px] text-gray-69">想和大家分享什麼呢？</div>
-                                            </button>
 
-                                            <template x-if="!isAuthenticated">
-                                                {% include "layouts/not_logged.html" %}
-                                            </template>
-                                            <template x-if="isAuthenticated">
-                                                {% include "layouts/publish_article.html" %}
-                                            </template>
-                                        </div>
-                                </section>
-                                <section class="rounded-[3px] bg-white h-[60px] mt-3 shadow-area">
-                                        <div class="relative flex flex-wrap items-center justify-between">
-                                            <nav class="flex items-center w-full p-[16px]">
-                                                <ul class="flex items-center flex-grow gap-1 overflow-x-auto">
-                                                    <li>
-                                                        <a href="#" class="inline-block pt-1 pb-1 pl-2 pr-2 rounded-[3px] bg-red-primary">
-                                                            <div class="text-[15px] text-white whitespace-nowrap relative">人氣</div>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#" class="inline-block pt-1 pb-1 pl-2 pr-2 rounded-[3px]">
-                                                            <div class="text-[15px] text-dark-800 whitespace-nowrap relative">新聞</div>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                                <div class="flex items-center cursor-pointer">
-                                                    <span class="text-[14px] font-bold leading-5 tracking-[0.2px] text-gray-56">最相關</span>
-                                                    <i class="fa-solid fa-sort-down w-[10px] h-[15px] text-gray-56 mb-2 ml-1 mr-1"></i>
-                                                </div>
-                                            </nav>
-                                        </div>
-                                </section>
-
-                            </div>
                         </div>
                     {% include "pages/main_page/_article.html" with article=article %}
                 </div>
