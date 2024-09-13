@@ -111,7 +111,6 @@ fetch_and_store_data()
 
 # def check_monthly_job():
 #     now = datetime.now()
-#     # 檢查是否是每月的第一天
 #     if now.day == 1:
 #         job()
 
