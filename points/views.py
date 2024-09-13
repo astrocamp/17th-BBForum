@@ -22,9 +22,8 @@ def simulate_login_view(request):
 
     today = timezone.now().date()
 
-    # 檢查是否是當天第一次登入
     if profile.last_login_date != today:
-        profile.points += 1  # 每天第一次登入加1點
+        profile.points += 1
         profile.last_login_date = today
         profile.save()
         PointsDetails.objects.create(user=user, action_type="每日登入", point_number=1)
@@ -63,13 +62,12 @@ def simulate_post_view(request):
 
     today = timezone.now().date()
 
-    # 檢查是否是當天第一次發文
     if profile.last_post_date != today:
         profile.post_count_today = 0
         profile.last_post_date = today
 
     if profile.post_count_today < 5:
-        profile.points += 2  # 每次發文加2點
+        profile.points += 2
         profile.post_count_today += 1
         profile.save()
         PointsDetails.objects.create(user=user, action_type="發文", point_number=2)
@@ -90,7 +88,7 @@ def simulate_like_view(request, post_id):
     profile = UserProfile.objects.get(user=user)
 
     if post.likes % 100 == 0:
-        profile.points += 10  # 每100個讚加10點
+        profile.points += 10
         profile.save()
         PointsDetails.objects.create(user=user, action_type="點讚", point_number=10)
 
@@ -103,7 +101,7 @@ def report_user(request, post_id):
     user = post.user
     profile = UserProfile.objects.get(user=user)
 
-    profile.points -= 2  # 被檢舉扣2點
+    profile.points -= 2
     profile.is_reported = True
     profile.save()
     PointsDetails.objects.create(user=user, action_type="被檢舉", point_number=-2)
