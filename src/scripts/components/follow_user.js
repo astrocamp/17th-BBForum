@@ -1,6 +1,7 @@
 import Alpine from "alpinejs"
 
 Alpine.data("follow_user", (isAuthenticated, articleUserId, currentUserId) => ({
+    isVisible: false,
     isShow: false,
     isFollow: false,
     checkstatus: false,

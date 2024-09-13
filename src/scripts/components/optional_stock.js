@@ -1,33 +1,12 @@
 import Alpine from "alpinejs"
 
-Alpine.data("unlogined_prompt", (isAuthenticated) => ({
+Alpine.data("optional_stock", (isAuthenticated) => ({
     isVisible: false,
-    isReadonly: false,
-    isShow: false,
     isAuthenticated: isAuthenticated,
-    articleContent: '',
-    commentContent: '',
 
-    toggleVisibility() {
+    toggleVisibility(event) {
+        event.stopPropagation(); // 阻止事件冒泡
         this.isVisible = !this.isVisible;
-        this.isReadonly = !this.isReadonly;
-        this.isShow = !this.isShow;
+        console.log("11111111111111");
     },
-
-    submitForm() {
-        if (this.$refs.clearTextarea) {
-            this.$refs.clearTextarea.value = '';
-        }
-        this.isVisible = !this.isVisible;
-    },
-
-    submitCommentForm(event) {
-        if(this.commentContent.trim() === '') {
-            event.preventDefault();
-            alert("請輸入正確的留言訊息!!");
-        } else {
-            this.$refs.submitForm.requestSubmit();
-            this.commentContent = '';
-        }
-    },
-}))
+}));
