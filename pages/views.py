@@ -1,4 +1,5 @@
 import json
+from datetime import date
 
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db.models import Count, Exists, OuterRef
@@ -8,14 +9,45 @@ from django.utils import timezone
 from articles.models import Article, IndustryTag
 from follows.models import FollowRelation
 from picks.models import UserStock
+from userprofiles.models import Profile
+
+
+def get_or_create_profile(user):
+    profile, created = Profile.objects.get_or_create(user=user)
+    today = timezone.now().date()
+
+    # 檢查用戶的最後登錄日期
+    if profile.last_login_date != today:
+        profile.tot_point += 1  # 每次登錄增加點數
+        profile.last_login_date = today
+        profile.save()
+
+    # 檢查用戶是否發佈了新貼文
+    if (
+        hasattr(user, "article")
+        and user.article.filter(created_at__date=today).exists()
+    ):
+        profile.tot_point += 2  # 發佈新貼文增加點數
+        profile.save()
+
+    return profile
+
+
+def handle_article_tags(article, tags):
+    try:
+        tags_list = json.loads(tags)
+        tag_ids = [tag.get("id") for tag in tags_list]
+        industry_tags = IndustryTag.objects.filter(security_code__in=tag_ids)
+        article.stock.set(industry_tags)
+        article.save()
+    except json.JSONDecodeError:
+        print("Failed to decode JSON from tags.")
 
 
 def index(req):
     user = req.user
     if user.is_authenticated:
-        # 確保 Profile 對象存在並更新點數
         profile = get_or_create_profile(user)
-        # 將點數存儲在 session 中
         req.session["points"] = json.dumps(profile.tot_point, cls=DjangoJSONEncoder)
 
     if req.method == "POST":
@@ -49,7 +81,6 @@ def index(req):
             ).order_by("-id")
             stocks = IndustryTag.objects.all()
 
-            # 更新並返回文章列表 (for HTMX requests)
             articles = get_articles_with_like_info(req.user)
             if req.headers.get("HX-Request"):
                 return render(
@@ -58,13 +89,11 @@ def index(req):
                     {"articles": articles, "stocks": stocks},
                 )
         else:
-            # 沒有提交文章內容，返回現有的文章列表
             articles = Article.objects.order_by("-id")
             return render(
                 req, "pages/main_page/_articles_list.html", {"articles": articles}
             )
 
-    # Get articles with like and stock information
     articles = get_articles_with_like_info(req.user)
 
     return render(req, "pages/main_page/index.html", {"articles": articles})

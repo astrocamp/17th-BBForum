@@ -30,6 +30,7 @@ class Article(SoftDeleteable, ImageSaveMixin, models.Model):
     tags = TaggableManager()
     stock = models.ManyToManyField(IndustryTag, blank=True)
     liked = models.ManyToManyField(User, related_name="liked")
+    created_at = models.DateTimeField(default=timezone.now)  # 使用預設值
 
     objects = SoftDeleteManager()
 
