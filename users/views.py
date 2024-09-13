@@ -29,6 +29,8 @@ def register(req):
 
 
 def sign_in(req):
+    if req.user.is_authenticated:
+        return redirect("pages:index")
     if req.method == "POST":
         username = req.POST["username"]
         password = req.POST["password"]

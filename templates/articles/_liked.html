@@ -1,4 +1,5 @@
 <button @click="toggleVisibility" class="relative flex-grow flex-shrink-0 basis-[56px] inline-block cursor-pointer"
+        x-data="like_icon"
         hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
         hx-swap="outerHTML"
         hx-post="{% url 'articles:liked' article.id %}">
