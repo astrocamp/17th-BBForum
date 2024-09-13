@@ -10,4 +10,4 @@ import "./follow_user.js"
 import "./article_link.js"
 import "./optional_stock.js"
 
-Alpine.start()
+Alpine.start();

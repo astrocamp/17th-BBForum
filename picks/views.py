@@ -3,75 +3,62 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from articles.models import IndustryTag
+from picks.models import UserStock
+
 
 class PickStockAPI(APIView):
     def post(self, request, id):
-        follower = request.user
+        picker = request.user
+        print("-------------------")
+        print(picker)
+        print(id)
 
-        try:
-            following = User.objects.get(id=id)
-        except User.DoesNotExist:
+        industry_tag = IndustryTag.objects.get(security_code=id)
+        print(industry_tag)
+
+        _, created = UserStock.objects.get_or_create(user=picker, stock=industry_tag)
+
+        if created:
             return Response(
-                {"error": "User not found"}, status=status.HTTP_404_NOT_FOUND
+                {"message": f"You are now pick {id}"},
+                status=status.HTTP_201_CREATED,
             )
-
-        if follower == following:
+        else:
             return Response(
-                {"error": "You cannot follow yourself"},
-                status=status.HTTP_400_BAD_REQUEST,
+                {"message": f"You are already pick {id}"},
+                status=status.HTTP_200_OK,
             )
-
-        # _, created = FollowRelation.objects.get_or_create(
-        #     follower=follower, following=following
-        # )
-
-        # if created:
-        #     return Response(
-        #         {"message": f"You are now following {following.username}"},
-        #         status=status.HTTP_201_CREATED,
-        #     )
-        # else:
-        #     return Response(
-        #         {"message": f"You are already following {following.username}"},
-        #         status=status.HTTP_200_OK,
-        #     )
 
     def delete(self, request, id, *args, **kwargs):
-        follower = request.user
+        picker = request.user
 
         try:
-            following = User.objects.get(id=id)
-        except User.DoesNotExist:
+            pick = UserStock.objects.get(user=picker, stock=id)
+            pick.delete()
             return Response(
-                {"error": "User not found"}, status=status.HTTP_404_NOT_FOUND
+                {"message": f"You have unpick {id}"},
+                status=status.HTTP_200_OK,
             )
+        except UserStock.DoesNotExist:
+            return Response(
+                {"message": "You are not pick this stock"},
+                status=status.HTTP_404_NOT_FOUND,
+            )
+
+
+class CheckPickStatusAPI(APIView):
+    def get(self, request, id):
+        # picker = request.user
 
         # try:
-        #     follow = FollowRelation.objects.get(follower=follower, following=following)
-        #     follow.delete()
+        #     following = User.objects.get(id=id)
+        # except User.DoesNotExist:
         #     return Response(
-        #         {"message": f"You have unfollowed {following.username}"},
-        #         status=status.HTTP_200_OK,
-        #     )
-        # except FollowRelation.DoesNotExist:
-        #     return Response(
-        #         {"message": "You are not following this user"},
-        #         status=status.HTTP_404_NOT_FOUND,
+        #         {"error": "User not found"}, status=status.HTTP_404_NOT_FOUND
         #     )
 
-
-class CheckFollowStatusAPI(APIView):
-    def get(self, request, id):
-        follower = request.user
-
-        try:
-            following = User.objects.get(id=id)
-        except User.DoesNotExist:
-            return Response(
-                {"error": "User not found"}, status=status.HTTP_404_NOT_FOUND
-            )
-
-        # is_following = FollowRelation.objects.filter(
+        # is_following = UserStock.objects.filter(
         #     follower=follower, following=following
         # ).exists()
 

@@ -1,11 +1,13 @@
 from django.urls import path
 
-from .views import PickStockAPI
+from .views import CheckPickStatusAPI, PickStockAPI
 
 app_name = "picks"
 
 urlpatterns = [
-    path("pick/<int:id>/", PickStockAPI.as_view(), name="pick_api"),
-    path("unpick/<int:id>/", PickStockAPI.as_view(), name="unpick_api"),
-    # path("check_follow/<int:id>/", CheckFollowStatusAPI.as_view(), name="check_follow_api"),
+    path("picker/<int:id>/", PickStockAPI.as_view(), name="pick_api"),
+    path("unpicker/<int:id>/", PickStockAPI.as_view(), name="unpick_api"),
+    path(
+        "check_picker/<int:id>/", CheckPickStatusAPI().as_view(), name="check_pick_api"
+    ),
 ]
