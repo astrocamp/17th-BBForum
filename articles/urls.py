@@ -8,7 +8,6 @@ app_name = "articles"
 
 urlpatterns = [
     path("", pages_views.index, name="index"),
-    path("new", views.new, name="new"),
     path("<int:id>", views.show, name="show"),
     path("<int:id>/edit", views.edit, name="edit"),
     path("<int:id>/delete_artile", views.delete_artile, name="delete_artile"),
