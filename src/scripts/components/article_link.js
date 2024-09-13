@@ -1,10 +1,10 @@
 import Alpine from "alpinejs"
 
 document.addEventListener('alpine:init', () => {
-
+    
 
     Alpine.data('shareLinkComponent', () => ({
-        showTooltip: false,
+        showTooltip: false,  
         copied: false,
         url: '',
         init() {
