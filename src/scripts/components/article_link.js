@@ -24,5 +24,3 @@ Alpine.data('shareLinkComponent', () => ({
             .catch(err => console.error('複製失敗', err));
     }
 }));
-
-Alpine.start();

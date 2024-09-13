@@ -6,7 +6,7 @@
                 <div class="pl-4 pr-4">
                     <div class="flex items-center">
                         <div class="relative group">
-                            <div x-data="follow_user({{ user.is_authenticated|lower}}, {{ article.user.id }}, {{ user.id }})"
+                            <div x-data="follow_user({{ user.is_authenticated|lower}}, {{ user.id|default_if_none:'null' }}, {{ article.user.id }})"
                                  @mouseover="chackMouseoverColor('{% url 'follows:check_follow_api' article.user.id %}')">
                                 <div>
                                     <a href="#">
