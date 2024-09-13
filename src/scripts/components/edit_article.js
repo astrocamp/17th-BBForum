@@ -24,3 +24,5 @@ Alpine.data("edit_article", (isAuthenticated) => ({
         $el.style.height = $el.scrollHeight + 'px';
     },
 }))
+
+

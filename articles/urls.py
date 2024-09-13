@@ -3,12 +3,6 @@ from django.urls import path
 from pages import views as pages_views
 
 from . import views
-from .views import (
-    collect_article,
-    collect_comment,
-    remove_collect_article,
-    remove_collect_comment,
-)
 
 app_name = "articles"
 
@@ -23,19 +17,23 @@ urlpatterns = [
     path("<int:id>/liked", views.liked, name="liked"),
     path("stocks_list/", views.stocks_list, name="stocks_list"),
     path(
-        "api/collect_article/<int:article_id>/", collect_article, name="collect_article"
+        "api/collect_article/<int:article_id>/",
+        views.collect_article,
+        name="collect_article",
     ),
     path(
         "api/remove_collect_article/<int:article_id>/",
-        remove_collect_article,
+        views.remove_collect_article,
         name="remove_collect_article",
     ),
     path(
-        "api/collect_comment/<int:comment_id>/", collect_comment, name="collect_comment"
+        "api/collect_comment/<int:comment_id>/",
+        views.collect_comment,
+        name="collect_comment",
     ),
     path(
         "api/remove_collect_comment/<int:comment_id>/",
-        remove_collect_comment,
+        views.remove_collect_comment,
         name="remove_collect_comment",
     ),
 ]

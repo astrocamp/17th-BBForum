@@ -16,10 +16,14 @@ from .models import Article, Comment, IndustryTag
 
 from django.urls import reverse
 from django.utils import timezone
+from rest_framework import status
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 
-
-
-
+from .forms import ArticleForm
+from .models import Article, Comment
+from .serializers import ArticleSerializer, CommentSerializer
 
 # Create your views here.
 >>>>>>> b2beded (feat: 增加貼文收藏功能)
@@ -153,7 +157,6 @@ def stocks_list(request):
 @permission_classes([IsAuthenticated])
 def collect_article(request, article_id):
     try:
-
         article = Article.objects.get(id=article_id)
         user = request.user
 
@@ -168,7 +171,12 @@ def collect_article(request, article_id):
 
         serializer = ArticleSerializer(article)
         return Response(
-            {"success": True, "article": serializer.data}, status=status.HTTP_200_OK
+            {
+                "success": True,
+                "article": serializer.data,
+                "message": "Article collected",
+            },
+            status=status.HTTP_200_OK,
         )
 
     except Article.DoesNotExist:
@@ -176,7 +184,6 @@ def collect_article(request, article_id):
             {"error": "Article not found"}, status=status.HTTP_404_NOT_FOUND
         )
     except Exception as e:
-
         return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -192,7 +199,12 @@ def remove_collect_article(request, article_id):
             article.save()
             serializer = ArticleSerializer(article)
             return Response(
-                {"success": True, "article": serializer.data}, status=status.HTTP_200_OK
+                {
+                    "success": True,
+                    "article": serializer.data,
+                    "message": "Article removed from collection",
+                },
+                status=status.HTTP_200_OK,
             )
         else:
             return Response(
@@ -205,7 +217,6 @@ def remove_collect_article(request, article_id):
             {"error": "Article not found"}, status=status.HTTP_404_NOT_FOUND
         )
     except Exception as e:
-
         return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
 
