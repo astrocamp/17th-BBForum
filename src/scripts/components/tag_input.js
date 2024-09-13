@@ -4,9 +4,7 @@ import Alpine from "alpinejs";
 Alpine.data("tagInput", () => ({
   tagify: null,
 
-
   init() {
-
     const input = this.$refs.tagInput;
 
     if (!input) {
@@ -26,7 +24,6 @@ Alpine.data("tagInput", () => ({
       }
     });
 
-
     this.loadWhitelist();
 
     input.addEventListener('keydown', (e) => {
@@ -42,10 +39,7 @@ Alpine.data("tagInput", () => ({
     input.addEventListener('input', () => {
       this.fetchSuggestions();
     });
-
-
   },
-
 
   async loadWhitelist() {
     try {
@@ -69,6 +63,4 @@ Alpine.data("tagInput", () => ({
       console.error("Error loading whitelist:", error);
     }
   },
-
-
 }));
