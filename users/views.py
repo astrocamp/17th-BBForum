@@ -1,4 +1,3 @@
-# views.py
 import os
 import random
 import string
@@ -40,7 +39,7 @@ def sign_in(req):
             return redirect("pages:index")
         else:
             messages.error(req, "登入失敗")
-            return render(req, "users/login.html")  # 保留用戶輸入
+            return render(req, "users/login.html")
     return render(req, "users/login.html")
 
 
@@ -66,16 +65,13 @@ def forget_password(req):
             email = user.email
             email_part = email[3:]
 
-            # generate random password
             random_password = "".join(
                 random.choices(string.ascii_letters + string.digits, k=8)
             )
 
-            # update password
             user.set_password(random_password)
             user.save()
 
-            # send email using Mailgun API
             subject = "Password Reset Notification"
             message = f"Hello {username},\n\nYour password has been reset. Your new password is: {random_password}\n\nPlease change your password after logging in."
             send_mail_via_mailgun(subject, message, email)
