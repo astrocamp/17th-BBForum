@@ -11,12 +11,10 @@ def index(req):
     if req.method == "POST":
         article_content = req.POST.get("article_content")
         if article_content:
-            # 創建並保存新的文章
             article = Article(content=article_content)
             article.user = req.user
             article.save()
 
-            # 處理標籤
             tags = req.POST.get("tags")
             if tags:
                 try:
