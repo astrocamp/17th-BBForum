@@ -1,25 +1,9 @@
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
-from django.db.models import Count
-from django.http import JsonResponse, QueryDict
+from django.http import JsonResponse
 from django.shortcuts import HttpResponse, get_object_or_404, redirect, render
 
 from .forms import ArticleForm
 from .models import Article, Comment, IndustryTag
-
-
-def index(req):
-    if req.method == "POST":
-        article_content = req.POST.get("content")
-        if article_content:
-            articles = Article(content=article_content)
-            articles.userID = req.user
-            articles.save()
-            articles = Article.objects.order_by("-id")
-            return render(req, "pages/main_page/index.html", {"articles": articles})
-
-    articles = Article.objects.all()
-    return render(req, "pages/main_page/index.html", {"articles": articles})
 
 
 @login_required
@@ -36,12 +20,6 @@ def show(req, id):
             )
 
     return render(req, "articles/show.html", {"article": article})
-
-
-@login_required
-def new(req):
-    form = ArticleForm()
-    return render(req, "articles/new.html", {"form": form})
 
 
 @login_required
@@ -131,7 +109,6 @@ def stocks_list(request):
             "security_code", "name"
         )
     else:
-        # 返回所有資料，若沒有查詢參數的話
         tags = IndustryTag.objects.all().values("security_code", "name")
 
     tags_list = [{"value": tag["name"], "id": tag["security_code"]} for tag in tags]
