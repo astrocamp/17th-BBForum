@@ -31,11 +31,9 @@ def simulate_login_view(request):
     else:
         message = "今天已經獲得過登入獎勵。"
 
-    # 確保用戶已登入
     if not request.user.is_authenticated:
         login(request, user)
 
-    # 重定向到首頁
     return redirect("home")
 
 
