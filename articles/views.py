@@ -9,16 +9,17 @@ from .models import Article, Comment, IndustryTag
 @login_required
 def show(req, id):
     article = get_object_or_404(Article, pk=id)
+    article = get_object_or_404(Article, pk=id)
     if req.method == "POST":
+        forms = ArticleForm(req.POST, instance=article)
         forms = ArticleForm(req.POST, instance=article)
         if forms.is_valid():
             forms.save()
             return redirect("pages:index")
         else:
-            return render(
-                req, "articles/edit.html", {"forms": forms, "article": article}
-            )
+            return render(req, "articles/edit.html", {"forms": forms, "article": article})
 
+    return render(req, "articles/show.html", {"article": article})
     return render(req, "articles/show.html", {"article": article})
 
 
