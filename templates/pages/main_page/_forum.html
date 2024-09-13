@@ -84,12 +84,16 @@
                 </form>
             {% endif %}
 
+
+
+
+
             {% if articles %}
                 {% include "pages/main_page/_articles_list.html" with articles=articles %}
             {% else %}
                 <div id="articles_container">
-                    {% for article in articles %}
-                        {% include "pages/main_page/_article.html" with article=article %}
+                    {% for item in articles_with_groups %}
+                        {% include "pages/main_page/_article.html" with article=item.article  author_groups=item.author_groups %}
                     {% endfor %}
                 </div>
             {% endif %}

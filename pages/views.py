@@ -3,8 +3,13 @@ import json
 from django.db.models import Count, Exists, OuterRef, Value
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.db.models import Count, Exists, OuterRef
+from django.shortcuts import render
 
 from articles.models import Article, IndustryTag
+from lib.auth.group import update_user_group
 from follows.models import FollowRelation
 from picks.models import UserStock
 from userprofiles.models import Profile
@@ -31,6 +36,9 @@ def index(req):
             article.user = req.user
             article.photo = photo
             article.save()
+            # 發文更新使用者階級
+            update_user_group(req.user)
+            # 處理標籤
             tags = req.POST.get("tags")
             if tags:
                 try:
@@ -51,13 +59,35 @@ def index(req):
             articles = Article.objects.annotate(
                 user_liked=Exists(subquery), like_count=Count("liked")
             ).order_by("-id")
-            stocks = IndustryTag.objects.all()
+
+            # 更新所有使用者階級
+            users = User.objects.all()
+            for user in users:
+                update_user_group(user)
+
+            articles_with_groups = []
+            for article in articles:
+                # 獲取文章作者的群組
+                author_groups = article.user.groups.all()  # 可能會有多個群組
+                articles_with_groups.append(
+                    {"article": article, "author_groups": author_groups}
+                )
+
+            # 將當前使用者的群組名稱和文章信息傳遞到模板
+            current_user_groups = req.user.groups.values_list("name", flat=True)
 
             if req.headers.get("HX-Request"):
                 return render(
                     req,
                     "pages/main_page/_articles_list.html",
-                    {"articles": articles, "stocks": stocks},
+                    {
+                        "articles": articles,
+                        "articles_with_groups": articles_with_groups,
+                        "current_user_groups": current_user_groups,
+                    },
+                )
+                return render(
+                    req, "pages/main_page/_articles_list.html", {"articles": articles}
                 )
         else:
             articles = Article.objects.order_by("-id")
@@ -80,7 +110,23 @@ def index(req):
         .order_by("-id")
         .prefetch_related("stock")
     )
-    stocks = IndustryTag.objects.all()
+
+    update_user_group(req.user)
+    # 更新所有使用者階級
+    users = User.objects.all()
+    for user in users:
+        update_user_group(user)
+
+    articles_with_groups = []
+    for article in articles:
+        # 獲取文章作者的群組
+        author_groups = article.user.groups.all()  # 可能會有多個群組
+        articles_with_groups.append(
+            {"article": article, "author_groups": author_groups}
+        )
+
+    # 將當前使用者的群組名稱和文章信息傳遞到模板
+    current_user_groups = req.user.groups.values_list("name", flat=True)
 
     if req.user.is_authenticated:
         profile = get_object_or_404(Profile, user=req.user)
@@ -93,6 +139,15 @@ def index(req):
         "pages/main_page/index.html",
         {"articles": articles, "stocks": stocks, "user_img": user_img},
     )
+        req,
+        "pages/main_page/index.html",
+        {
+            "articles": articles,
+            "articles_with_groups": articles_with_groups,
+            "current_user_groups": current_user_groups,
+        },
+    )
+    return render(req, "pages/main_page/index.html", {"articles": articles})
 
 
 def my_watchlist(req):

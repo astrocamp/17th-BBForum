@@ -42,7 +42,15 @@
                                             <div class="mb-1">
                                                 <div class="text-[18px] font-semibold leading-6 tracking-[0.2px] text-dark-800">{{article.user}}</div>
                                             </div>
-                                            <div class="w-[40px] h-auto text-[14px] font-extralight leading-4 tracking-[0.2px] text-center mb-1">Lv.10</div>
+                                            <div class="w-[40px] h-auto text-[12px] font-extralight leading-4 tracking-[0.2px] text-center mb-1">
+                                              {% if author_groups %}
+                                                {% for group in author_groups %}
+                                                    {{ group.name }}{% if not forloop.last %}, {% endif %}
+                                                {% endfor %}
+                                              {% else %}
+                                                     沒有找到群組
+                                              {% endif %}
+                                            </div>
                                             <div class="flex justify-center">
                                                 <div class="flex justify-center gap-2 pr-2 border-r-2 border-gray-94 text-[14px]">
                                                     <div><span>發文</span></div>
@@ -136,7 +144,16 @@
                             {% endif %}
                         </div>
                     </div>
-                    <div class="w-[40px] h-auto text-[12px] font-normal leading-4 tracking-[0.2px] text-center">Lv.10</div>
+                    <div class="w-[40px] h-auto text-[12px] font-normal leading-4 tracking-[0.2px] text-center">
+                        {% if author_groups %}
+                        {% for group in author_groups %}
+                            {{ group.name }}{% if not forloop.last %}, {% endif %}
+                        {% endfor %}
+                        {% else %}
+                            沒有找到群組
+                        {% endif %}
+
+                    </div>
                 </div>
                 <div class="pl-4 pr-4">
                     <ul class="flex flex-wrap gap-2 mt-2 list-none">

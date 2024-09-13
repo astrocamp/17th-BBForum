@@ -28,7 +28,11 @@
                         {% endif %}
                     </div>
                     <div class="h-[20px]">
-                        <span id="points-display" class="text-dark-600 text-sm font-sans font-normal tracking-[0.2px]">P點: {{ request.user.profile.tot_point }}</span>
+                        <span class="text-dark-600 text-sm font-sans font-normal tracking-[0.2px]">
+                            {% for group_name in current_user_groups %}
+                            {{ group_name }}
+                        {% endfor %}
+                        </span>
                     </div>
                 </div>
             </div>
