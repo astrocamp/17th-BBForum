@@ -15,7 +15,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     nickname = models.CharField(max_length=200)
     gender = models.CharField(max_length=10, choices=Gender.choices, default="")
-    birthday = models.DateField()
+    birthday = models.DateField(null=True, blank=True)
     location = models.CharField(max_length=100, choices=Taiwan_regions, default="TP")
     education = models.CharField(
         max_length=200,
@@ -35,9 +35,7 @@ class Profile(models.Model):
     investment_attributes = models.CharField(
         max_length=200, choices=Inves_attributes.choices, default=""
     )
-    tot_point = models.DecimalField(
-        max_digits=10, decimal_places=0, default=0, null=True, blank=True
-    )
+    tot_point = models.IntegerField(default=0)
     deleted_at = models.DateTimeField(default=None, null=True, blank=True)
     last_login_date = models.DateField(null=True, blank=True)
 

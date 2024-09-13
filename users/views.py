@@ -9,7 +9,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.shortcuts import redirect, render
 
-from points.views import register_points
+from userprofiles.models import Profile
 
 from .forms import CustomUserCreationForm
 
@@ -39,6 +39,8 @@ def sign_in(req):
         user = authenticate(username=username, password=password)
         if user is not None:
             login(req, user)
+            # 確保用戶有 Profile
+            Profile.objects.get_or_create(user=user)  # 確保 Profile 存在
             messages.success(req, "登入成功")
             return redirect("pages:index")
         else:
