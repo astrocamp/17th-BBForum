@@ -8,7 +8,7 @@
                 <div class="w-[200px]">
                     {% include 'pages/main_page/_left_nav_bar.html' %}
                 </div>
-                <div class="flex-1"> 
+                <div class="flex-1">
                         <div class="w-[760px] mx-3.5">
                         <div class="h-[132px] mt-3 bg-gray-90 flex justify-center items-center pt-4 pb-4">
                                  我是廣告版面
@@ -39,7 +39,7 @@
                                             <button @click="toggleVisibility" class="flex-grow pt-2 pb-2 pl-4 pr-4 text-left rounded-[50px] bg-gray-94">
                                                 <div class="text-[18px] font-normal leading-[21px] text-gray-69">想和大家分享什麼呢？</div>
                                             </button>
-                        
+
                                             <template x-if="!isAuthenticated">
                                                 {% include "layouts/not_logged.html" %}
                                             </template>
@@ -70,11 +70,11 @@
                                             </nav>
                                         </div>
                                 </section>
-                    
+
                             </div>
                         </div>
                     {% include "pages/main_page/_article.html" with article=article %}
-                </div> 
+                </div>
             </div>
                 <div class="w-[10px]"></div>
                 <div class="w-[300px]">

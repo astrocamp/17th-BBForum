@@ -17,7 +17,9 @@ def show(req, id):
             forms.save()
             return redirect("pages:index")
         else:
-            return render(req, "articles/edit.html", {"forms": forms, "article": article})
+            return render(
+                req, "articles/edit.html", {"forms": forms, "article": article}
+            )
 
     return render(req, "articles/show.html", {"article": article})
     return render(req, "articles/show.html", {"article": article})
