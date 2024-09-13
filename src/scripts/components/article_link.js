@@ -6,7 +6,6 @@ Alpine.data('shareLinkComponent', () => ({
     url: '',
 
     init() {
-        // 從 data-url 屬性中讀取 URL
         const urlElement = this.$el.dataset.url;
         if (urlElement) {
             this.url = urlElement;
