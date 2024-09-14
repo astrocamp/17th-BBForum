@@ -5,17 +5,15 @@ Alpine.data("optional_stock", (isAuthenticated) => ({
     isPick: false,
     checkstatus: false,
     isAuthenticated: isAuthenticated,
-    // isOwnPost: pickUserId === currentStockId,
+
+    init(checkPickURL) {
+        this.checkPickStatus(checkPickURL);
+    },
 
     async startPick(pickURL, unpickURL, checkPickURL, csrfToken) {
         this.isShow = !this.isShow;
 
-        // await this.checkFollowStatus(checkPickURL);
-        console.log("-----------------------------")
-        console.log(pickURL)
-        console.log(unpickURL)
-        console.log(checkPickURL)
-        console.log(csrfToken)
+        await this.checkPickStatus(checkPickURL);
 
         const url = this.isPick ? unpickURL : pickURL;
         const method = this.isPick ? 'DELETE' : 'POST';
@@ -30,17 +28,17 @@ Alpine.data("optional_stock", (isAuthenticated) => ({
         })
         .then(response => response.json())
         .then(data => {
-            console.log(this.isPick)
-
-            // if (this.isPick) {
-            //     this.$refs.buttonStyle.style.background = '#ae2024';
-            //     this.$refs.buttonStyle.textContent = '追蹤';
-            //     this.$refs.buttonStyle.style.color = 'white';
-            // } else {
-            //     this.$refs.buttonStyle.style.background = '#0066CC';
-            //     this.$refs.buttonStyle.textContent = '取消追蹤';
-            //     this.$refs.buttonStyle.style.color = 'white';
-            // }
+            if (this.isPick) {
+                this.$refs.buttonStyle.innerHTML = `
+                <div class="w-[60px] h-[28px] rounded-[4px] bg-red-primary text-sm text-white flex items-center justify-center cursor-pointer border border-red-primary gap-1">
+                    自選
+                </div>`;
+            } else {
+                this.$refs.buttonStyle.innerHTML = `
+                <div class="w-[60px] h-[28px] rounded-[4px] bg-white text-sm text-red-primary flex items-center justify-center cursor-pointer border border-red-primary gap-1">
+                    自選
+                </div>`;
+            }
 
             this.isPick = !this.isPick;
         })
@@ -49,15 +47,28 @@ Alpine.data("optional_stock", (isAuthenticated) => ({
         });
     },
 
-    async checkPickStatus(checkFollowURL) {
+    async checkPickStatus(checkPickURL) {
         try {
-            const response = await fetch(checkFollowURL);
+            const response = await fetch(checkPickURL);
             const data = await response.json();
 
-            if (data.is_following) {
+            if (data.is_picked) {
                 this.isPick = true;
             } else {
                 this.isPick = false;
+            }
+
+            if (this.isPick) {
+                this.$refs.buttonStyle.innerHTML = `
+                <div class="w-[60px] h-[28px] rounded-[4px] bg-white text-sm text-red-primary flex items-center justify-center cursor-pointer border border-red-primary gap-1">
+                    自選
+                </div>`;
+            } else {
+                console.log(this.$refs.buttonStyle)
+                this.$refs.buttonStyle.innerHTML = `
+                <div class="w-[60px] h-[28px] rounded-[4px] bg-red-primary text-sm text-white flex items-center justify-center cursor-pointer border border-red-primary gap-1">
+                    自選
+                </div>`;
             }
         } catch (error) {
             console.error('error:', error);
