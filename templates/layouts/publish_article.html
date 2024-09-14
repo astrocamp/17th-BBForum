@@ -1,15 +1,16 @@
 <div x-show="isVisible"
-     class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-20" fixed >
+     class="fixed inset-0 z-20 flex items-center justify-center bg-black bg-opacity-40" fixed >
         <form
             hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
             hx-post="{% url 'pages:index' %}"
+            enctype="multipart/form-data"
             hx-swap="innerHTML"
             x-bind:hx-vals="JSON.stringify({article_content: articleContent})"
             hx-target="#articles_container"
             class="relative bg-white w-[538px] rounded-[10px] flex flex-col items-center justify-center">
 
-            <button @click="isVisible = false" class="absolute top-3 right-3 flex items-center justify-center ">
-                <i class="fa-solid fa-xmark w-5 h-5 text-gray-56"></i>
+            <button @click="isVisible = false" class="absolute flex items-center justify-center top-3 right-3 ">
+                <i class="w-5 h-5 fa-solid fa-xmark text-gray-56"></i>
             </button>
 
             <div class="w-full border-b border-b-gray-90 min-h-[40px] text-dark-800 font-bold flex items-center pt-3 pb-3 pl-4 pr-4 overflow-hidden text-ellipsis">發文</div>
@@ -22,13 +23,25 @@
                 <textarea x-model="articleContent" x-ref="clearTextarea" class="w-full min-h-[250px] text-gray-56 font-normal flex items-center p-2 text-[18px] border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-gray-69 " placeholder="聊聊股市話題吧" name="article_content"></textarea>
             </div>
 
-            <div class="pt-3 pb-3 pl-4 pr-4 w-full text-right">
+            <div class="w-full p-2">
+                <div x-data="{ fileName: '' }" class="flex items-center space-x-4 text-gray-94">
+                                     <label for="fileInput" class="px-4 py-2 rounded cursor-pointer text-dark-600 bg-gray-94">選擇圖片</label>
+                    <span x-text="fileName" class="text-black"></span>
+                </div>
+
+                <input type="file" id="fileInput" name="photo" class="hidden"
+                       @change="fileName = $event.target.files.length > 0 ? $event.target.files[0].name : ''">
+
+            </div>
+
+
+            <div class="w-full pt-3 pb-3 pl-4 pr-4 text-right">
                 <div class="flex flex-wrap justify-end gap-2">
-                    <button type="button" @click="isVisible = false" class="bg-white text-dark-600 px-4 py-2 rounded border border-gray-69">取消</button>
+                    <button type="button" @click="isVisible = false" class="px-4 py-2 bg-white border rounded text-dark-600 border-gray-69">取消</button>
                     <button
                         type="submit"
                         @click="submitForm"
-                        class="bg-red-primary text-white px-4 py-2 rounded border-red-primary">發文</button>
+                        class="px-4 py-2 text-white rounded bg-red-primary border-red-primary">發文</button>
                 </div>
             </div>
         </form>

@@ -1,26 +1,25 @@
 import Alpine from "alpinejs"
 
-Alpine.data('shareLinkComponent', () => ({
-    showTooltip: false,
-    copied: false,
-    url: '',
+document.addEventListener('alpine:init', () => {
 
-    init() {
-        const urlElement = this.$el.dataset.url;
-        if (urlElement) {
-            this.url = urlElement;
-            console.log('Article URL:', this.url);
-        } else {
-            console.error('未找到 URL');
+
+    Alpine.data('shareLinkComponent', () => ({
+        showTooltip: false,
+        copied: false,
+        url: '',
+        init() {
+            this.url = this.$el.getAttribute('data-url');
+        },
+        copyLink() {
+            navigator.clipboard.writeText(this.url)
+                .then(() => {
+                    this.copied = true;
+                    setTimeout(() => this.copied = false, 2000);
+                })
+                .catch(() => {
+                    console.error('無法複製連結');
+                });
         }
-    },
+    }));
+});
 
-    copyLink() {
-        navigator.clipboard.writeText(this.url)
-            .then(() => {
-                this.copied = true;
-                setTimeout(() => this.copied = false, 2000);
-            })
-            .catch(err => console.error('複製失敗', err));
-    }
-}));
