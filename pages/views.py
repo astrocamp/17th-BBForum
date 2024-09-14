@@ -11,11 +11,15 @@ from picks.models import UserStock
 def index(req):
     if req.method == "POST":
         article_content = req.POST.get("article_content")
+        photo = req.FILES.get("photo")
+        if photo:
+            print("photo新增")
+
         if article_content:
             article = Article(content=article_content)
             article.user = req.user
+            article.photo = photo
             article.save()
-
             tags = req.POST.get("tags")
             if tags:
                 try:
