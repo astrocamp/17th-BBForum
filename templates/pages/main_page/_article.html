@@ -42,7 +42,7 @@
                                             <div class="mb-1">
                                                 <div class="text-[18px] font-semibold leading-6 tracking-[0.2px] text-dark-800">{{article.user}}</div>
                                             </div>
-                                            <div class="w-[40px] h-auto text-[12px] font-extralight leading-4 tracking-[0.2px] text-center mb-1">
+                                            <div class="w-[40px] h-auto text-[12px] text-gray-45 font-extralight leading-4 tracking-[0.2px] text-center mb-1">
                                               {% if author_groups %}
                                                 {% for group in author_groups %}
                                                     {{ group.name }}{% if not forloop.last %}, {% endif %}
@@ -247,7 +247,9 @@
             </div>
             <div x-data="unlogined_prompt({{ user.is_authenticated|lower }})">
                 <div id="comment_container-{{article.id}}" >
-                    {% include 'pages/main_page/_comment.html' with article=article %}
+                  
+                        {% include 'pages/main_page/_comment.html' with  articles=articles %}
+                       
                 <div>
                 <template x-if="!isAuthenticated">
                     {% include "layouts/not_logged.html" %}

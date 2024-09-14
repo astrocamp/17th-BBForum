@@ -64,6 +64,7 @@ def comment(req, id):
             return render(req, "pages/main_page/_comment.html", {"article": article})
 
     articles = Article.objects.order_by("-id")
+
     return render(req, "pages/main_page/index.html", {"articles": articles})
 
 

@@ -3,17 +3,20 @@
     <ul class="p-2">
         {% for comment in article.comments.all %}
             <div x-data="edit_comment" class="border border-gray-300 p-4 mt-1 mb-1 my_comment w-full h-[200px]">
-                <div class="flex justify-between items-center h-full">
+                <div class="flex items-center justify-between h-full">
                     <div x-show="!editing" class="w-full h-full">
-                        <div class="mr-4 flex flex-col justify-around h-full">
+                        <div class="flex flex-col justify-around h-full mr-4">
                             <div class="text-[18px] pl-1">{{ comment.user.username }}</div>
+                            <div class="text-[8px] pl-1 text-gray-94">
+            
+                            </div>
                             <div x-ref="commentContent" class="w-full h-full mt-5 text-[16px] pl-1 border border-white">{{ comment.content }}</div>
                             <div class="mt-5 text-[12px] pl-1 text-gray-cbc"> 留言時間 : {{ comment.created_at|date:'Y/m/d h:i' }} </div>
                         </div>
                     </div>
                     <template x-if="editing">
                         <div class="w-full h-full">
-                            <div class="mr-4 flex flex-col justify-around h-full">
+                            <div class="flex flex-col justify-around h-full mr-4">
                                 <div class="text-[18px] pl-1">{{ comment.user.username }}</div>
                                 <textarea x-model="commentContent"
                                         @input="adjustHeight($event.target)"
@@ -71,9 +74,9 @@
             hx-swap="innerHTML"
             hx-target="#comment_container-{{article.id}}"
             x-ref="submitForm">
-            <div class="pt-3 pl-4 pr-4 pb-0 gap-2 flex flex-col">
-                <div class="flex justify-center items-center mt-1 mb-1">
-                    <div class="mr-3 mt-1 w-8 h-8 border border-gray-83 rounded-full overflow-hidden">
+            <div class="flex flex-col gap-2 pt-3 pb-0 pl-4 pr-4">
+                <div class="flex items-center justify-center mt-1 mb-1">
+                    <div class="w-8 h-8 mt-1 mr-3 overflow-hidden border rounded-full border-gray-83">
                         <img src="{% static 'images/visitor.svg' %}" alt="visitor"></img>
                     </div>
                     <div @click="toggleVisibility" class="pt-[5px] pr-[36px] pb-[5px] pl-[16px] w-[calc(100%-44px)] h-full rounded-[16px] bg-gray-94">
