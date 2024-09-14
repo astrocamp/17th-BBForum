@@ -12,7 +12,11 @@
                 </div>
                 <div class="flex-grow">
                     <div class="h-[24px]">
-                        <button @click="toggleVisibility" class="text-dark-800 text-base font-bold border-b-2 border-transparent hover:border-black ">{{ request.user }}</button>
+                        {% if request.user.is_authenticated %}
+                            <button @click="toggleVisibility" class="text-dark-800 text-base font-bold border-b-2 border-transparent hover:border-black ">{{ request.user }}</button>
+                        {% else %}
+                            <button @click="toggleVisibility" class="text-dark-800 text-base font-bold border-b-2 border-transparent hover:border-black ">訪客</button>
+                        {% endif %}
                     </div>
                     <div class="h-[20px]">
                         <span class="text-dark-600 text-sm font-sans font-normal tracking-[0.2px]">LV. 0</span>
