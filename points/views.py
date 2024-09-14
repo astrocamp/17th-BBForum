@@ -31,11 +31,6 @@ def give_initial_points(sender, request, user, **kwargs):
     profile, created = Profile.objects.get_or_create(user=user)
     if created:
         profile.add_points()
-        logger.info(f"Initial points given to user {user.username}")
-    else:
-        logger.info(
-            f"Points not added for user {user.username} as profile already exists"
-        )
 
 
 @login_required

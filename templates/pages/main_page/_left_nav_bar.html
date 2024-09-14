@@ -19,8 +19,8 @@
                         {% endif %}
                     </div>
                     <div class="h-[20px]">
-                        <span id="points-display" class="text-dark-600 text-sm font-sans font-normal tracking-[0.2px]">P點: {{ tot_point }}</span>
-                    </div>
+                        <span id="points-display" class="text-dark-600 text-sm font-sans   font-normal tracking-[0.2px]">P點: {{ request.user.profile.tot_point }}</span>
+                      </div>
                 </div>
             </div>
             <template x-if="!isAuthenticated">
