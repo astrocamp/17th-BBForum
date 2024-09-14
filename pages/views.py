@@ -84,9 +84,7 @@ def index(req):
                         "current_user_groups": current_user_groups,
                     },
                 )
-                return render(
-                    req, "pages/main_page/_articles_list.html", {"articles": articles}
-                )
+     
         else:
             articles = Article.objects.order_by("-id")
             return render(
