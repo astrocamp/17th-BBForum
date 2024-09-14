@@ -20,6 +20,7 @@ urlpatterns = [
     ),
     path("follows/", include(("follows.urls"), namespace="follows")),
     path("picks/", include(("picks.urls"), namespace="picks")),
+    path("stocks/", include(("stockpages.urls"), namespace="stocks")),
 ]
 
 if is_dev():
