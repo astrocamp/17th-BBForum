@@ -27,6 +27,7 @@ def handle_article_tags(article, tags):
 
 
 def index(req):
+
     if req.method == "POST":
         article_content = req.POST.get("article_content")
         photo = req.FILES.get("photo")
@@ -67,7 +68,7 @@ def index(req):
 
             articles_with_groups = []
             for article in articles:
-                author_groups = article.user.groups.all()  
+                author_groups = article.user.groups.all()
                 articles_with_groups.append(
                     {"article": article, "author_groups": author_groups}
                 )
@@ -108,19 +109,22 @@ def index(req):
         .prefetch_related("stock")
     )
 
-    update_user_group(req.user)
-    # 更新所有使用者階級
-    users = User.objects.all()
-    for user in users:
-        update_user_group(user)
-
+    current_user_groups = []
     articles_with_groups = []
+    # 檢查用戶是否已登入
+    if req.user.is_authenticated:
+        update_user_group(req.user)
+        users = User.objects.all()
+        for user in users:
+            update_user_group(user)
+
+        current_user_groups = req.user.groups.values_list("name", flat=True)
+
     for article in articles:
-        author_groups = article.user.groups.all()  
+        author_groups = article.user.groups.all()
         articles_with_groups.append(
             {"article": article, "author_groups": author_groups}
         )
-    current_user_groups = req.user.groups.values_list("name", flat=True)
 
     if req.user.is_authenticated:
         profile = get_object_or_404(Profile, user=req.user)
