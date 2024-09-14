@@ -67,13 +67,10 @@ def index(req):
 
             articles_with_groups = []
             for article in articles:
-                # 獲取文章作者的群組
-                author_groups = article.user.groups.all()  # 可能會有多個群組
+                author_groups = article.user.groups.all()  
                 articles_with_groups.append(
                     {"article": article, "author_groups": author_groups}
                 )
-
-            # 將當前使用者的群組名稱和文章信息傳遞到模板
             current_user_groups = req.user.groups.values_list("name", flat=True)
 
             if req.headers.get("HX-Request"):
@@ -119,13 +116,10 @@ def index(req):
 
     articles_with_groups = []
     for article in articles:
-        # 獲取文章作者的群組
-        author_groups = article.user.groups.all()  # 可能會有多個群組
+        author_groups = article.user.groups.all()  
         articles_with_groups.append(
             {"article": article, "author_groups": author_groups}
         )
-
-    # 將當前使用者的群組名稱和文章信息傳遞到模板
     current_user_groups = req.user.groups.values_list("name", flat=True)
 
     if req.user.is_authenticated:
