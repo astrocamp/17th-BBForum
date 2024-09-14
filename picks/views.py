@@ -1,4 +1,3 @@
-from django.contrib.auth.models import User
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -9,15 +8,10 @@ from picks.models import UserStock
 
 class PickStockAPI(APIView):
     def post(self, request, id):
-        picker = request.user
-        print("-------------------")
-        print(picker)
-        print(id)
+        user = request.user
 
         industry_tag = IndustryTag.objects.get(security_code=id)
-        print(industry_tag)
-
-        _, created = UserStock.objects.get_or_create(user=picker, stock=industry_tag)
+        _, created = UserStock.objects.get_or_create(user=user, stock=industry_tag)
 
         if created:
             return Response(
@@ -31,10 +25,10 @@ class PickStockAPI(APIView):
             )
 
     def delete(self, request, id, *args, **kwargs):
-        picker = request.user
+        user = request.user
 
         try:
-            pick = UserStock.objects.get(user=picker, stock=id)
+            pick = UserStock.objects.get(user=user, stock=id)
             pick.delete()
             return Response(
                 {"message": f"You have unpick {id}"},
@@ -49,18 +43,6 @@ class PickStockAPI(APIView):
 
 class CheckPickStatusAPI(APIView):
     def get(self, request, id):
-        # picker = request.user
-
-        # try:
-        #     following = User.objects.get(id=id)
-        # except User.DoesNotExist:
-        #     return Response(
-        #         {"error": "User not found"}, status=status.HTTP_404_NOT_FOUND
-        #     )
-
-        # is_following = UserStock.objects.filter(
-        #     follower=follower, following=following
-        # ).exists()
-
-        # return Response({"is_following": is_following})
-        return Response()
+        user = request.user
+        is_picked = UserStock.objects.filter(user=user, stock=id).exists()
+        return Response({"is_picked": is_picked}, status=status.HTTP_200_OK)
