@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "taggit",
     "follows",
     "picks",
+    "stockpages",
 ]
 
 if is_dev():
