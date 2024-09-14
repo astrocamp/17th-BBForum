@@ -5,6 +5,7 @@ from taggit.managers import TaggableManager
 
 from lib.models.image_save import ImageSaveMixin
 from lib.models.soft_delete import SoftDeleteable, SoftDeleteManager
+from userprofiles.models import Profile
 
 
 class IndustryTag(models.Model):
@@ -30,15 +31,20 @@ class Article(SoftDeleteable, ImageSaveMixin, models.Model):
     tags = TaggableManager()
     stock = models.ManyToManyField(IndustryTag, blank=True)
     liked = models.ManyToManyField(User, related_name="liked")
-    created_at = models.DateTimeField(default=timezone.now)  # 使用預設值
+    created_at = models.DateTimeField(default=timezone.now)
+    points_awarded = models.IntegerField(default=0)
 
     objects = SoftDeleteManager()
 
-    class Meta:
-        indexes = [models.Index(fields=["deleted_at"])]
-
     def liked_by(self, user):
         return self.liked.filter(id=user.id).exists()
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        if self.user:
+            profile, created = Profile.objects.get_or_create(user=self.user)
+            profile.add_points()
+            profile.save()
 
 
 class Comment(SoftDeleteable, models.Model):
