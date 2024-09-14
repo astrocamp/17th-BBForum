@@ -1,6 +1,9 @@
-from django.shortcuts import render
+import subprocess
 
-# Create your views here.
+from django.shortcuts import HttpResponse
 
-def stock_detele(req,id):
-    
+
+def stock_data(req, id):
+    subprocess.Popen(["python", "stockpages/stockdash.py", str(id)])
+
+    return HttpResponse(f"Dash 已啟動。http://localhost:8050。")
