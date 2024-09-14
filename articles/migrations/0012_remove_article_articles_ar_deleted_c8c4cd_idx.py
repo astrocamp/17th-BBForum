@@ -6,12 +6,12 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('articles', '0011_delete_profile'),
+        ("articles", "0011_delete_profile"),
     ]
 
     operations = [
         migrations.RemoveIndex(
-            model_name='article',
-            name='articles_ar_deleted_c8c4cd_idx',
+            model_name="article",
+            name="articles_ar_deleted_c8c4cd_idx",
         ),
     ]
