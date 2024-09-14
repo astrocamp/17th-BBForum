@@ -1,36 +1,12 @@
 import json
-from datetime import date
 
-from django.core.serializers.json import DjangoJSONEncoder
 from django.db.models import Count, Exists, OuterRef
 from django.shortcuts import render
-from django.utils import timezone
 
 from articles.models import Article, IndustryTag
 from follows.models import FollowRelation
 from picks.models import UserStock
-from userprofiles.models import Profile
 
-
-def get_or_create_profile(user):
-    profile, created = Profile.objects.get_or_create(user=user)
-    today = timezone.now().date()
-
-    # 檢查用戶的最後登錄日期
-    if profile.last_login_date != today:
-        profile.tot_point += 1  # 每次登錄增加點數
-        profile.last_login_date = today
-        profile.save()
-
-    # 檢查用戶是否發佈了新貼文
-    if (
-        hasattr(user, "article")
-        and user.article.filter(created_at__date=today).exists()
-    ):
-        profile.tot_point += 2  # 發佈新貼文增加點數
-        profile.save()
-
-    return profile
 
 
 def handle_article_tags(article, tags):
@@ -45,11 +21,6 @@ def handle_article_tags(article, tags):
 
 
 def index(req):
-    user = req.user
-    if user.is_authenticated:
-        profile = get_or_create_profile(user)
-        req.session["points"] = json.dumps(profile.tot_point, cls=DjangoJSONEncoder)
-
     if req.method == "POST":
         article_content = req.POST.get("article_content")
         photo = req.FILES.get("photo")
@@ -81,7 +52,6 @@ def index(req):
             ).order_by("-id")
             stocks = IndustryTag.objects.all()
 
-            articles = get_articles_with_like_info(req.user)
             if req.headers.get("HX-Request"):
                 return render(
                     req,
@@ -94,14 +64,8 @@ def index(req):
                 req, "pages/main_page/_articles_list.html", {"articles": articles}
             )
 
-    articles = get_articles_with_like_info(req.user)
+    subquery = Article.objects.filter(liked=req.user.pk, id=OuterRef("pk")).values("pk")
 
-    return render(req, "pages/main_page/index.html", {"articles": articles})
-
-
-def get_articles_with_like_info(user):
-    """Helper function to get articles annotated with like info."""
-    subquery = Article.objects.filter(liked=user.pk, id=OuterRef("pk")).values("pk")
     articles = (
         Article.objects.annotate(user_liked=Exists(subquery), like_count=Count("liked"))
         .order_by("-id")

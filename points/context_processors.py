@@ -14,6 +14,5 @@ def user_points(request):
             request.session["points"] = json.dumps(tot_point, cls=DjangoJSONEncoder)
         else:
             tot_point = int(tot_point.strip('"'))
-
         return {"tot_point": tot_point}
     return {"tot_point": 0}

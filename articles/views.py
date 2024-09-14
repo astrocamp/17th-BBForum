@@ -2,8 +2,6 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import HttpResponse, get_object_or_404, redirect, render
 
-from pages.views import get_or_create_profile
-
 from .forms import ArticleForm
 from .models import Article, Comment, IndustryTag
 

@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('userprofiles', '0006_alter_profile_tot_point'),
+        ("userprofiles", "0006_alter_profile_tot_point"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='profile',
-            name='birthday',
+            model_name="profile",
+            name="birthday",
             field=models.DateField(blank=True, null=True),
         ),
     ]
