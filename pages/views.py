@@ -5,6 +5,7 @@ from django.shortcuts import render
 
 from articles.models import Article, IndustryTag
 from follows.models import FollowRelation
+from picks.models import UserStock
 
 
 def index(req):
@@ -57,7 +58,11 @@ def index(req):
 
 
 def my_watchlist(req):
-    return render(req, "pages/my_watchlist/my_watchlist.html")
+    stock_all_id = UserStock.objects.filter(user=req.user).values_list(
+        "stock_id", flat=True
+    )
+    articles = Article.objects.filter(stock__in=stock_all_id).distinct().order_by("-id")
+    return render(req, "pages/my_watchlist/my_watchlist.html", {"articles": articles})
 
 
 def my_favorites(req):
