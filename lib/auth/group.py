@@ -1,6 +1,8 @@
 from django.contrib.auth.models import Group
+
 from articles.models import Article
 from follows.models import FollowRelation
+
 
 def assign_user_to_group(user, post_count, follow_count):
     # 計算發文數和追蹤者數的綜合結果
