@@ -9,4 +9,6 @@ import "./article_link.js"
 import "./optional_stock.js"
 import "./publish_photo.js"
 import './stock_search.js'
+import "./unlogined_share.js"
 
+Alpine.start();
