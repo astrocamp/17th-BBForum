@@ -8,4 +8,6 @@ import "./follow_user.js"
 import "./article_link.js"
 import "./optional_stock.js"
 import "./publish_photo.js"
+import "./unlogined_share.js"
 
+Alpine.start();
