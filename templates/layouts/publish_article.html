@@ -24,14 +24,14 @@
             </div>
 
             <div class="w-full p-2">
-                <div x-data="{ fileName: '' }" class="flex items-center space-x-4 text-gray-94">
-                                     <label for="fileInput" class="px-4 py-2 rounded cursor-pointer text-dark-600 bg-gray-94">選擇圖片</label>
+                <div x-data="fileUploader" class="flex flex-col space-y-4 text-gray-94">
+                    <label for="fileInput" class="px-4 py-2 rounded cursor-pointer text-dark-600 bg-gray-94">選擇圖片</label>
                     <span x-text="fileName" class="text-black"></span>
+                    <div x-show="filePreview" class="mt-2">
+                        <img :src="filePreview" alt="Image Preview" class="object-cover w-8 h-8 border rounded">
+                    </div>
+                    <input type="file" id="fileInput" name="photo" class="hidden" @change="previewFile">
                 </div>
-
-                <input type="file" id="fileInput" name="photo" class="hidden"
-                       @change="fileName = $event.target.files.length > 0 ? $event.target.files[0].name : ''">
-
             </div>
 
 
