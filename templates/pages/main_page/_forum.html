@@ -19,7 +19,7 @@
             </div>
         </div>
         <div class="mt-4">
-            <section x-data="unlogined_prompt({{ user.is_authenticated|lower }})" class="rounded-[3px] bg-white h-[72px] shadow-area">
+            <section x-data="unlogined_share({{ user.is_authenticated|lower }})" class="rounded-[3px] bg-white h-[72px] shadow-area">
                 <div class="flex items-center gap-2 p-4">
                     <div class="w-[40px] h-[40px] rounded-full overflow-hidden">
                         <img src="{% static 'images/visitor.svg' %}" alt="visitor"></img>
@@ -27,7 +27,6 @@
                     <button @click="toggleVisibility" class="flex-grow pt-2 pb-2 pl-4 pr-4 text-left rounded-[50px] bg-gray-94">
                         <div class="text-[18px] font-normal leading-[21px] text-gray-69">想和大家分享什麼呢？</div>
                     </button>
-
                     <template x-if="!isAuthenticated">
                         {% include "layouts/not_logged.html" %}
                     </template>
