@@ -50,8 +50,8 @@ class Profile(models.Model):
 
         # 獲取今天發佈的前五篇文章
         articles_today = Article.objects.filter(
-            user=self.user, created_at__date=today
-        ).order_by("created_at")
+            user=self.user, post_at__date=today
+        ).order_by("post_at")
 
         points_to_add = 0
         for article in articles_today[:5]:
