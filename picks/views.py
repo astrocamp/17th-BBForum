@@ -1,4 +1,5 @@
 from rest_framework import status
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -7,6 +8,8 @@ from picks.models import UserStock
 
 
 class PickStockAPI(APIView):
+    permission_classes = [IsAuthenticated]
+
     def post(self, request, id):
         user = request.user
 
@@ -42,6 +45,8 @@ class PickStockAPI(APIView):
 
 
 class CheckPickStatusAPI(APIView):
+    permission_classes = [IsAuthenticated]
+
     def get(self, request, id):
         user = request.user
         is_picked = UserStock.objects.filter(user=user, stock=id).exists()
