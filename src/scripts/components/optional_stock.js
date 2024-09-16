@@ -27,7 +27,7 @@ Alpine.data("optional_stock", (isAuthenticated) => ({
       body: JSON.stringify({}),
     })
       .then((response) => response.json())
-      .then((data) => {
+      .then(() => {
         if (this.isPick) {
           this.$refs.buttonStyle.innerHTML = `
                 <div class="w-[60px] h-[28px] rounded-[4px] bg-red-primary text-sm text-white flex items-center justify-center cursor-pointer border border-red-primary gap-1">
@@ -47,8 +47,8 @@ Alpine.data("optional_stock", (isAuthenticated) => ({
   async checkPickStatus(checkPickURL) {
     const response = await fetch(checkPickURL);
     const data = await response.json();
-
-    if (data.is_picked) {
+    this.isPick = data.is_picked;
+    if (this.isPick) {
       this.$refs.buttonStyle.innerHTML = `
             <div class="w-[60px] h-[28px] rounded-[4px] bg-white text-sm text-red-primary flex items-center justify-center cursor-pointer border border-red-primary gap-1">
                 自選
