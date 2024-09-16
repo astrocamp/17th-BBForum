@@ -97,8 +97,8 @@ def news_feed(req):
     return render(req, "pages/news_feed/news_feed.html", {"articles": articles})
 
 
-def market_index(req):
-    return render(req, "pages/market_index/market_index.html")
+def stock_market(req):
+    return render(req, "pages/stock_market/stock_market.html")
 
 
 def taiwan_index(req):
