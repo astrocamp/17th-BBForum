@@ -7,7 +7,7 @@
                     <div class="flex items-center">
                         <div class="relative group">
                             <div x-data="follow_user({{ user.is_authenticated|lower}}, {{ user.id|default_if_none:'null' }}, {{ article.user.id }})"
-                                 @mouseover="chackMouseoverColor('{% url 'follows:check_follow_api' article.user.id %}')">
+                                 @mouseover="checkMouseoverColor('{% url 'follows:check_follow_api' article.user.id %}')">
                                 <div>
                                     <a href="#">
                                         <div class="w-[40px] h-[40px] rounded-full border border-gray-94 overflow-hidden">
