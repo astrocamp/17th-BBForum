@@ -101,8 +101,8 @@ def stock_market(req):
     return render(req, "pages/stock_market/stock_market.html")
 
 
-def taiwan_index(req):
-    return render(req, "pages/taiwan_index/taiwan_index.html")
+def taiwan_futures(req):
+    return render(req, "pages/taiwan_futures/taiwan_futures.html")
 
 
 def member_profile(req):

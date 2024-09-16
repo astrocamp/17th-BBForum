@@ -10,5 +10,5 @@ urlpatterns = [
     path("my_favorites/", views.my_favorites, name="my_favorites"),
     path("news_feed/", views.news_feed, name="news_feed"),
     path("stock_market/", views.stock_market, name="stock_market"),
-    path("taiwan_index/", views.taiwan_index, name="taiwan_index"),
+    path("taiwan_futures/", views.taiwan_futures, name="taiwan_futures"),
 ]
