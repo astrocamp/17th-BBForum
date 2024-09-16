@@ -131,11 +131,7 @@
                         <div x-ref="articleContent" class="text-[1.125em] leading-[1.375em] text-dark-800 h-full overflow-auto">
                          {{ article.content }}
 
-                         <div>
-                            {% if article.photo %}
-                           <img src="{{ article.photo.url }}" alt="Article Image" />
-                            {% endif %}
-                         </div>
+
 
                         </div>
                     </div>
@@ -146,6 +142,11 @@
                             {{ article.content }}
                         </textarea>
                     </template>
+                    <div>
+                        {% if article.photo %}
+                       <img src="{{ article.photo.url }}" alt="Article Image" />
+                        {% endif %}
+                     </div>
                 </div>
             </div>
 
