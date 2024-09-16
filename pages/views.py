@@ -1,5 +1,6 @@
 import json
 
+from django.contrib.auth.models import AnonymousUser
 from django.db.models import Count, Exists, OuterRef, Value
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render
@@ -64,6 +65,20 @@ def index(req):
             return render(
                 req, "pages/main_page/_articles_list.html", {"articles": articles}
             )
+        
+    if isinstance(req.user, AnonymousUser):
+        pick_stocks = []
+    else:
+        pick_stocks = UserStock.objects.filter(user=req.user).values_list(
+            "stock__security_code", flat=True
+        )
+
+    random_five_tags = (
+        IndustryTag.objects.filter(industry="半導體業")
+        .exclude(security_code__in=pick_stocks)
+        .values_list("security_code", "name")
+        .order_by("?")[:5]
+    )
 
     subquery = Article.objects.filter(liked=req.user.pk, id=OuterRef("pk")).values("pk")
     collect = Article.objects.filter(collectors=req.user.pk, id=OuterRef("pk")).values(
@@ -80,12 +95,13 @@ def index(req):
         .order_by("-id")
         .prefetch_related("stock")
     )
+
     stocks = IndustryTag.objects.all()
 
     return render(
         req,
         "pages/main_page/index.html",
-        {"articles": articles, "stocks": stocks},
+        {"articles": articles, "stocks": stocks, "random_five_tags": random_five_tags},
     )
 
 
@@ -149,21 +165,11 @@ def popular_stocks(req):
     return render(req, "popular_pages/popular_stocks.html")
 
 
-def popular_students(req):
-    if req.user.is_authenticated:
-        profile = get_object_or_404(Profile, user=req.user)
-        user_img = profile.user_img
-    else:
-        user_img = None
-
-
 def popular_students(request):
-
     return render(request, "popular_pages/popular_students.html")
 
 
 def popular_answers(req):
-
     return render(req, "popular_pages/popular_answers.html")
 
 
