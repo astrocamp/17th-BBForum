@@ -79,7 +79,7 @@ def forget_password(req):
             user.save()
 
             subject = "Password Reset Notification"
-            message = f"Hello {username},\n\nYour password has been reset. Your new password is: {random_password}\n\nPlease change your password after logging in."
+
             send_mail_via_mailgun(subject, message, email)
 
             return render(
