@@ -64,6 +64,12 @@ def index(req):
                 req, "pages/main_page/_articles_list.html", {"articles": articles}
             )
 
+    random_five_tags = (
+        IndustryTag.objects.filter(industry="半導體業")
+        .values_list("security_code", "name")
+        .order_by("?")[:5]
+    )
+
     subquery = Article.objects.filter(liked=req.user.pk, id=OuterRef("pk")).values("pk")
     collect = Article.objects.filter(collectors=req.user.pk, id=OuterRef("pk")).values(
         "pk"
