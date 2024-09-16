@@ -19,7 +19,7 @@ def should_include_nav_bar(request):
             "/my_watchlist/",
             "/my_favorites/",
             "/news_feed/",
-            "/market_index/",
+            "/stock_market/",
             "/taiwan_index/",
             "/popular_stocks/",
             "/popular_students/",
