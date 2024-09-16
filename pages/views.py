@@ -63,6 +63,12 @@ def index(req):
                 req, "pages/main_page/_articles_list.html", {"articles": articles}
             )
 
+    random_five_tags = (
+        IndustryTag.objects.filter(industry="半導體業")
+        .values_list("security_code", "name")
+        .order_by("?")[:5]
+    )
+
     subquery = Article.objects.filter(liked=req.user.pk, id=OuterRef("pk")).values("pk")
 
     articles = (
@@ -70,10 +76,10 @@ def index(req):
         .order_by("-id")
         .prefetch_related("stock")
     )
-    stocks = IndustryTag.objects.all()
-
     return render(
-        req, "pages/main_page/index.html", {"articles": articles, "stocks": stocks}
+        req,
+        "pages/main_page/index.html",
+        {"articles": articles, "random_five_tags": random_five_tags},
     )
 
 
