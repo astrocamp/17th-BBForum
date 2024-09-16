@@ -49,8 +49,8 @@ def create_article(request):
                 article.save()
 
                 profile, created = Profile.objects.get_or_create(user=user)
-                profile.add_points()  # 添加积分
-                profile.save()  # 保存到数据库
+                profile.add_points()
+                profile.save()
 
                 request.session["points"] = json.dumps(
                     profile.tot_point, cls=CustomJSONEncoder
