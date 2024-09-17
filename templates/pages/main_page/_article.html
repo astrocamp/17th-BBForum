@@ -230,7 +230,7 @@
             </div>
             <div x-data="unlogined_prompt({{ user.is_authenticated|lower }})">
                 <div id="comment_container-{{article.id}}" >
-                    {% include 'pages/main_page/_comment.html' with article=article %}
+                    {% include 'articles/_comment.html' with article=article %}
                 <div>
                 <template x-if="!isAuthenticated">
                     {% include "layouts/not_logged.html" %}
