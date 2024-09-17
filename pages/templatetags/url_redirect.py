@@ -1,3 +1,5 @@
+import re
+
 from django import template
 
 register = template.Library()
@@ -7,6 +9,7 @@ register = template.Library()
 def should_include_nav_bar(request):
     url_name = getattr(request.resolver_match, "url_name", None)
     path = request.path
+    print(path)
     if (
         url_name
         and url_name not in ["register", "sign_in", "auth_denied"]
@@ -22,6 +25,7 @@ def should_include_nav_bar(request):
             "/popular_students/",
             "/popular_answers/",
         ]
+        or re.match(r"^/stocks/.*", path)
     ):
         return True
     return False
