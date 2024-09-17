@@ -2,29 +2,36 @@
 <div>
     <ul class="p-2">
         {% for comment in article.comments.all %}
-            <div x-data="edit_comment" class="p-4 mt-1 mb-1 my_comment w-full border-b border-black">
+            <div x-data="edit_comment" class="p-4 mt-1 mb-1 my_comment w-full">
                 <div class="flex justify-between items-center h-full gap-4">
-                    <div x-show="!editing" class="w-full">
-                        <div class="flex flex-col">
-                            <div class=" pl-1">
-                                <div class="flex justify-between items-center p-1">
-                                    <span class="text-base">
-                                        {{ comment.user.username }}
-                                    </span> 
-                                </div>
+                    <div x-show="!editing" class="w-full chat chat-start">
+                        <div class="chat-image avatar">
+                            <div class="w-10 rounded-full mb-2">
+                              <img
+                                alt="visitor"
+                                src="{% static 'images/visitor.svg' %}" />
                             </div>
-                            <div x-ref="commentContent" class="w-full pt-1 pb-1 pl-4 text-xl">
+                        </div>
+                        <div class="pl-1 pb-2">
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm">
+                                    {{ comment.user.username }}
+                                </span>
+                            </div>
+                            <div class="text-xs text-gray-cbc">
+                                {{ comment.created_at|date:'Y/m/d h:i' }}
+                            </div>
+                        </div>
+                        <div class="flex flex-col bg-dark-800 rounded-md chat-bubble text-white">
+                            <div x-ref="commentContent" class="w-full pt-1 pb-1 text-xl">
                                 {{ comment.content }}
-                            </div>
-                            <div class="text-sm pt-1 pb-1 pl-4 text-gray-cbc"> 
-                                {{ comment.created_at|date:'Y/m/d h:i' }} 
                             </div>
                         </div>
                     </div>
                     <template x-if="editing">
                         <div class="w-full h-full">
                             <div class="mr-4 flex flex-col">
-                                <div class="text-base pl-1">
+                                <div class="text-sm pl-1">
                                     {{ comment.user.username }}
                                 </div>
                                 <textarea x-model="commentContent"
@@ -32,7 +39,7 @@
                                         class="w-full pt-1 pb-1 pl-3 text-xl border border-gray-cbc">
                                         {{ comment.content }}
                                 </textarea>
-                                <div class="mt-5 text-sm pt-1 pb-1 pl-3  text-gray-cbc"> 
+                                <div class="mt-5 text-xs pt-1 pb-1 pl-3  text-gray-cbc">
                                     {{ comment.created_at|date:'Y/m/d h:i' }}
                                 </div>
                             </div>
