@@ -6,8 +6,9 @@ from django.shortcuts import get_object_or_404, render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.db.models import Count, Exists, OuterRef
+from django.http import JsonResponse
 from django.shortcuts import render
-from django.utils import timezone
+
 from articles.models import Article, IndustryTag
 from follows.models import FollowRelation
 from lib.auth.group import update_user_group
@@ -86,14 +87,12 @@ def index(req):
                         "current_user_groups": current_user_groups,
                     },
                 )
-                
 
         else:
             articles = Article.objects.order_by("-id")
             return render(
                 req, "pages/main_page/_articles_list.html", {"articles": articles}
             )
-            
 
     subquery = Article.objects.filter(liked=req.user.pk, id=OuterRef("pk")).values("pk")
     collect = Article.objects.filter(collectors=req.user.pk, id=OuterRef("pk")).values(
@@ -287,11 +286,9 @@ def points(request):
 
 def update_left_nav_bar(req):
     current_user_groups = list(req.user.groups.values_list("name", flat=True))
-    current_time = timezone.now().isoformat()  # 返回 ISO 格式的當前時間
-    print(current_user_groups )
-    print(current_time)
 
-    return JsonResponse({
-    "current_user_groups": current_user_groups,
-    "current_time": current_time,
-    })
+    return JsonResponse(
+        {
+            "current_user_groups": current_user_groups,
+        }
+    )
