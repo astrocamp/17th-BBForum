@@ -52,10 +52,6 @@ def create_article(request):
                 profile.add_points()
                 profile.save()
 
-                request.session["points"] = json.dumps(
-                    profile.tot_point, cls=CustomJSONEncoder
-                )
-
                 return JsonResponse({"success": True, "tot_point": profile.tot_point})
 
             else:
@@ -71,5 +67,7 @@ def create_article(request):
 
 @login_required
 def get_user_points(request):
-    profile = request.user.profile
-    return JsonResponse({"tot_point": profile.tot_point})
+    if request.user.is_authenticated:
+        points = request.user.profile.tot_point
+        return JsonResponse({"tot_point": points})
+    return JsonResponse({"tot_point": 0})

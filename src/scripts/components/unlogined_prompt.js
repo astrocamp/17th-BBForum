@@ -19,6 +19,8 @@ Alpine.data("unlogined_prompt", (isAuthenticated) => ({
             this.$refs.clearTextarea.value = '';
         }
         this.isVisible = !this.isVisible;
+
+        this.fetchUserPoints();
     },
 
     async submitArticleForm(event) {
@@ -58,7 +60,7 @@ Alpine.data("unlogined_prompt", (isAuthenticated) => ({
     },
 
     async fetchUserPoints() {
-        const response = await fetch('/get-user-points/', {
+        const response = await fetch('/points/get-user-points/', {
             headers: {
                 'X-Requested-With': 'XMLHttpRequest'
             }
@@ -67,6 +69,7 @@ Alpine.data("unlogined_prompt", (isAuthenticated) => ({
         if (response.ok) {
             const data = await response.json();
             this.tot_point = data.tot_point;
+            document.getElementById('points-display').innerText = `P點: ${this.tot_point}`;
         }
     }
 }));
