@@ -89,7 +89,10 @@
 
 
             {% if articles %}
+
                 {% include "pages/main_page/_articles_list.html" with articles=articles %}
+
+
             {% else %}
                 <div id="articles_container">
                     {% for item in articles_with_groups %}

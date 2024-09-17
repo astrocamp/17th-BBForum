@@ -5,7 +5,14 @@
     <div class="mt-[12px]">
         <div class="flex w-[1200px] mx-auto">
 
-            {% include 'pages/main_page/_left_nav_bar.html' %}
+            <div id="left-nav-bar"
+                 hx-get="{% url 'pages:update_left_nav_bar' %}"
+                 hx-trigger="updateLeftNavBar from:body"
+                 hx-target="#left-nav-bar"
+                 hx-swap="outerHTML">
+               {% include 'pages/main_page/_left_nav_bar.html' with current_user_groups=current_user_groups %}
+             </div>
+
 
             {% include 'pages/main_page/_forum.html' %}
             {% include 'pages/main_page/_right_nav_bar.html' %}

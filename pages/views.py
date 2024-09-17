@@ -9,6 +9,7 @@ from django.db.models import Count, Exists, OuterRef
 from django.shortcuts import render
 
 from articles.models import Article, IndustryTag
+from follows.models import FollowRelation
 from lib.auth.group import update_user_group
 from follows.models import FollowRelation
 from picks.models import UserStock
@@ -75,7 +76,7 @@ def index(req):
             current_user_groups = req.user.groups.values_list("name", flat=True)
 
             if req.headers.get("HX-Request"):
-                return render(
+                response = render(
                     req,
                     "pages/main_page/_articles_list.html",
                     {
@@ -84,6 +85,8 @@ def index(req):
                         "current_user_groups": current_user_groups,
                     },
                 )
+                response["HX-Trigger"] = "updateLeftNavBar"
+                return response
 
         else:
             articles = Article.objects.order_by("-id")
@@ -277,3 +280,15 @@ def search_stocks(req):
 
 def stock_notfound(req):
     return render(req, "pages/taiwan_index/stock_notfound.html")
+def points(request):
+    return render(request, "layouts/base.html")
+
+
+def update_left_nav_bar(req):
+    current_user_groups = req.user.groups.values_list("name", flat=True)
+
+    return render(
+        req,
+        "pages/main_page/_left_nav_bar.html",
+        {"current_user_groups": current_user_groups},
+    )
