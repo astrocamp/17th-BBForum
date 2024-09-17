@@ -6,7 +6,7 @@ Alpine.data("unlogined_prompt", (isAuthenticated) => ({
     isShow: false,
     isAuthenticated: isAuthenticated,
     articleContent: '',
-    tot_point: 0,  // 用來顯示點數的初始值
+    tot_point: 0,
 
     toggleVisibility() {
         this.isVisible = !this.isVisible;
@@ -22,7 +22,7 @@ Alpine.data("unlogined_prompt", (isAuthenticated) => ({
     },
 
     async submitArticleForm(event) {
-        event.preventDefault();  // 防止默認表單提交行為
+        event.preventDefault();
         console.log("Submitting form...");
 
         const formData = new FormData(this.$refs.submitForm);
@@ -38,7 +38,7 @@ Alpine.data("unlogined_prompt", (isAuthenticated) => ({
             const data = await response.json();
 
             if (data.success) {
-                this.tot_point = data.tot_point;  // 更新點數
+                this.tot_point = data.tot_point;
             } else {
                 alert(data.error);
             }
@@ -47,7 +47,6 @@ Alpine.data("unlogined_prompt", (isAuthenticated) => ({
         }
     },
 
-    // 用於提交評論的邏輯
     submitCommentForm(event) {
         if (this.commentContent.trim() === '') {
             event.preventDefault();
@@ -58,7 +57,6 @@ Alpine.data("unlogined_prompt", (isAuthenticated) => ({
         }
     },
 
-    // 獲取當前用戶點數的方法
     async fetchUserPoints() {
         const response = await fetch('/get-user-points/', {
             headers: {
@@ -68,7 +66,7 @@ Alpine.data("unlogined_prompt", (isAuthenticated) => ({
 
         if (response.ok) {
             const data = await response.json();
-            this.tot_point = data.tot_point;  // 設置當前點數
+            this.tot_point = data.tot_point;
         }
     }
 }));
