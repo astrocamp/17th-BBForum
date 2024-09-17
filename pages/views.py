@@ -36,10 +36,13 @@ def index(req):
             articles = Article.objects.annotate(
                 user_liked=Exists(subquery), like_count=Count("liked")
             ).order_by("-id")
+            stocks = IndustryTag.objects.all()
 
             if req.headers.get("HX-Request"):
                 return render(
-                    req, "pages/main_page/_articles_list.html", {"articles": articles}
+                    req,
+                    "pages/main_page/_articles_list.html",
+                    {"articles": articles, "stocks": stocks},
                 )
         else:
             articles = Article.objects.order_by("-id")

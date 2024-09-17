@@ -26,19 +26,19 @@ Alpine.data("tagInput", () => ({
 
     this.loadWhitelist();
 
-    input.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
-        e.preventDefault();
-        if (input.value.trim()) {
-          this.tagify.addTags([input.value.trim()]);
-          input.value = '';
-        }
-      }
-    });
+    // input.addEventListener('keydown', (e) => {
+    //   if (e.key === 'Enter') {
+    //     e.preventDefault();
+    //     if (input.value.trim()) {
+    //       this.tagify.addTags([input.value.trim()]);
+    //       input.value = '';
+    //     }
+    //   }
+    // });
 
-    input.addEventListener('input', () => {
-      this.fetchSuggestions();
-    });
+    // input.addEventListener('input', () => {
+    //   this.fetchSuggestions();
+    // });
   },
 
   async loadWhitelist() {

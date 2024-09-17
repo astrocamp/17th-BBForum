@@ -74,3 +74,8 @@
 .red-bar {
     @apply rounded-[3px] bg-red-primary;
 }
+
+.twstock #stock-graph {
+    height: 200px !important;
+}
+
