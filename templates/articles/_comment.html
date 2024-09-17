@@ -39,45 +39,47 @@
                                         class="w-full pt-1 pb-1 pl-3 text-xl border border-gray-cbc">
                                         {{ comment.content }}
                                 </textarea>
-                                <div class="mt-5 text-xs pt-1 pb-1 pl-3  text-gray-cbc">
-                                    {{ comment.created_at|date:'Y/m/d h:i' }}
-                                </div>
                             </div>
                         </div>
                     </template>
-
                     {% if request.user.id == comment.user.id %}
-                        <div class="flex flex-col">
-                            <button
-                                @click="startEdit"
-                                x-show="!editing"
-                                class="w-[65px] h-[35px] pl-1 pr-1 mb-2 border border-gray-69 text-dark-600 text-[12px] rounded-lg btn-transition">
-                                編輯留言
-                            </button>
-                            <button
-                                hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
-                                hx-post="{% url 'articles:update_comment' comment.id %}"
-                                hx-swap="none"
-                                x-bind:hx-vals="JSON.stringify({content: commentContent})"
-                                @click="saveEdit"
-                                x-show="editing"
-                                class="w-[65px] h-[35px] pl-1 pr-1 mb-2 border border-gray-69 text-dark-600 text-[12px] rounded-lg btn-transition">
-                                儲存留言
-                            </button>
-                            <button x-show="!editing"
-                                hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
-                                hx-delete={% url 'articles:delete_comment' comment.id %}
-                                hx-confirm="確認刪除？"
-                                hx-target="closest .my_comment"
-                                hx-swap="outerHTML"
-                                class="w-[65px] h-[35px] pl-1 pr-1 text-white text-[12px] bg-red-primary rounded-lg">刪除留言</button>
-                            <template x-if="editing">
-                                <button
-                                    @click="cancelEdit"
-                                    class="w-[65px] h-[35px] pl-1 pr-1 text-white text-[12px] bg-red-primary rounded-lg">
-                                    取消留言
-                                </button>
-                            </template>
+                        <div class="dropdown">
+                            <div tabindex="0" role="button"  class="w-12 h-4 btn rounded-full bg-transparent border-transparent">
+                                <i class="fa-solid fa-ellipsis w-[26px] h-[26px] text-gray-56"></i>
+                            </div>
+                            <ul tabindex="0" class="menu dropdown-content bg-base-100 rounded-box z-[1] w-40 p-2 shadow">
+                                <li>
+                                    <button
+                                        @click="startEdit"
+                                        x-show="!editing"
+                                        class="text-sm">
+                                        編輯
+                                    </button>
+                                </li>
+                                <li>
+                                    <button
+                                        hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+                                        hx-post="{% url 'articles:update_comment' comment.id %}"
+                                        hx-swap="none"
+                                        x-bind:hx-vals="JSON.stringify({content: commentContent})"
+                                        @click="saveEdit"
+                                        x-show="editing"
+                                        class="text-sm">
+                                        儲存
+                                    </button>
+                                </li>
+                                <li>
+                                    <form
+                                        hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+                                        hx-delete="{% url 'articles:delete_comment' comment.id %}"
+                                        hx-confirm="確認刪除？"
+                                        hx-target="closest .my_comment"
+                                        hx-swap="outerHTML"
+                                        x-show="!editing">
+                                        <button type="submit" class="text-sm text-red-primary">刪除</button>
+                                    </form>
+                                </li>
+                            </ul>
                         </div>
                     {% endif %}
                 </div>
