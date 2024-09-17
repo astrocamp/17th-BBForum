@@ -2,25 +2,39 @@
 <div>
     <ul class="p-2">
         {% for comment in article.comments.all %}
-            <div x-data="edit_comment" class="border border-gray-300 p-4 mt-1 mb-1 my_comment w-full h-[200px]">
-                <div class="flex justify-between items-center h-full">
-                    <div x-show="!editing" class="w-full h-full">
-                        <div class="mr-4 flex flex-col justify-around h-full">
-                            <div class="text-[18px] pl-1">{{ comment.user.username }}</div>
-                            <div x-ref="commentContent" class="w-full h-full mt-5 text-[16px] pl-1 border border-white">{{ comment.content }}</div>
-                            <div class="mt-5 text-[12px] pl-1 text-gray-cbc"> 留言時間 : {{ comment.created_at|date:'Y/m/d h:i' }} </div>
+            <div x-data="edit_comment" class="p-4 mt-1 mb-1 my_comment w-full border-b border-black">
+                <div class="flex justify-between items-center h-full gap-4">
+                    <div x-show="!editing" class="w-full">
+                        <div class="flex flex-col">
+                            <div class=" pl-1">
+                                <div class="flex justify-between items-center p-1">
+                                    <span class="text-base">
+                                        {{ comment.user.username }}
+                                    </span> 
+                                </div>
+                            </div>
+                            <div x-ref="commentContent" class="w-full pt-1 pb-1 pl-4 text-xl">
+                                {{ comment.content }}
+                            </div>
+                            <div class="text-sm pt-1 pb-1 pl-4 text-gray-cbc"> 
+                                {{ comment.created_at|date:'Y/m/d h:i' }} 
+                            </div>
                         </div>
                     </div>
                     <template x-if="editing">
                         <div class="w-full h-full">
-                            <div class="mr-4 flex flex-col justify-around h-full">
-                                <div class="text-[18px] pl-1">{{ comment.user.username }}</div>
+                            <div class="mr-4 flex flex-col">
+                                <div class="text-base pl-1">
+                                    {{ comment.user.username }}
+                                </div>
                                 <textarea x-model="commentContent"
                                         @input="adjustHeight($event.target)"
-                                        class="w-full h-full mt-5 text-[16px] pl-1 border border-gray-cbc">
+                                        class="w-full pt-1 pb-1 pl-3 text-xl border border-gray-cbc">
                                         {{ comment.content }}
                                 </textarea>
-                                <div class="mt-5 text-[12px] pl-1 text-gray-cbc"> 留言時間 : {{ comment.created_at|date:'Y/m/d h:i' }} </div>
+                                <div class="mt-5 text-sm pt-1 pb-1 pl-3  text-gray-cbc"> 
+                                    {{ comment.created_at|date:'Y/m/d h:i' }}
+                                </div>
                             </div>
                         </div>
                     </template>
@@ -43,16 +57,13 @@
                                 class="w-[65px] h-[35px] pl-1 pr-1 mb-2 border border-gray-69 text-dark-600 text-[12px] rounded-lg btn-transition">
                                 儲存留言
                             </button>
-                            <button
-                                x-show="!editing"
+                            <button x-show="!editing"
                                 hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
                                 hx-delete={% url 'articles:delete_comment' comment.id %}
                                 hx-confirm="確認刪除？"
                                 hx-target="closest .my_comment"
                                 hx-swap="outerHTML"
-                                class="w-[65px] h-[35px] pl-1 pr-1 text-white text-[12px] bg-red-primary rounded-lg">
-                                刪除留言
-                            </button>
+                                class="w-[65px] h-[35px] pl-1 pr-1 text-white text-[12px] bg-red-primary rounded-lg">刪除留言</button>
                             <template x-if="editing">
                                 <button
                                     @click="cancelEdit"
