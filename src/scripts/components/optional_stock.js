@@ -7,7 +7,8 @@ Alpine.data("optional_stock", (isAuthenticated) => ({
   isAuthenticated: isAuthenticated,
 
   init(checkPickURL) {
-    this.checkPickStatus(checkPickURL);
+    if (typeof checkPickURL !== 'undefined' && checkPickURL)
+      this.checkPickStatus(checkPickURL);
   },
 
   async startPick(pickURL, unpickURL, checkPickURL, csrfToken) {
