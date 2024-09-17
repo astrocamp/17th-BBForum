@@ -2,6 +2,7 @@ from debug_toolbar.toolbar import debug_toolbar_urls
 from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import include, path
+from django.contrib import admin
 
 
 def is_dev():

@@ -38,12 +38,14 @@
                     <div class="h-[20px]">
                         <span class="text-dark-600 text-sm font-sans font-normal tracking-[0.2px]">
                             {% if user.is_authenticated %}
+                            <div id="groups_display">
                                 {% for group_name in current_user_groups %}
                                     {{ group_name }}
                                 {% endfor %}
                             {% endif %}
-
+                            </div>
                         </span>
+                        
                     </div>
                 </div>
             </div>
@@ -83,6 +85,7 @@
                     </template>
                 </ul>
             </nav>
+            <p class="text-sm" id="time_display">當前時間: {{ current_time }}</p>
         </div>
     </div>
 </aside>

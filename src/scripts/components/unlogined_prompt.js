@@ -8,6 +8,8 @@ Alpine.data("unlogined_prompt", (isAuthenticated) => ({
     articleContent: '',
     commentContent: '',
     tot_point: 0,
+    current_user_groups:'',
+    current_time:'',
 
     toggleVisibility() {
         this.isVisible = !this.isVisible;
@@ -22,6 +24,7 @@ Alpine.data("unlogined_prompt", (isAuthenticated) => ({
 
         this.isVisible = !this.isVisible;
         this.fetchUserPoints();
+        this.fetchAndUpdateLeftNavBar();
     },
 
     submitCommentForm(event) {
@@ -48,3 +51,42 @@ Alpine.data("unlogined_prompt", (isAuthenticated) => ({
         }
     },
 }));
+   
+    async  fetchAndUpdateLeftNavBar() {
+        try {
+            const response = await fetch('/pages/update-left-nav-bar/', {
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            });
+    
+            if (response.ok) {
+                const data = await response.json();
+                
+                // 檢查是否有錯誤
+                if (data.error) {
+                    console.error('Error:', data.error);
+                    return;
+                }
+    
+                // 更新顯示
+                const groupsDisplay = document.getElementById('groups_display');
+                const timeDisplay = document.getElementById('time_display');
+    
+                if (groupsDisplay) {
+                    groupsDisplay.innerText = data.current_user_groups.join(', ');
+                }
+                if (timeDisplay) {
+                    timeDisplay.innerText = `當前時間: ${data.current_time}`;
+                }
+            } else {
+                console.error('Failed to fetch user groups');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
+
+
+}))
+

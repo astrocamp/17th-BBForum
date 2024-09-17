@@ -7,6 +7,7 @@
             hx-swap="innerHTML"
             x-bind:hx-vals="JSON.stringify({article_content: articleContent})"
             hx-target="#articles_container"
+            hx-boost="true"
             class="relative bg-white w-[538px] rounded-[10px] flex flex-col items-center justify-center">
 
             <button @click="isVisible = false" class="absolute flex items-center justify-center top-3 right-3 ">
