@@ -134,11 +134,47 @@ def news_feed(req):
 
 
 def market_index(req):
-    return render(req, "pages/market_index/market_index.html")
+    if isinstance(req.user, AnonymousUser):
+        pick_stocks = []
+    else:
+        pick_stocks = UserStock.objects.filter(user=req.user).values_list(
+            "stock__security_code", flat=True
+        )
+
+    random_five_tags = (
+        IndustryTag.objects.filter(industry="半導體業")
+        .exclude(security_code__in=pick_stocks)
+        .values_list("security_code", "name")
+        .order_by("?")[:5]
+    )
+
+    return render(
+        req,
+        "pages/market_index/market_index.html",
+        {"random_five_tags": random_five_tags},
+    )
 
 
 def taiwan_index(req):
-    return render(req, "pages/taiwan_index/taiwan_index.html")
+    if isinstance(req.user, AnonymousUser):
+        pick_stocks = []
+    else:
+        pick_stocks = UserStock.objects.filter(user=req.user).values_list(
+            "stock__security_code", flat=True
+        )
+
+    random_five_tags = (
+        IndustryTag.objects.filter(industry="半導體業")
+        .exclude(security_code__in=pick_stocks)
+        .values_list("security_code", "name")
+        .order_by("?")[:5]
+    )
+
+    return render(
+        req,
+        "pages/taiwan_index/taiwan_index.html",
+        {"random_five_tags": random_five_tags},
+    )
 
 
 def member_profile(req):
