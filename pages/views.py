@@ -12,11 +12,9 @@ from django.shortcuts import render
 from articles.models import Article, IndustryTag
 from follows.models import FollowRelation
 from lib.auth.group import update_user_group
-from follows.models import FollowRelation
 from picks.models import UserStock
 from userprofiles.models import Profile
 
-from django.http import JsonResponse
 
 def handle_article_tags(article, tags):
     try:

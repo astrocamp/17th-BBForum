@@ -26,18 +26,11 @@
                         {% else %}
                             <button @click="toggleVisibility" class="text-base font-bold border-b-2 border-transparent text-dark-800 hover:border-black ">訪客</button>
                         {% endif %}
-                        <button @click="toggleVisibility" class="text-base font-bold border-b-2 border-transparent text-dark-800 hover:border-black ">
-                            {% if user.is_authenticated %}
-                                 {{request.user.username}}
-                            {% else %}
-                                 訪客
-                            {% endif %}
-
-                        </button>
+                             </button>
                     </div>
                     <div class="h-[20px]">
                         <span class="text-dark-600 text-sm font-sans font-normal tracking-[0.2px]">
-                            {% if user.is_authenticated %}
+                            {% if request.user.is_authenticated %}
                             <div id="groups_display">
                                 {% for group_name in current_user_groups %}
                                     {{ group_name }}

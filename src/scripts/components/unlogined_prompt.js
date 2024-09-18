@@ -73,7 +73,7 @@ Alpine.data("unlogined_prompt", (isAuthenticated) => ({
                 const groupsDisplay = document.getElementById('groups_display');
 
                 if (groupsDisplay) {
-                    groupsDisplay.innerText = data.current_user_groups.join(', ');
+                    groupsDisplay.innerText = data.current_user_groups;
                 }
 
             } else {
