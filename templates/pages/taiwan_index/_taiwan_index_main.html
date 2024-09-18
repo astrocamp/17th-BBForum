@@ -279,10 +279,72 @@
                     <span class="gap-2 items-center text-[18px] font-semibold text-dark-800">熱門股票</span>
                 </header>
                 <div>
-                    <ul class="grid grid-cols-1 gap-1 list-none">
-                        <li class="mt-2 mb-2"><a href="#" class="gap-1 items-center justify-start text-[16px] font-medium">台積電(2330)</a></li>
-                        <li><a href="#" class="gap-1 items-center justify-start text-[16px] font-medium">鴻海(2317)</a></li>
-                        <li></li>
+                    <ul class="list-none">
+                      <li class="flex justify-between items-center group mt-4">
+                        <div>
+                          <div class="text-red-primary hover:underline">
+                            <a href="#">2330 台積電</a>
+                          </div>
+                        </div>
+                        <button
+                          x-data="optional_stock({{ user.is_authenticated|lower }})"
+                          x-init="isAuthenticated? checkPickStatus('{% url 'picks:check_pick_api' 2330 %}') : false"
+                          x-ref="buttonStyle"
+                          @click="startPick('{% url 'picks:pick_api' 2330 %}', '{% url 'picks:unpick_api' 2330 %}', '{% url 'picks:check_pick_api' 2330 %}', `{{csrf_token}}`)"
+                        ></button>
+                      </li>
+                      <li class="flex justify-between items-center group mt-4">
+                        <div>
+                          <div class="text-red-primary hover:underline">
+                            <a href="#">2317 鴻海</a>
+                          </div>
+                        </div>
+                        <button
+                          x-data="optional_stock({{ user.is_authenticated|lower }})"
+                          x-init="isAuthenticated? checkPickStatus('{% url 'picks:check_pick_api' 2317 %}') : false"
+                          x-ref="buttonStyle"
+                          @click="startPick('{% url 'picks:pick_api' 2317 %}', '{% url 'picks:unpick_api' 2317 %}', '{% url 'picks:check_pick_api' 2317 %}', `{{csrf_token}}`)"
+                        ></button>
+                      </li>
+                      <li class="flex justify-between items-center group mt-4">
+                        <div>
+                          <div class="text-red-primary hover:underline">
+                            <a href="#">2454 聯發科</a>
+                          </div>
+                        </div>
+                        <button
+                          x-data="optional_stock({{ user.is_authenticated|lower }})"
+                          x-init="isAuthenticated? checkPickStatus('{% url 'picks:check_pick_api' 2454 %}') : false"
+                          x-ref="buttonStyle"
+                          @click="startPick('{% url 'picks:pick_api' 2454 %}', '{% url 'picks:unpick_api' 2454 %}', '{% url 'picks:check_pick_api' 2454 %}', `{{csrf_token}}`)"
+                        ></button>
+                      </li>
+                      <li class="flex justify-between items-center group mt-4">
+                        <div>
+                          <div class="text-red-primary hover:underline">
+                            <a href="#">2349 錸德</a>
+                          </div>
+                        </div>
+                        <button
+                          x-data="optional_stock({{ user.is_authenticated|lower }})"
+                          x-init="isAuthenticated? checkPickStatus('{% url 'picks:check_pick_api' 2349 %}') : false"
+                          x-ref="buttonStyle"
+                          @click="startPick('{% url 'picks:pick_api' 2349 %}', '{% url 'picks:unpick_api' 2349 %}', '{% url 'picks:check_pick_api' 2349 %}', `{{csrf_token}}`)"
+                        ></button>
+                      </li>
+                      <li class="flex justify-between items-center group mt-4">
+                        <div>
+                          <div class="text-red-primary hover:underline">
+                            <a href="#">2371 大同</a>
+                          </div>
+                        </div>
+                        <button
+                          x-data="optional_stock({{ user.is_authenticated|lower }})"
+                          x-init="isAuthenticated? checkPickStatus('{% url 'picks:check_pick_api' 2371 %}') : false"
+                          x-ref="buttonStyle"
+                          @click="startPick('{% url 'picks:pick_api' 2371 %}', '{% url 'picks:unpick_api' 2371 %}', '{% url 'picks:check_pick_api' 2371 %}', `{{csrf_token}}`)"
+                        ></button>
+                      </li>
                     </ul>
                 </div>
             </div>
