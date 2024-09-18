@@ -110,7 +110,16 @@ def my_watchlist(req):
     stock_all_id = UserStock.objects.filter(user=req.user).values_list(
         "stock_id", flat=True
     )
-    articles = Article.objects.filter(stock__in=stock_all_id).distinct().order_by("-id")
+
+    subquery = Article.objects.filter(liked=req.user.pk, id=OuterRef("pk")).values("pk")
+
+    articles = (
+        Article.objects.filter(stock__in=stock_all_id)
+        .annotate(user_liked=Exists(subquery), like_count=Count("liked"))
+        .distinct()
+        .order_by("-id")
+        .prefetch_related("stock")
+    )
 
     return render(
         req,
