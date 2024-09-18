@@ -70,10 +70,10 @@
                         <div>
                             {% if user.is_authenticated and article.user == request.user %}
                                 <div class="dropdown">
-                                    <div tabindex="0" role="button"  class="w-12 h-4 btn">
+                                    <div tabindex="0" role="button"  class="w-12 h-4 btn bg-white">
                                         <i class="fa-solid fa-ellipsis w-[26px] h-[26px] text-gray-56"></i>
                                     </div>
-                                    <ul tabindex="0" class="menu dropdown-content bg-base-100 rounded-box z-[1] w-40 p-2 shadow">
+                                    <ul tabindex="0" class="menu dropdown-content bg-base-100 rounded-box z-[1] w-40 p-2 shadow bg-white">
                                         <li>
                                             <form
                                                 hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
