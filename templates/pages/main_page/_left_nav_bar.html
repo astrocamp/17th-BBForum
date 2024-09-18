@@ -1,7 +1,7 @@
 {% load static %}
 <aside class="w-[150px]">
     <div class="flex flex-col gap-4">
-        <div x-data="unloginedPrompt({{ user.is_authenticated|lower }})" class="flex flex-col">
+        <div x-data="unlogined_prompt({{ user.is_authenticated|lower }})" class="flex flex-col">
             <div class="flex p-2 gap-2">
                 <div class="flex-none w-[40px]">
                     <a>

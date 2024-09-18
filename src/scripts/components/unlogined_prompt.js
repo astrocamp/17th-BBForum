@@ -6,6 +6,7 @@ Alpine.data("unlogined_prompt", (isAuthenticated) => ({
     isShow: false,
     isAuthenticated: isAuthenticated,
     articleContent: '',
+    commentContent: '',
     tot_point: 0,
 
     toggleVisibility() {
@@ -18,14 +19,13 @@ Alpine.data("unlogined_prompt", (isAuthenticated) => ({
         if (this.$refs.clearTextarea) {
             this.$refs.clearTextarea.value = '';
         }
-        this.isVisible = !this.isVisible;
 
+        this.isVisible = !this.isVisible;
         this.fetchUserPoints();
     },
 
     async submitArticleForm(event) {
         event.preventDefault();
-        console.log("Submitting form...");
 
         const formData = new FormData(this.$refs.submitForm);
         const response = await fetch(this.$refs.submitForm.action, {
@@ -41,6 +41,7 @@ Alpine.data("unlogined_prompt", (isAuthenticated) => ({
 
             if (data.success) {
                 this.tot_point = data.tot_point;
+                document.getElementById('points-display').innerText = `P點: ${this.tot_point}`;
             } else {
                 alert(data.error);
             }
@@ -71,5 +72,5 @@ Alpine.data("unlogined_prompt", (isAuthenticated) => ({
             this.tot_point = data.tot_point;
             document.getElementById('points-display').innerText = `P點: ${this.tot_point}`;
         }
-    }
+    },
 }));
