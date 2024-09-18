@@ -64,8 +64,13 @@ def index(req):
                 req, "pages/main_page/_articles_list.html", {"articles": articles}
             )
 
+    pick_stocks = UserStock.objects.filter(user=req.user).values_list(
+        "stock__security_code", flat=True
+    )
+
     random_five_tags = (
         IndustryTag.objects.filter(industry="半導體業")
+        .exclude(security_code__in=pick_stocks)
         .values_list("security_code", "name")
         .order_by("?")[:5]
     )
