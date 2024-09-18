@@ -1,5 +1,6 @@
 import json
 
+from django.contrib.auth.models import AnonymousUser
 from django.db.models import Count, Exists, OuterRef
 from django.shortcuts import render
 
@@ -63,9 +64,12 @@ def index(req):
                 req, "pages/main_page/_articles_list.html", {"articles": articles}
             )
 
-    pick_stocks = UserStock.objects.filter(user=req.user).values_list(
-        "stock__security_code", flat=True
-    )
+    if isinstance(req.user, AnonymousUser):
+        pick_stocks = []
+    else:
+        pick_stocks = UserStock.objects.filter(user=req.user).values_list(
+            "stock__security_code", flat=True
+        )
 
     random_five_tags = (
         IndustryTag.objects.filter(industry="半導體業")
