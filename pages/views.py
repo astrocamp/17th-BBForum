@@ -93,11 +93,30 @@ def index(req):
 
 
 def my_watchlist(req):
+    if isinstance(req.user, AnonymousUser):
+        pick_stocks = []
+    else:
+        pick_stocks = UserStock.objects.filter(user=req.user).values_list(
+            "stock__security_code", flat=True
+        )
+
+    random_five_tags = (
+        IndustryTag.objects.filter(industry="半導體業")
+        .exclude(security_code__in=pick_stocks)
+        .values_list("security_code", "name")
+        .order_by("?")[:5]
+    )
+
     stock_all_id = UserStock.objects.filter(user=req.user).values_list(
         "stock_id", flat=True
     )
     articles = Article.objects.filter(stock__in=stock_all_id).distinct().order_by("-id")
-    return render(req, "pages/my_watchlist/my_watchlist.html", {"articles": articles})
+
+    return render(
+        req,
+        "pages/my_watchlist/my_watchlist.html",
+        {"articles": articles, "random_five_tags": random_five_tags},
+    )
 
 
 def my_favorites(req):
