@@ -2,6 +2,7 @@ import os
 import subprocess
 from datetime import datetime
 
+from django.db.models import Count, Exists, OuterRef
 from django.shortcuts import get_object_or_404, render
 
 from articles.models import Article, IndustryTag
@@ -44,7 +45,12 @@ def stock_data(req, id):
     subprocess.Popen([python_executable, "stockpages/stockdash.py", str(id)])
 
     stock = get_object_or_404(IndustryTag, security_code=id)
-    articles = Article.objects.filter(stock=id).order_by("-id")
+    subquery = Article.objects.filter(liked=req.user.pk, id=OuterRef("pk")).values("pk")
+    articles = (
+        Article.objects.filter(stock=id)
+        .annotate(user_liked=Exists(subquery), like_count=Count("liked"))
+        .order_by("-id")
+    )
 
     # Get stock price and percentage change
     latest_price, percent_change = get_stock_data(id)

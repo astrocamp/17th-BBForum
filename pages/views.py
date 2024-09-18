@@ -2,6 +2,7 @@ import json
 
 from django.db.models import Count, Exists, OuterRef, Value
 from django.shortcuts import get_object_or_404, render
+from django.contrib.auth.models import AnonymousUser
 
 from articles.models import Article, IndustryTag
 from follows.models import FollowRelation
@@ -64,9 +65,12 @@ def index(req):
                 req, "pages/main_page/_articles_list.html", {"articles": articles}
             )
 
-    pick_stocks = UserStock.objects.filter(user=req.user).values_list(
-        "stock__security_code", flat=True
-    )
+    if isinstance(req.user, AnonymousUser):
+        pick_stocks = []
+    else:
+        pick_stocks = UserStock.objects.filter(user=req.user).values_list(
+            "stock__security_code", flat=True
+        )
 
     random_five_tags = (
         IndustryTag.objects.filter(industry="半導體業")
