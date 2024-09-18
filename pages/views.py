@@ -73,9 +73,12 @@ def index(req):
             "stock__security_code", flat=True
         )
 
-    pick_stocks = UserStock.objects.filter(user=req.user).values_list(
-        "stock__security_code", flat=True
-    )
+    if isinstance(req.user, AnonymousUser):
+        pick_stocks = []
+    else:
+        pick_stocks = UserStock.objects.filter(user=req.user).values_list(
+            "stock__security_code", flat=True
+        )
 
     random_five_tags = (
         IndustryTag.objects.filter(industry="半導體業")
