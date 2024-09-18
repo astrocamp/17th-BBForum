@@ -8,7 +8,6 @@ from follows.models import FollowRelation
 from picks.models import UserStock
 
 
-
 def handle_article_tags(article, tags):
     try:
         tags_list = json.loads(tags)
