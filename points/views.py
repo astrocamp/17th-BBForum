@@ -1,4 +1,5 @@
 import json
+import time
 from decimal import Decimal
 
 from django.contrib.auth.decorators import login_required
@@ -68,6 +69,8 @@ def create_article(request):
 @login_required
 def get_user_points(request):
     if request.user.is_authenticated:
+        time.sleep(1)
         points = request.user.profile.tot_point
         return JsonResponse({"tot_point": points})
+
     return JsonResponse({"tot_point": 0})
