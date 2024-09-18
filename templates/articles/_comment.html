@@ -23,7 +23,7 @@
                             </div>
                         </div>
                         <div class="flex flex-col bg-dark-800 rounded-md chat-bubble text-white">
-                            <div x-ref="commentContent" class="w-full pt-1 pb-1 text-xl">
+                            <div x-ref="commentContent" class="w-full pt-1 pb-1 text-base">
                                 {{ comment.content }}
                             </div>
                         </div>
@@ -36,7 +36,7 @@
                                 </div>
                                 <textarea x-model="commentContent"
                                         @input="adjustHeight($event.target)"
-                                        class="w-full pt-1 pb-1 pl-3 text-xl border border-gray-cbc">
+                                        class="w-full pt-1 pb-1 pl-3 text-base border border-gray-cbc">
                                         {{ comment.content }}
                                 </textarea>
                             </div>
