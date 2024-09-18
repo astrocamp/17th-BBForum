@@ -16,14 +16,9 @@ from .models import Article, Comment, IndustryTag
 
 from django.urls import reverse
 from django.utils import timezone
-from rest_framework import status
-from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import IsAuthenticated
-from rest_framework.response import Response
 
 from .forms import ArticleForm
-from .models import Article, Comment
-from .serializers import ArticleSerializer, CommentSerializer
+from .models import Article, Comment, IndustryTag
 
 # Create your views here.
 >>>>>>> b2beded (feat: 增加貼文收藏功能)
@@ -153,102 +148,21 @@ def stocks_list(request):
     return JsonResponse(tags_list, safe=False)
 
 
-@api_view(["POST"])
-@permission_classes([IsAuthenticated])
-def collect_article(request, article_id):
-    try:
-        article = Article.objects.get(id=article_id)
-        user = request.user
-
-        if user in article.collectors.all():
-            return Response(
-                {"success": False, "message": "Article already collected"},
-                status=status.HTTP_400_BAD_REQUEST,
-            )
-
-        article.collectors.add(user)
-        article.save()
-
-        serializer = ArticleSerializer(article)
-        return Response(
-            {
-                "success": True,
-                "article": serializer.data,
-                "message": "Article collected",
-            },
-            status=status.HTTP_200_OK,
-        )
-
-    except Article.DoesNotExist:
-        return Response(
-            {"error": "Article not found"}, status=status.HTTP_404_NOT_FOUND
-        )
-    except Exception as e:
-        return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
-
-
-@api_view(["DELETE"])
-@permission_classes([IsAuthenticated])
-def remove_collect_article(request, article_id):
-    try:
-        article = Article.objects.get(id=article_id)
-        user = request.user
-
-        if user in article.collectors.all():
-            article.collectors.remove(user)
-            article.save()
-            serializer = ArticleSerializer(article)
-            return Response(
-                {
-                    "success": True,
-                    "article": serializer.data,
-                    "message": "Article removed from collection",
-                },
-                status=status.HTTP_200_OK,
+@login_required
+def collectors(req, id):
+    if req.method == "POST":
+        article = get_object_or_404(Article, pk=id)
+        if article.collectors_by(req.user):
+            article.collectors.remove(req.user)
+            return render(
+                req,
+                "articles/_collectors.html",
+                {"article": article, "collectors": False},
             )
         else:
-            return Response(
-                {"success": False, "message": "Article not collected"},
-                status=status.HTTP_400_BAD_REQUEST,
+            article.collectors.add(req.user)
+            return render(
+                req,
+                "articles/_collectors.html",
+                {"article": article, "collectors": True},
             )
-
-    except Article.DoesNotExist:
-        return Response(
-            {"error": "Article not found"}, status=status.HTTP_404_NOT_FOUND
-        )
-    except Exception as e:
-        return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
-
-
-@api_view(["POST"])
-@permission_classes([IsAuthenticated])
-def collect_comment(request, comment_id):
-    try:
-        comment = Comment.objects.get(id=comment_id)
-        comment.is_collected = True
-        comment.save()
-        serializer = CommentSerializer(comment)
-        return Response(
-            {"success": True, "comment": serializer.data}, status=status.HTTP_200_OK
-        )
-    except Comment.DoesNotExist:
-        return Response(
-            {"error": "Comment not found"}, status=status.HTTP_404_NOT_FOUND
-        )
-
-
-@api_view(["DELETE"])
-@permission_classes([IsAuthenticated])
-def remove_collect_comment(request, comment_id):
-    try:
-        comment = Comment.objects.get(id=comment_id)
-        comment.is_collected = False
-        comment.save()
-        serializer = CommentSerializer(comment)
-        return Response(
-            {"success": True, "comment": serializer.data}, status=status.HTTP_200_OK
-        )
-    except Comment.DoesNotExist:
-        return Response(
-            {"error": "Comment not found"}, status=status.HTTP_404_NOT_FOUND
-        )

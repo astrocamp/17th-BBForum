@@ -53,7 +53,6 @@
                                                 </div>
                                         </button>
                                     {% endif %}
-
                                 </div>
                             </div>
                         </div>
@@ -107,21 +106,15 @@
                                         </li>
                                     </ul>
                                 </div>
-                                {% else %}
+                            {% endif %}
+                            {% if user.is_authenticated and article.user != request.user %}
                                 <div class="dropdown">
-                                    <div tabindex="0" role="button"  class="w-12 h-4 btn">
+                                    <div tabindex="0" role="button"  class="w-12 h-4 btn" >
                                         <i class="fa-solid fa-ellipsis w-[26px] h-[26px] text-gray-56"></i>
                                     </div>
                                     <ul tabindex="0" class="menu dropdown-content bg-base-100 rounded-box z-[1] w-40 p-2 shadow">
                                         <li>
-                                            <button
-                                             class="remove-collect-btn "  data-article-id="{{ article.id }}">取消收藏
-                                            </button>
-                                        </li>
-                                        <li>
-                                            <button
-                                            class="collect-btn" data-article-id="{{ article.id }}">收藏
-                                            </button>
+                                            {% include 'articles/_collectors.html' with article=article collectors=article.user_collectors csrf_token=csrf_token user=user only  %}
                                         </li>
                                     </ul>
                                 </div>
@@ -217,5 +210,4 @@
         </article>
     </section>
 </section>
-<button class="collect-btn" data-article-id="{{ article.id }}">收藏文章</button>
-<button class="remove-collect-btn" data-article-id="{{ article.id }}">取消收藏</button>
+
