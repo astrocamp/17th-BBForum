@@ -124,6 +124,10 @@ def update_graph(pathname):
             hovermode="x unified",
             xaxis=dict(
                 title="時間",
+                range=[
+                    data["現在時間"].min().replace(hour=9, minute=0, second=0),
+                    data["現在時間"].max().replace(hour=13, minute=30, second=0),
+                ],
                 dtick=60 * 60 * 1000,
                 tickformat="%H",
                 showgrid=True,
@@ -154,6 +158,10 @@ def update_graph(pathname):
             hovermode="x unified",
             xaxis=dict(
                 title="時間",
+                range=[
+                    data["現在時間"].min().replace(hour=9, minute=0, second=0),
+                    data["現在時間"].max().replace(hour=13, minute=30, second=0),
+                ],
                 dtick=60 * 60 * 1000,
                 tickformat="%H:%M",
                 showgrid=True,
