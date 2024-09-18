@@ -129,12 +129,12 @@ def news_feed(req):
     return render(req, "pages/news_feed/news_feed.html", {"articles": articles})
 
 
-def stock_market(req):
-    return render(req, "pages/stock_market/stock_market.html")
+def market_index(req):
+    return render(req, "pages/market_index/market_index.html")
 
 
-def taiwan_futures(req):
-    return render(req, "pages/taiwan_futures/taiwan_futures.html")
+def taiwan_index(req):
+    return render(req, "pages/taiwan_index/taiwan_index.html")
 
 
 def member_profile(req):
