@@ -226,14 +226,12 @@ def calculate_percentage_change(data):
 
 
 def get_stock_data(stock_code):
-
     stock_code_full = f"{stock_code}.TW" if stock_code != "^TWII" else "^TWII"
 
     try:
-
         stock_data = yf.download(stock_code_full, period="1d", interval="1m")
         if stock_data.empty:
-            return None, None
+            return None, None, None  # 返回三個 None
 
         data = stock_data.reset_index()
         data.columns = [
@@ -250,10 +248,15 @@ def get_stock_data(stock_code):
         )
 
         latest_price = data["收盤價"].iloc[-1]
+        opening_price = data["開盤價"].iloc[0]  # 獲取開盤價格
 
         percent_change = calculate_percentage_change(data)
-        return latest_price, percent_change
+        price_change = latest_price - opening_price  # 計算漲跌（元）
+        total_volume = data["成交量"].sum()  # 總成交量
+        trading_units = total_volume // 100  # 計算成交張數（1 張 = 100 股）
+
+        return latest_price, percent_change, price_change, trading_units  # 返回四個值
 
     except Exception as e:
         print(f"獲取數據時發生錯誤: {e}")
-        return None, None
+        return None, None, None, None  # 返回四個 None
