@@ -50,10 +50,15 @@ Alpine.data("unlogined_prompt", (isAuthenticated) => ({
             document.getElementById('points-display').innerText = `P點: ${this.tot_point}`;
         }
     },
-}));
-   
-    async  fetchAndUpdateLeftNavBar() {
+
+
+    async fetchAndUpdateLeftNavBar() {
         try {
+            const groupsDisplay = document.getElementById('groups_display');
+            if (!groupsDisplay) {
+                console.error('No element found for updating group display');
+                return;
+            }
             const response = await fetch('http://127.0.0.1:8000/update-left-nav-bar/', {
                 headers: {
                     'X-Requested-With': 'XMLHttpRequest'
@@ -63,19 +68,14 @@ Alpine.data("unlogined_prompt", (isAuthenticated) => ({
             if (response.ok) {
                 const data = await response.json();
 
-                // 檢查是否有錯誤
                 if (data.error) {
                     console.error('Error:', data.error);
                     return;
                 }
-
-                // 更新顯示
-                const groupsDisplay = document.getElementById('groups_display');
-
-                if (groupsDisplay) {
-                    groupsDisplay.innerText = data.current_user_groups;
+                const currentGroups = data.current_user_groups;
+                if (groupsDisplay.innerText !== currentGroups) {
+                    groupsDisplay.innerText = currentGroups;
                 }
-
             } else {
                 console.error('Failed to fetch user groups');
             }
@@ -83,7 +83,6 @@ Alpine.data("unlogined_prompt", (isAuthenticated) => ({
             console.error('Error:', error);
         }
     }
-
 
 }))
 
