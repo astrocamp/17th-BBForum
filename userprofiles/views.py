@@ -4,7 +4,7 @@ from django.urls import reverse
 
 from userprofiles.choice import Investment_tools
 
-from .forms import ProfileForm
+from .forms import ProfileForm,UserImageForm
 from .models import Profile
 
 
@@ -12,24 +12,33 @@ from .models import Profile
 def index(req):
     try:
         profile = Profile.objects.get(user=req.user)
+
+        if not profile.nickname or not profile.gender:
+            return redirect(reverse("userprofiles:new"))
         return redirect(reverse("userprofiles:show", args=[profile.id]))
+    
     except Profile.DoesNotExist:
+
         return redirect(reverse("userprofiles:new"))
 
 
 @login_required
-def new_save(req):
+def create(req,id):
+    post = get_object_or_404(Profile, pk=id)
     if req.method == "POST":
-        form = ProfileForm(req.POST)
+        form = ProfileForm(req.POST, instance=post)
+        image_form = UserImageForm(req.POST, req.FILES, instance=req.user)
         if form.is_valid():
             user = req.user
             profile = form.save(commit=False)
             profile.user = user
 
+            image_form.save()
             profile, created = Profile.objects.update_or_create(
                 user=user,
                 defaults={
                     "nickname": profile.nickname,
+                    "user_img":profile.user_img,
                     "gender": profile.gender,
                     "birthday": profile.birthday,
                     "location": profile.location,
@@ -75,17 +84,21 @@ def show(req, id):
 @login_required
 def new(req):
     form = ProfileForm()
-    return render(req, "userprofiles/new.html", {"form": form})
+    image_form=UserImageForm()
+    return render(req, "userprofiles/new.html", {"form": form, "image_form":image_form})
 
 
 @login_required
 def edit(req, id):
     post = get_object_or_404(Profile, pk=id)
+    image_form = UserImageForm(req.POST, req.FILES, instance=req.user)
     if req.method == "POST":
         form = ProfileForm(req.POST, instance=post)
+        image_form = UserImageForm(req.POST, req.FILES, instance=req.user)
+       
         if form.is_valid():
             form.save()
-
+            image_form.save()
             return redirect(reverse("userprofiles:show", kwargs={"id": post.id}))
 
         else:
@@ -94,3 +107,5 @@ def edit(req, id):
         form = ProfileForm(instance=post)
 
     return render(req, "userprofiles/edit.html", {"form": form, "post": post})
+
+

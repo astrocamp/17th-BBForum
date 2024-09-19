@@ -21,7 +21,7 @@
             <section class="shadow-area rounded-[3px]  bg-gray-94">
                 <h2 class="text-lg  font-bold py-4 pb-2 -mb-[2px] border-b-[3px] border-b-red-900 leading-[36px] text-center">新增 會員個人資料</h2>
                 <article class="pt-3 pb-2">
-                    <form method="POST" action="{% url 'userprofiles:new_save'%}">
+                    <form method="POST" action="{% url 'userprofiles:create'%}" enctype="multipart/form-data">
                         {%csrf_token%}
                         <div class="p-2 m-1" style="padding: 0.1rem;">
                            <div class=" mt-[1px] mb-[1px] ml-1 font-bold whitespace-nowrap text-dark-600 flex " >
@@ -31,6 +31,18 @@
                               </label>
                              <div class="ml-4 col-10">
                                 {{ form.nickname }}
+                             </div>
+                           </div>
+                        </div>
+
+                        <div class="p-2 m-1" style="padding: 0.1rem;">
+                           <div class=" mt-[1px] mb-[1px] ml-1 font-bold whitespace-nowrap text-dark-600 flex " >
+                              <label class="text-right col-2 lh-2 " >
+                                  <span class="text-red-primary ">*</span>
+                                   {{ form.user_img.label_tag }}
+                              </label>
+                             <div class="ml-4 col-10">
+                                {{ image_form.user_img }}
                              </div>
                            </div>
                         </div>
