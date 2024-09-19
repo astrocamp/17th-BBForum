@@ -26,7 +26,7 @@
                     <div class="text-gray-56">
                         <span>報價時間</span>
                         <span class="text-gray-90"> | </span>
-                        <span>09/03 11:55</span>
+                        <span>{{ current_time}}</span>
                         <button class="rounded-[4px] inline-flex items-center justify-center gap-1 w-[61px] h-[28px] bg-white text-red-primary border border-gray-83 font-semibold text-[1rem] font-upgrade outline-none no-underline cursor-pointer">
                             <img src="https://www.cmoney.tw/forum/_nuxt/img/update.e4cf774.svg" alt="upgrade" />
                             更新
@@ -73,17 +73,18 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                {% for stock in stock_data_list %}
                                 <tr class="cursor-pointer bg-white">
                                     <td class="align-middle pt-[9px] pb-[9px] pl-[10px] pr-[10px] border border-gray-d5d">
                                         <div class="flex flex-col items-start justify-end">
-                                            <a href="#" class="w-[100%] whitespace-nowrap overflow-hidden text-ellipsis text-red-900">5905 南仁湖</a>
+                                            <a href="#" class="w-[100%] whitespace-nowrap overflow-hidden text-ellipsis text-red-900">{{stock.stock_id}}&nbsp;{{stock.stock_name}}</a>
                                         </div>
                                     </td>
                                     <td class="align-middle pt-[9px] pb-[9px] pl-[10px] pr-[10px] border border-gray-d5d">
                                         <div class="font-bold flex items-center justify-end">
                                             <div>
                                                 <div class="flex items-center">
-                                                    <span class="text-green-1b9">22.25</span>
+                                                    <span class="text-green-1b9">{{stock.latest_price|floatformat:2}}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -92,10 +93,8 @@
                                         <div class="flex items-center justify-end">
                                             <div>
                                                 <div class="flex items-center">
-                                                    <div class="w-4 h-4">
-                                                        <img class="w-full h-full align-top inline-block"/>
-                                                    </div>
-                                                    <span class="ml-1 text-green-1b9">-0.75</span>
+
+                                                    <span class="ml-1 text-green-1b9">{{stock.price_change|floatformat:2}}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -104,7 +103,7 @@
                                         <div class="flex items-center justify-end">
                                             <div>
                                                 <div class="flex items-center">
-                                                    <span class="text-green-1b9">-3.26%</span>
+                                                    <span class="text-green-1b9">{{stock.percent_change|floatformat:2}}%</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -113,7 +112,7 @@
                                         <div class="flex items-center justify-end">
                                             <div>
                                                 <div class="flex items-center">
-                                                    <div class="text-black">4,210</div>
+                                                    <div class="text-black">{{stock.trading_units}}</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -128,6 +127,7 @@
                                         </div>
                                     </td>
                                 </tr>
+                                {% endfor %}
                             </tbody>
                         </table>
                     </div>
