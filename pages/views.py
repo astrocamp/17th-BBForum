@@ -132,7 +132,7 @@ def my_watchlist(req):
     stock_all_id = UserStock.objects.filter(user=req.user).values_list(
         "stock_id", flat=True
     )
-    print(stock_all_id)
+
     stock_data_list = []
 
     for stock_id in stock_all_id:
@@ -154,8 +154,6 @@ def my_watchlist(req):
                 "trading_units": trading_units,
             }
         )
-
-    print(stock_data_list)
 
     current_time = datetime.now().strftime("%m/%d %H:%M")
 
