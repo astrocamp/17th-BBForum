@@ -90,6 +90,7 @@ class ProfileForm(ModelForm):
         model = Profile
         fields = [
             "nickname",
+            "user_img",
             "gender",
             "birthday",
             "location",
@@ -101,6 +102,7 @@ class ProfileForm(ModelForm):
         ]
         labels = {
             "nickname": "暱稱",
+            "user_img": "個人頭像",
             "gender": "性別",
             "birthday": "生日",
             "location": "居住地區",
@@ -123,7 +125,14 @@ class ProfileForm(ModelForm):
                     "class": "w-[622px]  rounded-l bg-gray-300 pl-2.5 pr-2.5 border border-gray-90 focus:border-red-primary focus:outline-none focus:ring-0",
                 }
             ),
+            "user_img": forms.FileInput(attrs={"class": "form-control-file"}),
         }
+
+class UserImageForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ["user_img"]
+        labels = {"user_img": "個人頭像"}
 
 
 class UserForm(ModelForm):

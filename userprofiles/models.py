@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
+from storages.backends.s3boto3 import S3Boto3Storage
 
 from .choice import (
     Education_level,
@@ -39,6 +40,8 @@ class Profile(models.Model):
     tot_point = models.IntegerField(default=0)
     deleted_at = models.DateTimeField(default=None, null=True, blank=True)
     last_point_date = models.DateField(null=True, blank=True)
+    user_img = models.ImageField(upload_to="user_images/", null=True, blank=True,storage=S3Boto3Storage())
+
 
     def __str__(self):
         return self.user.username

@@ -36,6 +36,20 @@
                         </div>
                      </div>
 
+                     <div class="p-4 m-2 border border-gray-300" style="padding: 0.1rem;" >
+                      <div class="w-[50px] mt-[10px] mb-[1px] ml-1 font-bold whitespace-nowrap text-dark-600 flex">
+                         <label class="text-right col-2 lh-2" >
+                             <span class="text-red-primary">*</span>
+                             個人頭像:
+                         </label>
+                        <div class="w-[300px] col-10m flex ml-4 " >
+                          {% if post.user_img %}
+                          <img src="{{ post.user_img.url }}" alt="User Image" />    
+                          {% endif %}
+                        </div>
+                      </div>
+                   </div>
+
                      <div class="p-4 border-gray-300 m-2border" style="padding: 0.1rem;" >
                          <div class="w-[100px] mt-[10px] mb-[1px] ml-1 font-bold whitespace-nowrap text-dark-600 flex">
                             <label class="text-right col-2 lh-2" >

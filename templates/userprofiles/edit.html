@@ -21,7 +21,7 @@
                 <div class="flex items-center pt-3 pb-2" >
                   <article class="flex items-center pt-3 pb-2">
 
-                    <form method="POST" action="{% url 'userprofiles:show' post.id%}">
+                    <form method="POST" action="{% url 'userprofiles:show' post.id%}"  enctype="multipart/form-data">
                         {%csrf_token%}
 
                            <div class="p-2 m-1" style="padding: 0.1rem;">
@@ -35,6 +35,18 @@
                                  </div>
                                </div>
                             </div>
+
+                            <div class="p-2 m-1" style="padding: 0.1rem;">
+                              <div class=" mt-[1px] mb-[1px] ml-1 font-bold whitespace-nowrap text-dark-600 flex " >
+                                 <label class="text-right col-2 lh-2 " >
+                                     <span class="text-red-primary ">*</span>
+                                      {{ form.user_img.label_tag }}
+                                 </label>
+                                <div class="ml-4 col-10">
+                                   {{ form.user_img }}
+                                </div>
+                              </div>
+                           </div>
 
                             <div class="p-2 m-1 " style="padding: 0.1rem;">
                               <div class=" mt-[1px] mb-[1px] ml-1 font-bold whitespace-nowrap text-dark-600 flex" >
