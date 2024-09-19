@@ -41,46 +41,46 @@
                             <thead>
                                 <tr>
                                     <th class="font-bold pt-[9px] pb-[9px] pl-[10px] pr-[10px] border border-gray-d5d bg-gray-e1e w-[28%]">
-                                        <div class="flex justify-center items-center">
+                                        <div class="flex items-center justify-center">
                                             <div>個股名稱</div>
                                         </div>
                                     </th>
                                     <th class="font-bold pt-[9px] pb-[9px] pl-[10px] pr-[10px] border border-gray-d5d bg-gray-e1e w-[18%]">
-                                        <div class="flex justify-center items-center">
+                                        <div class="flex items-center justify-center">
                                             <div>股價(元)</div>
                                         </div>
                                     </th>
                                     <th class="font-bold pt-[9px] pb-[9px] pl-[10px] pr-[10px] border border-gray-d5d bg-gray-e1e w-[18%]">
-                                        <div class="flex justify-center items-center">
+                                        <div class="flex items-center justify-center">
                                             <div>漲跌(元)</div>
                                         </div>
                                     </th>
                                     <th class="font-bold pt-[9px] pb-[9px] pl-[10px] pr-[10px] border border-gray-d5d bg-gray-e1e w-[18%]">
-                                        <div class="flex justify-center items-center">
+                                        <div class="flex items-center justify-center">
                                             <div>漲跌幅(%)</div>
                                         </div>
                                     </th>
                                     <th class="font-bold pt-[9px] pb-[9px] pl-[10px] pr-[10px] border border-gray-d5d bg-gray-e1e w-[18%]">
-                                        <div class="flex justify-center items-center">
+                                        <div class="flex items-center justify-center">
                                             <div>成交張數</div>
                                         </div>
                                     </th>
                                     <th class="font-bold pt-[9px] pb-[9px] pl-[10px] pr-[10px] border border-gray-d5d bg-gray-e1e w-[18%]">
-                                        <div class="flex justify-center items-center">
+                                        <div class="flex items-center justify-center">
                                             <div>本益比(倍)</div>
                                         </div>
                                     </th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="cursor-pointer bg-white">
+                                <tr class="bg-white cursor-pointer">
                                     <td class="align-middle pt-[9px] pb-[9px] pl-[10px] pr-[10px] border border-gray-d5d">
                                         <div class="flex flex-col items-start justify-end">
                                             <a href="#" class="w-[100%] whitespace-nowrap overflow-hidden text-ellipsis text-red-900">5905 南仁湖</a>
                                         </div>
                                     </td>
                                     <td class="align-middle pt-[9px] pb-[9px] pl-[10px] pr-[10px] border border-gray-d5d">
-                                        <div class="font-bold flex items-center justify-end">
+                                        <div class="flex items-center justify-end font-bold">
                                             <div>
                                                 <div class="flex items-center">
                                                     <span class="text-green-1b9">22.25</span>
@@ -93,7 +93,7 @@
                                             <div>
                                                 <div class="flex items-center">
                                                     <div class="w-4 h-4">
-                                                        <img class="w-full h-full align-top inline-block"/>
+                                                        <img class="inline-block w-full h-full align-top"/>
                                                     </div>
                                                     <span class="ml-1 text-green-1b9">-0.75</span>
                                                 </div>
@@ -141,7 +141,7 @@
             <section class="rounded-[3px] bg-white h-[60px] mt-3 shadow-area">
                 <div class="relative flex flex-wrap items-center justify-between">
                     <nav class="flex items-center w-full p-[16px]">
-                        <ul class="flex items-center overflow-x-auto flex-grow gap-1">
+                        <ul class="flex items-center flex-grow gap-1 overflow-x-auto">
                             <li>
                                 <a href="#" class="inline-block pt-1 pb-1 pl-2 pr-2 rounded-[3px] bg-red-primary">
                                     <div class="text-[15px] text-white whitespace-nowrap relative">人氣</div>
@@ -161,7 +161,7 @@
                 </div>
             </section>
             {% for article in articles %}
-                {% include "pages/main_page/_article.html" with article=article %}
+                {% include "pages/main_page/_article.html" with article=article  %}
             {% endfor %}
         </div>
     </div>

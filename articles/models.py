@@ -30,7 +30,7 @@ class Article(SoftDeleteable, ImageSaveMixin, models.Model):
     tags = TaggableManager()
     stock = models.ManyToManyField(IndustryTag, blank=True)
     liked = models.ManyToManyField(User, related_name="liked")
-    collectors = models.ManyToManyField(User, related_name="collectors")
+    collectors = models.ManyToManyField(User, related_name="collected")
 
     objects = SoftDeleteManager()
 
@@ -40,7 +40,7 @@ class Article(SoftDeleteable, ImageSaveMixin, models.Model):
     def liked_by(self, user):
         return self.liked.filter(id=user.id).exists()
 
-    def collectors_by(self, user):
+    def collected_by(self, user):
         return self.collectors.filter(id=user.id).exists()
 
 

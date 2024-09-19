@@ -22,7 +22,7 @@
         </div>
         {% for article in favorite_articles %}
         <div class="mt-4">
-                    {% include "pages/main_page/_article.html" with article=article %}
+            {% include "pages/main_page/_article.html" with article=article collected=article.collect %}
         </div>
         {% endfor %}
     </div>

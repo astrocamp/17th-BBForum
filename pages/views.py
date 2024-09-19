@@ -1,6 +1,7 @@
 import json
 
-from django.db.models import Count, Exists, OuterRef
+from django.contrib.auth.decorators import login_required
+from django.db.models import Count, Exists, OuterRef, Value
 from django.shortcuts import render
 
 from articles.models import Article, IndustryTag
@@ -48,9 +49,16 @@ def index(req):
             )
 
     subquery = Article.objects.filter(liked=req.user.pk, id=OuterRef("pk")).values("pk")
+    collect = Article.objects.filter(collectors=req.user.pk, id=OuterRef("pk")).values(
+        "pk"
+    )
 
     articles = (
-        Article.objects.annotate(user_liked=Exists(subquery), like_count=Count("liked"))
+        Article.objects.annotate(
+            user_liked=Exists(subquery),
+            like_count=Count("liked"),
+            collect=Exists(collect),
+        )
         .order_by("-id")
         .prefetch_related("stock")
     )
@@ -68,7 +76,10 @@ def my_watchlist(req):
 @login_required
 def my_favorites(req):
     user = req.user
-    favorite_articles = Article.objects.filter(collectors=user)
+    favorite_articles = Article.objects.filter(collectors=user).annotate(
+        collect=Value(True)
+    )
+
     return render(
         req,
         "pages/my_favorites/my_favorites.html",

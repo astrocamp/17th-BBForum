@@ -1,41 +1,9 @@
 from django.contrib.auth.decorators import login_required
-<<<<<<< HEAD
 from django.http import JsonResponse
-=======
-from django.contrib.auth.models import User
-<<<<<<< HEAD
-from django.db.models import Count
-from django.http import JsonResponse, QueryDict
->>>>>>> 4d38ea1 (feat: 增加貼文收藏功能)
 from django.shortcuts import HttpResponse, get_object_or_404, redirect, render
 
 from .forms import ArticleForm
 from .models import Article, Comment, IndustryTag
-=======
-
-
-from django.urls import reverse
-from django.utils import timezone
-
-from .forms import ArticleForm
-from .models import Article, Comment, IndustryTag
-
-# Create your views here.
->>>>>>> b2beded (feat: 增加貼文收藏功能)
-
-
-def index(req):
-    if req.method == "POST":
-        article_content = req.POST.get("content")
-        if article_content:
-            articles = Article(content=article_content)
-            articles.userID = req.user
-            articles.save()
-            articles = Article.objects.order_by("-id")
-            return render(req, "pages/main_page/index.html", {"articles": articles})
-
-    articles = Article.objects.all()
-    return render(req, "pages/main_page/index.html", {"articles": articles})
 
 
 @login_required
@@ -150,19 +118,19 @@ def stocks_list(request):
 
 @login_required
 def collectors(req, id):
+
+    article = get_object_or_404(Article, pk=id)
+
     if req.method == "POST":
-        article = get_object_or_404(Article, pk=id)
-        if article.collectors_by(req.user):
+        if article.collected_by(req.user):
             article.collectors.remove(req.user)
-            return render(
-                req,
-                "articles/_collectors.html",
-                {"article": article, "collectors": False},
-            )
+            collected_status = False
         else:
             article.collectors.add(req.user)
-            return render(
-                req,
-                "articles/_collectors.html",
-                {"article": article, "collectors": True},
-            )
+            collected_status = True
+
+        return render(
+            req,
+            "articles/_collectors.html",
+            {"article": article, "collected": collected_status},
+        )

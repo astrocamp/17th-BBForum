@@ -114,7 +114,7 @@
                                     </div>
                                     <ul tabindex="0" class="menu dropdown-content bg-base-100 rounded-box z-[1] w-40 p-2 shadow">
                                         <li>
-                                            {% include 'articles/_collectors.html' with article=article collectors=article.user_collectors csrf_token=csrf_token user=user only  %}
+                                            {% include 'articles/_collectors.html' with article=article collected=article.collect  %}
                                         </li>
                                     </ul>
                                 </div>
@@ -201,7 +201,7 @@
             </div>
             <div x-data="unlogined_prompt({{ user.is_authenticated|lower }})">
                 <div id="comment_container-{{article.id}}" >
-                    {% include 'pages/main_page/_comment.html' with article=article %}
+                    {% include 'pages/main_page/_comment.html' with article=article  %}
                 <div>
                 <template x-if="!isAuthenticated">
                     {% include "layouts/not_logged.html" %}
