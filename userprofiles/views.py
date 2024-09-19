@@ -4,7 +4,7 @@ from django.urls import reverse
 
 from userprofiles.choice import Investment_tools
 
-from .forms import ProfileForm,UserImageForm
+from .forms import ProfileForm
 from .models import Profile
 
 
@@ -12,33 +12,35 @@ from .models import Profile
 def index(req):
     try:
         profile = Profile.objects.get(user=req.user)
-
         if not profile.nickname or not profile.gender:
             return redirect(reverse("userprofiles:new"))
         return redirect(reverse("userprofiles:show", args=[profile.id]))
-    
+
     except Profile.DoesNotExist:
 
         return redirect(reverse("userprofiles:new"))
 
 
 @login_required
-def create(req,id):
+def create(req, id):
     post = get_object_or_404(Profile, pk=id)
+    if req.req.FILES:
+        print("有收到照片")
+    else:
+        print("沒有收到照片")
     if req.method == "POST":
-        form = ProfileForm(req.POST, instance=post)
-        image_form = UserImageForm(req.POST, req.FILES, instance=req.user)
+        form = ProfileForm(req.POST, req.FILES, instance=post)
+
         if form.is_valid():
             user = req.user
             profile = form.save(commit=False)
             profile.user = user
 
-            image_form.save()
             profile, created = Profile.objects.update_or_create(
                 user=user,
                 defaults={
                     "nickname": profile.nickname,
-                    "user_img":profile.user_img,
+                    "user_img": profile.user_img,
                     "gender": profile.gender,
                     "birthday": profile.birthday,
                     "location": profile.location,
@@ -58,6 +60,10 @@ def create(req,id):
 @login_required
 def show(req, id):
     post = get_object_or_404(Profile, pk=id)
+    if req.FILES:
+        print("show有收到照片")
+    else:
+        print("show沒有收到照片")
 
     Investment_tools_dict = dict(Investment_tools)
     investment_tool_names = [
@@ -65,7 +71,7 @@ def show(req, id):
     ]
 
     if req.method == "POST":
-        form = ProfileForm(req.POST, instance=post)
+        form = ProfileForm(req.POST, req.FILES, instance=post)
         if form.is_valid():
             form.save()
             return redirect(
@@ -84,21 +90,24 @@ def show(req, id):
 @login_required
 def new(req):
     form = ProfileForm()
-    image_form=UserImageForm()
-    return render(req, "userprofiles/new.html", {"form": form, "image_form":image_form})
+
+    return render(req, "userprofiles/new.html", {"form": form})
 
 
 @login_required
 def edit(req, id):
     post = get_object_or_404(Profile, pk=id)
-    image_form = UserImageForm(req.POST, req.FILES, instance=req.user)
+    if req.FILES:
+        print("edit有收到照片")
+    else:
+        print("edit沒有收到照片")
+
     if req.method == "POST":
-        form = ProfileForm(req.POST, instance=post)
-        image_form = UserImageForm(req.POST, req.FILES, instance=req.user)
-       
+        form = ProfileForm(req.POST, req.FILES, instance=post)
+
         if form.is_valid():
             form.save()
-            image_form.save()
+
             return redirect(reverse("userprofiles:show", kwargs={"id": post.id}))
 
         else:
@@ -107,5 +116,3 @@ def edit(req, id):
         form = ProfileForm(instance=post)
 
     return render(req, "userprofiles/edit.html", {"form": form, "post": post})
-
-
