@@ -2,7 +2,6 @@ import os
 import subprocess
 from datetime import datetime
 
-from django.db.models import Count, Exists, OuterRef
 from django.shortcuts import get_object_or_404, render
 
 from articles.models import Article, IndustryTag
@@ -11,7 +10,7 @@ from .stockdash import get_stock_data
 
 
 def stock_data_twii(req):
-    latest_price, percent_change = get_stock_data("^TWII")
+    latest_price, percent_change, price_change, trading_units = get_stock_data("^TWII")
     current_time = datetime.now().strftime("%m/%d %H:%M")
 
     return render(
@@ -37,15 +36,10 @@ def stock_data(req, id):
     subprocess.Popen([python_executable, "stockpages/stockdash.py", str(id)])
 
     stock = get_object_or_404(IndustryTag, security_code=id)
-    subquery = Article.objects.filter(liked=req.user.pk, id=OuterRef("pk")).values("pk")
-    articles = (
-        Article.objects.filter(stock=id)
-        .annotate(user_liked=Exists(subquery), like_count=Count("liked"))
-        .order_by("-id")
-    )
+    articles = Article.objects.filter(stock=id).order_by("-id")
 
     # Get stock price and percentage change
-    latest_price, percent_change = get_stock_data(id)
+    latest_price, percent_change, price_change, trading_units = get_stock_data(id)
     current_time = datetime.now().strftime("%m/%d %H:%M")
 
     print(articles)

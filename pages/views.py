@@ -1,4 +1,5 @@
 import json
+from datetime import datetime
 
 from django.db.models import Count, Exists, OuterRef, Value
 from django.contrib.auth.models import AnonymousUser
@@ -7,6 +8,7 @@ from django.shortcuts import render
 from articles.models import Article, IndustryTag
 from follows.models import FollowRelation
 from picks.models import UserStock
+from stockpages.stockdash import get_stock_data
 
 
 def handle_article_tags(article, tags):
@@ -117,6 +119,32 @@ def my_watchlist(req):
     stock_all_id = UserStock.objects.filter(user=req.user).values_list(
         "stock_id", flat=True
     )
+    print(stock_all_id)
+    stock_data_list = []
+
+    for stock_id in stock_all_id:
+        latest_price, percent_change, price_change, trading_units = get_stock_data(
+            stock_id
+        )
+        stock_name = (
+            IndustryTag.objects.filter(security_code=stock_id)
+            .values_list("name", flat=True)
+            .first()
+        )
+        stock_data_list.append(
+            {
+                "stock_id": stock_id,
+                "stock_name": stock_name,
+                "latest_price": latest_price,
+                "percent_change": percent_change,
+                "price_change": price_change,
+                "trading_units": trading_units,
+            }
+        )
+
+    print(stock_data_list)
+
+    current_time = datetime.now().strftime("%m/%d %H:%M")
 
     subquery = Article.objects.filter(liked=req.user.pk, id=OuterRef("pk")).values("pk")
 
@@ -131,7 +159,12 @@ def my_watchlist(req):
     return render(
         req,
         "pages/my_watchlist/my_watchlist.html",
-        {"articles": articles, "random_five_tags": random_five_tags},
+        {
+            "articles": articles,
+            "random_five_tags": random_five_tags,
+            "current_time": current_time,
+            "stock_data_list": stock_data_list,
+        },
     )
 
 
