@@ -2,7 +2,7 @@ document.addEventListener('htmx:afterOnLoad', async function(event) {
     if (event.detail.target.id === 'articles_container') {
         try {
 
-            const response = await fetch('http://127.0.0.1:8000/update-left-nav-bar/', {
+            const response = await fetch('/update-left-nav-bar/', {
                 headers: {
                     'X-Requested-With': 'XMLHttpRequest'
                 }

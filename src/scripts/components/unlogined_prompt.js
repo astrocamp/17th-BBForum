@@ -59,7 +59,7 @@ Alpine.data("unlogined_prompt", (isAuthenticated) => ({
                 console.error('No element found for updating group display');
                 return;
             }
-            const response = await fetch('http://127.0.0.1:8000/update-left-nav-bar/', {
+            const response = await fetch('/update-left-nav-bar/', {
                 headers: {
                     'X-Requested-With': 'XMLHttpRequest'
                 }
