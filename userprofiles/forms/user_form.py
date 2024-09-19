@@ -30,7 +30,7 @@ class ProfileForm(ModelForm):
         label="居住地區:",
         widget=forms.Select(
             attrs={
-                "class": "w-[622px]  rounded-l bg-gray-300 pl-2.5 pr-2.5 border border-gray-94 "
+                "class": " rounded-l  bg-gray-94 pl-2.5 pr-2.5 border border--gray-300 shadow-area "
             }
         ),
     )
@@ -41,7 +41,7 @@ class ProfileForm(ModelForm):
         label="教育程度:",
         widget=forms.Select(
             attrs={
-                "class": "w-[622px]  rounded-l bg-gray-300 pl-2.5 pr-2.5 border border-gray-94 focus:border-red-primary focus:outline-none focus:ring-0"
+                "class": " rounded-l bg-gray-94 shadow-area pl-2.5 pr-2.5 border border-gray-300 focus:border-red-primary focus:outline-none focus:ring-0"
             }
         ),
     )
@@ -52,7 +52,7 @@ class ProfileForm(ModelForm):
         label="職    業:",
         widget=forms.Select(
             attrs={
-                "class": " w-[622px] rounded-l bg-gray-300 pl-2.5 pr-2.5 border border-gray-94 focus:border-red-primary focus:outline-none focus:ring-0"
+                "class": "  rounded-l bg-gray-94 shadow-area pl-2.5 pr-2.5 border border-gray-300 focus:border-red-primary focus:outline-none focus:ring-0"
             }
         ),
     )
@@ -63,7 +63,7 @@ class ProfileForm(ModelForm):
         label="投資經驗:",
         widget=forms.Select(
             attrs={
-                "class": "w-[622px]  rounded-l bg-gray-300 pl-2.5 pr-2.5 border border-gray-94 focus:border-red-primary focus:outline-none focus:ring-0"
+                "class": " rounded-l bg-gray-94  shadow-area pl-2.5 pr-2.5 border border-gray-300 focus:border-red-primary focus:outline-none focus:ring-0"
             }
         ),
     )
@@ -81,7 +81,7 @@ class ProfileForm(ModelForm):
         label="投資屬性:",
         widget=forms.Select(
             attrs={
-                "class": " w-[622px] rounded-l bg-gray-300 pl-2.5 pr-2.5 border border-gray-94 focus:border-red-primary focus:outline-none focus:ring-0"
+                "class": "  rounded-l bg-gray-94  shadow-area pl-2.5 pr-2.5 border border-gray-300 focus:border-red-primary focus:outline-none focus:ring-0"
             }
         ),
     )
@@ -102,7 +102,7 @@ class ProfileForm(ModelForm):
         ]
         labels = {
             "nickname": "暱稱",
-            "user_img": "個人頭像",
+            "user_img": "會員頭像",
             "gender": "性別",
             "birthday": "生日",
             "location": "居住地區",
@@ -116,23 +116,17 @@ class ProfileForm(ModelForm):
         widgets = {
             "nickname": TextInput(
                 attrs={
-                    "class": " w-[622px]  rounded-l bg-gray-300 pl-2.5 pr-2.5 border border-gray-90 focus:border-red-primary focus:outline-none focus:ring-0",
+                    "class": " rounded-l bg-gray-94  shadow-area pl-2.5 pr-2.5 border border-gray-300 focus:border-red-primary focus:outline-none focus:ring-0",
                 }
             ),
             "birthday": DateInput(
                 attrs={
                     "type": "date",
-                    "class": "w-[622px]  rounded-l bg-gray-300 pl-2.5 pr-2.5 border border-gray-90 focus:border-red-primary focus:outline-none focus:ring-0",
+                    "class": " rounded-l bg-gray-94  shadow-area pl-2.5 pr-2.5 border border-gray-300 focus:border-red-primary focus:outline-none focus:ring-0",
                 }
             ),
             "user_img": forms.FileInput(attrs={"class": "form-control-file"}),
         }
-
-class UserImageForm(forms.ModelForm):
-    class Meta:
-        model = Profile
-        fields = ["user_img"]
-        labels = {"user_img": "個人頭像"}
 
 
 class UserForm(ModelForm):

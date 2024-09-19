@@ -2,170 +2,183 @@
 
 
 {% block content%}
+{% load static %}
+{% include 'navigation/nav_bar.html' %}
 
-
-<nav class="relative z-10 bg-white shadow-nav-bar">
-  <div class=" w-full h-[35px]  shadow-lg">
-      <div>
-          <a  href="{% url 'pages:index' %}">
-            <img src="/static/images/logo_text.4817bea.svg" alt="回首頁" >
-          </a>
-      </div>
-
-  </div>
-</nav>
-
-<div class="flex items-center justify-center w-full bg-white">
-    <div class="w-[760px] mx-3.5">
-        <div class="mt-4">
-            <section class="shadow-area rounded-[3px] bg-gray-94 border border-gray-300">
-                <h2 class="text-lg  font-bold py-4 pb-2 -mb-[2px] border-b-[3px] border-b-red-900 leading-[36px] text-center">會員個人資料 瀏覽</h2>
-                <article class="pt-3 pb-1">
-
-
-
-                    <div class="p-4 m-2 border border-gray-300" style="padding: 0.1rem;" >
-                        <div class="w-[50px] mt-[10px] mb-[1px] ml-1 font-bold whitespace-nowrap text-dark-600 flex">
-                           <label class="text-right col-2 lh-2" >
-                               <span class="text-red-primary">*</span>
-                               暱稱:
-                           </label>
-                          <div class="w-[300px] col-10m flex ml-4 " >
-                            {{ post.nickname }}
-                          </div>
-                        </div>
-                     </div>
-
-                     <div class="p-4 m-2 border border-gray-300" style="padding: 0.1rem;" >
-                      <div class="w-[50px] mt-[10px] mb-[1px] ml-1 font-bold whitespace-nowrap text-dark-600 flex">
-                         <label class="text-right col-2 lh-2" >
-                             <span class="text-red-primary">*</span>
-                             個人頭像:
-                         </label>
-                        <div class="w-[300px] col-10m flex ml-4 " >
-                          {% if post.user_img %}
-                          <img src="{{ post.user_img.url }}" alt="User Image" />    
-                          {% endif %}
-                        </div>
-                      </div>
-                   </div>
-
-                     <div class="p-4 border-gray-300 m-2border" style="padding: 0.1rem;" >
-                         <div class="w-[100px] mt-[10px] mb-[1px] ml-1 font-bold whitespace-nowrap text-dark-600 flex">
-                            <label class="text-right col-2 lh-2" >
-                                <span class="text-red-primary">*</span>
-                                  性別:
-                            </label>
-                           <div class="w-[300px] col-10m flex ml-4">
-                            {{ post.get_gender_display }}
-                           </div>
-                         </div>
-                      </div>
-
-                      <div class="p-4 m-2 border border-gray-300 " style="padding: 0.1rem;">
-                         <div class="w-[100px] mt-[10px] mb-[1px] ml-1 font-bold whitespace-nowrap text-dark-600 flex">
-                            <label class="text-right col-2 lh-2" >
-                                <span class="text-red-primary">*</span>
-                                生      日:
-                            </label>
-                           <div class="w-[300px] col-10m flex ml-4 ">
-                               {{ post.birthday }}
-                           </div>
-                         </div>
-                      </div>
-
-                      <div class="p-4 m-2 border border-gray-300 " style="padding: 0.1rem;">
-                         <div class="w-[100px] mt-[10px] mb-[1px] ml-1 font-bold whitespace-nowrap text-dark-600 flex">
-                            <label class="text-right col-2 lh-2" >
-                                <span class="text-red-primary">*</span>
-                                居住地區:
-                            </label>
-                           <div class="w-[300px] col-10m flex ml-4">
-                            {{ post.get_location_display }}
-                           </div>
-                         </div>
-                      </div>
-
-                      <div class="p-4 m-2 border border-gray-300 " style="padding: 0.1rem;">
-                         <div class="w-[100px] mt-[10px] mb-[1px] ml-1 font-bold whitespace-nowrap text-dark-600 flex">
-                            <label class="text-right col-2 lh-2" >
-                                <span class="text-red-primary">*</span>
-                                  教育程度:
-                            </label>
-                           <div class="w-[300px] col-10m flex ml-4 ">
-                             {{ post.get_education_display }}
-                           </div>
-                         </div>
-                      </div>
-
-                      <div class="p-4 m-2 border border-gray-300 " style="padding: 0.1rem;">
-                         <div class="w-[100px] mt-[10px] mb-[1px] ml-1 font-bold whitespace-nowrap text-dark-600 flex">
-                            <label class="text-right col-2 lh-2" >
-                                <span class="text-red-primary">*</span>
-                                  職業:
-                            </label>
-                           <div class="w-[300px] col-10m flex ml-4 ">
-                            {{ post.get_profession_display }}
-                           </div>
-                         </div>
-                      </div>
-
-                      <div class="p-4 m-2 border border-gray-300 " style="padding: 0.1rem;">
-                         <div class="w-[100px] mt-[10px] mb-[1px] ml-1 font-bold whitespace-nowrap text-dark-600 flex">
-                            <label class="text-right col-2 lh-2" >
-                                <span class="text-red-primary">*</span>
-                                  投資經驗:
-                            </label>
-                           <div class="w-[300px] col-10m flex ml-4">
-                            {{ post.get_investment_experience_display }}
-                           </div>
-                         </div>
-                      </div>
-
-                      <div class="p-4 m-2 border border-gray-300 " style="padding: 0.1rem;">
-                         <div class="w-[100px] mt-[10px] mb-[1px] ml-1 font-bold whitespace-nowrap text-dark-600 flex">
-                            <label class="text-right col-2 lh-2" >
-                                <span class="text-red-primary">*</span>
-                                投資工具:
-                            </label>
-                           <div class="w-[300px] col-10m flex ml-4 ">
-                            {% for tool in investment_tool_names %}
-                                {{ tool }}{% if not forloop.last %}, {% endif %}
-                             {% endfor %}
-                           </div>
-                         </div>
-                      </div>
-
-
-                      <div class="p-4 m-2 border border-gray-300 " style="padding: 0.1rem;">
-                        <div class="w-[100px] mt-[20px] mb-[1px] ml-1 font-bold whitespace-nowrap text-dark-600 flex">
-                           <label class="text-right col-2 lh-2" >
-                               <span class="text-red-primary">*</span>
-                                  投資屬性:
-                           </label>
-                          <div class="w-[300px] col-10m flex ml-4 ">
-                            {{ post.get_investment_attributes_display }}
-                          </div>
-                        </div>
-                     </div>
-
-
-
-                    <div class="flex justify-center mt-4">
-                        <div class="mt-4 btn btn-primary">
-                            <a href="{% url 'userprofiles:edit' post.id %}"> 編輯</a>
-                        </div>
-                    </div>
-
-
-
-                </article>
-            </section>
+<div class="mt-[12px]">
+  <div class="flex w-[1200px] mx-auto">
+       <div class="w-[200px]">
+         {% include 'pages/main_page/_left_nav_bar.html' %}
         </div>
-    </div>
+              <div class="flex justify-center ">
+                  <div >
+                      <div >
+                          <section class="shadow-area rounded-[3px] bg-white ">
+                              <h2 class="text-lg  font-bold py-4 pb-2 -mb-[2px] border-b-[3px] border-b-gray-94 leading-[36px] text-center text-red-primary">會員個人資料 瀏覽</h2>
+                              <article class="pt-3 pb-1">
+
+                                <div class="flex border-b-[3px] border-b-gray-94">
+                                    <div class="p-4 m-2  w-[440px]   ">
+                                          <div  style="padding: 0.1rem;" >
+                                              <div class="mt-[10px] mb-[1px] ml-1 font-bold whitespace-nowrap text-dark-600 flex">
+                                                    <label class="text-right col-2 lh-2" >
+                                                      <span class="text-red-primary">*</span>
+                                                      暱稱:
+                                                    </label>
+                                                    <div class="w-[200px] col-10m flex ml-4 " >
+                                                      {{ post.nickname }}
+                                                    </div>
+                                                </div>
+                                          </div>
+
+                                          <div  style="padding: 0.1rem;" >
+                                              <div class=" mt-[10px] mb-[1px] ml-1 font-bold whitespace-nowrap text-dark-600 flex">
+                                                  <label class="text-right col-2 lh-2" >
+                                                      <span class="text-red-primary">*</span>
+                                                        性別:
+                                                  </label>
+                                                  <div class="w-[300px] col-10m flex ml-4">
+                                                        {{ post.get_gender_display }}
+                                                  </div>
+                                              </div>
+                                          </div>
+
+                                          <div  style="padding: 0.1rem;">
+                                            <div class=" mt-[10px] mb-[1px] ml-1 font-bold whitespace-nowrap text-dark-600 flex">
+                                                  <label class="text-right col-2 lh-2" >
+                                                      <span class="text-red-primary">*</span>
+                                                          生      日:
+                                                  </label>
+                                                  <div class="w-[300px] col-10m flex ml-4 ">
+                                                        {{ post.birthday }}
+                                                  </div>
+                                              </div>
+                                          </div>
+                                    <div>
+
+
+
+                                    <div  style="padding: 0.1rem;">
+                                        <div class="mt-[10px] mb-[1px] ml-1 font-bold whitespace-nowrap text-dark-600 flex">
+                                            <label class="text-right col-2 lh-2" >
+                                                <span class="text-red-primary">*</span>
+                                                居住地區:
+                                            </label>
+                                            <div class="flex ml-4 col-10m">
+                                            {{ post.get_location_display }}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div style="padding: 0.1rem;">
+                                      <div class=" mt-[10px] mb-[1px] ml-1 font-bold whitespace-nowrap text-dark-600 flex">
+                                            <label class="text-right col-2 lh-2" >
+                                                <span class="text-red-primary">*</span>
+                                                  教育程度:
+                                            </label>
+                                            <div class="flex ml-4 col-10m ">
+                                              {{ post.get_education_display }}
+                                            </div>
+                                      </div>
+                                    </div>
+
+                                    <div style="padding: 0.1rem;">
+                                        <div class="mt-[10px] mb-[1px] ml-1 font-bold whitespace-nowrap text-dark-600 flex">
+                                                <label class="text-right col-2 lh-2" >
+                                                    <span class="text-red-primary">*</span>
+                                                      職業:
+                                                </label>
+                                                <div class="flex ml-4 col-10m">
+                                                  {{ post.get_profession_display }}
+                                                </div>
+                                        </div>
+                                    </div>
+
+                                    <div style="padding: 0.1rem;">
+                                          <div class="mt-[10px] mb-[1px] ml-1 font-bold whitespace-nowrap text-dark-600 flex">
+                                                    <label class="text-right col-2 lh-2" >
+                                                        <span class="text-red-primary">*</span>
+                                                          投資經驗:
+                                                    </label>
+                                                    <div class="flex ml-4 col-10m">
+                                                      {{ post.get_investment_experience_display }}
+                                                    </div>
+                                          </div>
+                                    </div>
+
+                                    <div style="padding: 0.1rem;">
+                                        <div class=" mt-[10px] mb-[1px] ml-1 font-bold whitespace-nowrap text-dark-600 flex">
+                                                  <label class="text-right col-2 lh-2" >
+                                                      <span class="text-red-primary">*</span>
+                                                      投資工具:
+                                                  </label>
+                                                <div class="flex ml-4 col-10m ">
+                                                  {% for tool in investment_tool_names %}
+                                                      {{ tool }}{% if not forloop.last %}, {% endif %}
+                                                  {% endfor %}
+                                                </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div style="padding: 0.1rem;">
+                                          <div class="mt-[20px] mb-[1px] ml-1 font-bold whitespace-nowrap text-dark-600 flex">
+                                                    <label class="text-right col-2 lh-2" >
+                                                        <span class="text-red-primary">*</span>
+                                                            投資屬性:
+                                                    </label>
+                                                    <div class="flex ml-4 col-10m">
+                                                      {{ post.get_investment_attributes_display }}
+                                                    </div>
+                                          </div>
+                                  </div>
+
+                                  </div>
+                                </div>
+
+
+                                <div class="w-[300px] p-4 m-2  ">
+                                        <div class="p-4 m-2 " style="padding: 0.1rem;" >
+                                                <div class="font-bold whitespace-nowrap text-dark-600">
+                                                      <label class="text-right col-2 lh-2" >
+                                                          <span class="text-red-primary">*</span>
+                                                                會員頭像:
+                                                      </label>
+                                                      <div class="flex justify-center ml-4 col" >
+                                                              {% if post.user_img %}
+                                                              <img src="{{ post.user_img.url }}" alt="User Image" style="max-width: 200px; max-height: 200px; object-fit: cover;" />
+
+                                                              {%else%}
+                                                              <img src="{% static 'images/visitor.svg' %}" alt="visitor"></img>
+                                                              {% endif %}
+                                                      </div>
+                                                </div>
+                                        </div>
+                                  </div>
+                            </div>
+
+
+
+                                  <div class="flex justify-center mt-4 ">
+                                      <div class="px-4 py-2 text-white rounded bg-red-primary border-red-primary">
+                                          <a href="{% url 'userprofiles:edit' post.id %}"> 編輯</a>
+                                      </div>
+                                  </div>
+
+
+
+                              </article>
+                          </section>
+                      </div>
+                  </div>
+              </div>
+
+            <div class="w-[10px]"> </div>
+            <div class="w-[200px]">
+              {% include 'pages/main_page/_right_nav_bar.html' %}
+            </div>
+      </div>
  </div>
-
-
 
 
 
