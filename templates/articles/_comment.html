@@ -36,7 +36,7 @@
                                 </div>
                                 <textarea x-model="commentContent"
                                         @input="adjustHeight($event.target)"
-                                        class="w-full pt-1 pb-1 pl-3 text-base border border-gray-cbc">
+                                        class="w-full pt-1 pb-1 pl-3 text-base border border-gray-cbc bg-white">
                                         {{ comment.content }}
                                 </textarea>
                             </div>
@@ -47,7 +47,7 @@
                             <div tabindex="0" role="button"  class="w-12 h-4 btn rounded-full bg-transparent border-transparent">
                                 <i class="fa-solid fa-ellipsis w-[26px] h-[26px] text-gray-56"></i>
                             </div>
-                            <ul tabindex="0" class="menu dropdown-content bg-base-100 rounded-box z-[1] w-40 p-2 shadow">
+                            <ul tabindex="0" class="menu dropdown-content bg-base-100 rounded-box z-[1] w-40 p-2 shadow bg-white">
                                 <li>
                                     <button
                                         @click="startEdit"

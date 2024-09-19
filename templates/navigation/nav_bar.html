@@ -5,8 +5,8 @@
         <div class="bg-black w-full h-[35px] flex items-center justify-end">
             <div x-data="switch_page({{ user.is_authenticated|lower }})">
                 <div class="flex items-center justify-center" x-show="isAuthenticated">
-                    <span class="mr-1 circle-text">P</span>
-                    <button @click.prevent="" class="mt-1 mb-1 text-white cursor-pointer">P點: {{ user.tot_point }}</button>
+                    <!-- <span class="mr-1 circle-text">P</span>
+                    <button @click.prevent="" class="mt-1 mb-1 text-white cursor-pointer">P點: {{ user.tot_point }}</button> -->
                 </div>
             </div>
             <ul class="relative menu menu-horizontal group">
