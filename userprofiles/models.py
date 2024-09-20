@@ -1,6 +1,10 @@
+import io
+
 from django.contrib.auth.models import User
+from django.core.files.base import ContentFile
 from django.db import models
 from django.utils import timezone
+from PIL import Image
 from storages.backends.s3boto3 import S3Boto3Storage
 
 from .choice import (
@@ -74,3 +78,18 @@ class Profile(models.Model):
             print(f"用戶 {self.user.username} 的新總點數: {self.tot_point}")
         else:
             print(f"今天沒有為用戶 {self.user.username} 發放點數。")
+
+    def save(self, *args, **kwargs):
+        if self.user_img:
+            img = Image.open(self.user_img)
+            img_io = io.BytesIO()
+            img.seek(0)
+            img_size = self.user_img.size
+            if img_size > 200 * 1024:
+                img.save(img_io, format="WEBP", quality=80)
+                img_io.seek(0)
+                self.user_img.save(
+                    self.user_img.name, ContentFile(img_io.read()), save=False
+                )
+
+        super().save(*args, **kwargs)

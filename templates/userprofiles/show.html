@@ -17,7 +17,7 @@
                               <h2 class="text-lg  font-bold py-4 pb-2 -mb-[2px] border-b-[3px] border-b-gray-94 leading-[36px] text-center text-red-primary">會員個人資料 瀏覽</h2>
                               <article class="pt-3 pb-1">
 
-                                <div class="flex border-b-[3px] border-b-gray-94">
+                                <div class="flex border-b-gray-94">
                                     <div class="p-4 m-2  w-[440px]   ">
                                           <div  style="padding: 0.1rem;" >
                                               <div class="mt-[10px] mb-[1px] ml-1 font-bold whitespace-nowrap text-dark-600 flex">
@@ -144,14 +144,18 @@
                                                           <span class="text-red-primary">*</span>
                                                                 會員頭像:
                                                       </label>
-                                                      <div class="flex justify-center ml-4 col" >
-                                                              {% if post.user_img %}
-                                                              <img src="{{ post.user_img.url }}" alt="User Image" style="max-width: 200px; max-height: 200px; object-fit: cover;" />
 
-                                                              {%else%}
-                                                              <img src="{% static 'images/visitor.svg' %}" alt="visitor"></img>
-                                                              {% endif %}
-                                                      </div>
+                                                        <div class="h-[200px] w-[200px] flex items-center justify-center bg-gray-94 shadow-area overflow-hidden">
+                                                              <div class="flex items-center justify-center w-full h-full">
+                                                                      {% if post.user_img %}
+                                                                      <img src="{{ post.user_img.url }}" alt="User Image" style="max-width: 200px; max-height: 200px; object-fit: cover;" />
+
+                                                                      {%else%}
+                                                                      <img src="{% static 'images/visitor.svg' %}" alt="visitor"></img>
+                                                                      {% endif %}
+                                                              </div>
+                                                       </div>
+
                                                 </div>
                                         </div>
                                   </div>

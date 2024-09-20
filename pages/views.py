@@ -74,6 +74,8 @@ def index(req):
             like_count=Count("liked"),
             collect=Exists(collect),
         )
+        Article.objects.annotate(user_liked=Exists(subquery), like_count=Count("liked"))
+        .select_related("user__profile")
         .order_by("-id")
         .prefetch_related("stock")
     )

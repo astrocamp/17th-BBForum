@@ -10,9 +10,17 @@
                                  @mouseover="checkMouseoverColor('{% url 'follows:check_follow_api' article.user.id %}')">
                                 <div>
                                     <a href="#">
-                                        <div class="w-[40px] h-[40px] rounded-full border border-gray-94 overflow-hidden">
-                                            <img src="{% static 'images/visitor.svg' %}" alt="visitor"></img>
+
+         {% comment %} 會員個人頭像 {% endcomment %}
+                                        <div class="w-[40px] h-[40px] rounded-full border border-gray-94 flex items-center overflow-hidden">
+                                            {% if article.user.profile.user_img %}
+                                            <img src="{{ article.user.profile.user_img.url }}" alt="User Image" style="max-w-full max-h-full object-fit: cover;" />
+                                        {% else %}
+                                            <img src="{% static 'images/default_user.svg' %}" alt="Default User Image" style="max-w-full max-h-full 40px; object-fit: cover;" />
+                                        {% endif %}
                                         </div>
+
+
                                     </a>
                                 </div>
                                 <div x-show="isShow && !isOwnPost" class="absolute hidden group-hover:block bg-white p-2 mt-2 rounded-[10px] shadow-lg w-[400px] h-[170px] z-10 top-[33px] -left-[150px]">
