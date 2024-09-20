@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
+from storages.backends.s3boto3 import S3Boto3Storage
 from taggit.managers import TaggableManager
 
 from lib.models.image_save import ImageSaveMixin
@@ -25,7 +26,12 @@ class Article(SoftDeleteable, ImageSaveMixin, models.Model):
     stockID = models.CharField(max_length=10)
     content = models.TextField()
     post_at = models.DateTimeField(default=timezone.now, null=True, blank=True)
-    photo = models.ImageField(upload_to="images/", null=True, blank=True)
+    photo = models.ImageField(
+        upload_to="images/",
+        null=True,
+        blank=True,
+        storage=S3Boto3Storage,
+    )
     deleted_at = models.DateTimeField(default=None, null=True, blank=True)
     user = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
     tags = TaggableManager()
