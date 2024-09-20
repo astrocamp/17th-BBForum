@@ -108,6 +108,18 @@
                                     </ul>
                                 </div>
                             {% endif %}
+                            {% if user.is_authenticated and article.user != request.user %}
+                                <div class="dropdown">
+                                    <div tabindex="0" role="button"  class="w-12 h-4 btn" >
+                                        <i class="fa-solid fa-ellipsis w-[26px] h-[26px] text-gray-56"></i>
+                                    </div>
+                                    <ul tabindex="0" class="menu dropdown-content bg-base-100 rounded-box z-[1] w-40 p-2 shadow">
+                                        <li>
+                                            {% include 'articles/_collectors.html' with article=article collected=article.collect  %}
+                                        </li>
+                                    </ul>
+                                </div>
+                            {% endif %}
                         </div>
                     </div>
                     <div class="w-[40px] h-auto text-[12px] font-normal leading-4 tracking-[0.2px] text-center">Lv.10</div>
