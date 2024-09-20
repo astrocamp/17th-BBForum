@@ -32,7 +32,13 @@
                             </div>
 
                         </div>
-                    {% include "pages/main_page/_article.html" with article=article liked=article.user_liked csrf_token=csrf_token user=user%}
+
+
+                        {% include "pages/main_page/_article.html" with article=article %}
+
+
+
+
                 </div>
             </div>
                 <div class="w-[10px]"></div>
