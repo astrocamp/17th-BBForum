@@ -70,7 +70,7 @@
                         <div>
                             {% if user.is_authenticated and article.user == request.user %}
                                 <div class="dropdown">
-                                    <div tabindex="0" role="button"  class="w-12 h-4 btn bg-white">
+                                    <div tabindex="0" role="button"  class="w-12 h-4 bg-white btn">
                                         <i class="fa-solid fa-ellipsis w-[26px] h-[26px] text-gray-56"></i>
                                     </div>
                                     <ul tabindex="0" class="menu dropdown-content bg-base-100 rounded-box z-[1] w-40 p-2 shadow bg-white">
@@ -200,7 +200,7 @@
                                 <div class="mt-[7.5px] mb-[7.5px] ml-1 font-bold whitespace-nowrap text-dark-600">留言</div>
                             </div>
                         </button>
-                        {% include "articles/_liked.html" with article=article liked=article.user_liked csrf_token=csrf_token user=user only %}
+                        {% include "articles/_liked.html" with article=article liked=article.user_liked csrf_token=csrf_token user=user  only %}
                     </div>
                 </div>
                 <template x-if="!isAuthenticated">
