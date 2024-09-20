@@ -10,7 +10,18 @@ from .models import Article, Comment, IndustryTag
 def show(req, id):
     article = get_object_or_404(Article, pk=id)
     article.like_count = article.liked.count()
-    return render(req, "articles/show.html", {"article": article, "liked": True})
+    user_liked = False
+    if req.user.is_authenticated:
+        user_liked = article.liked.filter(id=req.user.id).exists()
+    article.user_liked = user_liked
+
+    return render(
+        req,
+        "articles/show.html",
+        {
+            "article": article,
+        },
+    )
 
 
 @login_required
