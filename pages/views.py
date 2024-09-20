@@ -94,14 +94,19 @@ def my_watchlist(req):
 
 def my_favorites(req):
     user = req.user
+    subquery = Article.objects.filter(liked=req.user.pk, id=OuterRef("pk")).values("pk")
     favorite_articles = Article.objects.filter(collectors=user).annotate(
-        collect=Value(True)
+        collect=Value(True),
+        user_liked=Exists(subquery),
+        like_count=Count("liked"),
     )
 
     return render(
         req,
         "pages/my_favorites/my_favorites.html",
-        {"favorite_articles": favorite_articles},
+        {
+            "favorite_articles": favorite_articles,
+        },
     )
 
 
