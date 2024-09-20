@@ -2,20 +2,24 @@
 <aside class="w-[150px]">
     <div class="flex flex-col gap-4">
         <div x-data="unlogined_prompt({{ user.is_authenticated|lower }})" class="flex flex-col">
-            <div class="flex p-2 gap-2">
+            <div class="flex gap-2 p-2">
                 <div class="flex-none w-[40px]">
                     <a>
-                        <div>
-                            <img src="{% static 'images/visitor.svg' %}" alt="visitor"></img>
+                        <div id="user_image_display" class="w-[40px] h-[40px] rounded-full border border-gray-94 flex items-center overflow-hidden">
+                            {% if user_img %}
+                            <img src="{{ user_img.url }}" alt="User Image" style="max-w-full max-h-full object-fit: cover;" />
+                        {% else %}
+                            <img src="{% static 'images/default_user.svg' %}" alt="Default User Image" style="max-w-full max-h-full 40px; object-fit: cover;" />
+                        {% endif %}
                         </div>
                     </a>
                 </div>
                 <div class="flex-grow">
                     <div class="h-[24px]">
                         {% if request.user.is_authenticated %}
-                            <button @click="toggleVisibility" class="text-dark-800 text-base font-bold border-b-2 border-transparent hover:border-black ">{{ request.user }}</button>
+                            <button @click="toggleVisibility" class="text-base font-bold border-b-2 border-transparent text-dark-800 hover:border-black ">{{ request.user }}</button>
                         {% else %}
-                            <button @click="toggleVisibility" class="text-dark-800 text-base font-bold border-b-2 border-transparent hover:border-black ">訪客</button>
+                            <button @click="toggleVisibility" class="text-base font-bold border-b-2 border-transparent text-dark-800 hover:border-black ">訪客</button>
                         {% endif %}
                     </div>
                     <div class="h-[20px]">
@@ -30,25 +34,25 @@
         <div>
             <nav>
                 <ul x-data="switch_page({{ user.is_authenticated|lower }})" class="pt-4 pb-4 border-t border-b border-gray-83">
-                    <li @click.prevent="navigatePage('')" class="aside-bar-padding aside-bar-hover cursor-pointer">
+                    <li @click.prevent="navigatePage('')" class="cursor-pointer aside-bar-padding aside-bar-hover">
                         <div class="flex items-center gap-2">
                             <i class="fa-solid fa-bell w-[20px] h-[20px] text-gray-69"></i>
                             <div class="text-[14px]">我的通知</div>
                         </div>
                     </li>
-                    <li @click.prevent="navigatePage('{% url 'pages:my_watchlist' %}')" class="aside-bar-padding aside-bar-hover cursor-pointer">
+                    <li @click.prevent="navigatePage('{% url 'pages:my_watchlist' %}')" class="cursor-pointer aside-bar-padding aside-bar-hover">
                         <div class="flex items-center gap-2">
                             <i class="fa-solid fa-circle-plus w-[20px] h-[20px] text-gray-69"></i>
                             <div class="text-[14px]">我的自選股</div>
                         </div>
                     </li>
-                    <li @click.prevent="navigatePage('{% url 'pages:my_favorites' %}')" class="aside-bar-padding aside-bar-hover cursor-pointer">
+                    <li @click.prevent="navigatePage('{% url 'pages:my_favorites' %}')" class="cursor-pointer aside-bar-padding aside-bar-hover">
                         <div class="flex items-center gap-2">
                             <i class="fa-solid fa-bookmark w-[20px] h-[20px] text-gray-69"></i>
                             <div class="text-[14px]">我的收藏</div>
                         </div>
                     </li>
-                    <li @click.prevent="navigatePage('{% url 'pages:news_feed' %}')" class="aside-bar-padding aside-bar-hover cursor-pointer">
+                    <li @click.prevent="navigatePage('{% url 'pages:news_feed' %}')" class="cursor-pointer aside-bar-padding aside-bar-hover">
                         <div class="flex items-center gap-2">
                             <i class="fa-solid fa-message w-[20px] h-[20px] text-gray-69"></i>
                             <div class="text-[14px]">動態牆</div>
