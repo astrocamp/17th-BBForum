@@ -2,10 +2,13 @@ import dash
 import pandas as pd
 import plotly.graph_objects as go
 import yfinance as yf
-from dash import dcc, html
+from dash import Dash, dcc, html
 from dash.dependencies import Input, Output
 
-app = dash.Dash(__name__, suppress_callback_exceptions=True)
+# app = dash.Dash(__name__, suppress_callback_exceptions=True)
+app = Dash(__name__, suppress_callback_exceptions=True)
+
+server = app.server
 
 app.layout = html.Div(
     [dcc.Location(id="url", refresh=False), html.Div(id="page-content")]
