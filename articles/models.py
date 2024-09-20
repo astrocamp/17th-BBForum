@@ -32,11 +32,15 @@ class Article(SoftDeleteable, ImageSaveMixin, models.Model):
     stock = models.ManyToManyField(IndustryTag, blank=True)
     liked = models.ManyToManyField(User, related_name="liked")
     points_awarded = models.IntegerField(default=0)
+    collectors = models.ManyToManyField(User, related_name="collected")
 
     objects = SoftDeleteManager()
 
     def liked_by(self, user):
         return self.liked.filter(id=user.id).exists()
+
+    def collected_by(self, user):
+        return self.collectors.filter(id=user.id).exists()
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)

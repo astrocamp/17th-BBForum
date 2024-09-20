@@ -114,3 +114,23 @@ def stocks_list(request):
     tags_list = [{"value": tag["name"], "id": tag["security_code"]} for tag in tags]
 
     return JsonResponse(tags_list, safe=False)
+
+
+@login_required
+def collectors(req, id):
+
+    article = get_object_or_404(Article, pk=id)
+
+    if req.method == "POST":
+        if article.collected_by(req.user):
+            article.collectors.remove(req.user)
+            collected_status = False
+        else:
+            article.collectors.add(req.user)
+            collected_status = True
+
+        return render(
+            req,
+            "articles/_collectors.html",
+            {"article": article, "collected": collected_status},
+        )
