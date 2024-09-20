@@ -28,12 +28,12 @@ def stock_data_twii(req):
 
 
 def stock_data(req, id):
-    if os.name == "nt":  # Windows
-        python_executable = r".venv\Scripts\python.exe"
-    else:  # macOS/Linux
-        python_executable = ".venv/bin/python"
+    # if os.name == "nt":  # Windows
+    #     python_executable = r".venv\Scripts\python.exe"
+    # else:  # macOS/Linux
+    #     python_executable = ".venv/bin/python"
 
-    subprocess.Popen([python_executable, "stockpages/stockdash.py", str(id)])
+    # subprocess.Popen([python_executable, "stockpages/stockdash.py", str(id)])
 
     stock = get_object_or_404(IndustryTag, security_code=id)
     articles = Article.objects.filter(stock=id).order_by("-id")
