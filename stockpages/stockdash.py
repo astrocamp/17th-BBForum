@@ -231,7 +231,7 @@ def get_stock_data(stock_code):
     try:
         stock_data = yf.download(stock_code_full, period="1d", interval="1m")
         if stock_data.empty:
-            return None, None, None
+            return None, None, None, None
 
         data = stock_data.reset_index()
         data.columns = [
