@@ -3,12 +3,6 @@
     <div class="absolute bg-gray-94 w-full h-[100px] z-0"></div>
     <nav class="relative z-10 bg-white shadow-nav-bar">
         <div class="bg-black w-full h-[35px] flex items-center justify-end">
-            <div x-data="switch_page({{ user.is_authenticated|lower }})">
-                <div class="flex items-center justify-center" x-show="isAuthenticated">
-                    <span class="mr-1 circle-text">P</span>
-                    <button @click.prevent="" class="mt-1 mb-1 text-white cursor-pointer">P點: {{ user.tot_point }}</button>
-                </div>
-            </div>
             <ul class="relative menu menu-horizontal group">
                 {% if user.is_authenticated %}
                     <li><a class="text-white">{{ request.user.username }}</a></li>
