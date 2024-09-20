@@ -87,7 +87,15 @@
                                     <div tabindex="0" role="button"  class="w-12 h-4 bg-white btn">
                                         <i class="fa-solid fa-ellipsis w-[26px] h-[26px] text-gray-56"></i>
                                     </div>
-                                    <ul tabindex="0" class="menu dropdown-content bg-white rounded-box z-[1] w-40 p-2 shadow right-0">
+                                    <ul tabindex="0" class="menu dropdown-content rounded-box z-[1] w-40 p-2 shadow bg-white">
+                                        <li>
+                                            <button
+                                                @click="startEdit"
+                                                x-show="!editing"
+                                                class="text-sm">
+                                                編輯文章
+                                            </button>
+                                        </li>
                                         <li>
                                             <form
                                                 hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
@@ -98,14 +106,6 @@
                                                 x-show="!editing">
                                                 <button type="submit" class="text-sm text-red-primary">刪除文章</button>
                                             </form>
-                                        </li>
-                                        <li>
-                                            <button
-                                                @click="startEdit"
-                                                x-show="!editing"
-                                                class="text-sm">
-                                                編輯文章
-                                            </button>
                                         </li>
                                         <li>
                                             <button
