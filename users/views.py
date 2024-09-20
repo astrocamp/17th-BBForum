@@ -80,7 +80,7 @@ def forget_password(req):
 
             subject = "Password Reset Notification"
 
-            send_mail_via_mailgun(subject, message, email)
+            send_mail_via_mailgun(subject, messages, email)
 
             return render(
                 req,
