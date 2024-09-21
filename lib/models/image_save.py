@@ -23,7 +23,7 @@ class ImageSaveMixin:
             print("重新壓縮照片檔案")
             img = Image.open(self.photo)
             img_size = self.photo.size
-            if img_size > 500 * 1024:
+            if img_size > 300 * 1024:
                 img_io = io.BytesIO()
                 img.save(img_io, format="WEBP", quality=80)
                 img_io.seek(0)
