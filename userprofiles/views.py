@@ -14,7 +14,6 @@ def index(req):
     profile = get_object_or_404(Profile, user=req.user)  # 獲取用戶的 Profile
     if not profile.nickname or not profile.gender:
         return redirect(reverse("userprofiles:edit", args=[profile.id]))
-
     return redirect(reverse("userprofiles:show", args=[profile.id]))
 
 
@@ -30,16 +29,22 @@ def show(req, id):
         form = ProfileForm(req.POST, req.FILES, instance=post)
         if form.is_valid():
             form.save()
+
             return redirect(
                 reverse("userprofiles:show", kwargs={"id": form.instance.id})
             )
         else:
             return render(req, "userprofiles/edit.html", {"form": form, "post": post})
-
+    profile = get_object_or_404(Profile, pk=id)
+    user_img = profile.user_img
     return render(
         req,
         "userprofiles/show.html",
-        {"post": post, "investment_tool_names": investment_tool_names},
+        {
+            "post": post,
+            "investment_tool_names": investment_tool_names,
+            "user_img": user_img,
+        },
     )
 
 
@@ -58,14 +63,11 @@ def edit(req, id):
     else:
         form = ProfileForm(instance=post)
 
-    return render(req, "userprofiles/edit.html", {"form": form, "post": post})
+    profile = get_object_or_404(Profile, pk=id)
+    user_img = profile.user_img
 
-
-def publish_user_image(req):
-    post = get_object_or_404(Profile, pk=req.user)
-    user_img = post.user_img
-    return JsonResponse(
-        {
-            "user_img": user_img,
-        }
+    return render(
+        req,
+        "userprofiles/edit.html",
+        {"form": form, "post": post, "user_img": user_img},
     )

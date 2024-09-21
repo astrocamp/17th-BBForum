@@ -4,15 +4,20 @@
         <div x-data="unlogined_prompt({{ user.is_authenticated|lower }})" class="flex flex-col">
             <div class="flex gap-2 p-2">
                 <div class="flex-none w-[40px]">
-                    <a>
-                        <div id="user_image_display" class="w-[40px] h-[40px] rounded-full border border-gray-94 flex items-center overflow-hidden">
-                            {% if user_img %}
-                            <img src="{{ user_img.url }}" alt="User Image" style="max-w-full max-h-full object-fit: cover;" />
-                        {% else %}
-                            <img src="{% static 'images/default_user.svg' %}" alt="Default User Image" style="max-w-full max-h-full 40px; object-fit: cover;" />
-                        {% endif %}
-                        </div>
-                    </a>
+
+
+                      <div  class="w-[40px] h-[40px] rounded-full border border-gray-94 flex items-center overflow-hidden">
+                         {% if user_img %}
+                        <img src="{{ user_img.url }}" alt="User Image" style="max-w-full max-h-full object-fit: cover;" />
+                       {% else %}
+                          <img src="{% static 'images/visitor.svg' %}" alt="visitor"></img>
+                       {% endif %}
+                      </div>
+
+
+
+
+
                 </div>
                 <div class="flex-grow">
                     <div class="h-[24px]">
