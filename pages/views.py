@@ -2,10 +2,13 @@ import json
 
 from django.db.models import Count, Exists, OuterRef, Value
 from django.shortcuts import render
+from django.db.models import Count, Exists, OuterRef
+from django.shortcuts import get_object_or_404, render
 
 from articles.models import Article, IndustryTag
 from follows.models import FollowRelation
 from picks.models import UserStock
+from userprofiles.models import Profile
 
 
 def handle_article_tags(article, tags):
@@ -81,8 +84,16 @@ def index(req):
     )
     stocks = IndustryTag.objects.all()
 
+    if req.user.is_authenticated:
+        profile = get_object_or_404(Profile, user=req.user)
+        user_img = profile.user_img
+    else:
+        user_img = None
+
     return render(
-        req, "pages/main_page/index.html", {"articles": articles, "stocks": stocks}
+        req,
+        "pages/main_page/index.html",
+        {"articles": articles, "stocks": stocks, "user_img": user_img},
     )
 
 
