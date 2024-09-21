@@ -14,7 +14,10 @@ document.addEventListener('alpine:init', () => {
             navigator.clipboard.writeText(this.url)
                 .then(() => {
                     this.copied = true;
-                    setTimeout(() => this.copied = false, 2000);
+                    setTimeout(() => {
+                        this.copied = false;
+                        this.showTooltip = false;
+                    }, 1000);
                 })
                 .catch(() => {
                     console.error('無法複製連結');
@@ -22,4 +25,3 @@ document.addEventListener('alpine:init', () => {
         }
     }));
 });
-
