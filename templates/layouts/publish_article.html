@@ -10,7 +10,7 @@
             class="relative bg-white w-[538px] rounded-[10px] flex flex-col items-center justify-center">
 
             <button @click="isVisible = false" class="absolute flex items-center justify-center top-3 right-3 ">
-                <i class="w-5 h-5 fa-solid fa-xmark text-gray-56"></i>
+                <i class="w-5 h-5 fa-solid fa-xmark text-black-56"></i>
             </button>
 
             <div class="w-full border-b border-b-gray-90 min-h-[40px] text-dark-800 font-bold flex items-center pt-3 pb-3 pl-4 pr-4 overflow-hidden text-ellipsis">發文</div>
@@ -20,11 +20,11 @@
             </div>
 
             <div class="w-full p-2">
-                <textarea x-model="articleContent" x-ref="clearTextarea" class="w-full min-h-[250px] text-gray-56 font-normal flex items-center p-2 text-[18px] border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-gray-69 bg-white " placeholder="聊聊股市話題吧" name="article_content "></textarea>
+                <textarea x-model="articleContent" x-ref="clearTextarea" class="w-full min-h-[250px] text-black-56 font-normal flex items-center p-2 text-[18px] border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-gray-69 bg-white " placeholder="聊聊股市話題吧" name="article_content "></textarea>
             </div>
 
             <div class="w-full p-2">
-                <div x-data="fileUploader" class="flex flex-col space-y-4 text-gray-94">
+                <div x-data="fileUploader" class="flex flex-col space-y-4 text-black-94">
                     <label for="fileInput" class="px-4 py-2 rounded cursor-pointer text-dark-600 bg-gray-94">選擇圖片</label>
                     <span x-text="fileName" class="text-black"></span>
                     <div x-show="filePreview" class="mt-2">

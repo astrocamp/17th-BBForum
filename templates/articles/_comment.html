@@ -18,7 +18,7 @@
                                     {{ comment.user.username }}
                                 </span>
                             </div>
-                            <div class="text-xs text-gray-cbc">
+                            <div class="text-xs text-black-cbc">
                                 {{ comment.created_at|date:'Y/m/d h:i' }}
                             </div>
                         </div>
@@ -45,7 +45,7 @@
                     {% if request.user.id == comment.user.id %}
                         <div class="dropdown">
                             <div tabindex="0" role="button"  class="w-12 h-4 btn rounded-full bg-transparent border-transparent">
-                                <i class="fa-solid fa-ellipsis w-[26px] h-[26px] text-gray-56"></i>
+                                <i class="fa-solid fa-ellipsis w-[26px] h-[26px] text-black-56"></i>
                             </div>
                             <ul tabindex="0" class="menu dropdown-content bg-base-100 rounded-box z-[1] w-40 p-2 shadow bg-white">
                                 <li>

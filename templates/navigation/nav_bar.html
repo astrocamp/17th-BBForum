@@ -1,12 +1,10 @@
 {% load static %}
-<div class="sticky top-0 z-10">
+<div class="desktop-only w-[1200px] sticky top-0 z-10">
     <div class="absolute bg-gray-94 w-full h-[100px] z-0"></div>
     <nav class="relative z-10 bg-white shadow-nav-bar">
         <div class="bg-black w-full h-[35px] flex items-center justify-end">
             <div x-data="switch_page({{ user.is_authenticated|lower }})">
                 <div class="flex items-center justify-center" x-show="isAuthenticated">
-                    <!-- <span class="mr-1 circle-text">P</span>
-                    <button @click.prevent="" class="mt-1 mb-1 text-white cursor-pointer">P點: {{ user.tot_point }}</button> -->
                 </div>
             </div>
             <ul class="relative menu menu-horizontal group">
@@ -35,8 +33,8 @@
                     <img class="w-[100%] h-[50px]" src="{% static 'images/bbforum_logo.svg' %}" alt="logo" />
                 </a>
             </div>
-            <div class="flex items-center h-full gap-[32px]">
-                <ul class="flex items-center">
+            <div class="desktop-only w-[1200px] flex items-center h-full">
+                <ul class="flex items-center justify-evenly w-ful">
                     <li>
                       <a href="#">
                         <div class="nav-text nav-text-format nav-text-bottom-line">股市討論</div>
@@ -95,13 +93,60 @@
                         </li>
                       </ul>
                     </li>
-                </ul>
-                <div class="flex">
-                    <input class="w-[622px] h-[32px] rounded-l bg-gray-90 pl-2.5 pr-2.5 border border-gray-90 focus:border-red-primary focus:outline-none focus:ring-0" type="text" name="search" placeholder="搜尋股票代碼、名稱或人名">
-                    <button class="nav-btn-primary text-white rounded-r h-[32px] px-3 py-2 flex items-center justify-center"><i class="fas fa-magnifying-glass icon"></i></button>
-                </div>
+                    <div class="flex">
+                      <input class="w-[260px] h-[32px] rounded-l bg-gray-90 pl-2.5 pr-2.5 border border-gray-90 focus:border-red-primary focus:outline-none focus:ring-0" type="text" name="search" placeholder="搜尋股票代碼、名稱或人名">
+                      <button class="nav-btn-primary text-white rounded-r h-[32px] px-3 py-2 flex items-center justify-center"><i class="fas fa-magnifying-glass icon"></i></button>
+                  </div>
+                  </ul>
             </div>
             <button class="flex items-center h-full w-[44px] justify-center px-2.5 py-4.5"><i class="fa-solid fa-bell w-[24px] h-[24px]"></i></button>
+        </div>
+    </nav>
+</div>
+<div class="mobile-only w-[375px] sticky top-0 z-10" x-data="{ showMenu: false }">
+    <div class="absolute bg-gray-94 w-full h-[100px] z-0"></div>
+    <nav class="relative z-10 bg-white shadow-nav-bar flex items-center justify-between">
+        <button @click="showMenu = !showMenu" class="cursor-pointer m-0">
+            <i class="fa-solid fa-list h-7 w-10 m-3 pt-1 pb-0"></i>
+        </button>
+        <div class="logo-container mr-9">
+            <a href="{% url 'pages:index' %}">
+                <img class="w-[375px] h-[50px]" src="{% static 'images/bbforum_logo.svg' %}" alt="logo" />
+            </a>
+        </div>
+        <div x-show="showMenu" x-transition class="absolute left-0 top-full w-full bg-white shadow-lg">
+          <aside class="mobile-only w-[375px]">
+            <div class="flex flex-col gap-4">
+                <div>
+                    <nav>
+                        <ul x-data="switch_page({{ user.is_authenticated|lower }})" class="pt-4 pb-4 border-t border-b border-gray-83">
+                            <li @click.prevent="navigatePage('{% url 'pages:my_watchlist' %}')" class="aside-bar-padding aside-bar-hover cursor-pointer">
+                                <div class="flex items-center gap-2">
+                                    <i class="fa-solid fa-circle-plus w-[20px] h-[20px] text-black-69"></i>
+                                    <div class="text-[14px]">我的自選股</div>
+                                </div>
+                            </li>
+                            <li @click.prevent="navigatePage('{% url 'pages:my_favorites' %}')" class="aside-bar-padding aside-bar-hover cursor-pointer">
+                                <div class="flex items-center gap-2">
+                                    <i class="fa-solid fa-bookmark w-[20px] h-[20px] text-black-69"></i>
+                                    <div class="text-[14px]">我的收藏</div>
+                                </div>
+                            </li>
+                            <li @click.prevent="navigatePage('{% url 'pages:news_feed' %}')" class="aside-bar-padding aside-bar-hover cursor-pointer">
+                                <div class="flex items-center gap-2">
+                                    <i class="fa-solid fa-message w-[20px] h-[20px] text-black-69"></i>
+                                    <div class="text-[14px]">動態牆</div>
+                                </div>
+                            </li>
+                            <template x-if="!isAuthenticated">
+                                {% include "layouts/not_logged.html" %}
+                            </template>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+          </aside>
+
         </div>
     </nav>
 </div>

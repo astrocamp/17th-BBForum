@@ -11,15 +11,111 @@
     <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.polyfills.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
     <title>BBForum</title>
+    <style>
+        @media (max-width: 375px) {
+            .nav-bar-top {
+                display: block;
+            }
+            .nav-bar-bottom {
+                display: flex;
+                background-color: white;
+                justify-content: space-around;
+                padding: 10px 0;
+                position: fixed;
+                bottom: 0;
+                z-index: 10000;
+                width: 100%;
+                max-width: 375px;
+            }
+            .nav-bar-bottom a {
+                flex: 1;
+                text-align: center;
+                font-size: 24px;
+            }
+            .desktop-only {
+                display: none;
+            }
+            .mobile-only {
+                display: block;
+            }
+            .mobile-nav-bar {
+                display: flex;
+                background-color: white;
+                justify-content: space-around;
+                padding: 10px 0;
+            }
+            .mobile-nav-bar a {
+                flex: 1;
+                text-align: center;
+                font-size: 24px;
+            }
 
+            .mt-7-5px {
+                margin-top: 5px;
+            }
+            .mb-7-5px {
+                margin-bottom: 5px;
+            }
+            .ml-1 {
+                margin-left: 0.25rem;
+            }
+            .font-bold {
+                font-weight: bold;
+            }
+            .whitespace-nowrap {
+                white-space: nowrap;
+            }
+            .text-dark-600 {
+                color: #4a4a4a;
+            }
+            .relative-flex-center {
+                position: relative;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background-color: white;
+                border-radius: 0.25rem;
+                transition: background-color 0.3s;
+            }
+            .relative-flex-center:hover {
+                background-color: #f0f0f0;
+            }
+        }
+        @media (min-width: 1200px) {
+            .nav-bar-top {
+                display: block;
+            }
+            .nav-bar-bottom {
+                display: none;
+            }
+        }
+        @media (min-width: 376px) {
+            .desktop-only {
+                display: block;
+            }
+            .mobile-only {
+                display: none;
+            }
+        }
+    </style>
 </head>
 <body class="bg-gray-94">
     {% if request|should_include_nav_bar %}
-        {% include "navigation/nav_bar.html" %}
+        <div class="nav-bar-top">
+            {% include "navigation/nav_bar.html" %}
+        </div>
     {% endif %}
     <main>
         {% block content %}
         {% endblock %}
     </main>
+    <div class="mobile-only">
+        <div class="nav-bar-bottom">
+            <a href="{% url 'pages:index' %}"><i class="fa-solid fa-comment-dots"></i></a>
+            <a href="{% url 'popular_pages:popular_stocks' %}"><i class="fa-solid fa-money-bill-trend-up"></i></a>
+            <a href="{% url 'pages:market_index' %}"><i class="fa-solid fa-chart-line"></i></a>
+            <a href="{% url 'userprofiles:new' %}"><i class="fa-solid fa-user"></i></a>
+        </div>
+    </div>
 </body>
 </html>

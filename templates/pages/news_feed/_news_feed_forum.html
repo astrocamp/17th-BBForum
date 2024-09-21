@@ -1,5 +1,5 @@
 {%load static%}
-<div class="w-[760px] mx-3.5">
+<div class="desktop-only w-[760px] mx-3.5">
     <div class="h-[132px] mt-3 bg-gray-90 flex justify-center items-center pt-4 pb-4">
         <img class="w-[760px] h-[132px] object-cover" src="https://s3cdn.yourator.co/banners/banners/000/001/494/home/598a79cc28630e1c421d38c3e385faa9e2e88505.png" alt="ad"/>
     </div>
@@ -8,7 +8,7 @@
             <div class="mt-2 mb-2">
                 <ul class="flex flex-wrap items-center gap-2">
                     <li class="text-red-primary text-[14px]">首頁</li>
-                    <li class="flex items-center"><i class="fa-solid fa-angle-right fa-xs text-gray-69"></i></li>
+                    <li class="flex items-center"><i class="fa-solid fa-angle-right fa-xs text-black-69"></i></li>
                     <li class="text-[14px]">動態牆</li>
                 </ul>
             </div>
@@ -28,7 +28,7 @@
                             <img src="{% static 'images/visitor.svg' %}" alt="visitor"></img>
                         </div>
                         <button @click="toggleVisibility" class="flex-grow pt-2 pb-2 pl-4 pr-4 text-left rounded-[50px] bg-gray-94">
-                            <div class="text-[18px] font-normal leading-[21px] text-gray-69">想和大家分享什麼呢？</div>
+                            <div class="text-[18px] font-normal leading-[21px] text-black-69">想和大家分享什麼呢？</div>
                         </button>
 
                         <template x-if="!isAuthenticated">
@@ -41,14 +41,14 @@
                 <div x-data="switch_sort" class="flex justify-end">
                     <div class="flex items-center whitespace-nowrap gap-2">
                         <div id="menu-button" aria-expanded="true" aria-haspopup="true" class="border-l border-gray-83 relative pl-2 cursor-pointer">
-                            <span class="text-[14px] font-bold leading-5 tracking-custom text-gray-56">最熱</span>
-                            <i class="fa-solid fa-sort-down w-[10px] h-[15px] text-gray-56 mb-1 ml-1 mr-1"></i>
+                            <span class="text-[14px] font-bold leading-5 tracking-custom text-black-56">最熱</span>
+                            <i class="fa-solid fa-sort-down w-[10px] h-[15px] text-black-56 mb-1 ml-1 mr-1"></i>
                         </div>
                     </div>
                     <div x-show="isVisible" @click.outside="isVisible = false" class="absolute right-0 z-10 mt-2 w-56">
                         <div class="py-1" role="none">
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="menu-item-0">最熱</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="menu-item-1"></a>
+                            <a href="#" class="block px-4 py-2 text-sm text-black-700" role="menuitem" tabindex="-1" id="menu-item-0">最熱</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-black-700" role="menuitem" tabindex="-1" id="menu-item-1"></a>
                           </div>
                     </div>
                     <template x-if="isVisible">
@@ -65,7 +65,24 @@
     </div>
     <div class="flex justify-center items-center mt-3 mb-3 pt-3 pb-3">
         <div>
-            <span class="leading-6 whitespace-pre-wrap text-gray-56">已經沒有更多文章了</span>
+            <span class="leading-6 whitespace-pre-wrap text-black-56">已經沒有更多文章了</span>
+        </div>
+    </div>
+</div>
+<div class="mobile-only w-[375px]">
+    <div class="mt-3 bg-gray-90 flex justify-center items-center pt-4 pb-4">
+        <img class="w-[760px] h-[132px] object-cover" src="https://s3cdn.yourator.co/banners/banners/000/001/494/home/598a79cc28630e1c421d38c3e385faa9e2e88505.png" alt="ad"/>
+    </div>
+    <div class="mt-4 mb-4">
+        <div class="flex justify-between relative after:content-[''] after:block after:w-full after:h-[2px] after:bg-gray-221 after:absolute after:-bottom-[3px] after:left-0">
+            <div>
+                <h2 class=" text-black text-[20px] font-bold p-2 -mb-[1px] border-b-[3px] border-b-red-900 leading-[18px]">動態牆</h2>
+            </div>
+        </div>
+    </div>
+    <div class="flex justify-center items-center mt-3 mb-3 pt-3 pb-3">
+        <div>
+            <span class="leading-6 whitespace-pre-wrap text-black-56">已經沒有更多文章了</span>
         </div>
     </div>
 </div>
