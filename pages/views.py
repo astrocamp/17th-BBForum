@@ -110,7 +110,7 @@ def index(req):
 
     current_user_groups = []
     articles_with_groups = []
-    # 檢查用戶是否已登入
+
     if req.user.is_authenticated:
         update_user_group(req.user)
         users = User.objects.all()
@@ -144,7 +144,6 @@ def index(req):
             "current_user_groups": current_user_groups,
         },
     )
-    return render(req, "pages/main_page/index.html", {"articles": articles})
 
 
 def my_watchlist(req):

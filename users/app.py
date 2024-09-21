@@ -11,10 +11,8 @@ def ready(self):
     from django.contrib.auth.models import Group, User
     from django.db.models.signals import post_save
 
-    # 在資料庫遷移後創建組
     post_migrate.connect(create_groups, sender=self)
 
-    # 為新創建的使用者設定預設群組
     post_save.connect(assign_default_group, sender=User)
 
 
@@ -29,6 +27,6 @@ def create_groups(sender, **kwargs):
 def assign_default_group(sender, instance, created, **kwargs):
     from django.contrib.auth.models import Group
 
-    if created:  # 確保只對新創建的使用者進行操作
+    if created:
         default_group, created = Group.objects.get_or_create(name="LV.0")
         instance.groups.add(default_group)
