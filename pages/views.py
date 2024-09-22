@@ -1,8 +1,6 @@
 import json
 
 from django.db.models import Count, Exists, OuterRef, Value
-from django.shortcuts import render
-from django.db.models import Count, Exists, OuterRef
 from django.shortcuts import get_object_or_404, render
 
 from articles.models import Article, IndustryTag
@@ -77,7 +75,6 @@ def index(req):
             like_count=Count("liked"),
             collect=Exists(collect),
         )
-        Article.objects.annotate(user_liked=Exists(subquery), like_count=Count("liked"))
         .select_related("user__profile")
         .order_by("-id")
         .prefetch_related("stock")
