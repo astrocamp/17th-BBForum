@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
 from django.forms import ModelForm
 from django.forms.widgets import DateInput, EmailInput, PasswordInput, TextInput
 
@@ -127,6 +128,23 @@ class ProfileForm(ModelForm):
             ),
             "user_img": forms.FileInput(attrs={"class": "form-control-file"}),
         }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.required = True
+
+    def clean_investment_tool(self):
+        data = self.cleaned_data.get("investment_tool")
+        if not data:
+            raise ValidationError("請選擇至少一個投資工具。")
+        return data
+
+    def clean_user_img(self):
+        user_img = self.cleaned_data.get("user_img")
+        if not user_img:
+            raise ValidationError("請上傳您的圖片。")
+        return user_img
 
 
 class UserForm(ModelForm):

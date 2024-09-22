@@ -28,6 +28,9 @@ def show(req, id):
     if req.method == "POST":
         form = ProfileForm(req.POST, req.FILES, instance=post)
         if form.is_valid():
+            if "user_img" in req.FILES:
+                form.user_img = req.FILES["user_img"]
+
             form.save()
 
             return redirect(
