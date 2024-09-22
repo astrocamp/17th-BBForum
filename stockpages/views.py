@@ -14,6 +14,8 @@ def stock_data_twii(req):
     latest_price, percent_change = get_stock_data("^TWII")
     current_time = datetime.now().strftime("%m/%d %H:%M")
 
+    current_user_groups = req.user.groups.values_list("name", flat=True)
+
     if req.user.is_authenticated:
         profile = get_object_or_404(Profile, user=req.user)
         user_img = profile.user_img
@@ -31,6 +33,7 @@ def stock_data_twii(req):
             "current_time": current_time,
             "twii": True,
             "user_img": user_img,
+            "current_user_groups": current_user_groups,
         },
     )
 

@@ -19,6 +19,13 @@ def popular_stocks(request):
         {"user_img": user_img},
     )
 
+    current_user_groups = request.user.groups.values_list("name", flat=True)
+    return render(
+        request,
+        "popular_pages/popular_stocks/popular_stocks.html",
+        {"current_user_groups": current_user_groups},
+    )
+
 
 def popular_students(req):
     follow_counts = (
@@ -72,6 +79,12 @@ def popular_students(req):
         "popular_pages/popular_students/popular_students.html",
         {"articles": articles},
     )
+    current_user_groups = request.user.groups.values_list("name", flat=True)
+    return render(
+        request,
+        "popular_pages/popular_students/popular_students.html",
+        {"current_user_groups": current_user_groups},
+    )
 
 
 def popular_answers(request):
@@ -84,6 +97,12 @@ def popular_answers(request):
         request,
         "popular_pages/popular_answers/popular_answers.html",
         {"user_img": user_img},
+    )
+    current_user_groups = request.user.groups.values_list("name", flat=True)
+    return render(
+        request,
+        "popular_pages/popular_answers/popular_answers.html",
+        {"current_user_groups": current_user_groups},
     )
 
 
