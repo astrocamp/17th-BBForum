@@ -201,11 +201,19 @@ def news_feed(req):
     )
     articles = Article.objects.filter(user_id__in=following_all_id).order_by("-id")
 
-    return render(
-        req,
-        "pages/news_feed/news_feed.html",
-        {"articles": articles},
+    if req.user.is_authenticated:
+        profile = get_object_or_404(Profile, user=req.user)
+        user_img = profile.user_img
+    else:
+        user_img = None
+
+    subquery = Article.objects.filter(liked=req.user.pk, id=OuterRef("pk")).values("pk")
+    articles = (
+        Article.objects.filter(user_id__in=following_all_id)
+        .annotate(user_liked=Exists(subquery), like_count=Count("liked"))
+        .order_by("-id")
     )
+    return render(req, "pages/news_feed/news_feed.html", {"articles": articles, "user_img": user_img})
 
 
 def market_index(req):
