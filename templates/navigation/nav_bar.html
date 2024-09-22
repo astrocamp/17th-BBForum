@@ -53,11 +53,6 @@
                             <span class="whitespace-nowrap">大盤指數</span>
                           </a>
                         </li>
-                        <li>
-                          <a href="{% url 'pages:taiwan_index' %}" class="flex items-center p-2 rounded-lg hover:bg-gray-94">
-                              <span class="whitespace-nowrap">台指期貨</span>
-                          </a>
-                        </li>
                       </ul>
                     </li>
                     <li x-data="{ open: false }" class="cursor-pointer nav-text nav-text-format hover:bg-gray-94" @mouseenter="open = true" @mouseleave="open = false">
@@ -80,11 +75,6 @@
                         <li>
                           <a href="{% url 'popular_pages:popular_students' %}" class="flex items-center p-2 rounded-lg hover:bg-gray-94">
                               <span class="whitespace-nowrap">熱門同學</span>
-                          </a>
-                        </li>
-                        <li>
-                          <a href="{% url 'popular_pages:popular_answers' %}" class="flex items-center p-2 rounded-lg hover:bg-gray-94">
-                              <span class="whitespace-nowrap">熱門回答</span>
                           </a>
                         </li>
                       </ul>
