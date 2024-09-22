@@ -43,7 +43,7 @@
                                 <li class="flex justify-between items-center group mt-4">
                                   <div>
                                     <div class="text-red-primary hover:underline">
-                                      <a href="#">{{security_code}} {{name}}</a>
+                                      <a href="{% url 'stocks:stock_data' security_code %}">{{security_code}} {{name}}</a>
                                     </div>
                                   </div>
                                   <button
