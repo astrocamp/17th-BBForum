@@ -103,7 +103,7 @@
         </div>
     </nav>
 </div>
-<div class="mobile-only w-[375px] sticky top-0 z-10" x-data="{ showMenu: false }">
+<div class="mobile-only w-[375px] sticky top-0 z-10" x-data="{ showMenu: false, isVisible: false, isAuthenticated: {{ user.is_authenticated|lower }} }">
     <div class="absolute bg-gray-94 w-full h-[100px] z-0"></div>
     <nav class="relative z-10 bg-white shadow-nav-bar flex items-center justify-between">
         <button @click="showMenu = !showMenu" class="cursor-pointer m-0">
@@ -160,6 +160,21 @@
             </div>
         </div>
     </nav>
+    <div x-show="isVisible" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-start md:justify-center z-20" style="display: none;">
+        <div class="relative bg-white w-full max-w-[375px] md:max-w-[338px] lg:max-w-[1200px] rounded-[10px] flex flex-col items-center justify-center p-4 md:p-0 mx-4 md:mx-0">
+            <button @click="isVisible = false" class="absolute top-3 right-3 flex items-center justify-center ">
+                <i class="fa-solid fa-xmark w-5 h-5 text-black-56"></i>
+            </button>
+            <div class="w-full border-b border-b-gray-90 min-h-[40px] text-dark-800 font-bold flex items-center pt-3 pb-3 pl-4 pr-4 overflow-hidden text-ellipsis">您尚未登入</div>
+            <div class="w-full min-h-[40px] text-black-56 font-normal flex items-center pl-4 pr-4 overflow-hidden text-[14px]">這個功能需要登入才可使用。</div>
+            <div class="pt-3 pb-3 pl-4 pr-4 w-full text-right">
+                <div class="flex flex-wrap justify-end gap-2">
+                    <button @click="isVisible = false" class="bg-white text-dark-600 px-4 py-2 rounded border border-gray-69">取消</button>
+                    <button @click="window.location.href = '{% url 'users:sign_in' %}'" class="bg-red-primary text-white px-4 py-2 rounded border-red-primary">登入</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <div class="mobile-only nav-bar-bottom flex justify-around">
     <a href="{% url 'pages:index' %}" class="flex-1 text-center"><i class="fa-solid fa-comment-dots"></i></a>
@@ -174,5 +189,20 @@
         </div>
     </div>
     <a href="{% url 'stocks:stock_data_twii' %}" class="flex-1 text-center"><i class="fa-solid fa-chart-line"></i></a>
-    <a href="{% url 'userprofiles:new' %}" class="flex-1 text-center"><i class="fa-solid fa-user"></i></a>
+    <a href="#" class="flex-1 text-center" id="profile-link"><i class="fa-solid fa-user"></i></a>
+    <script>
+      document.getElementById('profile-link').addEventListener('click', function(event) {
+          event.preventDefault();
+          if ({{ user.is_authenticated|lower }}) {
+              window.location.href = "{% url 'userprofiles:new' %}";
+          }
+          else {
+              document.querySelector('[x-data]').__x.$data.isVisible = true;
+          }
+      });
+  </script>
 </div>
+
+
+
+

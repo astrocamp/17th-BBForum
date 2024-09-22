@@ -66,18 +66,17 @@
                 <span>報價時間</span>
                 <span class="text-black-90"> | </span>
                 <span>{{current_time}}</span>
-                {%if twii%}
-                <a href="{% url 'stocks:stock_data_twii'%}" class="rounded-[4px] inline-flex items-center justify-center gap-1 w-[61px] h-[28px] bg-white text-red-primary border border-gray-83 font-semibold text-[1rem] font-upgrade outline-none no-underline cursor-pointer">
-                    <img src="https://www.cmoney.tw/forum/_nuxt/img/update.e4cf774.svg" alt="upgrade" />
-                    更新
-                </a>
-                {%else%}
-                <a href="{% url 'stocks:stock_data' stock.security_code%}" class="rounded-[4px] inline-flex items-center justify-center gap-1 w-[61px] h-[28px] bg-white text-red-primary border border-gray-83 font-semibold text-[1rem] font-upgrade outline-none no-underline cursor-pointer">
-                    <img src="https://www.cmoney.tw/forum/_nuxt/img/update.e4cf774.svg" alt="upgrade" />
-                    更新
-                </a>
-                {%endif%}
-
+                {% if twii %}
+                    <a href="{% url 'stocks:stock_data_twii' %}" class="rounded-[4px] inline-flex items-center justify-center gap-1 w-[61px] h-[28px] bg-white text-red-primary border border-gray-83 font-semibold text-[1rem] font-upgrade outline-none no-underline cursor-pointer">
+                        <img src="https://www.cmoney.tw/forum/_nuxt/img/update.e4cf774.svg" alt="upgrade" />
+                        更新
+                    </a>
+                {% elif stock.security_code %}
+                    <a href="{% url 'stocks:stock_data' stock.security_code %}" class="rounded-[4px] inline-flex items-center justify-center gap-1 w-[61px] h-[28px] bg-white text-red-primary border border-gray-83 font-semibold text-[1rem] font-upgrade outline-none no-underline cursor-pointer">
+                        <img src="https://www.cmoney.tw/forum/_nuxt/img/update.e4cf774.svg" alt="upgrade" />
+                        更新
+                    </a>
+                {% endif %}
             </div>
         </div>
     </section>
@@ -248,18 +247,17 @@
               <span>報價時間</span>
               <span class="text-black-90"> | </span>
               <span>{{current_time}}</span>
-              {%if twii%}
-              <a href="{% url 'stocks:stock_data_twii'%}" class="rounded-[4px] inline-flex items-center justify-center gap-1 w-[61px] h-[28px] bg-white text-red-primary border border-gray-83 font-semibold text-[1rem] font-upgrade outline-none no-underline cursor-pointer">
-                  <img src="https://www.cmoney.tw/forum/_nuxt/img/update.e4cf774.svg" alt="upgrade" />
-                  更新
-              </a>
-              {%else%}
-              <a href="{% url 'stocks:stock_data' stock.security_code%}" class="rounded-[4px] inline-flex items-center justify-center gap-1 w-[61px] h-[28px] bg-white text-red-primary border border-gray-83 font-semibold text-[1rem] font-upgrade outline-none no-underline cursor-pointer">
-                  <img src="https://www.cmoney.tw/forum/_nuxt/img/update.e4cf774.svg" alt="upgrade" />
-                  更新
-              </a>
-              {%endif%}
-
+              {% if twii %}
+                  <a href="{% url 'stocks:stock_data_twii' %}" class="rounded-[4px] inline-flex items-center justify-center gap-1 w-[61px] h-[28px] bg-white text-red-primary border border-gray-83 font-semibold text-[1rem] font-upgrade outline-none no-underline cursor-pointer">
+                      <img src="https://www.cmoney.tw/forum/_nuxt/img/update.e4cf774.svg" alt="upgrade" />
+                      更新
+                  </a>
+              {% elif stock.security_code %}
+                  <a href="{% url 'stocks:stock_data' stock.security_code %}" class="rounded-[4px] inline-flex items-center justify-center gap-1 w-[61px] h-[28px] bg-white text-red-primary border border-gray-83 font-semibold text-[1rem] font-upgrade outline-none no-underline cursor-pointer">
+                      <img src="https://www.cmoney.tw/forum/_nuxt/img/update.e4cf774.svg" alt="upgrade" />
+                      更新
+                  </a>
+              {% endif %}
           </div>
       </div>
   </section>
