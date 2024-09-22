@@ -7,7 +7,14 @@
         <ul class="flex flex-wrap items-center gap-2">
             <li class="text-red-primary text-[14px]">首頁</li>
             <li class="flex items-center"><i class="fa-solid fa-angle-right fa-xs text-gray-69"></i></li>
+            {% if stock == '加權指數' %}
             <li class="text-[14px]">大盤</li>
+            <li class="flex items-center"><i class="fa-solid fa-angle-right fa-xs text-gray-69"></i></li>
+            {% else %}
+            <li class="text-[14px]">個股</li>
+            <li class="flex items-center"><i class="fa-solid fa-angle-right fa-xs text-gray-69"></i></li>
+            {% endif %}
+            <li class="text-[14px]">{{stock}}</li>
         </ul>
     </div>
     <section class="gap-4 pt-3 pb-3 pl-4 pr-4 rounded-[4px] bg-white shadow-area flex flex-col">
