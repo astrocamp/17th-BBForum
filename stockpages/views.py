@@ -5,6 +5,7 @@ from datetime import datetime
 from django.shortcuts import get_object_or_404, render
 
 from articles.models import Article, IndustryTag
+from userprofiles.models import Profile
 
 from .stockdash import get_stock_data
 
@@ -12,6 +13,12 @@ from .stockdash import get_stock_data
 def stock_data_twii(req):
     latest_price, percent_change = get_stock_data("^TWII")
     current_time = datetime.now().strftime("%m/%d %H:%M")
+
+    if req.user.is_authenticated:
+        profile = get_object_or_404(Profile, user=req.user)
+        user_img = profile.user_img
+    else:
+        user_img = None
 
     return render(
         req,
@@ -23,6 +30,7 @@ def stock_data_twii(req):
             "percent_change": percent_change,
             "current_time": current_time,
             "twii": True,
+            "user_img": user_img,
         },
     )
 
