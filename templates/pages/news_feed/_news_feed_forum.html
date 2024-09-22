@@ -21,40 +21,10 @@
             </div>
         </div>
         <div class="mt-4">
-            <section x-data="unlogined_prompt({{ user.is_authenticated|lower }})" class="rounded-[3px] bg-white h-[72px] shadow-area">
-                <div>
-                    <div class="flex items-center gap-2 p-4">
-                        <div class="w-[40px] h-[40px] rounded-full overflow-hidden">
-                            <img src="{% static 'images/visitor.svg' %}" alt="visitor"></img>
-                        </div>
-                        <button @click="toggleVisibility" class="flex-grow pt-2 pb-2 pl-4 pr-4 text-left rounded-[50px] bg-gray-94">
-                            <div class="text-[18px] font-normal leading-[21px] text-gray-69">想和大家分享什麼呢？</div>
-                        </button>
-
-                        <template x-if="!isAuthenticated">
-                            {% include "layouts/not_logged.html" %}
-                        </template>
-                    </div>
-                </div>
-            </section>
             <section class="mt-3 mr-4">
-                <div x-data="switch_sort" class="flex justify-end">
-                    <div class="flex items-center whitespace-nowrap gap-2">
-                        <div id="menu-button" aria-expanded="true" aria-haspopup="true" class="border-l border-gray-83 relative pl-2 cursor-pointer">
-                            <span class="text-[14px] font-bold leading-5 tracking-custom text-gray-56">最熱</span>
-                            <i class="fa-solid fa-sort-down w-[10px] h-[15px] text-gray-56 mb-1 ml-1 mr-1"></i>
-                        </div>
-                    </div>
-                    <div x-show="isVisible" @click.outside="isVisible = false" class="absolute right-0 z-10 mt-2 w-56">
-                        <div class="py-1" role="none">
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="menu-item-0">最熱</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="menu-item-1"></a>
-                          </div>
-                    </div>
-                    <template x-if="isVisible">
-                        {% include "layouts/not_logged.html" %}
-                    </template>
-                </div>
+                <template x-if="isVisible">
+                    {% include "layouts/not_logged.html" %}
+                </template>
             </section>
             <section>
                 {% for article in articles %}
