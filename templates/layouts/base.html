@@ -35,9 +35,6 @@
             .desktop-only {
                 display: none;
             }
-            .mobile-only {
-                display: block;
-            }
             .mobile-nav-bar {
                 display: flex;
                 background-color: white;
@@ -109,13 +106,5 @@
         {% block content %}
         {% endblock %}
     </main>
-    <div class="mobile-only">
-        <div class="nav-bar-bottom">
-            <a href="{% url 'pages:index' %}"><i class="fa-solid fa-comment-dots"></i></a>
-            <a href="{% url 'popular_pages:popular_stocks' %}"><i class="fa-solid fa-money-bill-trend-up"></i></a>
-            <a href="{% url 'pages:market_index' %}"><i class="fa-solid fa-chart-line"></i></a>
-            <a href="{% url 'userprofiles:new' %}"><i class="fa-solid fa-user"></i></a>
-        </div>
-    </div>
 </body>
 </html>

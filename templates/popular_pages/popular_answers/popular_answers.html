@@ -4,16 +4,10 @@
 {% block content %}
     {% include 'navigation/nav_bar.html' %}
     <div class="desktop-only mt-[12px]">
-        <div class="flex w-[1200px] mx-auto gap-4">
-            <div class="w-[200px]">
+        <div class="flex w-[1200px] mx-auto">
                 {% include 'pages/main_page/_left_nav_bar.html' %}
-            </div>
-            <div class="flex-1">
                 {% include 'popular_pages/popular_answers/popular_answers_forum.html' %}
-            </div>
-            <div class="w-[300px]">
                 {% include 'popular_pages/popular_answers/_news_feed_recommend.html' %}
-            </div>
         </div>
     </div>
     <div class="mobile-only mt-[12px]">

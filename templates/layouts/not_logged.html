@@ -1,6 +1,6 @@
-<div x-show="isVisible" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-20" fixed style="display: none;">
+<div x-show="isVisible" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-start md:justify-center z-20" style="display: none;">
 
-    <div class="relative bg-white w-[338px] rounded-[10px] flex flex-col items-center justify-center">
+    <div class="relative bg-white w-full max-w-[375px] md:max-w-[338px] lg:max-w-[1200px] rounded-[10px] flex flex-col items-center justify-center p-4 md:p-0 mx-4 md:mx-0">
         <button @click="isVisible = false" class="absolute top-3 right-3 flex items-center justify-center ">
             <i class="fa-solid fa-xmark w-5 h-5 text-black-56"></i>
         </button>
@@ -16,4 +16,3 @@
         </div>
     </div>
 </div>
-
