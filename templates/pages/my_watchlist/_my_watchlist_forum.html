@@ -74,10 +74,11 @@
                             </thead>
                             <tbody>
                                 {% for stock in stock_data_list %}
-                                <tr class="cursor-pointer bg-white">
+                                <tr class="bg-white">
                                     <td class="align-middle pt-[9px] pb-[9px] pl-[10px] pr-[10px] border border-gray-d5d">
                                         <div class="flex flex-col items-start justify-end">
-                                            <a href="#" class="w-[100%] whitespace-nowrap overflow-hidden text-ellipsis text-red-900">{{stock.stock_id}}&nbsp;{{stock.stock_name}}</a>
+                                            <a href="{% url 'stocks:stock_data' stock.stock_id %}"
+                                               class="w-[100%] whitespace-nowrap overflow-hidden text-ellipsis text-red-900">{{stock.stock_id}}&nbsp;{{stock.stock_name}}</a>
                                         </div>
                                     </td>
                                     <td class="align-middle pt-[9px] pb-[9px] pl-[10px] pr-[10px] border border-gray-d5d">
