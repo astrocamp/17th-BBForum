@@ -25,12 +25,14 @@
             </h1>
             <div class="whitespace-nowrap">
                 <div class="text-base">
+                  {% if stock.security_code != null %}
                     <button
-                      x-data="optional_stock({{ user.is_authenticated|lower }})"
-                      x-init="isAuthenticated? checkPickStatus('{% url 'picks:check_pick_api' stock.security_code %}') : false"
-                      x-ref="buttonStyle"
-                      @click="startPick('{% url 'picks:pick_api' stock.security_code %}', '{% url 'picks:unpick_api' stock.security_code %}', '{% url 'picks:check_pick_api' stock.security_code %}', `{{csrf_token}}`)">
+                    x-data="optional_stock({{ user.is_authenticated|lower }})"
+                    x-init="isAuthenticated? checkPickStatus('{% url 'picks:check_pick_api' stock.security_code %}') : false"
+                    x-ref="buttonStyle"
+                    @click="startPick('{% url 'picks:pick_api' stock.security_code %}', '{% url 'picks:unpick_api' stock.security_code %}', '{% url 'picks:check_pick_api' stock.security_code %}', `{{csrf_token}}`)">
                     </button>
+                  {% endif %}
                 </div>
             </div>
         </div>
