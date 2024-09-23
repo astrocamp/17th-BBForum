@@ -1,6 +1,11 @@
 from django.shortcuts import get_object_or_404, render
 
 from userprofiles.models import Profile
+from django.db.models import Case, Count, Exists, OuterRef, Value, When
+
+
+from articles.models import Article
+from follows.models import FollowRelation
 
 
 def popular_stocks(request):
@@ -17,18 +22,39 @@ def popular_stocks(request):
     )
 
 
-def popular_students(request):
-    if request.user.is_authenticated:
-        profile = get_object_or_404(Profile, user=request.user)
-        user_img = profile.user_img
-    else:
-        user_img = None
-    return render(
-        request,
-        "popular_pages/popular_students/popular_students.html",
-        {"user_img": user_img},
+def popular_students(req):
+    top_users = (
+        FollowRelation.objects
+        .values('following')
+        .annotate(follower_count=Count('follower'))
+        .order_by('-follower_count')[:5]
     )
+    
+    top_user_data = {user['following']: user['follower_count'] for user in top_users}
+    top_user_ids = list(top_user_data.keys())
 
+    subquery = Article.objects.filter(liked=req.user.pk, id=OuterRef("pk")).values("pk")
+    collect = Article.objects.filter(collectors=req.user.pk, id=OuterRef("pk")).values("pk")
+    
+    articles = (
+        Article.objects.filter(user_id__in=top_user_ids)
+        .annotate(
+            user_liked=Exists(subquery),
+            like_count=Count("liked"),
+            collect=Exists(collect),
+        )
+        .annotate(
+            follower_count=Case(
+                *[
+                    When(user_id=user_id, then=Value(follower_count))
+                    for user_id, follower_count in top_user_data.items()
+                ],
+                default=Value(0)
+            )
+        )
+        .order_by("-follower_count")
+    )
+    return render(req, "popular_pages/popular_students/popular_students.html", {"articles": articles})
 
 def popular_answers(request):
     if request.user.is_authenticated:
