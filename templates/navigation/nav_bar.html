@@ -1,12 +1,13 @@
 {% load static %}
-<div class="desktop-only w-full sticky top-0 z-10">
+<div class="desktop-only sticky top-0 z-10">
     <div class="absolute bg-gray-94 w-full h-[100px] z-0"></div>
-    <nav class="relative z-10 bg-white">
-        <div class="bg-black w-full h-[35px] flex items-center justify-end md:justify-between">
+    <nav class="relative z-10 bg-white shadow-nav-bar">
+        <div class="bg-black w-full h-[35px] flex items-center justify-end">
             <div x-data="switch_page({{ user.is_authenticated|lower }})">
                 <div class="flex items-center justify-center" x-show="isAuthenticated">
                 </div>
             </div>
+
             <ul class="relative menu menu-horizontal group">
                 {% if user.is_authenticated %}
                     <li><a class="text-white">{{ request.user.username }}</a></li>
@@ -33,8 +34,8 @@
                     <img class="w-[100%] h-[50px]" src="{% static 'images/bbforum_logo.svg' %}" alt="logo" />
                 </a>
             </div>
-            <div class="desktop-only w-[1200px] flex items-center h-full">
-                <ul class="flex items-center justify-evenly w-ful">
+            <div class="flex items-center h-full gap-[32px]">
+                <ul class="flex items-center">
                     <li>
                       <a href="#">
                         <div class="nav-text nav-text-format nav-text-bottom-line">股市討論</div>
@@ -42,7 +43,7 @@
                     </li>
                     <li x-data="{ open: false }" class="cursor-pointer nav-text nav-text-format hover:bg-gray-94" @mouseenter="open = true" @mouseleave="open = false">
                       <a href="#" :aria-expanded="open">台股大盤</a>
-                      <ul class="absolute top-[85%] left-1/20 -translate-x-[20%] min-w-[140px] bg-white border border-slate-200 p-2 rounded-lg shadow-xl mt-4.5"
+                      <ul class="absolute top-[85%] left-1/20 -translate-x-[20%] min-w-[140px] bg-white border border-slate-200 p-2 rounded-lg shadow-xl mt-6"
                       x-show="open"
                       x-transition:enter="transition ease-out duration-200 transform"
                       x-transition:enter-start="opacity-0 -translate-y-2"
@@ -50,8 +51,7 @@
                       x-transition:leave="transition ease-out duration-200"
                       x-transition:leave-start="opacity-100"
                       x-transition:leave-end="opacity-0"
-                      style="opacity: 0; visibility: hidden;"
-                      :style="{ opacity: open ? 1 : 0, visibility: open ? 'visible' : 'hidden' }">
+                      x-cloak>
                         <li>
                           <a href="{% url 'stocks:stock_data_twii' %}" class="flex items-center p-2 rounded-lg hover:bg-gray-94">
                             <span class="whitespace-nowrap">大盤指數</span>
@@ -66,7 +66,7 @@
                     </li>
                     <li x-data="{ open: false }" class="cursor-pointer nav-text nav-text-format hover:bg-gray-94" @mouseenter="open = true" @mouseleave="open = false">
                       <a href="#" :aria-expanded="open">熱門排行</a>
-                      <ul class="absolute top-[85%] left-3/20 -translate-x-[20%] min-w-[140px] bg-white border border-slate-200 p-2 rounded-lg shadow-xl mt-4.5 flex flex-col"
+                      <ul class="absolute top-[85%] left-3/20 -translate-x-[20%] min-w-[140px] bg-white border border-slate-200 p-2 rounded-lg shadow-xl mt-6 flex flex-col"
                       x-show="open"
                       x-transition:enter="transition ease-out duration-200 transform"
                       x-transition:enter-start="opacity-0 -translate-y-2"
@@ -74,8 +74,7 @@
                       x-transition:leave="transition ease-out duration-200"
                       x-transition:leave-start="opacity-100"
                       x-transition:leave-end="opacity-0"
-                      style="opacity: 0; visibility: hidden;"
-                      :style="{ opacity: open ? 1 : 0, visibility: open ? 'visible' : 'hidden' }">
+                      x-cloak>
                         <li>
                             <a class="flex items-center p-2 rounded-lg hover:bg-gray-94" href="{% url 'popular_pages:popular_stocks' %}">
                                 <span class="whitespace-nowrap">熱門股票</span>
@@ -93,11 +92,11 @@
                         </li>
                       </ul>
                     </li>
-                    <div class="flex">
-                      <input class="w-[260px] h-[32px] rounded-l bg-gray-90 pl-2.5 pr-2.5 border border-gray-90 focus:border-red-primary focus:outline-none focus:ring-0" type="text" name="search" placeholder="搜尋股票代碼、名稱或人名">
-                      <button class="nav-btn-primary text-white rounded-r h-[32px] px-3 py-2 flex items-center justify-center"><i class="fas fa-magnifying-glass icon"></i></button>
-                  </div>
-                  </ul>
+                </ul>
+                <div class="flex">
+                    <input class="w-[622px] h-[32px] rounded-l bg-gray-90 pl-2.5 pr-2.5 border border-gray-90 focus:border-red-primary focus:outline-none focus:ring-0" type="text" name="search" placeholder="搜尋股票代碼、名稱或人名">
+                    <button class="nav-btn-primary text-white rounded-r h-[32px] px-3 py-2 flex items-center justify-center"><i class="fas fa-magnifying-glass icon"></i></button>
+                </div>
             </div>
             <button class="flex items-center h-full w-[44px] justify-center px-2.5 py-4.5"><i class="fa-solid fa-bell w-[24px] h-[24px]"></i></button>
         </div>
@@ -175,20 +174,21 @@
             </div>
         </div>
     </div>
-</div>
-<div class="mobile-only nav-bar-bottom flex justify-around">
-  <a href="{% url 'pages:index' %}" class="flex-1 text-center"><i class="fa-solid fa-comment-dots"></i></a>
-  <div x-data="{ showMenu: false }" class="flex-1 text-center relative">
-      <button @click="showMenu = !showMenu" class="w-full">
-          <i class="fa-solid fa-money-bill-trend-up" style="font-size: 28px;"></i>
-      </button>
-      <div x-show="showMenu" @click.away="showMenu = false" class="absolute left-1/2 transform -translate-x-1/2 bottom-full mb-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-20">
-          <a href="{% url 'popular_pages:popular_stocks' %}" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">熱門股票</a>
-          <a href="{% url 'popular_pages:popular_students' %}" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">熱門同學</a>
-          <a href="{% url 'popular_pages:popular_answers' %}" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">熱門回答</a>
+    <div class="mobile-only nav-bar-bottom flex justify-around">
+      <a href="{% url 'pages:index' %}" class="flex-1 text-center"><i class="fa-solid fa-comment-dots"></i></a>
+      <div x-data="{ showMenu: false }" class="flex-1 text-center relative">
+          <button @click="showMenu = !showMenu" class="w-full">
+              <i class="fa-solid fa-money-bill-trend-up" style="font-size: 28px;"></i>
+          </button>
+          <div x-show="showMenu" @click.away="showMenu = false" class="absolute left-1/2 transform -translate-x-1/2 bottom-full mb-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-20">
+              <a href="{% url 'popular_pages:popular_stocks' %}" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">熱門股票</a>
+              <a href="{% url 'popular_pages:popular_students' %}" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">熱門同學</a>
+              <a href="{% url 'popular_pages:popular_answers' %}" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">熱門回答</a>
+          </div>
       </div>
-  </div>
-  <a href="{% url 'stocks:stock_data_twii' %}" class="flex-1 text-center"><i class="fa-solid fa-chart-line"></i></a>
-  <a href="{% url 'userprofiles:new' %}" class="flex-1 text-center"><i class="fa-solid fa-user"></i></a>
+      <a href="{% url 'stocks:stock_data_twii' %}" class="flex-1 text-center"><i class="fa-solid fa-chart-line"></i></a>
+      <a href="{% url 'userprofiles:new' %}" class="flex-1 text-center"><i class="fa-solid fa-user"></i></a>
+    </div>
 </div>
+
 
