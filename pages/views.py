@@ -188,10 +188,17 @@ def my_favorites(req):
         like_count=Count("liked"),
     )
 
+    follower_count = user.followers.count()
+    following_count = user.following.count()
+
     return render(
         req,
         "pages/my_favorites/my_favorites.html",
-        {"favorite_articles": favorite_articles},
+        {
+            "favorite_articles": favorite_articles,
+            "follower_count": follower_count,
+            "following_count": following_count,
+        },
     )
 
 
