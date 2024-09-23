@@ -9,8 +9,8 @@ from django.shortcuts import get_object_or_404, render
 from articles.models import Article, IndustryTag
 from follows.models import FollowRelation
 from picks.models import UserStock
-from userprofiles.models import Profile
 from stockpages.stockdash import get_stock_data
+from userprofiles.models import Profile
 
 
 def handle_article_tags(article, tags):
@@ -67,7 +67,7 @@ def index(req):
             return render(
                 req, "pages/main_page/_articles_list.html", {"articles": articles}
             )
-        
+
     if isinstance(req.user, AnonymousUser):
         pick_stocks = []
     else:
@@ -220,7 +220,11 @@ def news_feed(req):
         .annotate(user_liked=Exists(subquery), like_count=Count("liked"))
         .order_by("-id")
     )
-    return render(req, "pages/news_feed/news_feed.html", {"articles": articles, "user_img": user_img})
+    return render(
+        req,
+        "pages/news_feed/news_feed.html",
+        {"articles": articles, "user_img": user_img},
+    )
 
 
 def market_index(req):
