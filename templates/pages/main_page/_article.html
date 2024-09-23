@@ -28,7 +28,13 @@
                                         <div>
                                             <a href="#">
                                                 <div class="w-[80px] h-[80px] rounded-full border border-gray-94 overflow-hidden mt-2 ml-3">
-                                                    <img src="{% static 'images/visitor.svg' %}" alt="visitor" class="w-full h-full"></img>
+                                                    <div class="w-[40px] h-[40px] rounded-full border border-gray-94 flex items-center overflow-hidden">
+                                                        {% if article.user.profile.user_img %}
+                                                        <img src="{{ article.user.profile.user_img.url }}" alt="User Image" style="max-w-full max-h-full object-fit: cover;" />
+                                                        {% else %}
+                                                        <img src="{% static 'images/default_user.svg' %}" alt="Default User Image" style="max-w-full max-h-full 40px; object-fit: cover;" />
+                                                      {% endif %}
+                                                    </div>
                                                 </div>
                                             </a>
                                         </div>
