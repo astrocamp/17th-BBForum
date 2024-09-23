@@ -23,10 +23,17 @@ def show(req, id):
     else:
         user_img = None
 
+    author_groups = article.user.groups.all()
+    current_user_groups = req.user.groups.values_list("name", flat=True)
     return render(
         req,
         "articles/show.html",
         {"article": article, "user_img": user_img},
+        {
+            "article": article,
+            "author_groups": author_groups,
+            "current_user_groups": current_user_groups,
+        },
     )
 
 

@@ -157,11 +157,26 @@ def my_watchlist(req):
         user_img = profile.user_img
     else:
         user_img = None
+    current_user_groups = req.user.groups.values_list("name", flat=True)
+
+    articles_with_groups = []
+    for article in articles:
+        author_groups = article.user.groups.all()
+        articles_with_groups.append(
+            {"article": article, "author_groups": author_groups}
+        )
+
+    current_user_groups = req.user.groups.values_list("name", flat=True)
 
     return render(
         req,
         "pages/my_watchlist/my_watchlist.html",
         {"articles": articles, "user_img": user_img},
+        {
+            "articles": articles,
+            "current_user_groups": current_user_groups,
+            "articles_with_groups": articles_with_groups,
+        },
     )
 
 
@@ -179,12 +194,24 @@ def my_favorites(req):
     else:
         user_img = None
 
+
+    articles_with_groups = []
+    for article in favorite_articles:
+        author_groups = article.user.groups.all()
+        articles_with_groups.append(
+            {"article": article, "author_groups": author_groups}
+        )
+
+    current_user_groups = req.user.groups.values_list("name", flat=True)
+
     return render(
         req,
         "pages/my_favorites/my_favorites.html",
         {
             "favorite_articles": favorite_articles,
             "user_img": user_img,
+            "current_user_groups": current_user_groups,
+            "articles_with_groups": articles_with_groups,
         },
     )
 
@@ -200,6 +227,28 @@ def news_feed(req):
         user_img = profile.user_img
     else:
         user_img = None
+    articles_with_groups = []
+    for article in articles:
+        author_groups = article.user.groups.all()
+        articles_with_groups.append(
+            {"article": article, "author_groups": author_groups}
+        )
+
+    current_user_groups = req.user.groups.values_list("name", flat=True)
+
+    return render(
+        req,
+        "pages/news_feed/news_feed.html",
+        {
+            "articles": articles,
+            "current_user_groups": current_user_groups,
+            "articles_with_groups": articles_with_groups,
+        },
+    )
+
+
+def market_index(req):
+    current_user_groups = req.user.groups.values_list("name", flat=True)
     return render(
         req,
         "pages/news_feed/news_feed.html",

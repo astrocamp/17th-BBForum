@@ -39,13 +39,13 @@
             </section>
             <section class="mt-3 mr-4">
                 <div x-data="switch_sort" class="flex justify-end">
-                    <div class="flex items-center whitespace-nowrap gap-2">
-                        <div id="menu-button" aria-expanded="true" aria-haspopup="true" class="border-l border-gray-83 relative pl-2 cursor-pointer">
+                    <div class="flex items-center gap-2 whitespace-nowrap">
+                        <div id="menu-button" aria-expanded="true" aria-haspopup="true" class="relative pl-2 border-l cursor-pointer border-gray-83">
                             <span class="text-[14px] font-bold leading-5 tracking-custom text-gray-56">最熱</span>
                             <i class="fa-solid fa-sort-down w-[10px] h-[15px] text-gray-56 mb-1 ml-1 mr-1"></i>
                         </div>
                     </div>
-                    <div x-show="isVisible" @click.outside="isVisible = false" class="absolute right-0 z-10 mt-2 w-56">
+                    <div x-show="isVisible" @click.outside="isVisible = false" class="absolute right-0 z-10 w-56 mt-2">
                         <div class="py-1" role="none">
                             <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="menu-item-0">最熱</a>
                             <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="menu-item-1"></a>
@@ -58,12 +58,14 @@
             </section>
             <section>
                 {% for article in articles %}
-                    {% include "pages/main_page/_article.html" with article=article %}
+                    {% for item in articles_with_groups %}
+                    {% include "pages/main_page/_article.html" with article=item.article author_groups=item.author_groups %}
+                    {% endfor %}
                 {% endfor %}
             </section>
         </div>
     </div>
-    <div class="flex justify-center items-center mt-3 mb-3 pt-3 pb-3">
+    <div class="flex items-center justify-center pt-3 pb-3 mt-3 mb-3">
         <div>
             <span class="leading-6 whitespace-pre-wrap text-gray-56">已經沒有更多文章了</span>
         </div>
