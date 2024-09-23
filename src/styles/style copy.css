@@ -1,0 +1,171 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.nav-text {
+    @apply text-dark-800 px-2 py-4;
+}
+@screen mobile-375x812 {
+    .nav-text {
+        @apply px-1 py-2;
+    }
+}
+
+.nav-text-format {
+    @apply text-base font-semibold leading-7 tracking-[0.2px];
+}
+@screen mobile-375x812 {
+    .nav-text-format {
+        @apply text-sm font-semibold leading-5 tracking-[0.1px];
+    }
+}
+
+.nav-text-bottom-line {
+    @apply relative after:content-[''] after:block after:w-full after:h-[3px] after:bg-red-primary after:absolute after:bottom-0 after:left-0;
+}
+@screen mobile-375x812 {
+    .nav-text-bottom-line {
+        @apply relative after:content-[''] after:block after:w-full after:h-[2px] after:bg-red-primary after:absolute after:-bottom-[2px] after:left-0;
+    }
+}
+
+.nav-btn-primary {
+    @apply bg-red-primary;
+}
+@screen mobile-375x812 {
+    .nav-btn-primary {
+        @apply bg-red-primary;
+    }
+}
+
+.aside-bar-padding {
+    @apply pt-[7px] pb-[7px] pl-2 pr-2;
+}
+@screen mobile-375x812 {
+    .aside-bar-padding {
+        @apply pt-[5px] pb-[5px] pl-1 pr-1;
+    }
+}
+
+.aside-bar-hover {
+    @apply hover:bg-gray-90 rounded;
+}
+@screen mobile-375x812 {
+    .aside-bar-hover {
+        @apply hover:bg-gray-90 rounded;
+    }
+}
+
+.btn-transition {
+    @apply transition-all duration-500 ease-in-out;
+    transition-property: width;
+}
+@screen mobile-375x812 {
+    .btn-transition {
+        @apply transition-all duration-500 ease-in-out;
+        transition-property: width;
+    }
+}
+
+.circle-text {
+    @apply inline-block bg-red-700 text-white text-center rounded-full font-bold;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    font-size: 15px;
+}
+@screen mobile-375x812 {
+    .circle-text {
+        @apply inline-block bg-red-700 text-white text-center rounded-full font-bold;
+        width: 15px;
+        height: 15px;
+        line-height: 15px;
+        font-size: 12px;
+    }
+}
+
+.ad-banner {
+    @apply bg-gray-90 mt-3 flex justify-center items-center pt-4 pb-4;
+}
+@screen mobile-375x812 {
+    .ad-banner {
+        @apply bg-gray-90 mt-2 flex justify-center items-center pt-3 pb-3;
+    }
+}
+
+.red-line {
+    @apply flex justify-between relative after:content-[''] after:block after:w-full after:h-[2px] after:bg-gray-221 after:absolute after:-bottom-[3px] after:left-0;
+}
+
+.photo-stickers {
+    @apply w-[50px] h-[50px] border-2 border-gray-300 rounded-full;
+}
+@screen mobile-375x812 {
+    .photo-stickers {
+        @apply w-[40px] h-[40px] border-2 border-gray-300 rounded-full;
+    }
+}
+
+.plus-red-button {
+    @apply bg-red-primary w-[60px] h-[28px] rounded-[4px] text-sm flex items-center justify-center;
+}
+@screen mobile-375x812 {
+    .plus-red-button {
+        @apply bg-red-primary w-[50px] h-[24px] rounded-[4px] text-sm flex items-center justify-center;
+    }
+}
+
+.h2-font {
+    @apply text-black text-[20px] font-bold pb-2 -mb-[1px] border-b-[3px] border-b-red-900 leading-[18px];
+}
+@screen mobile-375x812 {
+    .h2-font {
+        @apply text-black text-[18px] font-bold pb-2 -mb-[1px] border-b-[3px] border-b-red-900 leading-[16px];
+    }
+}
+
+.dialog-box {
+    @apply p-4 mb-4 rounded-[3px] shadow-watchlist bg-white;
+}
+@screen mobile-375x812 {
+    .dialog-box {
+        @apply p-3 mb-3 rounded-[3px] shadow-watchlist bg-white;
+    }
+}
+
+.gray-line {
+    @apply border-b border-gray-90;
+}
+@screen mobile-375x812 {
+    .gray-line {
+        @apply border-b border-gray-90;
+    }
+}
+
+.hottest-btn {
+    @apply text-[14px] font-bold leading-5 tracking-[0.2px] text-gray-56 border-l border-gray-90 pl-2;
+}
+@screen mobile-375x812 {
+    .hottest-btn {
+        @apply text-[12px] font-bold leading-4 tracking-[0.2px] text-gray-56 border-l border-gray-90 pl-1;
+    }
+}
+
+.red-bar {
+    @apply rounded-[3px] bg-red-primary;
+}
+@screen mobile-375x812 {
+    .red-bar {
+        @apply rounded-[3px] bg-red-primary;
+    }
+}
+
+.twstock #stock-graph {
+    height: 200px !important;
+}
+@screen mobile-375x812 {
+    .twstock #stock-graph {
+        height: 150px !important;
+    }
+}
+
