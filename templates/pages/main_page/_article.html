@@ -32,7 +32,7 @@
                                                         {% if article.user.profile.user_img %}
                                                         <img src="{{ article.user.profile.user_img.url }}" alt="User Image" class="object-cover w-full h-full" />
                                                         {% else %}
-                                                        <img src="{% static 'images/visitor.svg' %}" alt="visitor"></img>
+                                                        <img src="{% static 'images/visitor.svg' %}" alt="visitor" class="object-cover w-full h-full"></img>
                                                       {% endif %}
 
                                                 </div>
