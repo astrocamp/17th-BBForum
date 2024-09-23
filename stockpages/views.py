@@ -51,6 +51,11 @@ def stock_data(req, id):
     current_time = datetime.now().strftime("%m/%d %H:%M")
 
     print(articles)
+    if req.user.is_authenticated:
+        profile = get_object_or_404(Profile, user=req.user)
+        user_img = profile.user_img
+    else:
+        user_img = None
 
     return render(
         req,
@@ -61,5 +66,6 @@ def stock_data(req, id):
             "latest_price": latest_price,
             "percent_change": percent_change,
             "current_time": current_time,
+            "user_img": user_img,
         },
     )

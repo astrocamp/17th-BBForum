@@ -26,8 +26,8 @@
                                 <div x-show="isShow && !isOwnPost" class="absolute hidden group-hover:block bg-white p-2 mt-2 rounded-[10px] shadow-lg w-[400px] h-[170px] z-10 top-[33px] -left-[150px]">
                                     <div class="flex items-center gap-3">
                                         <div>
-                                            <a href="#">
-                                                <div class="w-[80px] h-[80px] rounded-full border border-gray-94 flex items-center overflow-hidden">
+
+                                                <div class="w-[80px] h-[80px] rounded-full border border-gray-94 flex items-center justify-center overflow-hidden">
 
                                                         {% if article.user.profile.user_img %}
                                                         <img src="{{ article.user.profile.user_img.url }}" alt="User Image" class="object-cover w-full h-full" />
@@ -36,11 +36,11 @@
                                                       {% endif %}
 
                                                 </div>
-                                            </a>
+
                                         </div>
                                         <div class="flex flex-col justify-center">
                                             <div class="mb-1">
-                                                <a href="#" class="text-[18px] font-semibold leading-6 tracking-[0.2px] text-dark-800">{{article.user}}</a>
+                                                <div class="text-[18px] font-semibold leading-6 tracking-[0.2px] text-dark-800">{{article.user}}</div>
                                             </div>
                                             <div class="w-[40px] h-auto text-[14px] font-extralight leading-4 tracking-[0.2px] text-center mb-1">Lv.10</div>
                                             <div class="flex justify-center">
