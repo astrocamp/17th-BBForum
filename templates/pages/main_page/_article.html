@@ -15,8 +15,8 @@
                                         <div class="w-[40px] h-[40px] rounded-full border border-gray-94 flex items-center overflow-hidden">
                                             {% if article.user.profile.user_img %}
                                             <img src="{{ article.user.profile.user_img.url }}" alt="User Image" style="max-w-full max-h-full object-fit: cover;" />
-                                        {% else %}
-                                            <img src="{% static 'images/default_user.svg' %}" alt="Default User Image" style="max-w-full max-h-full 40px; object-fit: cover;" />
+                                            {% else %}
+                                            <img src="{% static 'images/visitor.svg' %}" alt="visitor"></img>
                                         {% endif %}
                                         </div>
 
@@ -32,7 +32,7 @@
                                                         {% if article.user.profile.user_img %}
                                                         <img src="{{ article.user.profile.user_img.url }}" alt="User Image" style="max-w-full max-h-full object-fit: cover;" />
                                                         {% else %}
-                                                        <img src="{% static 'images/default_user.svg' %}" alt="Default User Image" style="max-w-full max-h-full 40px; object-fit: cover;" />
+                                                        <img src="{% static 'images/visitor.svg' %}" alt="visitor"></img>
                                                       {% endif %}
                                                     </div>
                                                 </div>
