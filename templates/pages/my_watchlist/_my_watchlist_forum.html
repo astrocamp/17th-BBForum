@@ -161,9 +161,9 @@
                 </div>
             </section>
             {% for article in articles %}
-                    {% for item in articles_with_groups %}
-                    {% include "pages/main_page/_article.html" with article=item.article author_groups=item.author_groups %}
-                    {% endfor %}
+
+                    {% include "pages/main_page/_article.html" with article=article  %}
+
             {% endfor %}
         </div>
     </div>

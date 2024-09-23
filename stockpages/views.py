@@ -2,6 +2,8 @@ import os
 import subprocess
 from datetime import datetime
 
+from django.contrib.auth.models import Group
+from django.db.models import OuterRef, Subquery
 from django.shortcuts import get_object_or_404, render
 
 from articles.models import Article, IndustryTag
@@ -13,8 +15,6 @@ from .stockdash import get_stock_data
 def stock_data_twii(req):
     latest_price, percent_change = get_stock_data("^TWII")
     current_time = datetime.now().strftime("%m/%d %H:%M")
-
-    current_user_groups = req.user.groups.values_list("name", flat=True)
 
     if req.user.is_authenticated:
         profile = get_object_or_404(Profile, user=req.user)
@@ -33,7 +33,6 @@ def stock_data_twii(req):
             "current_time": current_time,
             "twii": True,
             "user_img": user_img,
-            "current_user_groups": current_user_groups,
         },
     )
 
@@ -47,13 +46,22 @@ def stock_data(req, id):
     subprocess.Popen([python_executable, "stockpages/stockdash.py", str(id)])
 
     stock = get_object_or_404(IndustryTag, security_code=id)
-    articles = Article.objects.filter(stock=id).order_by("-id")
+    group_name_subquery = Group.objects.filter(user__id=OuterRef("user_id")).values(
+        "name"
+    )[:1]
+
+    articles = (
+        Article.objects.filter(stock=id)
+        .annotate(group_name=Subquery(group_name_subquery))
+        .order_by("-id")
+    )
 
     # Get stock price and percentage change
     latest_price, percent_change = get_stock_data(id)
     current_time = datetime.now().strftime("%m/%d %H:%M")
 
     print(articles)
+
     if req.user.is_authenticated:
         profile = get_object_or_404(Profile, user=req.user)
         user_img = profile.user_img

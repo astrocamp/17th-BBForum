@@ -1,7 +1,7 @@
 {% if articles %}
     <div id="articles_container">
-        {% for item in articles_with_groups %}
-            {% include "pages/main_page/_article.html" with article=item.article  author_groups=item.author_groups %}
+        {% for article in articles %}
+            {% include "pages/main_page/_article.html" with article=article  %}
         {% endfor %}
     </div>
 {% endif %}

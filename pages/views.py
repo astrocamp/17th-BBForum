@@ -4,10 +4,10 @@ from django.db.models import Count, Exists, OuterRef, Value
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
-from django.db.models import Count, Exists, OuterRef, Value
+from django.contrib.auth.models import Group, User
+from django.db.models import Case, Count, Exists, OuterRef, Subquery, Value, When
 from django.http import JsonResponse
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 
 from articles.models import Article, IndustryTag
 from follows.models import FollowRelation
@@ -58,8 +58,13 @@ def index(req):
                 liked=req.user.pk, id=OuterRef("pk")
             ).values("pk")
 
+            group_name_subquery = Group.objects.filter(
+                user__id=OuterRef("user_id")
+            ).values("name")[:1]
             articles = Article.objects.annotate(
-                user_liked=Exists(subquery), like_count=Count("liked")
+                user_liked=Exists(subquery),
+                like_count=Count("liked"),
+                group_name=Subquery(group_name_subquery),
             ).order_by("-id")
 
             # 更新所有使用者階級
@@ -67,22 +72,12 @@ def index(req):
             for user in users:
                 update_user_group(user)
 
-            articles_with_groups = []
-            for article in articles:
-                author_groups = article.user.groups.all()
-                articles_with_groups.append(
-                    {"article": article, "author_groups": author_groups}
-                )
-            current_user_groups = req.user.groups.values_list("name", flat=True)
-
             if req.headers.get("HX-Request"):
                 return render(
                     req,
                     "pages/main_page/_articles_list.html",
                     {
                         "articles": articles,
-                        "articles_with_groups": articles_with_groups,
-                        "current_user_groups": current_user_groups,
                     },
                 )
 
@@ -96,34 +91,27 @@ def index(req):
     collect = Article.objects.filter(collectors=req.user.pk, id=OuterRef("pk")).values(
         "pk"
     )
-
+    group_name_subquery = Group.objects.filter(user__id=OuterRef("user_id")).values(
+        "name"
+    )[:1]
     articles = (
         Article.objects.annotate(
             user_liked=Exists(subquery),
             like_count=Count("liked"),
             collect=Exists(collect),
+            group_name=Subquery(group_name_subquery),
         )
         .select_related("user__profile")
         .order_by("-id")
         .prefetch_related("stock")
     )
-
-    current_user_groups = []
-    articles_with_groups = []
+    stocks = IndustryTag.objects.all()
 
     if req.user.is_authenticated:
         update_user_group(req.user)
         users = User.objects.all()
         for user in users:
             update_user_group(user)
-
-    current_user_groups = req.user.groups.values_list("name", flat=True)
-
-    for article in articles:
-        author_groups = article.user.groups.all()
-        articles_with_groups.append(
-            {"article": article, "author_groups": author_groups}
-        )
 
     if req.user.is_authenticated:
         profile = get_object_or_404(Profile, user=req.user)
@@ -134,14 +122,10 @@ def index(req):
     return render(
         req,
         "pages/main_page/index.html",
-        {"articles": articles, "stocks": stocks, "user_img": user_img},
-    )
-        req,
-        "pages/main_page/index.html",
         {
             "articles": articles,
-            "articles_with_groups": articles_with_groups,
-            "current_user_groups": current_user_groups,
+            "stocks": stocks,
+            "user_img": user_img,
         },
     )
 
@@ -150,32 +134,28 @@ def my_watchlist(req):
     stock_all_id = UserStock.objects.filter(user=req.user).values_list(
         "stock_id", flat=True
     )
-    articles = Article.objects.filter(stock__in=stock_all_id).distinct().order_by("-id")
+    group_name_subquery = Group.objects.filter(user__id=OuterRef("user_id")).values(
+        "name"
+    )[:1]
+    articles = (
+        Article.objects.filter(stock__in=stock_all_id)
+        .distinct()
+        .order_by("-id")
+        .annotate(group_name=Subquery(group_name_subquery))
+    )
 
     if req.user.is_authenticated:
         profile = get_object_or_404(Profile, user=req.user)
         user_img = profile.user_img
     else:
         user_img = None
-    current_user_groups = req.user.groups.values_list("name", flat=True)
-
-    articles_with_groups = []
-    for article in articles:
-        author_groups = article.user.groups.all()
-        articles_with_groups.append(
-            {"article": article, "author_groups": author_groups}
-        )
-
-    current_user_groups = req.user.groups.values_list("name", flat=True)
 
     return render(
         req,
         "pages/my_watchlist/my_watchlist.html",
-        {"articles": articles, "user_img": user_img},
         {
             "articles": articles,
-            "current_user_groups": current_user_groups,
-            "articles_with_groups": articles_with_groups,
+            "user_img": user_img,
         },
     )
 
@@ -183,10 +163,15 @@ def my_watchlist(req):
 def my_favorites(req):
     user = req.user
     subquery = Article.objects.filter(liked=req.user.pk, id=OuterRef("pk")).values("pk")
+
+    group_name_subquery = Group.objects.filter(user__id=OuterRef("user_id")).values(
+        "name"
+    )[:1]
     favorite_articles = Article.objects.filter(collectors=user).annotate(
         collect=Value(True),
         user_liked=Exists(subquery),
         like_count=Count("liked"),
+        group_name=Subquery(group_name_subquery),
     )
     if req.user.is_authenticated:
         profile = get_object_or_404(Profile, user=req.user)
@@ -194,24 +179,12 @@ def my_favorites(req):
     else:
         user_img = None
 
-
-    articles_with_groups = []
-    for article in favorite_articles:
-        author_groups = article.user.groups.all()
-        articles_with_groups.append(
-            {"article": article, "author_groups": author_groups}
-        )
-
-    current_user_groups = req.user.groups.values_list("name", flat=True)
-
     return render(
         req,
         "pages/my_favorites/my_favorites.html",
         {
             "favorite_articles": favorite_articles,
             "user_img": user_img,
-            "current_user_groups": current_user_groups,
-            "articles_with_groups": articles_with_groups,
         },
     )
 
@@ -220,50 +193,45 @@ def news_feed(req):
     following_all_id = FollowRelation.objects.filter(follower=req.user).values_list(
         "following_id", flat=True
     )
-    articles = Article.objects.filter(user_id__in=following_all_id).order_by("-id")
+
+    group_name_subquery = Group.objects.filter(user__id=OuterRef("user_id")).values(
+        "name"
+    )[:1]
+    articles = (
+        Article.objects.filter(user_id__in=following_all_id)
+        .order_by("-id")
+        .annotate(group_name=Subquery(group_name_subquery))
+    )
 
     if req.user.is_authenticated:
         profile = get_object_or_404(Profile, user=req.user)
         user_img = profile.user_img
     else:
         user_img = None
-    articles_with_groups = []
-    for article in articles:
-        author_groups = article.user.groups.all()
-        articles_with_groups.append(
-            {"article": article, "author_groups": author_groups}
-        )
-
-    current_user_groups = req.user.groups.values_list("name", flat=True)
 
     return render(
         req,
         "pages/news_feed/news_feed.html",
         {
             "articles": articles,
-            "current_user_groups": current_user_groups,
-            "articles_with_groups": articles_with_groups,
+            "user_img": user_img,
         },
     )
 
 
 def market_index(req):
-    current_user_groups = req.user.groups.values_list("name", flat=True)
-    return render(
-        req,
-        "pages/news_feed/news_feed.html",
-        {"articles": articles, "user_img": user_img},
-    )
 
-
-def market_index(req):
     if req.user.is_authenticated:
         profile = get_object_or_404(Profile, user=req.user)
         user_img = profile.user_img
     else:
         user_img = None
 
-    return render(req, "pages/market_index/market_index.html", {"user_img": user_img})
+    return render(
+        req,
+        "pages/market_index/market_index.html",
+        {"user_img": user_img},
+    )
 
 
 def taiwan_index(req):
@@ -273,7 +241,11 @@ def taiwan_index(req):
     else:
         user_img = None
 
-    return render(req, "pages/taiwan_index/taiwan_index.html", {"user_img": user_img})
+    return render(
+        req,
+        "pages/taiwan_index/taiwan_index.html",
+        {"user_img": user_img},
+    )
 
 
 def member_profile(req):

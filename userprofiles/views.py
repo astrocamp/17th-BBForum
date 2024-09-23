@@ -11,7 +11,8 @@ from .models import Profile
 
 @login_required
 def index(req):
-    profile = get_object_or_404(Profile, user=req.user)  # 獲取用戶的 Profile
+
+    profile = get_object_or_404(Profile, user=req.user)
     if not profile.nickname or not profile.gender:
         return redirect(reverse("userprofiles:edit", args=[profile.id]))
     return redirect(reverse("userprofiles:show", args=[profile.id]))
@@ -40,6 +41,7 @@ def show(req, id):
             return render(req, "userprofiles/edit.html", {"form": form, "post": post})
     profile = get_object_or_404(Profile, pk=id)
     user_img = profile.user_img
+    current_user_groups = list(req.user.groups.values_list("name", flat=True))
     return render(
         req,
         "userprofiles/show.html",
@@ -47,6 +49,7 @@ def show(req, id):
             "post": post,
             "investment_tool_names": investment_tool_names,
             "user_img": user_img,
+            "current_user_groups": current_user_groups,
         },
     )
 
@@ -68,9 +71,14 @@ def edit(req, id):
 
     profile = get_object_or_404(Profile, pk=id)
     user_img = profile.user_img
-
+    current_user_groups = list(req.user.groups.values_list("name", flat=True))
     return render(
         req,
         "userprofiles/edit.html",
-        {"form": form, "post": post, "user_img": user_img},
+        {
+            "form": form,
+            "post": post,
+            "user_img": user_img,
+            "current_user_groups": current_user_groups,
+        },
     )

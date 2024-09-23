@@ -1,12 +1,16 @@
 from django.db.models import Case, Count, Exists, OuterRef, Value, When
+from django.contrib.auth.models import Group
+from django.db.models import Case, Count, Exists, OuterRef, Subquery, Value, When
 from django.shortcuts import get_object_or_404, render
 
 from articles.models import Article
 from follows.models import FollowRelation
 from userprofiles.models import Profile
+from userprofiles.models import Profile
 
 
 def popular_stocks(request):
+
     if request.user.is_authenticated:
         profile = get_object_or_404(Profile, user=request.user)
         user_img = profile.user_img
@@ -17,13 +21,6 @@ def popular_stocks(request):
         request,
         "popular_pages/popular_stocks/popular_stocks.html",
         {"user_img": user_img},
-    )
-
-    current_user_groups = request.user.groups.values_list("name", flat=True)
-    return render(
-        request,
-        "popular_pages/popular_stocks/popular_stocks.html",
-        {"current_user_groups": current_user_groups},
     )
 
 
@@ -56,38 +53,46 @@ def popular_students(req):
         "pk"
     )
 
+    group_name_subquery = Group.objects.filter(user__id=OuterRef("user_id")).values(
+        "name"
+    )[:1]
+
     articles = (
         Article.objects.filter(user_id__in=top_user_ids)
         .annotate(
             user_liked=Exists(subquery),
             like_count=Count("liked"),
             collect=Exists(collect),
-        )
-        .annotate(
             follower_count=Case(
                 *[
                     When(user_id=user_id, then=Value(follower_count))
                     for user_id, follower_count in top_user_data.items()
                 ],
-                default=Value(0)
-            )
+                default=Value(0),
+            ),
+            group_name=Subquery(group_name_subquery),  # 加入群組名稱
         )
         .order_by("-follower_count")
     )
+
+    if req.user.is_authenticated:
+        profile = get_object_or_404(Profile, user=req.user)
+        user_img = profile.user_img
+    else:
+        user_img = None
+
     return render(
         req,
         "popular_pages/popular_students/popular_students.html",
-        {"articles": articles},
-    )
-    current_user_groups = request.user.groups.values_list("name", flat=True)
-    return render(
-        request,
-        "popular_pages/popular_students/popular_students.html",
-        {"current_user_groups": current_user_groups},
+        {
+            "articles": articles,
+            "user_img": user_img,
+        },
     )
 
 
 def popular_answers(request):
+
     if request.user.is_authenticated:
         profile = get_object_or_404(Profile, user=request.user)
         user_img = profile.user_img
@@ -97,12 +102,6 @@ def popular_answers(request):
         request,
         "popular_pages/popular_answers/popular_answers.html",
         {"user_img": user_img},
-    )
-    current_user_groups = request.user.groups.values_list("name", flat=True)
-    return render(
-        request,
-        "popular_pages/popular_answers/popular_answers.html",
-        {"current_user_groups": current_user_groups},
     )
 
 

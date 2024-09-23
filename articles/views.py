@@ -1,4 +1,6 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import Group
+from django.db.models import Case, Count, Exists, OuterRef, Subquery, Value, When
 from django.http import JsonResponse
 from django.shortcuts import HttpResponse, get_object_or_404, redirect, render
 
@@ -10,6 +12,7 @@ from .models import Article, Comment, IndustryTag
 
 @login_required
 def show(req, id):
+
     article = get_object_or_404(Article, pk=id)
     article.like_count = article.liked.count()
     user_liked = False
@@ -22,17 +25,16 @@ def show(req, id):
         user_img = profile.user_img
     else:
         user_img = None
+    group_name_subquery = Group.objects.filter(user=article.user).values("name")
+    group_name_result = group_name_subquery.first()
+    article.group_name = group_name_result["name"] if group_name_result else None
 
-    author_groups = article.user.groups.all()
-    current_user_groups = req.user.groups.values_list("name", flat=True)
     return render(
         req,
         "articles/show.html",
-        {"article": article, "user_img": user_img},
         {
             "article": article,
-            "author_groups": author_groups,
-            "current_user_groups": current_user_groups,
+            "user_img": user_img,
         },
     )
 
