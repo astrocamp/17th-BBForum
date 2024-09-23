@@ -17,30 +17,17 @@ def show(req, id):
         user_liked = article.liked.filter(id=req.user.id).exists()
     article.user_liked = user_liked
 
-    return render(
-        req,
-        "articles/show.html",
-        {
-            "article": article,
-        },
-    )
-    if req.method == "POST":
-        forms = ArticleForm(req.POST, instance=article)
-        if forms.is_valid():
-            forms.save()
-            return redirect("pages:index")
-        else:
-            return render(
-                req, "articles/edit.html", {"forms": forms, "article": article}
-            )
-
     if req.user.is_authenticated:
         profile = get_object_or_404(Profile, user=req.user)
         user_img = profile.user_img
     else:
         user_img = None
 
-    return render(req, "articles/show.html", {"article": article, "user_img": user_img})
+    return render(
+        req,
+        "articles/show.html",
+        {"article": article, "user_img": user_img},
+    )
 
 
 @login_required
