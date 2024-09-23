@@ -27,14 +27,14 @@
                                     <div class="flex items-center gap-3">
                                         <div>
                                             <a href="#">
-                                                <div class="w-[80px] h-[80px] rounded-full border border-gray-94 overflow-hidden mt-2 ml-3">
-                                                    <div class="w-[40px] h-[40px] rounded-full border border-gray-94 flex items-center overflow-hidden">
+                                                <div class="w-[80px] h-[80px] rounded-full border border-gray-94 flex items-center overflow-hidden">
+
                                                         {% if article.user.profile.user_img %}
-                                                        <img src="{{ article.user.profile.user_img.url }}" alt="User Image" style="max-w-full max-h-full object-fit: cover;" />
+                                                        <img src="{{ article.user.profile.user_img.url }}" alt="User Image" class="object-cover w-full h-full" />
                                                         {% else %}
                                                         <img src="{% static 'images/visitor.svg' %}" alt="visitor"></img>
                                                       {% endif %}
-                                                    </div>
+
                                                 </div>
                                             </a>
                                         </div>
