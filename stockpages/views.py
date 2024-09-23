@@ -18,7 +18,7 @@ def stock_data_twii(req):
         user_img = profile.user_img
     else:
         user_img = None
-        
+
     subquery = Article.objects.filter(liked=req.user.pk, id=OuterRef("pk")).values("pk")
 
     articles = (
@@ -48,12 +48,19 @@ def stock_data_twii(req):
 
 def stock_data(req, id):
     stock = get_object_or_404(IndustryTag, security_code=id)
-    articles = Article.objects.filter(stock=id).order_by("-id")
+    subquery = Article.objects.filter(liked=req.user.pk, id=OuterRef("pk")).values("pk")
+
+    articles = (
+        Article.objects.filter(stock=id)
+        .distinct()
+        .annotate(user_liked=Exists(subquery), like_count=Count("liked"))
+        .distinct()
+        .order_by("-id")
+        .prefetch_related("stock")
+    )
 
     latest_price, percent_change, price_change, trading_units = get_stock_data(id)
     current_time = datetime.now().strftime("%m/%d %H:%M")
-
-    print(articles)
 
     return render(
         req,
