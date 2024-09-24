@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.forms import ModelForm
 from django.forms.widgets import DateInput, EmailInput, PasswordInput, TextInput
+from django.utils import timezone
 
 from userprofiles.choice import (
     Education_level,
@@ -145,6 +146,12 @@ class ProfileForm(ModelForm):
         if not user_img:
             raise ValidationError("請上傳您的圖片。")
         return user_img
+
+    def clean_birthday(self):
+        birthday = self.cleaned_data.get("birthday")
+        if birthday and birthday > timezone.now().date():
+            raise forms.ValidationError("生日不能選擇未來的日期。")
+        return birthday
 
 
 class UserForm(ModelForm):
