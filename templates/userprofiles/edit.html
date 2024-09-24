@@ -61,7 +61,14 @@
 
                                              </label>
                                              <div class="w-[300px] col-10m flex ml-4 ">
-                                                   {{ form.birthday }}
+                                                {{ form.birthday }}
+                                                {% if form.birthday.errors %}
+                                                <div class="error">
+                                                    {% for error in form.birthday.errors %}
+                                                        <p class="text-red-primary">{{ error }}</p>
+                                                    {% endfor %}
+                                                </div>
+                                                {% endif %}
                                              </div>
                                           </div>
                                        </div>

@@ -1,6 +1,7 @@
 import io
 
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
 from django.core.files.base import ContentFile
 from django.db import models
 from django.utils import timezone
@@ -78,6 +79,11 @@ class Profile(models.Model):
             print(f"用戶 {self.user.username} 的新總點數: {self.tot_point}")
         else:
             print(f"今天沒有為用戶 {self.user.username} 發放點數。")
+
+    def clean(self):
+        super().clean()
+        if self.birthday and self.birthday > timezone.now().date():
+            raise ValidationError("生日不能選擇未來的日期。")
 
     def save(self, *args, **kwargs):
         if self.user_img:
