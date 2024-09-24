@@ -8,7 +8,6 @@ from .forms import ArticleForm
 from .models import Article, Comment, IndustryTag
 
 
-@login_required
 def show(req, id):
     article = get_object_or_404(Article, pk=id)
     article.like_count = article.liked.count()
