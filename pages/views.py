@@ -82,16 +82,10 @@ def index(req):
     )
     stocks = IndustryTag.objects.all()
 
-    if req.user.is_authenticated:
-        profile = get_object_or_404(Profile, user=req.user)
-        user_img = profile.user_img
-    else:
-        user_img = None
-
     return render(
         req,
         "pages/main_page/index.html",
-        {"articles": articles, "stocks": stocks, "user_img": user_img},
+        {"articles": articles, "stocks": stocks},
     )
 
 
@@ -101,16 +95,10 @@ def my_watchlist(req):
     )
     articles = Article.objects.filter(stock__in=stock_all_id).distinct().order_by("-id")
 
-    if req.user.is_authenticated:
-        profile = get_object_or_404(Profile, user=req.user)
-        user_img = profile.user_img
-    else:
-        user_img = None
-
     return render(
         req,
         "pages/my_watchlist/my_watchlist.html",
-        {"articles": articles, "user_img": user_img},
+        {"articles": articles},
     )
 
 
@@ -122,19 +110,11 @@ def my_favorites(req):
         user_liked=Exists(subquery),
         like_count=Count("liked"),
     )
-    if req.user.is_authenticated:
-        profile = get_object_or_404(Profile, user=req.user)
-        user_img = profile.user_img
-    else:
-        user_img = None
 
     return render(
         req,
         "pages/my_favorites/my_favorites.html",
-        {
-            "favorite_articles": favorite_articles,
-            "user_img": user_img,
-        },
+        {"favorite_articles": favorite_articles},
     )
 
 
@@ -144,36 +124,21 @@ def news_feed(req):
     )
     articles = Article.objects.filter(user_id__in=following_all_id).order_by("-id")
 
-    if req.user.is_authenticated:
-        profile = get_object_or_404(Profile, user=req.user)
-        user_img = profile.user_img
-    else:
-        user_img = None
     return render(
         req,
         "pages/news_feed/news_feed.html",
-        {"articles": articles, "user_img": user_img},
+        {"articles": articles},
     )
 
 
 def market_index(req):
-    if req.user.is_authenticated:
-        profile = get_object_or_404(Profile, user=req.user)
-        user_img = profile.user_img
-    else:
-        user_img = None
 
-    return render(req, "pages/market_index/market_index.html", {"user_img": user_img})
+    return render(req, "pages/market_index/market_index.html")
 
 
 def taiwan_index(req):
-    if req.user.is_authenticated:
-        profile = get_object_or_404(Profile, user=req.user)
-        user_img = profile.user_img
-    else:
-        user_img = None
 
-    return render(req, "pages/taiwan_index/taiwan_index.html", {"user_img": user_img})
+    return render(req, "pages/taiwan_index/taiwan_index.html")
 
 
 def member_profile(req):
@@ -187,6 +152,9 @@ def popular_stocks(req):
     else:
         user_img = None
     return render(req, "popular_pages/popular_stocks.html", {"user_img": user_img})
+def popular_stocks(request):
+
+    return render(request, "popular_pages/popular_stocks.html")
 
 
 def popular_students(req):
@@ -195,8 +163,10 @@ def popular_students(req):
         user_img = profile.user_img
     else:
         user_img = None
+def popular_students(request):
 
     return render(req, "popular_pages/popular_students.html", {"user_img": user_img})
+    return render(request, "popular_pages/popular_students.html")
 
 
 def popular_answers(req):
@@ -207,6 +177,8 @@ def popular_answers(req):
         user_img = None
 
     return render(req, "popular_pages/popular_answers.html", {"user_img": user_img})
+def popular_answers(request):
+    return render(request, "popular_pages/popular_answers.html")
 
 
 def points(req):
