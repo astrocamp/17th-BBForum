@@ -198,16 +198,30 @@
                                     </div>
                                 </button>
                                 <div x-show="showTooltip"
-                                    class="absolute h-[40px] w-[150px] bg-white rounded-[10px] shadow-lg border border-gray-300  text-center cursor-pointer transform -translate-x-1/2 -translate-y-1/2 flex items-center justify-center hover:bg-gray-94"
-                                    style="margin-left: 130px; margin-top:15px"
-                                    @click.away="showTooltip = false"> <!-- 點擊外部隱藏工具提示 -->
-                                        <i class="fa-solid fa-plus text-dark-600"></i>
+                                        class="absolute h-[120px] w-[150px] bg-white rounded-[10px] shadow-lg border border-gray-300 text-center cursor-pointer transform -translate-x-1/2 -translate-y-1/2 flex flex-col justify-center"
+                                        style="margin-left: 130px; margin-top:60px"
+                                        @click.away="showTooltip = false">
+                                    <!-- 複製連結功能 -->
+                                    <div class="flex items-center justify-center hover:bg-gray-94">
+                                        <i class="fa-solid fa-plus text-dark-600 "></i>
                                         <template x-if="!copied">
-                                            <span @click="copyLink()">複製連結</span>
+                                            <span @click="copyLink()" >複製連結</span>
                                         </template>
                                         <template x-if="copied">
                                             <span>已複製！</span>
                                         </template>
+                                    </div>
+                                    <!-- 分享到 Facebook -->
+                                    <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.scheme }}://{{ request.get_host }}{% url 'articles:show' article.id %}"
+                                        target="_blank"
+                                        class="mt-2 hover:bg-gray-94">
+                                        FB
+                                    </a>
+                                    <a href="https://social-plugins.line.me/lineit/share?url={{ request.scheme }}://{{ request.get_host }}{% url 'articles:show' article.id %}"
+                                        target="_blank"
+                                        class="mt-2 hover:bg-gray-94">
+                                        <span class="text-sm">LINE</span>
+                                     </a>
                                 </div>
                             </div>
                     {% comment %}  {% endcomment %}
