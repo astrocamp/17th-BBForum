@@ -18,7 +18,10 @@
                 <div class="mt-3 font-bold">
                     <a href="#" class="text-base text-red-900">YSL000</a>
                 </div>
-                <div class="mt-3 text-[0.875em]">等級 0</div>
+                <div class="mt-3 text-[0.875em]">等級 :       
+                    {% for group_name in current_user_groups %}
+                    {{ group_name }}
+                {% endfor %}</div>
             </header>
             <div class="mt-3">
                 <ul class="list-none">
