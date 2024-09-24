@@ -39,6 +39,7 @@ module.exports = {
       },
       width: {
         "calc-full-minus-158px": "calc(100% - 158px)",
+        "full-100": "100%",
       },
     },
     fontFamily: {

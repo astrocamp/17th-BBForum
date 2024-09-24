@@ -188,12 +188,12 @@
     </div>
 </div>
 
-<div class="mobile-only w-[375px]">
-  <div class="ad-banner">
-    <img class="w-[760px] h-[132px] object-cover" src="https://s3cdn.yourator.co/banners/banners/000/001/494/home/598a79cc28630e1c421d38c3e385faa9e2e88505.png" alt="ad"/>
+<div class="mobile-only flex flex-col gap-3 w-full-100">
+  <div class="h-[132px] mt-3 bg-gray-90 flex justify-center items-center pt-4 pb-4">
+      <img class="w-calc-full-minus-158px h-[132px] object-cover" src="https://s3cdn.yourator.co/banners/banners/000/001/494/home/598a79cc28630e1c421d38c3e385faa9e2e88505.png" alt="ad"/>
   </div>
-  <section class="gap-4 pb-4 pl-4 pr-4 rounded-[4px] bg-white shadow-area flex flex-col">
-      <div class="mt-4 flex justify-between gap-2">
+  <section class="gap-4 pt-3 pb-3 pl-4 pr-4 rounded-[4px] bg-white shadow-area flex flex-col">
+      <div class="flex justify-between gap-2">
           <h1 class="flex items-center gap-2 text-dark-800 grow-1">
               <span class="flex-shrink line-clamp-1 overflow-hidden overflow-ellipsis text-[24px] font-semibold leading-7">{{stock}}</span>
               <span class="text-[20px] text-dark-600 font-normal leading-6">{{stock.security_code}}</span>
@@ -285,87 +285,11 @@
           </nav>
       </div>
   </div>
-  <div class="w-[375px]">
-      <aside class="flex flex-col gap-3 mt-3">
-          <div class="p-4 mt-1 rounded-[4px] bg-white shadow-area">
-              <header>
-                  <span class="gap-2 items-center text-[18px] font-semibold text-dark-800">熱門股票</span>
-              </header>
-              <div>
-                  <ul class="list-none">
-                    <li class="flex justify-between items-center group mt-4">
-                      <div>
-                        <div class="text-red-primary hover:underline">
-                          <a href="#">2330 台積電</a>
-                        </div>
-                      </div>
-                      <button
-                        x-data="optional_stock({{ user.is_authenticated|lower }})"
-                        x-init="isAuthenticated? checkPickStatus('{% url 'picks:check_pick_api' 2330 %}') : false"
-                        x-ref="buttonStyle"
-                        @click="startPick('{% url 'picks:pick_api' 2330 %}', '{% url 'picks:unpick_api' 2330 %}', '{% url 'picks:check_pick_api' 2330 %}', `{{csrf_token}}`)"
-                      ></button>
-                    </li>
-                    <li class="flex justify-between items-center group mt-4">
-                      <div>
-                        <div class="text-red-primary hover:underline">
-                          <a href="#">2317 鴻海</a>
-                        </div>
-                      </div>
-                      <button
-                        x-data="optional_stock({{ user.is_authenticated|lower }})"
-                        x-init="isAuthenticated? checkPickStatus('{% url 'picks:check_pick_api' 2317 %}') : false"
-                        x-ref="buttonStyle"
-                        @click="startPick('{% url 'picks:pick_api' 2317 %}', '{% url 'picks:unpick_api' 2317 %}', '{% url 'picks:check_pick_api' 2317 %}', `{{csrf_token}}`)"
-                      ></button>
-                    </li>
-                    <li class="flex justify-between items-center group mt-4">
-                      <div>
-                        <div class="text-red-primary hover:underline">
-                          <a href="#">2454 聯發科</a>
-                        </div>
-                      </div>
-                      <button
-                        x-data="optional_stock({{ user.is_authenticated|lower }})"
-                        x-init="isAuthenticated? checkPickStatus('{% url 'picks:check_pick_api' 2454 %}') : false"
-                        x-ref="buttonStyle"
-                        @click="startPick('{% url 'picks:pick_api' 2454 %}', '{% url 'picks:unpick_api' 2454 %}', '{% url 'picks:check_pick_api' 2454 %}', `{{csrf_token}}`)"
-                      ></button>
-                    </li>
-                    <li class="flex justify-between items-center group mt-4">
-                      <div>
-                        <div class="text-red-primary hover:underline">
-                          <a href="#">2349 錸德</a>
-                        </div>
-                      </div>
-                      <button
-                        x-data="optional_stock({{ user.is_authenticated|lower }})"
-                        x-init="isAuthenticated? checkPickStatus('{% url 'picks:check_pick_api' 2349 %}') : false"
-                        x-ref="buttonStyle"
-                        @click="startPick('{% url 'picks:pick_api' 2349 %}', '{% url 'picks:unpick_api' 2349 %}', '{% url 'picks:check_pick_api' 2349 %}', `{{csrf_token}}`)"
-                      ></button>
-                    </li>
-                    <li class="flex justify-between items-center group mt-4">
-                      <div>
-                        <div class="text-red-primary hover:underline">
-                          <a href="#">2371 大同</a>
-                        </div>
-                      </div>
-                      <button
-                        x-data="optional_stock({{ user.is_authenticated|lower }})"
-                        x-init="isAuthenticated? checkPickStatus('{% url 'picks:check_pick_api' 2371 %}') : false"
-                        x-ref="buttonStyle"
-                        @click="startPick('{% url 'picks:pick_api' 2371 %}', '{% url 'picks:unpick_api' 2371 %}', '{% url 'picks:check_pick_api' 2371 %}', `{{csrf_token}}`)"
-                      ></button>
-                    </li>
-                  </ul>
-              </div>
-          </div>
-      </aside>
-  </div>
-  <div class="w-full">
-    {% for article in articles %}
-        {% include "pages/main_page/_article.html" with article=article %}
-    {% endfor %}
+  <div class="flex gap-3">
+      <div class="w-full">
+          {% for article in articles %}
+              {% include "pages/main_page/_article.html" with article=article %}
+          {% endfor %}
+      </div>
   </div>
 </div>

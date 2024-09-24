@@ -64,9 +64,9 @@
         </div>
     </div>
 </div>
-<div class="mobile-only w-[375px] flex flex-col items-center justify-center min-h-screen">
+<div class="mobile-only flex flex-col items-center justify-center min-h-screen">
     <div class="ml-auto mr-auto">
-        <div class="p-5 w-[375px] shadow-sign-in rounded-lg border-t border-t-transparent border-b border-b-transparent">
+        <div class="p-5 w-[768px] shadow-sign-in rounded-lg border-t border-t-transparent border-b border-b-transparent">
             <form action="{% url 'users:sign_in' %}" autocomplete="off" method="POST">
                 {% csrf_token %}
                 <header class="text-center">

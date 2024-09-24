@@ -28,7 +28,7 @@
                 {% endif %}
             </ul>
         </div>
-        <div class="w-[1200px] h-[60px] flex items-center mx-auto gap-[16px]">
+        <div class="h-[60px] flex items-center justify-center mx-auto gap-[16px]">
             <div class="flex items-center h-full">
                 <a href="{% url 'pages:index'%}">
                     <img class="w-[100%] h-[50px]" src="{% static 'images/bbforum_logo.svg' %}" alt="logo" />
@@ -85,11 +85,6 @@
                               <span class="whitespace-nowrap">熱門同學</span>
                           </a>
                         </li>
-                        <li>
-                          <a href="{% url 'popular_pages:popular_answers' %}" class="flex items-center p-2 rounded-lg hover:bg-gray-94">
-                              <span class="whitespace-nowrap">熱門回答</span>
-                          </a>
-                        </li>
                       </ul>
                     </li>
                 </ul>
@@ -102,22 +97,22 @@
         </div>
     </nav>
 </div>
-<div class="mobile-only w-[375px] sticky top-0 z-10" x-data="{ showMenu: false, isVisible: false, isAuthenticated: {{ user.is_authenticated|lower }} }">
-    <div class="absolute bg-gray-94 w-full h-[100px] z-0"></div>
-    <nav class="relative z-10 bg-white shadow-nav-bar flex items-center justify-between">
+<div class="mobile-only sticky z-10" x-data="{ showMenu: false, isVisible: false, isAuthenticated: {{ user.is_authenticated|lower }} }">
+    <div class="absolute bg-gray-94 z-0"></div>
+    <nav class=" z-10 bg-white shadow-nav-bar flex items-center justify-between">
         <button @click="showMenu = !showMenu" class="cursor-pointer m-0">
-            <i class="fa-solid fa-list h-7 w-10 m-3 pt-1 pb-0"></i>
+            <i class="fa-solid fa-list h-7 w-10 m-3 pt-2 pl-1 pb-0"></i>
         </button>
         <div class="logo-container mr-9">
             <a href="{% url 'pages:index' %}">
-                <img class="w-[375px] h-[50px]" src="{% static 'images/bbforum_logo.svg' %}" alt="logo" />
+                <img class="w-auto h-[50px]" src="{% static 'images/bbforum_logo.svg' %}" alt="logo" />
             </a>
         </div>
-        <div x-show="showMenu" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="absolute top-full left-0 w-full h-auto flex flex-col items-start bg-white z-20">
+        <div x-show="showMenu" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="absolute top-full left-0 h-auto flex flex-col items-start bg-white z-20">
             <div x-data="switch_page({{ user.is_authenticated|lower }})" class="w-full">
                 <ul class="relative menu menu-vertical group w-full">
                     {% if user.is_authenticated %}
-                        <li class="flex items-center justify-between w-full px-4 py-2">
+                        <li class="flex w-full">
                             <span class="text-black">{{ request.user.username }}</span>
                             <form action="{% url 'users:sign_out' %}" method="POST">
                                 {% csrf_token %}
@@ -125,14 +120,14 @@
                             </form>
                         </li>
                     {% else %}
-                        <li class="flex items-center justify-between w-full px-4 py-2">
+                        <li class="flex w-full ">
                             <a href="{% url 'users:register' %}" class="text-black">註冊</a>
                             <a href="{% url 'users:sign_in' %}" class="text-black">登入</a>
                         </li>
                     {% endif %}
                 </ul>
                 <nav class="w-full">
-                    <ul x-data="switch_page({{ user.is_authenticated|lower }})" class="pt-4 pb-4 border-t border-b border-gray-83 w-full">
+                    <ul x-data="switch_page({{ user.is_authenticated|lower }})" class="px-4 border-t border-b border-gray-83 w-full">
                         <li @click.prevent="navigatePage('{% url 'pages:my_watchlist' %}')" class="aside-bar-padding aside-bar-hover cursor-pointer w-full px-4 py-2">
                             <div class="flex items-center gap-2">
                                 <i class="fa-solid fa-circle-plus w-[20px] h-[20px] text-black-69"></i>
@@ -159,36 +154,6 @@
             </div>
         </div>
     </nav>
-    <div x-show="isVisible" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-start md:justify-center z-20" style="display: none;">
-        <div class="relative bg-white w-full max-w-[375px] md:max-w-[338px] lg:max-w-[1200px] rounded-[10px] flex flex-col items-center justify-center p-4 md:p-0 mx-4 md:mx-0">
-            <button @click="isVisible = false" class="absolute top-3 right-3 flex items-center justify-center ">
-                <i class="fa-solid fa-xmark w-5 h-5 text-black-56"></i>
-            </button>
-            <div class="w-full border-b border-b-gray-90 min-h-[40px] text-dark-800 font-bold flex items-center pt-3 pb-3 pl-4 pr-4 overflow-hidden text-ellipsis">您尚未登入</div>
-            <div class="w-full min-h-[40px] text-black-56 font-normal flex items-center pl-4 pr-4 overflow-hidden text-[14px]">這個功能需要登入才可使用。</div>
-            <div class="pt-3 pb-3 pl-4 pr-4 w-full text-right">
-                <div class="flex flex-wrap justify-end gap-2">
-                    <button @click="isVisible = false" class="bg-white text-dark-600 px-4 py-2 rounded border border-gray-69">取消</button>
-                    <button @click="window.location.href = '{% url 'users:sign_in' %}'" class="bg-red-primary text-white px-4 py-2 rounded border-red-primary">登入</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="mobile-only nav-bar-bottom flex justify-around">
-      <a href="{% url 'pages:index' %}" class="flex-1 text-center"><i class="fa-solid fa-comment-dots"></i></a>
-      <div x-data="{ showMenu: false }" class="flex-1 text-center relative">
-          <button @click="showMenu = !showMenu" class="w-full">
-              <i class="fa-solid fa-money-bill-trend-up" style="font-size: 28px;"></i>
-          </button>
-          <div x-show="showMenu" @click.away="showMenu = false" class="absolute left-1/2 transform -translate-x-1/2 bottom-full mb-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-20">
-              <a href="{% url 'popular_pages:popular_stocks' %}" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">熱門股票</a>
-              <a href="{% url 'popular_pages:popular_students' %}" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">熱門同學</a>
-              <a href="{% url 'popular_pages:popular_answers' %}" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">熱門回答</a>
-          </div>
-      </div>
-      <a href="{% url 'stocks:stock_data_twii' %}" class="flex-1 text-center"><i class="fa-solid fa-chart-line"></i></a>
-      <a href="{% url 'userprofiles:new' %}" class="flex-1 text-center"><i class="fa-solid fa-user"></i></a>
-    </div>
 </div>
 
 
