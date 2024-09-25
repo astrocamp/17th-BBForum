@@ -7,8 +7,12 @@ document.addEventListener('alpine:init', () => {
         showTooltip: false,
         copied: false,
         url: '',
+        showLoginPrompt: false,
         init() {
             this.url = this.$el.getAttribute('data-url');
+        },
+        showTooltipBtn() {
+            this.isAuthenticated ? (this.showTooltip = !this.showTooltip) : (this.showLoginPrompt = true);
         },
         copyLink() {
             navigator.clipboard.writeText(this.url)
