@@ -30,6 +30,9 @@ def stock_data_twii(req):
         .prefetch_related("stock")
     )
 
+    for article in articles:
+        article.follower_count = article.user.followers.count()
+
     return render(
         req,
         "pages/market_index/market_index.html",
@@ -61,6 +64,9 @@ def stock_data(req, id):
 
     latest_price, percent_change, price_change, trading_units = get_stock_data(id)
     current_time = datetime.now().strftime("%m/%d %H:%M")
+
+    for article in articles:
+        article.follower_count = article.user.followers.count()
 
     return render(
         req,
