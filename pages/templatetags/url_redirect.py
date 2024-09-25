@@ -24,6 +24,7 @@ def should_include_nav_bar(request):
             "/popular_stocks/",
             "/popular_students/",
             "/popular_answers/",
+            "/stock_notfound/",
         ]
         or re.match(r"^/stocks/.*", path)
     ):

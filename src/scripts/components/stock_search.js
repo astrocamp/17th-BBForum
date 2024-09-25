@@ -26,7 +26,7 @@ Alpine.data("stock_search", () => ({
         );
         const securityCode = matchedStock ? matchedStock.security_code : this.selectedStockCode;
         if (!securityCode) {
-            window.location.href = 'stock_notfound/';
+            window.location.href = '/stock_notfound/';
         } else {
             window.location.href = `/stocks/${securityCode}`;
         }
