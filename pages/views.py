@@ -146,15 +146,7 @@ def member_profile(req):
 
 
 def popular_stocks(req):
-    if req.user.is_authenticated:
-        profile = get_object_or_404(Profile, user=req.user)
-        user_img = profile.user_img
-    else:
-        user_img = None
-    return render(req, "popular_pages/popular_stocks.html", {"user_img": user_img})
-def popular_stocks(request):
-
-    return render(request, "popular_pages/popular_stocks.html")
+    return render(req, "popular_pages/popular_stocks.html")
 
 
 def popular_students(req):
@@ -163,22 +155,16 @@ def popular_students(req):
         user_img = profile.user_img
     else:
         user_img = None
+
+
 def popular_students(request):
 
-    return render(req, "popular_pages/popular_students.html", {"user_img": user_img})
     return render(request, "popular_pages/popular_students.html")
 
 
 def popular_answers(req):
-    if req.user.is_authenticated:
-        profile = get_object_or_404(Profile, user=req.user)
-        user_img = profile.user_img
-    else:
-        user_img = None
 
-    return render(req, "popular_pages/popular_answers.html", {"user_img": user_img})
-def popular_answers(request):
-    return render(request, "popular_pages/popular_answers.html")
+    return render(req, "popular_pages/popular_answers.html")
 
 
 def points(req):
