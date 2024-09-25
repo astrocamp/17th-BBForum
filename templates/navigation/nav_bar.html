@@ -93,25 +93,26 @@
                       </ul>
                     </li>
                 </ul>
-                <div class="flex" x-data="stock_search">
+                <div class="flex relative" x-data="stock_search" @click.away="suggestions = []">
                   <input
                   type="text"
                   x-model="query"
                   @input="searchStocks()"
-                  @keydown.enter="navigateToStock()"
+                  @keydown.enter="navigateToStock(query)"
                   placeholder="搜尋股票代碼、名稱"
                   class="w-[622px] h-[32px] rounded-l bg-gray-90 pl-2.5 pr-2.5 border border-gray-90 focus:border-red-primary focus:outline-none focus:ring-0"
                   />
-                  <button class="nav-btn-primary text-white rounded-r h-[32px] px-3 py-2 flex items-center justify-center" @click="navigateToStock()">
+                  <button class="nav-btn-primary text-white rounded-r h-[32px] px-3 py-2 flex items-center justify-center" @click="navigateToStock(query)">
                     <i class="fas fa-magnifying-glass icon"></i>
                   </button>
                   <ul
                     x-show="suggestions.length > 0"
-                    class="absolute bg-white border border-slate-200 rounded-lg mt-2 shadow-xl z-10"
+                    class="absolute z-10 mt-9 w-[663px] bg-white border rounded-lg shadow-xl border-slate-200 "
                   >
                     <template x-for="suggestion in suggestions" :key="suggestion.security_code">
-                        <li @click="selectStock(suggestion.security_code, suggestion.name)" class="cursor-pointer p-2 hover:bg-gray-94">
-                            <span x-text="suggestion.name"></span> ( <span x-text="suggestion.security_code"></span> )
+                        <li @click="selectStock(suggestion.security_code, suggestion.name)" class="flex gap-2 p-2 cursor-pointer itemsjustify-center-center hover:bg-gray-94">
+                          <div class="w-4 h-4 border-l-1 border-gray-69 "><img src="https://fsv.cmoney.tw/cmstatic/t/images/stock/dayline/2888.png"></div>
+                          <span x-text="suggestion.name"></span> ( <span x-text="suggestion.security_code"></span> )
                         </li>
                     </template>
                   </ul>
