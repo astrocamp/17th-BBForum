@@ -1,97 +1,94 @@
 {% load static %}
-<div class="sticky top-0 z-10">
-    <div class="absolute bg-gray-94 w-full h-[100px] z-0"></div>
-    <nav class="relative z-10 bg-white shadow-nav-bar">
-        <div class="bg-black w-full h-[35px] flex items-center justify-end">
-            <ul class="flex">
-                {% if user.is_authenticated %}
-                    <li class="group relative">
-                      <a class="text-white mr-4 cursor-pointer">
-                        {{ request.user.username }}
-                      </a>
-                      <div x-data="switch_page({{ user.is_authenticated|lower }})" class="absolute hidden group-hover:block p-2 shadow-xl w-24 z-10 top-6 left-1/2 transform -translate-x-1/2 rounded-md bg-red-primary text-white">
-                          <div @click.prevent="navigatePage('{% url 'userprofiles:index' %}')" class="cursor-pointer flex justify-center items-center">
-                            會員中心
-                          </div>
-                      </div>
-                    </li>
-                    <li>
-                        <form action="{% url 'users:sign_out' %}" method="POST">
-                            {% csrf_token %}
-                            <button class="mr-10 text-white">登出</button>
-                        </form>
-                    </li>
-                {% else %}
-                  <li class="mr-4"><a href="{% url 'users:register' %}" class="text-white">註冊</a></li>
-                  <li><a href="{% url 'users:sign_in' %}" class="mr-12 text-white">登入</a></li>
-                {% endif %}
-            </ul>
-        </div>
-        <div class="w-full max-w-[1200px] h-[60px] flex items-center justify-around mx-auto lg:gap-[16px]">
-            <div class="flex items-center h-full">
-                <a href="{% url 'pages:index'%}">
-                    <img class="w-[100%] h-[50px]" src="{% static 'images/bbforum_logo.svg' %}" alt="logo" />
+<nav class="fixed w-[100%] z-10 bg-white shadow-nav-bar top-0">
+  <div class="bg-black w-full h-[35px] flex items-center justify-end">
+      <ul class="flex">
+          {% if user.is_authenticated %}
+              <li class="group relative">
+                <a class="text-white mr-4 cursor-pointer">
+                  {{ request.user.username }}
                 </a>
-            </div>
-            <div class="flex items-center h-full gap-[32px]">
-                <ul class="flex items-center">
-                    <li>
-                      <div class="nav-text nav-text-format nav-text-bottom-line">股市討論</div>
-                    </li>
-                    <li class="cursor-pointer nav-text nav-text-format hover:bg-gray-94">
-                      <a href="{% url 'stocks:stock_data_twii' %}" :aria-expanded="open">台股大盤</a>
-                    </li>
-                    <li x-data="{ open: false }" class="cursor-pointer nav-text nav-text-format hover:bg-gray-94" @mouseenter="open = true" @mouseleave="open = false">
-                      <a href="#" :aria-expanded="open">熱門排行</a>
-                      <ul class="absolute top-[85%] left-3/20 -translate-x-[20%] min-w-[140px] bg-white border border-slate-200 p-2 rounded-lg shadow-xl mt-4.5 flex flex-col"
-                      x-show="open"
-                      x-transition:enter="transition ease-out duration-200 transform"
-                      x-transition:enter-start="opacity-0 -translate-y-2"
-                      x-transition:enter-end="opacity-100 translate-y-0"
-                      x-transition:leave="transition ease-out duration-200"
-                      x-transition:leave-start="opacity-100"
-                      x-transition:leave-end="opacity-0"
-                      style="opacity: 0; visibility: hidden;"
-                      :style="{ opacity: open ? 1 : 0, visibility: open ? 'visible' : 'hidden' }">
-                        <li>
-                            <a class="flex items-center p-2 rounded-lg hover:bg-gray-94" href="{% url 'popular_pages:popular_stocks' %}">
-                                <span class="whitespace-nowrap">熱門討論</span>
-                            </a>
-                        </li>
-                        <li>
-                          <a href="{% url 'popular_pages:popular_students' %}" class="flex items-center p-2 rounded-lg hover:bg-gray-94">
-                              <span class="whitespace-nowrap">熱門同學</span>
-                          </a>
-                        </li>
-                      </ul>
-                    </li>
-                </ul>
-                <div class="relative hidden  lg:flex" x-data="stock_search" @click.away="suggestions = []">
-                  <input
-                  type="text"
-                  x-model="query"
-                  @input="searchStocks()"
-                  @keydown.enter="navigateToStock(query)"
-                  placeholder="搜尋股票代碼、名稱"
-                  class="w-[622px] h-[32px] rounded-l bg-gray-90 pl-2.5 pr-2.5 border border-gray-90 focus:border-red-primary focus:outline-none focus:ring-0"
-                  />
-                  <button class="nav-btn-primary text-white rounded-r h-[32px] px-3 py-2 flex items-center justify-center" @click="navigateToStock(query)">
-                    <i class="fas fa-magnifying-glass icon"></i>
-                  </button>
-                  <ul
-                    x-show="suggestions.length > 0"
-                    class="absolute z-10 mt-9 w-[663px] bg-white border rounded-lg shadow-xl border-slate-200 "
-                  >
-                    <template x-for="suggestion in suggestions" :key="suggestion.security_code">
-                        <li @click="selectStock(suggestion.security_code, suggestion.name)" class="flex gap-2 p-2 cursor-pointer itemsjustify-center-center hover:bg-gray-94">
-                          <div class="w-4 h-4 border-l-1 border-gray-69 "><img src="https://fsv.cmoney.tw/cmstatic/t/images/stock/dayline/2888.png"></div>
-                          <span x-text="suggestion.name"></span> ( <span x-text="suggestion.security_code"></span> )
-                        </li>
-                    </template>
-                  </ul>
+                <div x-data="switch_page({{ user.is_authenticated|lower }})" class="absolute hidden group-hover:block p-2 shadow-xl w-24 z-10 top-6 left-1/2 transform -translate-x-1/2 rounded-md bg-red-primary text-white">
+                    <div @click.prevent="navigatePage('{% url 'userprofiles:index' %}')" class="cursor-pointer flex justify-center items-center">
+                      會員中心
+                    </div>
                 </div>
-            </div>
-            <button class="flex items-center h-full w-[44px] justify-center px-2.5 py-4.5"><i class="fa-solid fa-bell w-[24px] h-[24px]"></i></button>
-        </div>
-    </nav>
-</div>
+              </li>
+              <li>
+                  <form action="{% url 'users:sign_out' %}" method="POST">
+                      {% csrf_token %}
+                      <button class="mr-10 text-white">登出</button>
+                  </form>
+              </li>
+          {% else %}
+            <li class="mr-4"><a href="{% url 'users:register' %}" class="text-white">註冊</a></li>
+            <li><a href="{% url 'users:sign_in' %}" class="mr-12 text-white">登入</a></li>
+          {% endif %}
+      </ul>
+  </div>
+  <div class="w-[1200px] h-[60px] flex items-center mx-auto gap-[16px]">
+      <div class="flex items-center h-full">
+          <a href="{% url 'pages:index'%}">
+              <img class="w-[100%] h-[50px]" src="{% static 'images/bbforum_logo.svg' %}" alt="logo" />
+          </a>
+      </div>
+      <div class="flex items-center h-full gap-[32px]">
+          <ul class="flex items-center">
+              <li>
+                <div class="nav-text nav-text-format nav-text-bottom-line">股市討論</div>
+              </li>
+              <li class="cursor-pointer nav-text nav-text-format hover:bg-gray-94">
+                <a href="{% url 'stocks:stock_data_twii' %}" :aria-expanded="open">台股大盤</a>
+              </li>
+              <li x-data="{ open: false }" class="cursor-pointer nav-text nav-text-format hover:bg-gray-94" @mouseenter="open = true" @mouseleave="open = false">
+                <a href="#" :aria-expanded="open">熱門排行</a>
+                <ul class="absolute top-[85%] left-3/20 -translate-x-[20%] min-w-[140px] bg-white border border-slate-200 p-2 rounded-lg shadow-xl mt-4.5 flex flex-col"
+                x-show="open"
+                x-transition:enter="transition ease-out duration-200 transform"
+                x-transition:enter-start="opacity-0 -translate-y-2"
+                x-transition:enter-end="opacity-100 translate-y-0"
+                x-transition:leave="transition ease-out duration-200"
+                x-transition:leave-start="opacity-100"
+                x-transition:leave-end="opacity-0"
+                style="opacity: 0; visibility: hidden;"
+                :style="{ opacity: open ? 1 : 0, visibility: open ? 'visible' : 'hidden' }">
+                  <li>
+                      <a class="flex items-center p-2 rounded-lg hover:bg-gray-94" href="{% url 'popular_pages:popular_stocks' %}">
+                          <span class="whitespace-nowrap">熱門討論</span>
+                      </a>
+                  </li>
+                  <li>
+                    <a href="{% url 'popular_pages:popular_students' %}" class="flex items-center p-2 rounded-lg hover:bg-gray-94">
+                        <span class="whitespace-nowrap">熱門同學</span>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+          </ul>
+          <div class="flex relative" x-data="stock_search" @click.away="suggestions = []">
+            <input
+            type="text"
+            x-model="query"
+            @input="searchStocks()"
+            @keydown.enter="navigateToStock(query)"
+            placeholder="搜尋股票代碼、名稱"
+            class="w-[622px] h-[32px] rounded-l bg-gray-90 pl-2.5 pr-2.5 border border-gray-90 focus:border-red-primary focus:outline-none focus:ring-0"
+            />
+            <button class="nav-btn-primary text-white rounded-r h-[32px] px-3 py-2 flex items-center justify-center" @click="navigateToStock(query)">
+              <i class="fas fa-magnifying-glass icon"></i>
+            </button>
+            <ul
+              x-show="suggestions.length > 0"
+              class="absolute z-10 mt-9 w-[663px] bg-white border rounded-lg shadow-xl border-slate-200 "
+            >
+              <template x-for="suggestion in suggestions" :key="suggestion.security_code">
+                  <li @click="selectStock(suggestion.security_code, suggestion.name)" class="flex gap-2 p-2 cursor-pointer itemsjustify-center-center hover:bg-gray-94">
+                    <div class="w-4 h-4 border-l-1 border-gray-69 "><img src="https://fsv.cmoney.tw/cmstatic/t/images/stock/dayline/2888.png"></div>
+                    <span x-text="suggestion.name"></span> ( <span x-text="suggestion.security_code"></span> )
+                  </li>
+              </template>
+            </ul>
+          </div>
+      </div>
+      <button class="flex items-center h-full w-[44px] justify-center px-2.5 py-4.5"><i class="fa-solid fa-bell w-[24px] h-[24px]"></i></button>
+  </div>
+</nav>
