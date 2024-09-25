@@ -93,9 +93,28 @@
                       </ul>
                     </li>
                 </ul>
-                <div class="flex">
-                    <input class="w-[622px] h-[32px] rounded-l bg-gray-90 pl-2.5 pr-2.5 border border-gray-90 focus:border-red-primary focus:outline-none focus:ring-0" type="text" name="search" placeholder="搜尋股票代碼、名稱或人名">
-                    <button class="nav-btn-primary text-white rounded-r h-[32px] px-3 py-2 flex items-center justify-center"><i class="fas fa-magnifying-glass icon"></i></button>
+                <div class="flex" x-data="stock_search">
+                  <input
+                  type="text"
+                  x-model="query"
+                  @input="searchStocks()"
+                  @keydown.enter="navigateToStock()"
+                  placeholder="搜尋股票代碼、名稱"
+                  class="w-[622px] h-[32px] rounded-l bg-gray-90 pl-2.5 pr-2.5 border border-gray-90 focus:border-red-primary focus:outline-none focus:ring-0"
+              />
+              <button class="nav-btn-primary text-white rounded-r h-[32px] px-3 py-2 flex items-center justify-center" @click="navigateToStock()">
+                  <i class="fas fa-magnifying-glass icon"></i>
+              </button>
+              <ul
+                  x-show="suggestions.length > 0"
+                  class="absolute bg-white border border-slate-200 rounded-lg mt-2 shadow-xl z-10"
+              >
+                  <template x-for="suggestion in suggestions" :key="suggestion.security_code">
+                      <li @click="selectStock(suggestion.security_code, suggestion.name)" class="cursor-pointer p-2 hover:bg-gray-94">
+                          <span x-text="suggestion.name"></span> ( <span x-text="suggestion.security_code"></span> )
+                      </li>
+                  </template>
+              </ul>
                 </div>
             </div>
             <button class="flex items-center h-full w-[44px] justify-center px-2.5 py-4.5"><i class="fa-solid fa-bell w-[24px] h-[24px]"></i></button>

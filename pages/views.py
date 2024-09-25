@@ -1,6 +1,7 @@
 import json
 
 from django.db.models import Count, Exists, OuterRef, Value
+from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render
 
 from articles.models import Article, IndustryTag
@@ -179,36 +180,45 @@ def member_profile(req):
     return render(req, "pages/nav_page/member_profile.html")
 
 
-def popular_stocks(request):
-    if request.user.is_authenticated:
-        profile = get_object_or_404(Profile, user=request.user)
+def popular_stocks(req):
+    if req.user.is_authenticated:
+        profile = get_object_or_404(Profile, user=req.user)
         user_img = profile.user_img
     else:
         user_img = None
-    return render(request, "popular_pages/popular_stocks.html", {"user_img": user_img})
+    return render(req, "popular_pages/popular_stocks.html", {"user_img": user_img})
 
 
-def popular_students(request):
-    if request.user.is_authenticated:
-        profile = get_object_or_404(Profile, user=request.user)
-        user_img = profile.user_img
-    else:
-        user_img = None
-
-    return render(
-        request, "popular_pages/popular_students.html", {"user_img": user_img}
-    )
-
-
-def popular_answers(request):
-    if request.user.is_authenticated:
-        profile = get_object_or_404(Profile, user=request.user)
+def popular_students(req):
+    if req.user.is_authenticated:
+        profile = get_object_or_404(Profile, user=req.user)
         user_img = profile.user_img
     else:
         user_img = None
 
-    return render(request, "popular_pages/popular_answers.html", {"user_img": user_img})
+    return render(req, "popular_pages/popular_students.html", {"user_img": user_img})
 
 
-def points(request):
-    return render(request, "layouts/base.html")
+def popular_answers(req):
+    if req.user.is_authenticated:
+        profile = get_object_or_404(Profile, user=req.user)
+        user_img = profile.user_img
+    else:
+        user_img = None
+
+    return render(req, "popular_pages/popular_answers.html", {"user_img": user_img})
+
+
+def points(req):
+    return render(req, "layouts/base.html")
+
+
+def search_stocks(req):
+    query = req.GET.get("q", "")
+    results = IndustryTag.objects.filter(
+        name__icontains=query
+    ) | IndustryTag.objects.filter(security_code__icontains=query)
+    suggestions = [
+        {"security_code": stock.security_code, "name": stock.name} for stock in results
+    ]
+    return JsonResponse(suggestions, safe=False)
