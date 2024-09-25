@@ -222,3 +222,7 @@ def search_stocks(req):
         {"security_code": stock.security_code, "name": stock.name} for stock in results
     ]
     return JsonResponse(suggestions, safe=False)
+
+
+def stock_notfound(req):
+    return render(req, "pages/taiwan_index/stock_notfound.html")
