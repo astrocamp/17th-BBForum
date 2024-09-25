@@ -1,8 +1,9 @@
 import json
 
+from django.contrib.auth.models import AnonymousUser
 from django.db.models import Count, Exists, OuterRef, Value
 from django.shortcuts import get_object_or_404, render
-from django.contrib.auth.models import AnonymousUser
+
 from articles.models import Article, IndustryTag
 from follows.models import FollowRelation
 from picks.models import UserStock

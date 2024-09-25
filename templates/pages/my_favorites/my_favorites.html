@@ -2,8 +2,15 @@
 {%load static%}
 
 {% block content %}
-    <div class="mt-[12px]">
+    <div class="desktop-only mt-[12px]">
         <div class="flex mx-auto gap-4 w-[1200px]">
+            {% include 'pages/main_page/_left_nav_bar.html' %}
+            {% include 'pages/my_favorites/_my_favorites_forum.html' %}
+            {% include 'pages/my_favorites/_my_favorites_recommend.html' %}
+        </div>
+    </div>
+    <div class="mobile-only mt-[12px]">
+        <div class="flex mx-auto">
             {% include 'pages/main_page/_left_nav_bar.html' %}
             {% include 'pages/my_favorites/_my_favorites_forum.html' %}
             {% include 'pages/my_favorites/_my_favorites_recommend.html' %}

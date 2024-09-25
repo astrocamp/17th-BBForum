@@ -1,4 +1,5 @@
 {% load static %}
+{% if not hide_nav_and_footer %}
 <div class="desktop-only sticky top-0 z-10">
     <div class="absolute bg-gray-94 w-full h-[100px] z-0"></div>
     <nav class="relative z-10 bg-white shadow-nav-bar">
@@ -97,63 +98,66 @@
         </div>
     </nav>
 </div>
-<div class="mobile-only sticky z-10" x-data="{ showMenu: false, isVisible: false, isAuthenticated: {{ user.is_authenticated|lower }} }">
-    <div class="absolute bg-gray-94 z-0"></div>
-    <nav class=" z-10 bg-white shadow-nav-bar flex items-center justify-between">
-        <button @click="showMenu = !showMenu" class="cursor-pointer m-0">
-            <i class="fa-solid fa-list h-7 w-10 m-3 pt-2 pl-1 pb-0"></i>
-        </button>
-        <div class="logo-container mr-9">
-            <a href="{% url 'pages:index' %}">
-                <img class="w-auto h-[50px]" src="{% static 'images/bbforum_logo.svg' %}" alt="logo" />
-            </a>
-        </div>
-        <div x-show="showMenu" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="absolute top-full left-0 h-auto flex flex-col items-start bg-white z-20">
-            <div x-data="switch_page({{ user.is_authenticated|lower }})" class="w-full">
-                <ul class="relative menu menu-vertical group w-full">
-                    {% if user.is_authenticated %}
-                        <li class="flex w-full">
-                            <span class="text-black">{{ request.user.username }}</span>
-                            <form action="{% url 'users:sign_out' %}" method="POST">
-                                {% csrf_token %}
-                                <button class="text-black bg-transparent border-none">登出</button>
-                            </form>
-                        </li>
-                    {% else %}
-                        <li class="flex w-full ">
-                            <a href="{% url 'users:register' %}" class="text-black">註冊</a>
-                            <a href="{% url 'users:sign_in' %}" class="text-black">登入</a>
-                        </li>
-                    {% endif %}
-                </ul>
-                <nav class="w-full">
-                    <ul x-data="switch_page({{ user.is_authenticated|lower }})" class="px-4 border-t border-b border-gray-83 w-full">
-                        <li @click.prevent="navigatePage('{% url 'pages:my_watchlist' %}')" class="aside-bar-padding aside-bar-hover cursor-pointer w-full px-4 py-2">
-                            <div class="flex items-center gap-2">
-                                <i class="fa-solid fa-circle-plus w-[20px] h-[20px] text-black-69"></i>
-                                <div class="text-[14px]">我的自選股</div>
-                            </div>
-                        </li>
-                        <li @click.prevent="navigatePage('{% url 'pages:my_favorites' %}')" class="aside-bar-padding aside-bar-hover cursor-pointer w-full px-4 py-2">
-                            <div class="flex items-center gap-2">
-                                <i class="fa-solid fa-bookmark w-[20px] h-[20px] text-black-69"></i>
-                                <div class="text-[14px]">我的收藏</div>
-                            </div>
-                        </li>
-                        <li @click.prevent="navigatePage('{% url 'pages:news_feed' %}')" class="aside-bar-padding aside-bar-hover cursor-pointer w-full px-4 py-2">
-                            <div class="flex items-center gap-2">
-                                <i class="fa-solid fa-message w-[20px] h-[20px] text-black-69"></i>
-                                <div class="text-[14px]">動態牆</div>
-                            </div>
-                        </li>
-                        <template x-if="!isAuthenticated">
-                            {% include "layouts/not_logged.html" %}
-                        </template>
-                    </ul>
-                </nav>
-            </div>
-        </div>
-    </nav>
-</div>
 
+<div class="mobile-only nav-bar-top">
+  <div class="mobile-only sticky z-10" x-data="{ showMenu: false, isVisible: false, isAuthenticated: {{ user.is_authenticated|lower }} }">
+      <div class="absolute bg-gray-94 z-0"></div>
+      <nav class=" z-10 bg-white shadow-nav-bar flex items-center justify-between">
+          <button @click="showMenu = !showMenu" class="cursor-pointer m-0">
+              <i class="fa-solid fa-list h-7 w-10 m-3 pt-2 pl-1 pb-0"></i>
+          </button>
+          <div class="logo-container mr-9">
+              <a href="{% url 'pages:index' %}">
+                  <img class="w-auto h-[50px]" src="{% static 'images/bbforum_logo.svg' %}" alt="logo" />
+              </a>
+          </div>
+          <div class="absolute top-full left-0 h-auto flex flex-col items-start bg-white z-20 w-full" x-show="showMenu" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0">
+              <div x-data="switch_page({{ user.is_authenticated|lower }})">
+                  <ul class="relative menu menu-vertical group">
+                      {% if user.is_authenticated %}
+                          <li class="flex">
+                              <span class="text-black">{{ request.user.username }}</span>
+                              <form action="{% url 'users:sign_out' %}" method="POST">
+                                  {% csrf_token %}
+                                  <button class="text-black bg-transparent border-none">登出</button>
+                              </form>
+                          </li>
+                      {% else %}
+                          <li class="flex">
+                              <a href="{% url 'users:register' %}" class="text-black">註冊</a>
+                              <a href="{% url 'users:sign_in' %}" class="text-black">登入</a>
+                          </li>
+                      {% endif %}
+                  </ul>
+                  <nav class="w-full">
+                      <ul x-data="switch_page({{ user.is_authenticated|lower }})" class="px-4 border-t border-b border-gray-83 w-full">
+                          <li @click.prevent="navigatePage('{% url 'pages:my_watchlist' %}')" class="aside-bar-padding aside-bar-hover cursor-pointer w-full px-4 py-2">
+                              <div class="flex items-center gap-2">
+                                  <i class="fa-solid fa-circle-plus w-[20px] h-[20px] text-black-69"></i>
+                                  <div class="text-[14px]">我的自選股</div>
+                              </div>
+                          </li>
+                          <li @click.prevent="navigatePage('{% url 'pages:my_favorites' %}')" class="aside-bar-padding aside-bar-hover cursor-pointer w-full px-4 py-2">
+                              <div class="flex items-center gap-2">
+                                  <i class="fa-solid fa-bookmark w-[20px] h-[20px] text-black-69"></i>
+                                  <div class="text-[14px]">我的收藏</div>
+                              </div>
+                          </li>
+                          <li @click.prevent="navigatePage('{% url 'pages:news_feed' %}')" class="aside-bar-padding aside-bar-hover cursor-pointer w-full px-4 py-2">
+                              <div class="flex items-center gap-2">
+                                  <i class="fa-solid fa-message w-[20px] h-[20px] text-black-69"></i>
+                                  <div class="text-[14px]">動態牆</div>
+                              </div>
+                          </li>
+                          <template x-if="!isAuthenticated">
+                              {% include "layouts/not_logged.html" %}
+                          </template>
+                      </ul>
+                  </nav>
+              </div>
+          </div>
+      </nav>
+  </div>
+</div>
+{% endif %}
 

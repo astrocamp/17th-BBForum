@@ -27,3 +27,22 @@
     </section>
     </div>
 </div>
+<div class="mobile-only flex flex-col gap-3 w-full-100">
+    <div class="h-[132px] mt-3 bg-gray-90 flex justify-center items-center pt-4 pb-4">
+        <img class="w-calc-full-minus-158px h-[132px] object-cover" src="https://s3cdn.yourator.co/banners/banners/000/001/494/home/598a79cc28630e1c421d38c3e385faa9e2e88505.png" alt="ad"/>
+    </div>
+    <div class="mt-3">
+        <div class="mt-4 mb-4 p-2">
+            <div class="red-line">
+                <div>
+                    <h2 class="h2-font">熱門同學</h2>
+                </div>
+            </div>
+        </div>
+        <section>
+            {% for article in articles %}
+                {% include "pages/main_page/_article.html" with article=article %}
+            {% endfor %}
+    </section>
+    </div>
+</div>

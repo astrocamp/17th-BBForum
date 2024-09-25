@@ -27,7 +27,7 @@ def index(req):
 
 
 def register(req):
-    return render(req, "users/register.html", {"form": UserCreationForm()})
+    return render(req, "users/register.html", {"hide_nav_and_footer": True})
 
 
 def sign_in(req):
@@ -45,8 +45,8 @@ def sign_in(req):
             return redirect("pages:index")
         else:
             messages.error(req, "登入失敗")
-            return render(req, "users/login.html")
-    return render(req, "users/login.html")
+            return render(req, "users/login.html", {"hide_nav_and_footer": True})
+    return render(req, "users/login.html", {"hide_nav_and_footer": True})
 
 
 def sign_out(req):
