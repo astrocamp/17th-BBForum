@@ -27,8 +27,7 @@ Alpine.data("stock_search", () => ({
         );
 
         if (matchedStock) {
-            console.log(matchedStock.name);
-            console.log(matchedStock.security_code);
+
             this.securityCode = matchedStock.security_code;
         } else {
 
@@ -39,11 +38,9 @@ Alpine.data("stock_search", () => ({
             }
         }
 
-
         if (!this.securityCode || this.securityCode === 0) {
             window.location.href = '/stock_notfound/';
         } else {
-
             fetch(`/stocks/${this.securityCode}`)
                 .then(response => {
                     if (response.ok) {
