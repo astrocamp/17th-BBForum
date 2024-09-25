@@ -34,6 +34,16 @@ Alpine.data("unlogined_prompt", (isAuthenticated) => ({
         }
     },
 
+    submitForcus(id) {
+        this.isVisible = !this.isVisible;
+        this.isReadonly = !this.isReadonly;
+        this.isShow = !this.isShow;
+
+        if (isAuthenticated) {
+            this.$dispatch('focus-textarea', { id: id });
+        }
+    },
+
     async fetchUserPoints() {
         const response = await fetch('/points/get-user-points/', {
             headers: {
