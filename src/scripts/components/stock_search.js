@@ -4,6 +4,7 @@ Alpine.data("stock_search", () => ({
     query: '',
     suggestions: [],
     selectedStockCode: null,
+    securityCode: 0,
     searchStocks() {
         if (this.query.length > 0) {
             fetch(`/search/?q=${this.query}`)
@@ -16,19 +17,31 @@ Alpine.data("stock_search", () => ({
         }
     },
     selectStock(securityCode, name) {
-        this.query = name;
+        this.query = securityCode;
         this.suggestions = [];
         this.selectedStockCode = securityCode;
     },
-    navigateToStock() {
+    navigateToStock(stockCode) {
         const matchedStock = this.suggestions.find(suggestion =>
             suggestion.name === this.query || suggestion.security_code === this.query
         );
-        const securityCode = matchedStock ? matchedStock.security_code : this.selectedStockCode;
-        if (!securityCode) {
+
+        if (matchedStock) {
+            console.log(matchedStock.name);
+            console.log(matchedStock.security_code);
+            this.securityCode = matchedStock.security_code;
+        } else {
+            if (/^[0-9]+$/.test(stockCode)) {
+                this.securityCode = stockCode;
+            } else {
+                this.securityCode = 0;
+            }
+        }
+
+        if (!this.securityCode) {
             window.location.href = '/stock_notfound/';
         } else {
-            window.location.href = `/stocks/${securityCode}`;
+            window.location.href = `/stocks/${this.securityCode}`;
         }
     }
 }));
