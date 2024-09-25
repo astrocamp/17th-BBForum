@@ -107,6 +107,9 @@ def index(req):
 
     stocks = IndustryTag.objects.all()
 
+    for article in articles:
+        article.follower_count = article.user.followers.count()
+
     return render(
         req,
         "pages/main_page/index.html",
@@ -167,6 +170,9 @@ def my_watchlist(req):
         .prefetch_related("stock")
     )
 
+    for article in articles:
+        article.follower_count = article.user.followers.count()
+
     return render(
         req,
         "pages/my_watchlist/my_watchlist.html",
@@ -190,6 +196,9 @@ def my_favorites(req):
 
     follower_count = user.followers.count()
     following_count = user.following.count()
+
+    for favorite_article in favorite_articles:
+        favorite_article.follower_count = favorite_article.user.followers.count()
 
     return render(
         req,
@@ -215,11 +224,16 @@ def news_feed(req):
         user_img = None
 
     subquery = Article.objects.filter(liked=req.user.pk, id=OuterRef("pk")).values("pk")
+
     articles = (
         Article.objects.filter(user_id__in=following_all_id)
         .annotate(user_liked=Exists(subquery), like_count=Count("liked"))
         .order_by("-id")
     )
+
+    for article in articles:
+        article.follower_count = article.user.followers.count()
+
     return render(
         req,
         "pages/news_feed/news_feed.html",
