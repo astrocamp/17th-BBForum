@@ -6,239 +6,224 @@
 {% include 'navigation/nav_bar.html' %}
 <div class="mt-[12px]">
    <div class="flex flex-col w-full max-w-[1200px] mx-auto lg:flex-row">
-        <div class="w-[200px]">
-          {% include 'pages/main_page/_left_nav_bar.html' %}
-         </div>
+      {% include 'pages/main_page/_left_nav_bar.html' %}
+      <div class="flex justify-center  lg:w-[63%] ">
+         <div class="w-[100%]  mx-3.5 ">
+            <div>
+                  <section class="shadow-area rounded-[3px] bg-white border border-gray-300">
+                     <h2 class="text-lg  font-bold py-4 pb-2 -mb-[2px] border-b-[3px] border-b-gray-300 leading-[36px] text-center text-red-primary">會員個人資料 編輯</h2>
+                     <div  >
+                        <article class=" items-center pt-3 pb-2">
 
-                        <div class="flex justify-center w-full ">
-                           <div class="w-[760px] mx-3.5 ">
-                              <div >
-                                    <section class="shadow-area rounded-[3px] bg-white border border-gray-300">
-                                       <h2 class="text-lg  font-bold py-4 pb-2 -mb-[2px] border-b-[3px] border-b-gray-300 leading-[36px] text-center text-red-primary">會員個人資料 編輯</h2>
-                                       <div class="flex " >
-                                          <article class="flex items-center pt-3 pb-2">
+                        <form method="POST" action="{% url 'userprofiles:show' post.id%}"  enctype="multipart/form-data">
+                              {%csrf_token%}
 
-                                          <form method="POST" action="{% url 'userprofiles:show' post.id%}"  enctype="multipart/form-data">
-                                                {%csrf_token%}
-
-                                                <div class="flex ">
-                                                   <div class="p-4 m-2  w-[460px]  "> <span class="text-red-primary">(* 為必填欄位)</span>
-                                                         <div   >
-                                                            <div class="mt-[10px] mb-[1px] ml-1 font-bold whitespace-nowrap text-dark-600 flex">
-                                                                  <label class="text-right col-2 lh-2" >
-                                                                     <span class="text-red-primary">*</span>
-                                                                     {{ form.nickname.label_tag }}
-                                                                  </label>
-                                                                  <div class="w-[200px] col-10m flex ml-4 " >
-                                                                     {{ form.nickname }}
-                                                                  </div>
-                                                               </div>
-                                                         </div>
-
-                                                         <div  style="padding: 0.1rem;" >
-                                                            <div class=" mt-[10px] mb-[1px] ml-1 font-bold whitespace-nowrap text-dark-600 flex">
-                                                               <label class="text-right col-2 lh-2" >
-                                                                     <span class="text-red-primary">*</span>
-                                                                     {{ form.gender.label_tag }}
-                                                               </label>
-                                                               <div class="w-[300px] col-10m flex ml-4">
-                                                                     <fieldset class="flex gap-4">
-
-                                                                     {% for widget in form.gender %}
-                                                                        <div class="flex items-center space-x-2">
-                                                                           {{ widget.tag }}
-                                                                           {{ widget.choice_label }}
-                                                                           </div>
-                                                                     {% endfor %}
-                                                                  </fieldset>
-
-                                                               </div>
-                                                            </div>
-                                                         </div>
-
-                                                         <div  style="padding: 0.1rem;">
-                                                            <div class=" mt-[10px] mb-[1px] ml-1 font-bold whitespace-nowrap text-dark-600 flex">
-                                                               <label class="text-right col-2 lh-2" >
-                                                                     <span class="text-red-primary">*</span>
-                                                                     {{ form.birthday.label_tag }}
-
-                                                               </label>
-                                                               <div class="w-[300px] col-10m flex ml-4 ">
-                                                                     {{ form.birthday }}
-                                                               </div>
-                                                            </div>
-                                                         </div>
-                                                   <div>
-
-
-
-                                                   <div  style="padding: 0.1rem;">
-                                                      <div class="mt-[10px] mb-[1px] ml-1 font-bold whitespace-nowrap text-dark-600 flex">
-                                                         <label class="text-right col-2 lh-2" >
-                                                               <span class="text-red-primary">*</span>
-                                                                  {{ form.location.label_tag }}
-
-                                                         </label>
-                                                         <div class="flex ml-4 col-10m">
-                                                               {{ form.location }}
-
-                                                         </div>
-                                                      </div>
-                                                   </div>
-
-                                                   <div  style="padding: 0.1rem;">
-                                                      <div class=" mt-[10px] mb-[1px] ml-1 font-bold whitespace-nowrap text-dark-600 flex">
-                                                         <label class="text-right col-2 lh-2" >
-                                                               <span class="text-red-primary">*</span>
-                                                               {{ form.education.label_tag }}
-
-                                                         </label>
-                                                         <div class="flex ml-4 col-10m ">
-                                                               {{ form.education }}
-                                                         </div>
-                                                      </div>
-                                                   </div>
-
-                                                   <div  style="padding: 0.1rem;">
-                                                      <div class="mt-[10px] mb-[1px] ml-1 font-bold whitespace-nowrap text-dark-600 flex">
-                                                               <label class="text-right col-2 lh-2" >
-                                                                  <span class="text-red-primary">*</span>
-                                                                  {{ form.profession.label_tag }}
-
-                                                               </label>
-                                                               <div class="flex ml-4 col-10m">
-                                                                  {{ form.profession }}
-
-                                                               </div>
-                                                      </div>
-                                                   </div>
-
-                                                   <div  style="padding: 0.1rem;">
-                                                         <div class="mt-[10px] mb-[1px] ml-1 font-bold whitespace-nowrap text-dark-600 flex">
-                                                                  <label class="text-right col-2 lh-2" >
-                                                                     <span class="text-red-primary">*</span>
-                                                                     {{ form.investment_experience.label_tag }}
-                                                                  </label>
-                                                                  <div class="flex ml-4 col-10m">
-                                                                     {{ form.investment_experience }}
-                                                                  </div>
-                                                         </div>
-                                                   </div>
-
-                                                   <div  style="padding: 0.1rem;">
-                                                      <div class=" mt-[10px] mb-[1px] ml-1 font-bold whitespace-nowrap text-dark-600 flex">
-                                                               <label class="text-right col-2 lh-2" >
-                                                                     <span class="text-red-primary">*</span>
-                                                                     {{ form.investment_tool.label_tag }}
-                                                               </label>
-                                                               <div class="flex ml-4 col-10m ">
-                                                                  <div id="id_investment_tool" class="flex flex-wrap gap-4 ml-4">
-                                                                     {% for checkbox in form.investment_tool %}
-                                                                        <div class="flex items-center w-1/5 space-x-2">
-                                                                           {{ checkbox.tag }}
-                                                                           {{ checkbox.choice_label }}
-                                                                        </div>
-                                                                     {% endfor %}
-                                                               </div>
-
-                                                               </div>
-                                                      </div>
-                                                   </div>
-
-
-                                                   <div  style="padding: 0.1rem;">
-                                                         <div class="mt-[20px] mb-[1px] ml-1 font-bold whitespace-nowrap text-dark-600 flex">
-                                                                  <label class="text-right col-2 lh-2" >
-                                                                     <span class="text-red-primary">*</span>
-                                                                     {{ form.investment_attributes.label_tag }}
-                                                                  </label>
-                                                                  <div class="flex ml-4 col-10m">
-                                                                        {{ form.investment_attributes }}
-
-                                                                  </div>
-                                                         </div>
-                                                </div>
-
+                              <div class="flex flex-col lg:flex-row">
+                                 <div class="p-4 m-2"> <span class="text-red-primary">(* 為必填欄位)</span>
+                                       <div   >
+                                          <div class="mt-[10px] mb-[1px] ml-1 font-bold whitespace-nowrap text-dark-600 flex">
+                                                <label class="text-right col-2 lh-2" >
+                                                   <span class="text-red-primary">*</span>
+                                                   {{ form.nickname.label_tag }}
+                                                </label>
+                                                <div class="w-[200px] col-10m flex ml-4 " >
+                                                   {{ form.nickname }}
                                                 </div>
                                              </div>
-
-
-                                             <div class="w-[300px] p-4 m-2  ">
-                                                      <div class="p-4 m-2 " style="padding: 0.1rem;" >
-                                                               <div class="font-bold text-center whitespace-nowrap text-dark-600 ">
-                                                                     <label class="text-right col-2 lh-2 " >
-                                                                        <span class="text-red-primary">*</span>
-
-                                                                        {{ form.user_img.label_tag }}
-                                                                     </label>
-                                                                     <div class="ml-4 text-center col">
-                                                                                 <div class="ml-4 text-center col">
-                                                                                                <div x-data="{
-                                                                                                               fileName: '',
-                                                                                                               filePreview: '',
-                                                                                                               previewFile(event) {
-                                                                                                                  const file = event.target.files[0];
-                                                                                                                  if (file) {
-                                                                                                                     this.fileName = file.name;
-                                                                                                                     const reader = new FileReader();
-                                                                                                                     reader.onload = (e) => {
-                                                                                                                           this.filePreview = e.target.result;
-                                                                                                                     };
-                                                                                                                     reader.readAsDataURL(file);
-                                                                                                                  }
-                                                                                                               }
-                                                                                                         }">
-                                                                                                   <div class="relative h-[200px] w-[200px] flex items-center justify-center bg-gray-94 shadow-area overflow-hidden">
-                                                                                                      <template x-if="filePreview">
-                                                                                                         <img :src="filePreview" alt="User Image" style="max-width: 200px; max-height: 200px; object-fit: cover; padding: 0.1rem;" />
-                                                                                                      </template>
-                                                                                                      <template x-if="!filePreview">
-                                                                                                         <img src="{% if post.user_img %}{{ post.user_img.url }}{% else %}{% static 'images/visitor.svg' %}{% endif %}" alt="User Image" style="max-width: 200px; max-height: 200px; object-fit: cover; padding: 0.1rem;" />
-                                                                                                      </template>
-                                                                                                   </div>
-
-                                                                                                   <div>
-                                                                                                      <label for="fileInput" class="px-4 py-2 border border-gray-300 rounded cursor-pointer bg-gray-94 shadow-area">
-                                                                                                         選擇圖片
-                                                                                                      </label>
-                                                                                                      <input type="file" id="fileInput" name="user_img" class="hidden" @change="previewFile">
-                                                                                                   </div>
-                                                                                             </div>
-
-                                                                              </div>
-
-                                                                     </div>
-                                                               </div>
-                                                      </div>
-                                                </div>
-                                          </div>
-
-
-                                                <div class="flex justify-center">
-                                                      <button class="px-4 py-2 text-white rounded bg-red-primary border-red-primary"> 儲存</button>
-                                                </div>
-                                       </form>
-
-
-                                       </article>
                                        </div>
-                                    </section>
+
+                                       <div  style="padding: 0.1rem;" >
+                                          <div class=" mt-[10px] mb-[1px] ml-1 font-bold whitespace-nowrap text-dark-600 flex">
+                                             <label class="text-right col-2 lh-2" >
+                                                   <span class="text-red-primary">*</span>
+                                                   {{ form.gender.label_tag }}
+                                             </label>
+                                             <div class="w-[300px] col-10m flex ml-4">
+                                                   <fieldset class="flex gap-4">
+
+                                                   {% for widget in form.gender %}
+                                                      <div class="flex items-center space-x-2">
+                                                         {{ widget.tag }}
+                                                         {{ widget.choice_label }}
+                                                         </div>
+                                                   {% endfor %}
+                                                </fieldset>
+
+                                             </div>
+                                          </div>
+                                       </div>
+
+                                       <div  style="padding: 0.1rem;">
+                                          <div class=" mt-[10px] mb-[1px] ml-1 font-bold whitespace-nowrap text-dark-600 flex">
+                                             <label class="text-right col-2 lh-2" >
+                                                   <span class="text-red-primary">*</span>
+                                                   {{ form.birthday.label_tag }}
+
+                                             </label>
+                                             <div class="w-[300px] col-10m flex ml-4 ">
+                                                   {{ form.birthday }}
+                                             </div>
+                                          </div>
+                                       </div>
+                                 <div>
+
+
+
+                                 <div  style="padding: 0.1rem;">
+                                    <div class="mt-[10px] mb-[1px] ml-1 font-bold whitespace-nowrap text-dark-600 flex">
+                                       <label class="text-right col-2 lh-2" >
+                                             <span class="text-red-primary">*</span>
+                                                {{ form.location.label_tag }}
+
+                                       </label>
+                                       <div class="flex ml-4 col-10m">
+                                             {{ form.location }}
+
+                                       </div>
+                                    </div>
+                                 </div>
+
+                                 <div  style="padding: 0.1rem;">
+                                    <div class=" mt-[10px] mb-[1px] ml-1 font-bold whitespace-nowrap text-dark-600 flex">
+                                       <label class="text-right col-2 lh-2" >
+                                             <span class="text-red-primary">*</span>
+                                             {{ form.education.label_tag }}
+
+                                       </label>
+                                       <div class="flex ml-4 col-10m ">
+                                             {{ form.education }}
+                                       </div>
+                                    </div>
+                                 </div>
+
+                                 <div  style="padding: 0.1rem;">
+                                    <div class="mt-[10px] mb-[1px] ml-1 font-bold whitespace-nowrap text-dark-600 flex">
+                                             <label class="text-right col-2 lh-2" >
+                                                <span class="text-red-primary">*</span>
+                                                {{ form.profession.label_tag }}
+
+                                             </label>
+                                             <div class="flex ml-4 col-10m">
+                                                {{ form.profession }}
+
+                                             </div>
+                                    </div>
+                                 </div>
+
+                                 <div  style="padding: 0.1rem;">
+                                       <div class="mt-[10px] mb-[1px] ml-1 font-bold whitespace-nowrap text-dark-600 flex">
+                                                <label class="text-right col-2 lh-2" >
+                                                   <span class="text-red-primary">*</span>
+                                                   {{ form.investment_experience.label_tag }}
+                                                </label>
+                                                <div class="flex ml-4 col-10m">
+                                                   {{ form.investment_experience }}
+                                                </div>
+                                       </div>
+                                 </div>
+
+                                 <div  style="padding: 0.1rem;">
+                                    <div class=" mt-[10px] mb-[1px] ml-1 font-bold whitespace-nowrap text-dark-600 flex flex-col lg:flex-row">
+                                             <label class="text-left col-2 lh-2" >
+                                                   <span class="text-red-primary">*</span>
+                                                   {{ form.investment_tool.label_tag }}
+                                             </label>
+                                             <div class="flex ml-4 col-10m ">
+                                                <div id="id_investment_tool" class="flex flex-wrap gap-2 lg:ml-4">
+                                                   {% for checkbox in form.investment_tool %}
+                                                      <div class="flex items-center w-1/5 space-x-2">
+                                                         {{ checkbox.tag }}
+                                                         {{ checkbox.choice_label }}
+                                                      </div>
+                                                   {% endfor %}
+                                             </div>
+
+                                             </div>
+                                    </div>
+                                 </div>
+
+
+                                 <div  style="padding: 0.1rem;">
+                                       <div class="mt-[20px] mb-[1px] ml-1 font-bold whitespace-nowrap text-dark-600 flex">
+                                                <label class="text-right col-2 lh-2" >
+                                                   <span class="text-red-primary">*</span>
+                                                   {{ form.investment_attributes.label_tag }}
+                                                </label>
+                                                <div class="flex ml-4 col-10m">
+                                                      {{ form.investment_attributes }}
+
+                                                </div>
+                                       </div>
+                              </div>
+
                               </div>
                            </div>
+
+
+                           <div class="w-[20%] p-4 m-2  ">
+                                    <div class="p-4 m-2 " style="padding: 0.1rem;" >
+                                             <div class="font-bold text-center whitespace-nowrap text-dark-600 ">
+                                                   <label class="text-right col-2 lh-2 " >
+                                                      <span class="text-red-primary">*</span>
+
+                                                      {{ form.user_img.label_tag }}
+                                                   </label>
+                                                   <div class="ml-4 text-center col">
+                                                               <div class="ml-4 text-center col">
+                                                                              <div x-data="{
+                                                                                             fileName: '',
+                                                                                             filePreview: '',
+                                                                                             previewFile(event) {
+                                                                                                const file = event.target.files[0];
+                                                                                                if (file) {
+                                                                                                   this.fileName = file.name;
+                                                                                                   const reader = new FileReader();
+                                                                                                   reader.onload = (e) => {
+                                                                                                         this.filePreview = e.target.result;
+                                                                                                   };
+                                                                                                   reader.readAsDataURL(file);
+                                                                                                }
+                                                                                             }
+                                                                                       }">
+                                                                                 <div class="relative h-[200px] w-[200px] flex items-center justify-center bg-gray-94 shadow-area overflow-hidden">
+                                                                                    <template x-if="filePreview">
+                                                                                       <img :src="filePreview" alt="User Image" style="max-width: 200px; max-height: 200px; object-fit: cover; padding: 0.1rem;" />
+                                                                                    </template>
+                                                                                    <template x-if="!filePreview">
+                                                                                       <img src="{% if post.user_img %}{{ post.user_img.url }}{% else %}{% static 'images/visitor.svg' %}{% endif %}" alt="User Image" style="max-width: 200px; max-height: 200px; object-fit: cover; padding: 0.1rem;" />
+                                                                                    </template>
+                                                                                 </div>
+
+                                                                                 <div class='mt-4'>
+                                                                                    <label for="fileInput" class="px-4 py-2 border border-gray-300 rounded cursor-pointer bg-gray-94 shadow-area">
+                                                                                       選擇圖片
+                                                                                    </label>
+                                                                                    <input type="file" id="fileInput" name="user_img" class="hidden" @change="previewFile">
+                                                                                 </div>
+                                                                           </div>
+
+                                                            </div>
+
+                                                   </div>
+                                             </div>
+                                    </div>
+                              </div>
                         </div>
 
 
-                  <div class="w-[10px]"> </div>
-                  <div class="w-[200px]">
-                    {% include 'pages/main_page/_right_nav_bar.html' %}
-                  </div>
+                              <div class="flex justify-center">
+                                    <button class="px-4 py-2 text-white rounded bg-red-primary border-red-primary"> 儲存</button>
+                              </div>
+                     </form>
+
+
+                     </article>
+                     </div>
+                  </section>
             </div>
-        </div>
-
-
-
-
-
-
-
+         </div>
+      </div>
+      {% include 'pages/main_page/_right_nav_bar.html' %}
+      </div>
+      </div>
 {% endblock %}
