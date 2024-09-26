@@ -257,7 +257,11 @@ def market_index(req):
         .order_by("?")[:5]
     )
 
-    return render(req, "pages/market_index/market_index.html", {"random_five_tags": random_five_tags})
+    return render(
+        req,
+        "pages/market_index/market_index.html",
+        {"random_five_tags": random_five_tags},
+    )
 
 
 def taiwan_index(req):
