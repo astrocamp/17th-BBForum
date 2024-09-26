@@ -97,7 +97,7 @@
                 <div class="flex items-center justify-center mt-1 mb-1">
                     <div class="w-8 h-8 mt-1 mr-3 overflow-hidden border rounded-full border-gray-83 flex items-center justify-center">
                         {% if user_img %}
-                            <img src="{{ user_img.url }}" alt="User Image" class="w-full h-full object-cover" />
+                            <img src="{{ user_img }}" alt="User Image" class="w-full h-full object-cover" />
                         {% else %}
                             <img src="{% static 'images/visitor.svg' %}" alt="visitor" class="w-full h-full object-cover" />
                         {% endif %}
