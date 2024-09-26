@@ -87,7 +87,7 @@
                                     <div tabindex="0" role="button"  class="w-12 h-4 bg-white btn">
                                         <i class="fa-solid fa-ellipsis w-[26px] h-[26px] text-gray-56"></i>
                                     </div>
-                                    <ul tabindex="0" class="menu dropdown-content bg-base-100 rounded-box z-[1] w-40 p-2 shadow bg-white">
+                                    <ul tabindex="0" class="menu dropdown-content bg-white rounded-box z-[1] w-40 p-2 shadow right-0">
                                         <li>
                                             <form
                                                 hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
@@ -127,7 +127,7 @@
                                     <div tabindex="0" role="button"  class="w-12 h-4 btn" >
                                         <i class="fa-solid fa-ellipsis w-[26px] h-[26px] text-gray-56"></i>
                                     </div>
-                                    <ul tabindex="0" class="menu dropdown-content bg-base-100 rounded-box z-[1] w-40 p-2 shadow">
+                                    <ul tabindex="0" class="menu dropdown-content bg-base-100 rounded-box z-[1] w-40 p-2 shadow right-0">
                                         <li>
                                             {% include 'articles/_collectors.html' with article=article collected=article.collect  %}
                                         </li>
@@ -212,7 +212,7 @@
                             </div>
                     {% comment %}  {% endcomment %}
 
-                        <button @click="toggleVisibility" class="relative flex-grow flex-shrink-0 basis-[56px] inline-block cursor-pointer">
+                        <button @click="toggleVisibility" class="relative flex-grow flex-shrink-0 basis-[56px] inline-block cursor-pointer right-0">
                             <div class="relative flex justify-center bg-white rounded hover:bg-gray-94">
                                 <div class="w-5 h-5 mt-2 mb-2">
                                     <i class="fa-regular fa-comment w-[20px] h-[20px] text-gray-56"></i>
