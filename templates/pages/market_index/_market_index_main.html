@@ -104,7 +104,7 @@
             </nav>
         </div>
     </div>
-    <div class="flex flex-col lg:flex-row gap-3">
+    <div class="flex flex-col lg:flex-row gap-3 pl-3 pr-3">
         <div class="w-full">
             {% for article in articles %}
                 {% include "pages/main_page/_article.html" with article=article %}
@@ -152,7 +152,7 @@
 
         </section> -->
         <aside class="min-w-[300px] w-[100%] lg:w-[300px] flex flex-col gap-3 mt-3">
-            <div class="gap-4 p-4 rounded-[4px] bg-white shadow-area ml-3 mr-3">
+            <div class="gap-4 p-4 rounded-[4px] bg-white shadow-area lg:ml-3 lg:-mr-3">
                 <header>
                     <span class="gap-2 items-center text-[18px] font-semibold text-dark-800">熱門股票</span>
                 </header>
