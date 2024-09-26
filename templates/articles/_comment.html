@@ -7,15 +7,8 @@
                     <div x-show="!editing" class="w-full chat chat-start">
                         <div class="chat-image avatar">
                             <div class="w-8 h-8 mt-1 mr-3 overflow-hidden border rounded-full border-gray-83 flex items-center justify-center">
-                                {% if comment.user.profile.user_img.url %}
-                                    <img src="{{ comment.user.profile.user_img.url }}" alt="User Image" class="w-full h-full object-cover" />
-                                {% else %}
-                                    <img src="{% static 'images/visitor.svg' %}" alt="visitor" class="w-full h-full object-cover" />
-                                {% endif %}
-
+                                <img src="{% static 'images/visitor.svg' %}" alt="visitor" class="w-full h-full object-cover" />
                             </div>
-
-
                         </div>
                         <div class="pl-1 pb-2">
                             <div class="flex justify-between items-center">
@@ -99,11 +92,7 @@
             <div class="flex flex-col gap-2 pt-3 pb-0 pl-4 pr-4">
                 <div class="flex items-center justify-center mt-1 mb-1">
                     <div class="w-8 h-8 mt-1 mr-3 overflow-hidden border rounded-full border-gray-83 flex items-center justify-center">
-                        {% if user_img %}
-                            <img src=" {{ user_img.url }} " alt="User Image" class="w-full h-full object-cover" />
-                        {% else %}
-                            <img src="{% static 'images/visitor.svg' %}" alt="visitor" class="w-full h-full object-cover" />
-                        {% endif %}
+                        <img src="{% static 'images/visitor.svg' %}" alt="visitor" class="w-full h-full object-cover" />
                     </div>
                     <div @click="toggleVisibility" class="pt-[5px] pr-[36px] pb-[5px] pl-[16px] w-[calc(100%-44px)] h-full rounded-[16px] bg-gray-94">
                         <textarea
