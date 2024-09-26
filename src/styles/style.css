@@ -7,7 +7,7 @@
 }
 
 .nav-text-format {
-    @apply text-base font-semibold leading-7 tracking-[0.2px];
+    @apply lg:text-lg text-xs font-semibold leading-7 tracking-[0.2px];
 }
 
 .nav-text-bottom-line {

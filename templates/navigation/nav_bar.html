@@ -28,10 +28,10 @@
                 {% endif %}
             </ul>
         </div>
-        <div class="w-full max-w-[1200px] h-[60px] flex items-center mx-auto gap-[16px]">
+        <div class="w-full max-w-[1200px] h-[60px] flex items-center justify-around mx-auto lg:gap-[16px]">
             <div class="flex items-center h-full">
                 <a href="{% url 'pages:index'%}">
-                    <img class="w-[100%] h-[50px]" src="{% static 'images/bbforum_logo.svg' %}" alt="logo" />
+                    <img class="w-[100%] h-[40px]" src="{% static 'images/bbforum_logo.svg' %}" alt="logo" />
                 </a>
             </div>
             <div class="flex items-center h-full gap-[32px]">
@@ -118,7 +118,6 @@
                   </ul>
                 </div>
             </div>
-            <button class="flex items-center h-full w-[44px] justify-center px-2.5 py-4.5"><i class="fa-solid fa-bell w-[24px] h-[24px]"></i></button>
         </div>
     </nav>
 </div>
