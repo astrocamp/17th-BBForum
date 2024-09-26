@@ -8,9 +8,9 @@
 
                         <div  class="w-[210px] h-[210px] rounded-full border border-gray-94 flex items-center overflow-hidden">
                             {% if user_img %}
-                           <img src="{{ user_img.url }}" alt="User Image" style="max-w-full max-h-full object-fit: cover;" />
+                           <img src="{{ user_img.url }}" alt="User Image" class="w-full h-full object-cover" />
                           {% else %}
-                             <img src="{% static 'images/visitor.svg' %}" alt="visitor" class="object-fit w-full h-full"></img>
+                             <img src="{% static 'images/visitor.svg' %}" alt="visitor" class="w-full h-full object-cover"></img>
                           {% endif %}
                          </div>
                     </a>

@@ -12,9 +12,9 @@
                                     <a href="#">
                                         <div class="w-[40px] h-[40px] rounded-full border border-gray-94 flex items-center overflow-hidden">
                                             {% if article.user.profile.user_img %}
-                                            <img src="{{ article.user.profile.user_img.url }}" alt="User Image" style="max-w-full max-h-full object-fit: cover;" />
+                                            <img src="{{ article.user.profile.user_img.url }}" alt="User Image" class="w-full h-full object-cover" />
                                             {% else %}
-                                            <img src="{% static 'images/visitor.svg' %}" alt="visitor"></img>
+                                            <img src="{% static 'images/visitor.svg' %}" alt="visitor" class="w-full h-full object-cover"></img>
                                         {% endif %}
                                         </div>
                                     </a>
@@ -23,9 +23,9 @@
                                     <div class="flex items-center gap-3">
                                         <div class="w-[80px] h-[80px] rounded-full border border-gray-94 flex items-center justify-center overflow-hidden">
                                         {% if article.user.profile.user_img %}
-                                            <img src="{{ article.user.profile.user_img.url }}" alt="User Image" class="object-cover w-full h-full" />
+                                            <img src="{{ article.user.profile.user_img.url }}" alt="User Image" class="w-full h-full object-cover" />
                                         {% else %}
-                                            <img src="{% static 'images/visitor.svg' %}" alt="visitor" class="object-cover w-full h-full"></img>
+                                            <img src="{% static 'images/visitor.svg' %}" alt="visitor" class="w-full h-full object-cover"></img>
                                         {% endif %}
                                         </div>
                                         <div class="flex flex-col justify-center">
