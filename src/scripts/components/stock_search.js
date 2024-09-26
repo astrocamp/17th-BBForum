@@ -31,6 +31,7 @@ Alpine.data("stock_search", () => ({
             console.log(matchedStock.security_code);
             this.securityCode = matchedStock.security_code;
         } else {
+
             if (/^[0-9]+$/.test(stockCode)) {
                 this.securityCode = stockCode;
             } else {
@@ -38,10 +39,19 @@ Alpine.data("stock_search", () => ({
             }
         }
 
-        if (!this.securityCode) {
+
+        if (!this.securityCode || this.securityCode === 0) {
             window.location.href = '/stock_notfound/';
         } else {
-            window.location.href = `/stocks/${this.securityCode}`;
+
+            fetch(`/stocks/${this.securityCode}`)
+                .then(response => {
+                    if (response.ok) {
+                        window.location.href = `/stocks/${this.securityCode}`;
+                    } else {
+                        window.location.href = '/stock_notfound/';
+                    }
+                });
         }
     }
 }));

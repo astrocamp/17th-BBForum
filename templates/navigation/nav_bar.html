@@ -28,7 +28,7 @@
                 {% endif %}
             </ul>
         </div>
-        <div class="w-[1200px] h-[60px] flex items-center mx-auto gap-[16px]">
+        <div class="w-full max-w-[1200px] h-[60px] flex items-center mx-auto gap-[16px]">
             <div class="flex items-center h-full">
                 <a href="{% url 'pages:index'%}">
                     <img class="w-[100%] h-[50px]" src="{% static 'images/bbforum_logo.svg' %}" alt="logo" />
@@ -93,7 +93,7 @@
                       </ul>
                     </li>
                 </ul>
-                <div class="flex relative" x-data="stock_search" @click.away="suggestions = []">
+                <div class=" relative hidden  lg:flex" x-data="stock_search" @click.away="suggestions = []">
                   <input
                   type="text"
                   x-model="query"
