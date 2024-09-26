@@ -2,23 +2,23 @@
 {%load static%}
 
 {% block content %}
-<div class="h-[110px]"></div>
 <div class="mt-[12px]">
-    <div class="flex w-[1280px] mx-auto">
-        {% include 'pages/main_page/_left_nav_bar.html' %}
-        <div class="flex flex-col items-center justify-center mx-auto">
-            <div class="ml-auto mr-auto">
-                <div class="p-5 w-[488px] shadow-sign-in rounded-lg border-t border-t-transparent border-b border-b-transparent ml-auto mr-auto">
-                    <img   class="mx-auto" src="{% static 'images/cannot_find_image.png' %}" alt="notfoundstock"></img>
-                    <h1 class="text-[20px] text-center mb-4 ">查無該股票</h1>
-                    <p class="text-[16px] text-center mb-6">抱歉，本網站查詢不到該股票，請再次查詢。</p>
+    <div class="mt-[12px]">
+        <div class="flex flex-col w-full max-w-[1200px] mx-auto lg:flex-row">
+            {% include 'pages/main_page/_left_nav_bar.html' %}
+            <div class="flex flex-col items-center justify-center mx-auto">
+                <div class="ml-auto mr-auto">
+                    <div class="p-5 w-[488px] shadow-sign-in rounded-lg border-t border-t-transparent border-b border-b-transparent ml-auto mr-auto">
+                        <img   class="mx-auto" src="{% static 'images/cannot_find_image.png' %}" alt="notfoundstock"></img>
+                        <h1 class="text-[20px] text-center mb-4 ">查無該股票</h1>
+                        <p class="text-[16px] text-center mb-6">抱歉，本網站查詢不到該股票，請再次查詢。</p>
 
+                    </div>
                 </div>
             </div>
-        </div>
+            </div>
         </div>
     </div>
-</div>
 {% endblock %}
 
 

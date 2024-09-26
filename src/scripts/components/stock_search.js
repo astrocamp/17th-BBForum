@@ -42,13 +42,13 @@ Alpine.data("stock_search", () => ({
             window.location.href = '/stock_notfound/';
         } else {
             fetch(`/stocks/${this.securityCode}`)
-                .then(response => {
-                    if (response.ok) {
-                        window.location.href = `/stocks/${this.securityCode}`;
-                    } else {
-                        window.location.href = '/stock_notfound/';
-                    }
-                });
+            .then(response => {
+                if (response.ok) {
+                    window.location.href = `/stocks/${this.securityCode}`;
+                } else {
+                    window.location.href = '/stock_notfound/';
+                }
+            });
         }
     }
 }));
