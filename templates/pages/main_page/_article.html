@@ -165,18 +165,16 @@
                             data-url="{{ request.scheme }}://{{ request.get_host }}/articles/{{ article.id }}"
                             x-init="init()">
                             <button @click="showTooltip = !showTooltip"
-                                class="relative flex mx-auto inline-block cursor-pointer ">
-                                <div class="relative flex justify-center bg-white rounded hover:bg-gray-94" style="lg:w-[20%]; height:40px; padding-top: 9px;">
-                                    <div class="flex items-center w-5 h-5">
-                                        <i class="fa-solid fa-share w-[20px] h-[20px] text-gray-56"></i>
-                                    </div>
-                                    <div class="ml-1 font-bold whitespace-nowrap text-dark-600">
-                                    分享
-                                    </div>
+                                class="relative flex justify-center items-center w-full lg:w-[100%] h-full bg-white rounded hover:bg-gray-94 cursor-pointer">
+                                <div class="flex items-center w-5 h-5">
+                                    <i class="fa-solid fa-share w-[20px] h-[20px] text-gray-56"></i>
+                                </div>
+                                <div class="ml-1 font-bold whitespace-nowrap text-dark-600">
+                                分享
                                 </div>
                             </button>
                             <div x-show="showTooltip"
-                            class="absolute h-[40px] w-[150px] right-0 bg-white rounded-[10px] shadow-lg border border-gray-300  text-center cursor-pointer transform -translate-y-3/4 flex items-center justify-center hover:bg-gray-94"
+                            class="absolute h-[40px] w-[150px] right-0 bg-white rounded-[10px] shadow-lg border border-gray-300  text-center cursor-pointer transform -translate-y-1/2 flex items-center justify-center hover:bg-gray-94"
                             @click.away="showTooltip = false">
                                 <i class="fa-solid fa-plus text-dark-600"></i>
                                 <template x-if="!copied">
