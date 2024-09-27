@@ -60,17 +60,11 @@ def comment(req, id):
             user=req.user,
         )
 
-        user_img = (
-            req.user.profile.user_img.url
-            if hasattr(req.user.profile, "user_img")
-            else None
-        )
-
         if req.headers.get("HX-Request"):
             return render(
                 req,
                 "articles/_comment.html",
-                {"article": article, "user_img": user_img},
+                {"article": article},
             )
 
     articles = Article.objects.order_by("-id")
