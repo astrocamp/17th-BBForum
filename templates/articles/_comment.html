@@ -6,8 +6,10 @@
                 <div class="flex justify-between items-center h-full gap-4">
                     <div x-show="!editing" class="w-full chat chat-start">
                         <div class="chat-image avatar">
-                            <div class="w-8 h-8 mt-1 mr-3 overflow-hidden border rounded-full border-gray-83 flex items-center justify-center">
-                                <img src="{% static 'images/visitor.svg' %}" alt="visitor" class="w-full h-full object-cover" />
+                            <div class="w-10 rounded-full mb-2">
+                              <img
+                                alt="visitor"
+                                src="{% static 'images/visitor.svg' %}" />
                             </div>
                         </div>
                         <div class="pl-1 pb-2">
