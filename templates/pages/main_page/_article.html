@@ -9,7 +9,7 @@
                             <div x-data="follow_user({{ user.is_authenticated|lower}}, {{ user.id|default_if_none:'null' }}, {{ article.user.id }})"
                                  @mouseover="checkMouseoverColor('{% url 'follows:check_follow_api' article.user.id %}')">
                                 <div>
-                                    <a href="#">
+                                    <a>
                                         <div class="w-[40px] h-[40px] rounded-full border border-gray-94 flex items-center overflow-hidden">
                                             {% if article.user.profile.user_img %}
                                             <img src="{{ article.user.profile.user_img.url }}" alt="User Image" class="w-full h-full object-cover" />
@@ -19,7 +19,7 @@
                                         </div>
                                     </a>
                                 </div>
-                                <div x-show="isShow && !isOwnPost" class="absolute hidden group-hover:block bg-white p-2 mt-2 rounded-[10px] shadow-lg w-[400px] h-[170px] z-10 top-[33px] -left-[150px]">
+                                <div x-show="isShow && !isOwnPost" class="absolute hidden group-hover:block bg-white p-2 mt-2 rounded-[10px] shadow-lg w-[300px] lg:w-[400px] h-[170px] z-10 top-[33px] lg:-left-[150px]">
                                     <div class="flex items-center gap-3">
                                         <div class="w-[80px] h-[80px] rounded-full border border-gray-94 flex items-center justify-center overflow-hidden">
                                         {% if article.user.profile.user_img %}
@@ -56,11 +56,11 @@
                         <div class="ml-2 mr-2 overflow-hidden grow">
                             <div class="flex items-center">
                                 <div>
-                                    <a href="#" class="text-[16px] font-semibold leading-6 tracking-[0.2px] text-dark-800">{{article.user}}</a>
+                                    <a class="text-[16px] font-semibold leading-6 tracking-[0.2px] text-dark-800">{{article.user}}</a>
                                 </div>
                             </div>
                             <div class="text-[12px] font-normal leading-4 tracking-[0.2px] h-[20px] flex items-center">
-                                <a href="#" class="text-dark-600"></a>
+                                <a class="text-dark-600"></a>
                             </div>
                         </div>
                         <div>
